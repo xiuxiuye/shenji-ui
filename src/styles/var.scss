@@ -1,0 +1,25 @@
+:root {
+  /* color */
+  --sj-title-color: rgba(0, 0, 0, 0.85);
+  --sj-primary-text-color: var(--sj-title-color);
+  --sj-secondary-text-color: rgba(0, 0, 0, 0.45);
+  --sj-disable-color: rgba(0, 0, 0, 0.25);
+  --sj-border-color: rgba(0, 0, 0, 0.15);
+  --sj-divider-color: rgba(0, 0, 0, 0.06);
+  --sj-background-color: rgba(0, 0, 0, 0.04);
+  --sj-table-header-background-color: rgba(0, 0, 0, 0.02);
+
+  /* font-size */
+  --sj-font-size-small: 12px;
+  --sj-font-size-normal: 14px;
+  --js-font-size-large: 16px;
+
+  /* block */
+  --sj-height-small: 24px;
+  --sj-height-normal: 32px;
+  --sj-height-large: 40px;
+
+  /* border */
+  --sj-border-width: 1px;
+  --sj-border-radius: 2px;
+}

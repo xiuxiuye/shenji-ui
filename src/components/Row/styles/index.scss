@@ -1,0 +1,41 @@
+@import './mixins.scss';
+
+.sj-row {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+
+  .sj-col {
+    box-sizing: border-box;
+
+    @include createClassByLoop();
+    
+    @media screen and (max-width: 575px) {
+      @include createClassByLoop(xs);
+    }
+
+    @media screen and (min-width: 575px) {
+      @include createClassByLoop(sm);
+    }
+
+    @media screen and (min-width: 768px) {
+      @include createClassByLoop(md);
+    }
+
+    @media screen and (min-width: 992px) {
+      @include createClassByLoop(lg);
+    }
+
+    @media screen and (min-width: 1200px) {
+      @include createClassByLoop(xl);
+    }
+
+    @media screen and (min-width: 1600px) {
+      @include createClassByLoop(xxl);
+    }
+
+    @media screen and (min-width: 2000px) {
+      @include createClassByLoop(xxxl);
+    }
+  }
+}
