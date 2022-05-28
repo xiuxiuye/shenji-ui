@@ -1,4 +1,4 @@
-import { Ref, ComputedRef, StyleValue, App } from 'vue'
+import { Ref, ComputedRef, StyleValue, App, Plugin } from 'vue'
 
 export type { Ref, ComputedRef, StyleValue }
 
@@ -8,7 +8,4 @@ export type UseClassesComputed<IProps> = (classNamePrefix: string, props: IProps
 
 export type UseStylesComputed<IProps> = (props: IProps) => ComputedRef<StyleValue>;
 
-export interface IComponent {
-  install: (app: App) => void;
-  [preopName: string]: any;
-}
+export type ISJComponent = Plugin & Record<string, any>;
