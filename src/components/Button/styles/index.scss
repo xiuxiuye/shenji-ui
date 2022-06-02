@@ -135,14 +135,14 @@
   @each $key,
   $value in $button-text {
     &-#{$key}-text {
-      border-color: transparent;
+      padding: 0;
+      border-width: 0;
       background-color: transparent;
       color: map-get($value, "color");
 
       &:hover,
       &:focus,
       &:active {
-        border-color: transparent;
         background-color: transparent;
       }
 
@@ -156,6 +156,17 @@
         &:active {
           color: map-get($value, "activeColor");
         }
+      }
+    }
+  }
+
+  @each $key,
+  $value in $button-size {
+    &-text-#{$key} {
+      font-size: map-get($value, "fontSize");
+
+      .sj-icon {
+        font-size: inherit;
       }
     }
   }

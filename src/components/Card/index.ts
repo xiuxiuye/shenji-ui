@@ -1,6 +1,5 @@
 import withInstall from 'src/utils/withInstall'
-import card from './index.vue'
+import Card from './index.vue'
+import './styles'
 
-const Card = withInstall(card)
-
-export { Card }
+export default withInstall(Card)

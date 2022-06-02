@@ -1,0 +1,81 @@
+@import './var.scss';
+
+.sj-card {
+  box-sizing: border-box;
+  border-radius: var(--sj-border-radius);
+
+  /* cover */
+  &-cover {
+    width: 100%;
+    img {
+      width: 100%;
+      border-top-left-radius: var(--sj-border-radius);
+      border-top-right-radius: var(--sj-border-radius);
+    }
+  }
+
+  /* bordered */
+  &-bordered {
+    border: 1px solid var(--sj-border-color);
+  }
+
+  /* header */
+  &-header {
+
+    &-main {
+      display: flex;
+      align-items: center;
+    }
+
+    &-title {
+      flex-grow: 1;
+      font-weight: 500;
+      color: var(--sj-title-color);
+      font-size: var(--sj-font-size-large);
+
+      .sj-icon {
+        margin-right: 8px;
+      }
+    }
+
+    &-description {
+      margin-top: 8px;
+      color: var(--sj-secondary-text-color);
+      font-size: var(--sj-font-size-normal);
+    }
+  }
+
+  /* size */
+  @each $key,
+  $value in $card-size {
+    &-size-#{$key} {
+      .sj-card-header {
+        padding: map-get($value, "padding");
+        &-title {
+          font-size: map-get($value, "title");
+
+          .sj-icon {
+            font-size: inherit;
+          }
+        }
+      }
+
+      .sj-card-content {
+        padding: map-get($value, "padding");
+        font-size: map-get($value, "content");
+      }
+
+      .sj-card-footer {
+        padding: map-get($value, "padding");
+      }
+    }
+  }
+
+  /* divideble */
+  &-divideble {
+    .sj-card-content {
+      border-top: 1px solid var(--sj-border-color);
+      border-bottom: 1px solid var(--sj-border-color);
+    }
+  }
+}

@@ -7,8 +7,8 @@ const useClassesComputed: UseClassesComputed<IProps> = (classNamePrefix, props) 
     return [
       classNamePrefix,
       `${classNamePrefix}-type-${props?.type}`,
-      `${classNamePrefix}-size-${props?.size}`,
       {
+        [`${classNamePrefix}-size-${props?.size}`]: !props?.text,
         [`${classNamePrefix}-shape-${props?.shape}`]: !!props?.shape && props?.shape !== 'normal',
         [`${classNamePrefix}-shape-${props?.shape}-${props?.size}`]: !!props?.shape && props?.shape !== 'normal',
         [`${classNamePrefix}-long`]: props?.long,
@@ -17,6 +17,7 @@ const useClassesComputed: UseClassesComputed<IProps> = (classNamePrefix, props) 
         [`${classNamePrefix}-ghost`]: props?.ghost,
         [`${classNamePrefix}-${props?.type}-ghost`]: props?.ghost && props?.type !== 'normal',
         [`${classNamePrefix}-${props?.type}-text`]: props?.text,
+        [`${classNamePrefix}-text-${props?.size}`]: props?.text,
         [`${classNamePrefix}-disabled`]: props?.disabled,
         [`${classNamePrefix}-text-disabled`]: props?.disabled && props?.text,
         [`${classNamePrefix}-ghost-disabled`]: props?.disabled && props?.ghost

@@ -1,0 +1,17 @@
+$card-size: (
+  normal: (
+    padding: 20px 24px,
+    title: var(--sj-font-size-large),
+    content: var(--sj-font-size-normal)
+  ),
+  small: (
+    padding: 12px 16px,
+    title: var(--sj-font-size-normal),
+    content: var(--sj-font-size-normal)
+  ),
+  large: (
+    padding: 28px 32px,
+    title: calc(var(--sj-font-size-large) + 2px),
+    content: var(--sj-font-size-large)
+  )
+);

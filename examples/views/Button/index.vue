@@ -101,7 +101,7 @@
   </div>
   <div class="demo">
     <Button icon="search" text>Button</Button>
-    <Button icon="search" text type="primary">Button</Button>
+    <Button icon="search" text type="primary" size="large">Button</Button>
     <Button loading text type="success">Button</Button>
     <Button text type="warning">Button</Button>
     <Button text type="error">Button</Button>

@@ -58,6 +58,8 @@ describe('Button组件单元测试', () => {
           }
         })
         expect(wrapper.classes()).toContain('sj-button-normal-text')
+        expect(wrapper.classes()).toContain('sj-button-text-normal')
+        expect(wrapper.classes().includes('sj-button-size-normal')).toBe(false)
       })
 
       it('text=false', () => {
@@ -76,13 +78,16 @@ describe('Button组件单元测试', () => {
         const wrapper = mount(Button, {
           propsData: {
             text: true,
-            type: 'primary'
+            type: 'primary',
+            size: 'large'
           },
           slots: {
             default: 'Button'
           }
         })
         expect(wrapper.classes()).toContain('sj-button-primary-text')
+        expect(wrapper.classes()).toContain('sj-button-text-large')
+        expect(wrapper.classes().includes('sj-button-size-large')).toBe(false)
       })
     })
 
