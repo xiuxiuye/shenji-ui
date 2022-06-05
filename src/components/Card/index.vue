@@ -26,7 +26,8 @@
       </slot>
     </div>
     <div v-if="isContentExisted" :class="`${classNamePrefix}-content`" :style="contentStyles">
-      <slot></slot>
+      <Loading v-if="loading" />
+      <slot v-else></slot>
     </div>
     <div v-if="isFooterExisted" :class="`${classNamePrefix}-footer`">
       <slot name="footer"></slot>
@@ -35,6 +36,7 @@
 </template>
 
 <script lang="ts">
+import Loading from './components/Loading.vue'
 import { useSlots, computed } from 'vue'
 import Icon from 'src/components/Icon'
 import useClassesComputed from './hooks/useClassesComputed'
@@ -81,8 +83,8 @@ const slots = useSlots()
 const isCoverExisted = computed<boolean>(() => !!slots?.cover || !!props?.cover)
 const isHeaderExisted = computed<boolean>(() => !!slots?.header || !!slots['header-title'] || !!slots['header-extra'] || !!props?.title)
 const isIconExisted = computed<boolean>(() => !!props?.icon)
-const isDescriptionExisted = computed<boolean>(() => !!slots['header-extra'] || !!props?.description)
-const isContentExisted = computed<boolean>(() => !!slots?.default)
+const isDescriptionExisted = computed<boolean>(() => !!slots['header-description'] || !!props?.description)
+const isContentExisted = computed<boolean>(() => !!slots?.default || props?.loading)
 const isFooterExisted = computed<boolean>(() => !!slots?.footer)
 
 /**

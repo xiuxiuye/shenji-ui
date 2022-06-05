@@ -6,3 +6,13 @@
 .sj-spin {
   animation: sj-spin 1s linear infinite;
 }
+
+@keyframes sj-blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.sj-blink {
+  animation: sj-blink 1.4s ease infinite;
+}
