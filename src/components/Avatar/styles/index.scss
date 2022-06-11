@@ -1,0 +1,44 @@
+@import './var.scss';
+
+.sj-avatar {
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  /* size */
+  @each $key,
+  $value in $avatar-size {
+    &-size-#{$key} {
+      width: $value;
+      height: $value;
+    }
+  }
+
+  /* shape */
+  &-shape {
+    &-circle {
+      border-radius: 50%;
+    }
+
+    &-square {
+      border-radius: var(--sj-border-radius);
+    }
+
+    &-circle,
+    &-square {
+      img {
+        width: inherit;
+        height: inherit;
+        border-radius: inherit;
+        object-fit: fill;
+        font-size: var(--sj-font-size-small);
+      }
+    }
+  }
+
+  /* bordered */
+  &-bordered {
+    border: 1px solid var(--sj-border-color);
+  }
+}

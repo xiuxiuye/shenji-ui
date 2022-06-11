@@ -60,13 +60,13 @@ const waveDisabled = computed<boolean>(() => !props?.disabled && !props?.loading
 const clickable = computed<boolean>(() => !props?.disabled && !props?.loading)
 
 /**
- * emit
+ * event
  */
 interface IEmit {
   (e: 'click', event: Event): void;
 }
 const emit = defineEmits<IEmit>()
-const handleClick = (event) => {
+const handleClick = (event: Event) => {
   if (clickable.value) emit('click', event)
 }
 </script>

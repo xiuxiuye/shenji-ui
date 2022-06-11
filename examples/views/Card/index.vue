@@ -1,10 +1,7 @@
 <template>
   <Flex>
     <div style="width: 300px; padding: 16px;">
-      <Card title="Card title" description="This is a description." icon="setting" shadow="always">
-        <template #cover>
-          <img src="../../assets/exp.webp" alt="">
-        </template>
+      <Card title="Card title" cover="/examples/assets/exp.webp" description="This is a description." icon="setting" shadow="always">
         <template #header-extra>
           <Button text type="primary">more</Button>
         </template>
@@ -64,5 +61,6 @@
 </template>
 
 <script setup>
-
+import cover from '../../assets/exp.webp'
+console.log(cover)
 </script>
