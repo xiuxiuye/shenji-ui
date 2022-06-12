@@ -1,5 +1,14 @@
 $avatar-size: (
-  normal: var(--sj-height-normal),
-  small: var(--sj-height-small),
-  large: var(--sj-height-large)
+  normal: (
+    fontSize: var(--sj-font-size-normal),
+    size: var(--sj-height-normal)
+  ),
+  small: (
+    fontSize: var(--sj-font-size-small),
+    size: var(--sj-height-small)
+  ),
+  large: (
+    fontSize: var(--sj-font-size-large),
+    size: var(--sj-height-large)
+  )
 );

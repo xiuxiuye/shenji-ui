@@ -82,6 +82,7 @@ const handleImageLoadError = (event: Event) => {
  * slots
  */
 const slots = useSlots()
+
 /**
  * computed
  */
