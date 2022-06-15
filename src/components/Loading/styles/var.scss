@@ -1,0 +1,94 @@
+$loading-size: (
+  normal: (
+    size: var(--sj-height-normal),
+    fontSize: var(--sj-font-size-normal)
+  ),
+  small: (
+    size: var(--sj-height-small),
+    fontSize: var(--sj-font-size-small)
+  ),
+  large: (
+    size: var(--sj-height-large),
+    fontSize: var(--sj-font-size-large)
+  ),
+);
+
+@keyframes sj-loading-spin {
+  0% { transform: rotate(0); }
+  10% { transform: rotate(0); }
+  15% { transform: rotate(90deg); }
+  25% { transform: rotate(90deg); }
+  35% { transform: rotate(90deg); }
+  40% { transform: rotate(180deg); }
+  50% { transform: rotate(180deg); }
+  60% { transform: rotate(180deg); }
+  65% { transform: rotate(270deg); }
+  75% { transform: rotate(270deg); }
+  85% { transform: rotate(270deg); }
+  90% { transform: rotate(360deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes sj-loading-dot1 {
+  0% { left: 50%; top: 50%; }
+  10% { left: 50%; top: 0; }
+  15% { left: 50%; top: 0; }
+  25% { left: 50%; top: 50%; }
+  35% { left: 100%; top: 50%; }
+  40% { left: 100%; top: 50%; }
+  50% { left: 50%; top: 50%; }
+  60% { left: 50%; top: 100%; }
+  65% { left: 50%; top: 100%; }
+  75% { left: 50%; top: 50%; }
+  85% { left: 0; top: 50%; }
+  90% { left: 0; top: 50%; }
+  100% { left: 50%; top: 50%; }
+}
+
+@keyframes sj-loading-dot2 {
+  0% { left: 50%; top: 50%; }
+  10% { left: 100%; top: 50%; }
+  15% { left: 100%; top: 50%; }
+  25% { left: 50%; top: 50%; }
+  35% { left: 50%; top: 100%; }
+  40% { left: 50%; top: 100%; }
+  50% { left: 50%; top: 50%; }
+  60% { left: 0; top: 50%; }
+  65% { left: 0; top: 50%; }
+  75% { left: 50%; top: 50%; }
+  85% { left: 50%; top: 0; }
+  90% { left: 50%; top: 0; }
+  100% { left: 50%; top: 50%; }
+}
+
+@keyframes sj-loading-dot3 {
+  0% { left: 50%; top: 50%; }
+  10% { left: 50%; top: 100%; }
+  15% { left: 50%; top: 100%; }
+  25% { left: 50%; top: 50%; }
+  35% { left: 0; top: 50%; }
+  40% { left: 0; top: 50%; }
+  50% { left: 50%; top: 50%; }
+  60% { left: 50%; top: 0; }
+  65% { left: 50%; top: 0; }
+  75% { left: 50%; top: 50%; }
+  85% { left: 100%; top: 50%; }
+  90% { left: 100%; top: 50%; }
+  100% { left: 50%; top: 50%; }
+}
+
+@keyframes sj-loading-dot4 {
+  0% { left: 50%; top: 50%; }
+  10% { left: 0; top: 50%; }
+  15% { left: 0; top: 50%; }
+  25% { left: 50%; top: 50%; }
+  35% { left: 50%; top: 0; }
+  40% { left: 50%; top: 0; }
+  50% { left: 50%; top: 50%; }
+  60% { left: 100%; top: 50%; }
+  65% { left: 100%; top: 50%; }
+  75% { left: 50%; top: 50%; }
+  85% { left: 50%; top: 100%; }
+  90% { left: 50%; top: 100%; }
+  100% { left: 50%; top: 50%; }
+}

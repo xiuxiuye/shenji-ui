@@ -8,4 +8,4 @@ export interface IProps {
   offset?: string | number;
 }
 
-export type UseStylesComputed = (hasText: ComputedRef<boolean>, props: IProps) => ComputedRef<StyleValue>;
+export type UseStyles = (hasText: ComputedRef<boolean>, props: IProps) => ComputedRef<StyleValue>;

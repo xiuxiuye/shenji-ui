@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts">
-import useClassesComputed from './hooks/useClassesComputed'
+import useClasses from './hooks/useClasses'
 const componentName = 'sj-button-group'
 export default {
   name: componentName
@@ -27,5 +27,5 @@ const props = withDefaults(defineProps<IProps>(), { size: 'normal', vertical: fa
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClassesComputed(classNamePrefix, props)
+const classes = useClasses(classNamePrefix, props)
 </script>

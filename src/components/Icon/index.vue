@@ -2,8 +2,8 @@
   <i :class="classes" :style="styles" />
 </template>
 <script lang="ts">
-import useClassesComputed from './hooks/useClassesComputed'
-import useStylesComputed from './hooks/useStylesComputed'
+import useClasses from './hooks/useClasses'
+import useStyles from './hooks/useStyles'
 const componentName = 'sj-icon'
 export default {
   name: componentName
@@ -19,7 +19,7 @@ interface IProps {
 
 const props = withDefaults(defineProps<IProps>(), { size: 'normal' })
 
-const classes = useClassesComputed(componentName, props)
+const classes = useClasses(componentName, props)
 
-const styles = useStylesComputed(props)
+const styles = useStyles(props)
 </script>

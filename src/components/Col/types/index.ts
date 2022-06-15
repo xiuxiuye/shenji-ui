@@ -19,4 +19,4 @@ export interface IProps extends IBaseProps {
   xxxl?: number | string | IBaseProps;
 }
 
-export type UseStylesComputed = (size: Ref<string> | null, offset: ComputedRef<[number, number]>, props: IProps) => ComputedRef<StyleValue>;
+export type UseStyles = (size: Ref<string> | null, offset: ComputedRef<[number, number]>, props: IProps) => ComputedRef<StyleValue>;

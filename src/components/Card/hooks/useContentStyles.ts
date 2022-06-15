@@ -1,8 +1,8 @@
 import { computed } from 'vue'
 import { StyleValue } from 'src/types/global'
-import { UseContentStylesComputed } from '../types'
+import { UseContentStyles } from '../types'
 
-const useContentStylesComputed: UseContentStylesComputed = (isHeaderExisted, isFooterExisted) => {
+const useContentStyles: UseContentStyles = (isHeaderExisted, isFooterExisted) => {
   const styles = computed<StyleValue>(() => {
     const tempStyles: StyleValue = {}
     if (!isHeaderExisted.value) {
@@ -16,4 +16,4 @@ const useContentStylesComputed: UseContentStylesComputed = (isHeaderExisted, isF
   return styles
 }
 
-export default useContentStylesComputed
+export default useContentStyles

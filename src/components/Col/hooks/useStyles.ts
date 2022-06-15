@@ -1,9 +1,9 @@
 import { computed } from 'vue'
 import isVaildNumber from 'src/utils/isVaildNumber'
 import { StyleValue } from 'src/types/global'
-import { UseStylesComputed } from '../types'
+import { UseStyles } from '../types'
 
-const useStylesComputed: UseStylesComputed = (size, offset, props) => {
+const useStyles: UseStyles = (size, offset, props) => {
   const styles = computed<StyleValue>(() => {
     const tempStyles: StyleValue = {}
     /**
@@ -27,4 +27,4 @@ const useStylesComputed: UseStylesComputed = (size, offset, props) => {
   return styles
 }
 
-export default useStylesComputed
+export default useStyles

@@ -4,8 +4,8 @@ export type { Ref, ComputedRef, StyleValue }
 
 export type Classes = Array<string | Record<string, unknown>>;
 
-export type UseClassesComputed<IProps> = (classNamePrefix: string, props: IProps) => ComputedRef<Classes>;
+export type UseClasses<IProps> = (classNamePrefix: string, props: IProps) => ComputedRef<Classes>;
 
-export type UseStylesComputed<IProps> = (props: IProps) => ComputedRef<StyleValue>;
+export type UseStyles<IProps> = (props: IProps) => ComputedRef<StyleValue>;
 
 export type ISJComponent = Plugin & Record<string, any>;

@@ -4,8 +4,8 @@
   </div>
 </template>
 <script lang="ts">
-import useClassesComputed from './hooks/useClassesComputed'
-import useStylesComputed from './hooks/useStylesComputed'
+import useClasses from './hooks/useClasses'
+import useStyles from './hooks/useStyles'
 
 const componentName = 'sj-grid'
 export default {
@@ -25,6 +25,6 @@ interface IProps {
 
 const props = withDefaults(defineProps<IProps>(), { cols: 24 })
 
-const classes = useClassesComputed(componentName, props)
-const styles = useStylesComputed(props)
+const classes = useClasses(componentName, props)
+const styles = useStyles(props)
 </script>

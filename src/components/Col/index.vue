@@ -10,8 +10,8 @@ import { Ref, inject, ComputedRef, computed } from 'vue'
 import isValidParent from 'src/utils/isValidParent'
 import useScreenResize from 'src/utils/hooks/useScreenResize'
 import isColResponsive from './utils/isColResponsive'
-import useStylesComputed from './hooks/useStylesComputed'
-import useClassesComputed from './hooks/useClassesComputed'
+import useStyles from './hooks/useStyles'
+import useClasses from './hooks/useClasses'
 
 const componentName = 'sj-col'
 export default {
@@ -61,8 +61,8 @@ const size: Ref<string> | null = isColResponsive(props) ? useScreenResize() : nu
 
 const offset: ComputedRef<[number, number]> = inject('gutterOffset') || computed(() => [0, 0])
 
-const styles = useStylesComputed(size, offset, props)
+const styles = useStyles(size, offset, props)
 
 const classNamePrefix = componentName
-const classes = useClassesComputed(classNamePrefix, props)
+const classes = useClasses(classNamePrefix, props)
 </script>

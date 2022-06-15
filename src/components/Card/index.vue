@@ -39,8 +39,8 @@
 import Loading from './components/Loading.vue'
 import { useSlots, computed } from 'vue'
 import Icon from 'src/components/Icon'
-import useClassesComputed from './hooks/useClassesComputed'
-import useContentStylesComputed from './hooks/useContentStylesComputed'
+import useClasses from './hooks/useClasses'
+import useContentStyles from './hooks/useContentStyles'
 
 const componentName = 'sj-card'
 export default {
@@ -91,10 +91,10 @@ const isFooterExisted = computed<boolean>(() => !!slots?.footer)
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClassesComputed(classNamePrefix, props)
+const classes = useClasses(classNamePrefix, props)
 
 /**
  * styles
  */
-const contentStyles = useContentStylesComputed(isHeaderExisted, isFooterExisted)
+const contentStyles = useContentStyles(isHeaderExisted, isFooterExisted)
 </script>

@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import useClassesComputed from './hooks/useClassesComputed'
+import useClasses from './hooks/useClasses'
 const componentName = 'sj-flex'
 export default {
   name: componentName
@@ -30,5 +30,5 @@ const props = withDefaults(defineProps<IProps>(), {
 /**
  * classes
  */
-const classes = useClassesComputed(componentName, props)
+const classes = useClasses(componentName, props)
 </script>

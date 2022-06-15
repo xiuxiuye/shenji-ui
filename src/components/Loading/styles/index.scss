@@ -1,0 +1,69 @@
+@import './var.scss';
+
+.sj-loading {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .sj-loading-container {
+    display: inline-block;
+    position: relative;
+    animation: sj-loading-spin 5s ease-in-out infinite;
+
+    .sj-loading-dot {
+      width: 30%;
+      height: 30%;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-duration: 5s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+
+    .sj-loading-dot:nth-of-type(1) {
+      opacity: 0.4;
+      animation-name: sj-loading-dot1;
+      background-color: var(--sj-primary-color);
+    }
+
+    .sj-loading-dot:nth-of-type(2) {
+      opacity: 0.6;
+      animation-name: sj-loading-dot2;
+      background-color: var(--sj-primary-color);
+    }
+
+    .sj-loading-dot:nth-of-type(3) {
+      opacity: 0.8;
+      animation-name: sj-loading-dot3;
+      background-color: var(--sj-primary-color);
+    }
+
+    .sj-loading-dot:nth-of-type(4) {
+      animation-name: sj-loading-dot4;
+      background-color: var(--sj-primary-color);
+    }
+  }
+
+  /* tip */
+  &-tip {
+    margin-top: 12px;
+  }
+
+  @each $key,
+  $value in $loading-size {
+    &-size-#{$key} {
+      .sj-loading-container {
+        width: map-get($value, "size");
+        height: map-get($value, "size");
+      }
+
+      .sj-loading-tip {
+        font-size: map-get($value, "fontSize");
+      }
+    }
+  }
+}

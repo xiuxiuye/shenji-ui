@@ -8,8 +8,8 @@
 import { computed, provide, Ref } from 'vue'
 import useScreenResize from 'src/utils/hooks/useScreenResize'
 import isRowResponsive from './utils/isRowResponsive'
-import useOffsetComputed from './hooks/useOffsetComputed'
-import useStylesComputed from './hooks/useStylesComputed'
+import useOffset from './hooks/useOffset'
+import useStyles from './hooks/useStyles'
 
 const componentName = 'sj-row'
 export default {
@@ -42,8 +42,8 @@ const props = defineProps<IProps>()
  */
 const size: Ref<string> | null = isRowResponsive(props) ? useScreenResize() : null
 
-const offset = useOffsetComputed(size, props)
-const styles = useStylesComputed(offset)
+const offset = useOffset(size, props)
+const styles = useStyles(offset)
 const classNamePrefix = componentName
 const classes = computed<string[]>(() => [classNamePrefix])
 

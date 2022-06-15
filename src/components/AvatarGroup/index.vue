@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import useClassesComputed from './hooks/useClassesComputed'
+import useClasses from './hooks/useClasses'
 const componentName = 'sj-avatar-group'
 export default {
   name: componentName
@@ -27,5 +27,5 @@ const props = withDefaults(defineProps<IProps>(), {
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClassesComputed(classNamePrefix, props)
+const classes = useClasses(classNamePrefix, props)
 </script>

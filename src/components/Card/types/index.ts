@@ -13,4 +13,4 @@ export interface IProps {
   noPadding?: string | string[];
 }
 
-export type UseContentStylesComputed = (isHeaderExisted: ComputedRef<boolean>, isFooterExisted: ComputedRef<boolean>) => ComputedRef<StyleValue>;
+export type UseContentStyles = (isHeaderExisted: ComputedRef<boolean>, isFooterExisted: ComputedRef<boolean>) => ComputedRef<StyleValue>;

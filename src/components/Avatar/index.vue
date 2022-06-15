@@ -11,9 +11,9 @@
 <script lang="ts">
 import { ImgHTMLAttributes, computed, useSlots, ref } from 'vue'
 import isString from 'src/utils/isString'
-import useClassesComputed from './hooks/useClassesComputed'
-import useStylesComputed from './hooks/useStylesComputed'
-import useImgStylesComputed from './hooks/useImgStylesComputed'
+import useClasses from './hooks/useClasses'
+import useStyles from './hooks/useStyles'
+import useImgStyles from './hooks/useImgStyles'
 const componentName = 'sj-avatar'
 export default {
   name: componentName
@@ -43,13 +43,13 @@ const props = withDefaults(defineProps<IProps>(), {
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClassesComputed(classNamePrefix, props)
+const classes = useClasses(classNamePrefix, props)
 
 /**
  * styles
  */
-const styles = useStylesComputed(props)
-const imgStyles = useImgStylesComputed(props)
+const styles = useStyles(props)
+const imgStyles = useImgStyles(props)
 
 /**
  * img load error

@@ -1,8 +1,8 @@
 import { computed } from 'vue'
 import { IProps } from '../types'
-import { UseClassesComputed, Classes } from 'src/types/global'
+import { UseClasses, Classes } from 'src/types/global'
 
-const useClassesComputed: UseClassesComputed<IProps> = (classNamePrefix, props) => {
+const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
   const SIZE = ['large', 'normal', 'small']
   const classes = computed<Classes>(() => ([
     'iconfont',
@@ -16,4 +16,4 @@ const useClassesComputed: UseClassesComputed<IProps> = (classNamePrefix, props) 
   return classes
 }
 
-export default useClassesComputed
+export default useClasses

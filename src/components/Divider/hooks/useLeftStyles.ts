@@ -1,9 +1,9 @@
 import { computed } from 'vue'
 import isVaildNumber from 'src/utils/isVaildNumber'
 import { StyleValue } from 'src/types/global'
-import { UseStylesComputed } from '../types'
+import { UseStyles } from '../types'
 
-const useStylesComputed: UseStylesComputed = (hasText, props) => {
+const useStyles: UseStyles = (hasText, props) => {
   const styles = computed<StyleValue>(() => {
     const tempStyles: StyleValue = {}
     if (hasText.value && props?.placement === 'left') {
@@ -19,4 +19,4 @@ const useStylesComputed: UseStylesComputed = (hasText, props) => {
   return styles
 }
 
-export default useStylesComputed
+export default useStyles

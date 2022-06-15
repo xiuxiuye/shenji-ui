@@ -2,9 +2,9 @@ import { computed } from 'vue'
 import isVaildNumber from 'src/utils/isVaildNumber'
 import isString from 'src/utils/isString'
 import { IProps } from '../types'
-import { UseStylesComputed, StyleValue } from 'src/types/global'
+import { UseStyles, StyleValue } from 'src/types/global'
 
-const useStylesComputed: UseStylesComputed<IProps> = (props) => {
+const useStyles: UseStyles<IProps> = (props) => {
   const styles = computed<StyleValue>(() => {
     const tempStyles: StyleValue = { color: props?.color }
     /**
@@ -28,4 +28,4 @@ const useStylesComputed: UseStylesComputed<IProps> = (props) => {
   return styles
 }
 
-export default useStylesComputed
+export default useStyles

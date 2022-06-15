@@ -16,3 +16,7 @@
 .sj-blink {
   animation: sj-blink 1.4s ease infinite;
 }
+
+@keyframes sj-bloom {
+  0% { transform: translate(-50%, -50%); }
+}

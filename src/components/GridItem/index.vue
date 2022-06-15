@@ -5,8 +5,8 @@
 </template>
 <script lang="ts">
 import isValidParent from 'src/utils/isValidParent'
-import useClassesComputed from './hooks/useClassesComputed'
-import useStylesComputed from './hooks/useStylesComputed'
+import useClasses from './hooks/useClasses'
+import useStyles from './hooks/useStyles'
 
 const componentName = 'sj-grid-item'
 export default {
@@ -35,6 +35,6 @@ interface IProps {
 
 const props = defineProps<IProps>()
 
-const classes = useClassesComputed(componentName, props)
-const styles = useStylesComputed(props)
+const classes = useClasses(componentName, props)
+const styles = useStyles(props)
 </script>
