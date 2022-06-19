@@ -5,10 +5,10 @@ import { UseContentStyles } from '../types'
 const useContentStyles: UseContentStyles = (isHeaderExisted, isFooterExisted) => {
   const styles = computed<StyleValue>(() => {
     const tempStyles: StyleValue = {}
-    if (!isHeaderExisted.value) {
+    if (!isHeaderExisted?.value) {
       tempStyles.borderTopWidth = 0
     }
-    if (!isFooterExisted.value) {
+    if (!isFooterExisted?.value) {
       tempStyles.borderBottomWidth = 0
     }
     return tempStyles

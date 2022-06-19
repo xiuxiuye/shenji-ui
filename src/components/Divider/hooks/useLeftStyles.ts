@@ -6,7 +6,7 @@ import { UseStyles } from '../types'
 const useStyles: UseStyles = (hasText, props) => {
   const styles = computed<StyleValue>(() => {
     const tempStyles: StyleValue = {}
-    if (hasText.value && props?.placement === 'left') {
+    if (hasText?.value && props?.placement === 'left') {
       if (props?.vertical) {
         tempStyles.height = isVaildNumber(props?.offset) ? `${props?.offset}px` : props?.offset
       } else {
