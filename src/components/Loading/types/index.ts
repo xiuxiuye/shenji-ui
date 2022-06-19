@@ -1,9 +1,12 @@
 import { ComputedRef, Classes } from 'src/types/global'
 
 export interface IProps {
-  tip?: string;
+  tips?: string;
   size?: 'small' | 'normal' | 'large' | number | string;
   visible?: boolean;
+  fit?: boolean;
 }
 
-export type UseAnimationClasses = (classNamePrefix: string, isMaskExist: boolean) => ComputedRef<Classes>;
+export type UseClasses = (classNamePrefix: string, isMaskExist: ComputedRef<boolean>, props: IProps) => ComputedRef<Classes>;
+
+export type UseContentClasses = (classNamePrefix: string, isMaskVisible: ComputedRef<boolean>) => ComputedRef<Classes>;

@@ -1,23 +1,30 @@
 <template>
-  <div :class="classes">
-    <div v-if="visible" class="sj-loading-animation">
-      <slot>
-        <Loading />
-      </slot>
-      <div class="sj-loading-tip">
-        <slot name="tip">{{ tip }}</slot>
-      </div>
-    </div>
-    <div class="sj-loading-content">
+  <div v-if="isMaskExist" :class="containerClasses">{{ tips }}
+    <Loading v-if="visible" :class="classes" :size="size">
+      <slot name="loading"></slot>
+      <template #loadingTips>
+        <slot name="tips">{{ tips }}</slot>
+      </template>
+    </Loading>
+    <div :class="contentClasses">
       <slot></slot>
     </div>
   </div>
+  <Loading v-else-if="visible" :class="classes" :size="size">
+    <slot name="loading"></slot>
+    <template #loadingTips>
+      <slot name="tips">{{ tips }}</slot>
+    </template>
+  </Loading>
 </template>
 
 <script lang="ts">
 import { useSlots, computed } from 'vue'
 import Loading from './components/Loading.vue'
 import useClasses from './hooks/useClasses'
+import useContentClasses from './hooks/useContentClasses'
+import useContainerClasses from './hooks/useContainerClasses'
+
 const componentName = 'sj-loading'
 export default {
   name: componentName
@@ -26,15 +33,16 @@ export default {
 
 <script setup lang="ts">
 interface IProps {
-  tip?: string;
+  tips?: string;
   size?: 'small' | 'normal' | 'large' | number | string;
   visible?: boolean;
+  fit?: boolean;
 }
 
 const props = withDefaults(defineProps<IProps>(), {
-  type: 'normal',
   size: 'normal',
-  visible: true
+  visible: true,
+  fit: false
 })
 
 /**
@@ -46,14 +54,13 @@ const slots = useSlots()
  * computed
  */
 const isMaskExist = computed<boolean>(() => !!slots?.default)
+const isMaskVisible = computed<boolean>(() => props?.visible && isMaskExist?.value)
 
 /**
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props)
-
+const classes = useClasses(classNamePrefix, isMaskExist, props)
+const contentClasses = useContentClasses(classNamePrefix, isMaskVisible)
+const containerClasses = useContainerClasses(classNamePrefix, props)
 </script>
-
-<style lang="scss">
-</style>
