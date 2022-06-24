@@ -5,6 +5,7 @@ import initSubColorVars from './initSubColorVars'
 
 const PRIMARY_COLOR_VARS_INDEX = {
   '--sj-primary-focus-background-color': 0,
+  '--sj-primary-hover-background-color': 1,
   '--sj-primary-hover-color': 4,
   '--sj-primary-color': 5,
   '--sj-primary-active-color': 6

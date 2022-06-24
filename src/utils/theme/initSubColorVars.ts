@@ -7,6 +7,7 @@ const COLOR_VARS = [
     color: 'blue',
     cssVarsIndex: {
       '--sj-info-focus-background-color': 0,
+      '--sj-info-hover-background-color': 1,
       '--sj-info-hover-color': 4,
       '--sj-info-color': 5,
       '--sj-info-active-color': 6
@@ -16,6 +17,7 @@ const COLOR_VARS = [
     color: 'red',
     cssVarsIndex: {
       '--sj-error-focus-background-color': 0,
+      '--sj-error-hover-background-color': 1,
       '--sj-error-hover-color': 4,
       '--sj-error-color': 5,
       '--sj-error-active-color': 6
@@ -25,6 +27,7 @@ const COLOR_VARS = [
     color: 'green',
     cssVarsIndex: {
       '--sj-success-focus-background-color': 0,
+      '--sj-success-hover-background-color': 1,
       '--sj-success-hover-color': 4,
       '--sj-success-color': 5,
       '--sj-success-active-color': 6
@@ -34,6 +37,7 @@ const COLOR_VARS = [
     color: 'gold',
     cssVarsIndex: {
       '--sj-warning-focus-background-color': 0,
+      '--sj-warning-hover-background-color': 1,
       '--sj-warning-hover-color': 4,
       '--sj-warning-color': 5,
       '--sj-warning-active-color': 6

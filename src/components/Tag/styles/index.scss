@@ -1,0 +1,88 @@
+@import './var.scss';
+
+.sj-tag {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: var(--sj-border-radius);
+  font-size: var(--sj-font-size-normal);
+  padding: 0 8px;
+
+  /* icon */
+  &-icon {
+    display: inline-block;
+    margin-right: 4px;
+  }
+
+  /* close */
+  &-close {
+    padding: 2px;
+    cursor: pointer;
+    margin-left: 2px;
+    border-radius: var(--sj-border-radius);
+  }
+
+
+  /* bordered */
+  &-bordered {
+    border: 1px solid;
+  }
+
+  /* size */
+  @each $key,
+  $value in $tag-size {
+    &-size-#{$key} {
+      height: map-get($value, "size");
+      font-size: map-get($value, "fontSize");
+
+      /* round */
+      &-round {
+        border-radius: map-get($value, "size");
+
+        .sj-tag-close {
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  /* type */
+  @each $key,
+  $value in $tag-type {
+    &-type-#{$key} {
+      color: map-get($value, "color");
+      border-color: map-get($value, "borderColor");
+      background-color: map-get($value, "backgroundColor");
+
+      .sj-tag-icon,
+      .sj-tag-close {
+        color: map-get($value, "color");
+        .sj-icon {
+          color: inherit;
+        }
+      }
+
+      .sj-tag-close:hover {
+        background-color: map-get($value, "hoverColor");
+      }
+    }
+  }
+
+  /* disabled */
+  &-disabled {
+    cursor: not-allowed;
+    color: var(--sj-disable-color);
+    border-color: var(--sj-border-color);
+    background-color: var(--sj-background-color);
+
+    .sj-tag-icon,
+    .sj-tag-close {
+      color: var(--sj-disable-color);
+    }
+
+    .sj-tag-close:hover {
+      cursor: not-allowed;
+      background-color: transparent;
+    }
+  }
+}

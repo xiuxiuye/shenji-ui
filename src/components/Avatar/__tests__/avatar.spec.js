@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import Avatar from 'src/components/Avatar/index.vue'
 import Icon from 'src/components/Icon/index.vue'
 
-describe('Card组件单元测试', () => {
+describe('Avatar组件单元测试', () => {
   it('是否是Vue组件实例', () => {
     const wrapper = mount(Avatar)
     expect(wrapper.exists()).toBe(true)

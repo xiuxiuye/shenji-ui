@@ -1,4 +1,4 @@
-import { Ref, ComputedRef, StyleValue, App, Plugin } from 'vue'
+import { Ref, ComputedRef, StyleValue, Plugin } from 'vue'
 
 export type { Ref, ComputedRef, StyleValue }
 

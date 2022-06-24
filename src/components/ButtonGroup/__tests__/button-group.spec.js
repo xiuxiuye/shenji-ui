@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import Button from 'src/components/Button/index.vue'
 import ButtonGroup from 'src/components/ButtonGroup/index.vue'
 
-describe('Button组件单元测试', () => {
+describe('ButtonGroup组件单元测试', () => {
   it('是否是Vue组件实例', () => {
     const wrapper = mount(ButtonGroup)
     expect(wrapper.exists()).toBe(true)
