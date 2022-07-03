@@ -1,6 +1,11 @@
 @keyframes sj-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .sj-spin {
@@ -8,9 +13,17 @@
 }
 
 @keyframes sj-blink {
-  0% { opacity: 1; }
-  50% { opacity: 0.6; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .sj-blink {
@@ -18,5 +31,39 @@
 }
 
 @keyframes sj-bloom {
-  0% { transform: translate(-50%, -50%); }
+  0% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+.global-message-slide-from-top-leave-active,
+.global-message-slide-from-bottom-leave-active,
+.global-message-slide-from-left-leave-active,
+.global-message-slide-from-right-leave-active {
+  position: absolute;
+  z-index: -1;
+}
+
+.global-message-slide-from-top-enter-from,
+.global-message-slide-from-top-leave-to {
+  opacity: 0;
+  transform: translateY(-16px);
+}
+
+.global-message-slide-from-bottom-enter-from,
+.global-message-slide-from-bottom-leave-to {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.global-message-slide-from-left-enter-from,
+.global-message-slide-from-left-leave-to {
+  opacity: 0;
+  transform: translateX(-16px);
+}
+
+.global-message-slide-from-right-enter-from,
+.global-message-slide-from-right-leave-to {
+  opacity: 0;
+  transform: translateX(16px);
 }

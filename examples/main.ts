@@ -5,4 +5,4 @@ import router from './router'
 // import '../dist/es/style.css'
 import shenji from '../src'
 
-createApp(App).use(router).use(shenji).mount('#app')
+const app = createApp(App).use(router).use(shenji).mount('#app')

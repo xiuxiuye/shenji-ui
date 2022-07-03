@@ -1,0 +1,76 @@
+<template>
+  <div class="sj-message-container" :style="containerStyles">
+    <transition-group :name="transitionName" tag="div">
+      <div v-for="message in data" :key="message?.id" class="sj-message-body" :style="bodyStyles">
+        <div class="sj-message">
+          <Icon v-if="message?.showIcon && message?.icon" class="sj-message-icon" :type="message?.icon"
+            :color="message?.iconColor" size="20" />
+          <div class="sj-message-content">
+            <component :is="message?.content" />
+          </div>
+          <Icon v-if="message?.closable" class="sj-message-close" type="close" @click="handleClose(message)" />
+        </div>
+      </div>
+    </transition-group>
+  </div>
+</template>
+
+<script setup lang="ts">
+import Icon from '../Icon'
+import { computed } from 'vue'
+import { Ref, StyleValue } from 'src/types/global'
+import isFunction from 'src/utils/isFunction'
+import type { MessagePlacement } from './types'
+import type { Message } from './message'
+
+interface IProps {
+  data: Set<Message>;
+  placement: Ref<MessagePlacement>;
+}
+
+const props = defineProps<IProps>()
+
+const handleClose = (message: Message) => {
+  message.destroyed()
+  if (isFunction(message?.onClose)) message?.onClose()
+}
+
+const transitionName = computed<string>(() => {
+  const placement = props?.placement?.value
+  if (placement.startsWith('bottom')) {
+    return 'global-message-slide-from-bottom'
+  }
+
+  if (placement.startsWith('right')) {
+    return 'global-message-slide-from-right'
+  }
+
+  if (placement.startsWith('left')) {
+    return 'global-message-slide-from-left'
+  }
+
+  return 'global-message-slide-from-top'
+})
+
+/**
+ * styles
+ */
+const containerStyles = computed<StyleValue>(() => {
+  const placement = props?.placement?.value
+  if (placement.includes('bottom')) {
+    return {
+      bottom: 0
+    }
+  }
+  return {
+    top: 0
+  }
+})
+
+const bodyStyles = computed<StyleValue>(() => {
+  const placement = props?.placement?.value
+  return {
+    textAlign: placement.includes('left') ? 'left' : placement.includes('right') ? 'right' : 'center'
+  }
+})
+</script>

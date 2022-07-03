@@ -73,7 +73,6 @@ interface IEmit {
 }
 const emit = defineEmits<IEmit>()
 const handleClose = (event: Event) => {
-  console.log(1111111111111)
   if (!props?.disabled) emit('close', event)
 }
 
@@ -85,5 +84,10 @@ const slots = useSlots()
 /**
  * computed
  */
-const isIconExist = computed<boolean>(() => !!slots?.icon || !!props?.icon)
+const isIconExist = computed<boolean>(() => {
+  console.log(slots?.icon, props?.icon)
+  console.log(!!slots?.icon, !!props?.icon)
+  console.log(!!slots?.icon || !!props?.icon)
+  return !!slots?.icon || !!props?.icon
+})
 </script>

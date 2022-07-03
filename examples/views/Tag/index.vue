@@ -1,11 +1,11 @@
 <template>
   <div style="padding: 16px;">
-    <Tag disabled>青花瓷</Tag>
+    <!-- <Tag disabled>青花瓷</Tag> -->
     <Tag size="large" border-color="red" round icon="user" closable>告白气球</Tag>
-    <Tag size="normal" border-color="blue" :color="color" :text-color="text" round icon="user" closable>七里香</Tag>
-    <Tag size="small" icon="user" closable round>稻香</Tag>
+    <!-- <Tag size="normal" border-color="blue" :color="color" :text-color="text" round icon="user" closable>七里香</Tag>
+    <Tag size="small" icon="user" closable round>稻香</Tag> -->
   </div>
-  <div style="padding: 16px;">
+  <!-- <div style="padding: 16px;">
     <Tag>稻香</Tag>
     <Tag type="info">青花瓷</Tag>
     <Tag type="success" closable icon="user" disabled>告白气球</Tag>
@@ -16,7 +16,7 @@
       爱的飞行日记
     </Tag>
     <Tag type="error" closable icon="user" closeIcon="gift" @close="test">给我一首歌的时间</Tag>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">

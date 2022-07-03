@@ -1,5 +1,5 @@
-import '../../styles/index.scss'
-import create from './index'
+import 'src/styles'
+import create from './create'
 
 /**
  * init default theme
