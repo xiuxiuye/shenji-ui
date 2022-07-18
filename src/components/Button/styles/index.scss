@@ -33,6 +33,7 @@
         background-color: map-get(map-get($value, "hover"), "backgroundColor");
         border-color: map-get(map-get($value, "hover"), "borderColor");
         color: map-get(map-get($value, "hover"), "color");
+        outline-width: 0;
       }
 
       &:active {

@@ -85,9 +85,6 @@ const slots = useSlots()
  * computed
  */
 const isIconExist = computed<boolean>(() => {
-  console.log(slots?.icon, props?.icon)
-  console.log(!!slots?.icon, !!props?.icon)
-  console.log(!!slots?.icon || !!props?.icon)
   return !!slots?.icon || !!props?.icon
 })
 </script>

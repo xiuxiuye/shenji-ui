@@ -19,37 +19,37 @@ export default {
     add () {
       const duration = 0
       const closable = true
-      const placement = 'left-top'
+      const placement = 'right-top'
       if (count % 5 === 1) {
         this.$message.info({
-          content: '1234567890',
+          content: '1234567890' + '-' + count,
           duration,
           closable,
           placement
         })
       } else if (count % 5 === 2) {
         this.$message.error({
-          content: 'error 你好啊',
+          content: 'error 你好啊' + '-' + count,
           duration,
           closable,
           placement
         })
       } else if (count % 5 === 3) {
         this.$message.success({
-          content: 'This is a success message This is a success message',
+          content: 'This is a success message This is a success message' + '-' + count,
           duration,
           closable,
           placement
         })
       } else if (count % 5 === 4) {
         this.$message.warning({
-          content: 'warning 你好啊',
+          content: 'warning 你好啊' + '-' + count,
           duration,
           closable
         })
       } else if (count % 5 === 0) {
         this.$message.loading({
-          content: 'loaidng 你好啊',
+          content: 'loaidng 你好啊' + '-' + count,
           duration,
           closable,
           placement,

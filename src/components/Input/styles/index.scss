@@ -1,0 +1,231 @@
+@import './var.scss';
+
+.sj-input-container {
+  display: flex;
+  align-items: center;
+
+  .sj-input {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    border-style: solid;
+    padding: 0 12px;
+    border-color: var(--sj-border-color);
+    border-radius: var(--sj-border-radius);
+
+    &:hover {
+      border-color: var(--sj-primary-color);
+    }
+
+    &:focus-within {
+      border-color: var(--sj-primary-color);
+      outline: 3px solid var(--sj-primary-focus-background-color);
+
+      input {
+        caret-color: var(--sj-primary-color);
+      }
+    }
+
+    /* size */
+    @each $key,
+    $value in $input-size {
+      &-size-#{$key} {
+        height: map-get($value, "height");
+        font-size: map-get($value, "fontSize");
+
+        input {
+          align-self: stretch;
+          flex-grow: 1;
+          border-width: 0;
+          border-radius: inherit;
+          box-sizing: inherit;
+          font-size: inherit;
+          line-height: map-get($value, "height");
+          background-color: transparent;
+        }
+
+        /* ie */
+        input::-ms-reveal {
+          display: none;
+        }
+
+        input::-ms-clear {
+          display: none
+        }
+
+        ;
+
+        input:focus {
+          outline-width: 0;
+        }
+
+        .sj-icon {
+          font-size: map-get($value, "fontSize");
+        }
+      }
+
+      /* round */
+      &-round {
+        border-radius: map-get($value, "height");
+      }
+    }
+
+    /* border */
+    &-border-block {
+      border-width: 1px;
+    }
+
+    &-border-none {
+      border-width: 0;
+
+      &:focus-within {
+        outline-width: 0;
+      }
+    }
+
+    &-border-line {
+      border-width: 0 0 1px 0;
+
+      &:focus-within {
+        outline-width: 0;
+      }
+    }
+
+    /* clearable */
+    &-clear {
+      cursor: pointer;
+      margin-left: 4px;
+      color: var(--sj-disable-color);
+
+      &:hover {
+        color: var(--sj-secondary-text-color);
+      }
+    }
+
+    /* search */
+    &-search-icon {
+      cursor: pointer;
+      margin-left: 4px;
+    }
+
+    /* password */
+    &-password {
+      cursor: pointer;
+      margin-left: 4px;
+    }
+
+    /* prefix */
+    &-prefix {
+      margin-right: 4px;
+    }
+
+    /* suffix */
+    &-suffix {
+      margin-left: 4px;
+    }
+
+    /* status */
+    &-status-success {
+      border-color: var(--sj-success-color);
+
+      &:hover {
+        border-color: var(--sj-success-color);
+      }
+
+      &:focus-within {
+        border-color: var(--sj-success-color);
+        outline-color: var(--sj-success-focus-background-color);
+
+        input {
+          caret-color: var(--sj-success-color);
+        }
+      }
+    }
+
+    &-status-error {
+      border-color: var(--sj-error-color);
+
+      &:hover {
+        border-color: var(--sj-error-color);
+      }
+
+      &:focus-within {
+        border-color: var(--sj-error-color);
+        outline-color: var(--sj-error-focus-background-color);
+
+        input {
+          caret-color: var(--sj-error-color);
+        }
+      }
+    }
+
+    &-status-warning {
+      border-color: var(--sj-warning-color);
+
+      &:hover {
+        border-color: var(--sj-warning-color);
+      }
+
+      &:focus-within {
+        border-color: var(--sj-warning-color);
+        outline-color: var(--sj-warning-focus-background-color);
+
+        input {
+          caret-color: var(--sj-warning-color);
+        }
+      }
+    }
+
+    /* length */
+    &-length {
+      margin-left: 4px;
+      color: var(--sj-secondary-text-color);
+    }
+
+    /* disabled */
+    &-disabled {
+      position: relative;
+      color: var(--sj-disable-color);
+      border-color: var(--sj-border-color);
+      background-color: var(--sj-background-color);
+
+      * {
+        color: inherit;
+      }
+
+      &:hover {
+        border-color: var(--sj-border-color);
+      }
+
+      &::after {
+        cursor: not-allowed;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+    }
+  }
+}
+
+.sj-input-group > * {
+  border-radius: 0 !important;
+}
+
+.sj-input-group > *:not(:first-child) {
+  margin-left: -1px;
+}
+
+.sj-input-group > *:first-child {
+  border-top-left-radius: var(--sj-border-radius) !important;
+  border-bottom-left-radius: var(--sj-border-radius) !important;
+}
+
+.sj-input-group > *:last-child {
+  border-top-right-radius: var(--sj-border-radius) !important;
+  border-bottom-right-radius: var(--sj-border-radius) !important;
+}
