@@ -2,23 +2,21 @@
   <div :class="conatinerClasses" @keypress.enter="handleSearch">
     <slot name="prepend" v-if="slots?.prepend"></slot>
     <div :class="classes">
-      <div :class="`${classNamePrefix}-prefix`">
+      <div :class="`${classNamePrefix}-prefix`" v-if="slots?.prefix || prefix">
         <slot name="prefix">
           <Icon v-if="!!prefix" :type="prefix" />
         </slot>
       </div>
-      <input :type="inputType" v-model="realValue" :maxlength="realMaxLength || Infinity"
+      <input ref="sjInputRef" :type="inputType" v-model="realValue" :maxlength="realMaxLength || Infinity"
         :autofocus="isAutofocusAllowed" :placeholder="placeholder" @focus="handleFocus" @blur="handleBlur"
         @change="handleChange" @input="handleInput" />
-      <span :class="`${classNamePrefix}-length`">
-        <template v-if="showLength">
-          {{ realValue?.length }}
-          <template v-if="realMaxLength">
-            / {{ realMaxLength }}
-          </template>
+      <span :class="`${classNamePrefix}-length`" v-if="showLength">
+        {{ realValue?.length }}
+        <template v-if="realMaxLength">
+          / {{ realMaxLength }}
         </template>
       </span>
-      <div :class="`${classNamePrefix}-suffix`">
+      <div :class="`${classNamePrefix}-suffix`" v-if="slots?.suffix || suffix">
         <slot name="suffix">
           <Icon v-if="!!suffix" :type="suffix" />
         </slot>
@@ -201,4 +199,23 @@ const handleChange = (event: Event) => {
 const handleInput = (event: Event) => {
   emit('input', realValue?.value, event)
 }
+
+/**
+ * methods
+ */
+const sjInputRef = ref(null)
+const focus = () => {
+  const dom: HTMLElement | null = sjInputRef?.value
+  if (dom) {
+    (dom as HTMLElement)?.focus()
+  }
+}
+
+const blur = () => {
+  const dom: HTMLElement | null = sjInputRef?.value
+  if (dom) {
+    (dom as HTMLElement)?.blur()
+  }
+}
+defineExpose({ focus, blur })
 </script>

@@ -16,18 +16,25 @@
     <Input size="normal" status="warning" />
   </div>
   <div class="wrapper">
-    <Input prefix="user" suffix="gift" size="normal" status="error" show-length max-length="10" v-model="test"
-      :password="isPassword" autofocus clearable search search-button :show-search="showSearch" :loading="loading"
+    <InputGroup>
+      <Input size="normal" prefix="user" suffix="gift" />
+      <Input size="normal" prefix="user" suffix="gift" v-model="test" :password="isPassword" clearable search />
+      <Input size="normal" prefix="user" suffix="gift" />
+    </InputGroup>
+  </div>
+  <div class="wrapper">
+    <Input ref="sonRef" prefix="user" suffix="gift" size="normal" show-length max-length="10"
+      v-model="test" :password="isPassword" clearable search search-button :show-search="showSearch" :loading="loading"
       :search-place="place" @clear="handleClear" @search="handleSearch" @focus="handleFocus" @blur="handleBlur"
       @change="handleChange" @input="handleInput" placeholder="请输入自定义提示">
-      <template #prepend>
-      <Button type="warning">Search1</Button>
+    <template #prepend>
+      <Button type="normal">Search1</Button>
     </template>
     <template #append>
-      <Button type="error">Search2</Button>
+      <Button type="normal">Search2</Button>
     </template>
     <template #search-button>
-      <Button type="success">Search3</Button>
+      <Button type="normal">Search3</Button>
     </template>
     </Input>
     {{ test }}
@@ -35,6 +42,8 @@
 </template>
 
 <script lang="ts">
+import { ref, onMounted } from 'vue'
+import InputGroup from '../../../src/components/Input/InputGroup.vue'
 export default {
   name: '',
   data () {
@@ -70,10 +79,12 @@ export default {
       console.log('input:', value, event)
     }
   },
-  created () {
+  mounted () {
     // setInterval(() => {
     // }, 3000)
-  }
+    console.log(this.$refs.focus)
+  },
+  components: { InputGroup }
 }
 </script>
 

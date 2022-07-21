@@ -13,5 +13,8 @@ export { default as Avatar } from './Avatar'
 export { default as AvatarGroup } from './AvatarGroup'
 export { default as Loading } from './Loading'
 export { default as Tag } from './Tag'
-export { default as Input } from './Input'
+
+export { default as Input, InputGroup } from './Input'
+export type { IInputProps, IInputRefExpose } from './Input'
+
 export { default as message } from './Message'

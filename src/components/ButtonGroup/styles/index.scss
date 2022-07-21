@@ -40,7 +40,7 @@
       @each $key,
       $value in $button-ghost {
         &-type-#{$key} {
-          border-right-color: #ffffff;
+          border-right-color: var(--sj-primary-background-color);
 
           &:last-of-type {
             border-right-color: map-get($value, "color");
@@ -101,7 +101,7 @@
       @each $key,
       $value in $button-ghost {
         &-type-#{$key} {
-          border-bottom-color: #ffffff;
+          border-bottom-color: var(--sj-primary-background-color);
 
           &:last-of-type {
             border-bottom-color: map-get($value, "color");

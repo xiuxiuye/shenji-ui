@@ -3,6 +3,7 @@
 .sj-input-container {
   display: flex;
   align-items: center;
+  border-radius: var(--sj-border-radius);
 
   .sj-input {
     flex-grow: 1;
@@ -12,7 +13,8 @@
     border-style: solid;
     padding: 0 12px;
     border-color: var(--sj-border-color);
-    border-radius: var(--sj-border-radius);
+    border-radius: inherit;
+    background-color: var(--sj-primary-background-color);
 
     &:hover {
       border-color: var(--sj-primary-color);
@@ -212,12 +214,24 @@
   }
 }
 
+.sj-input-group {
+  display: flex;
+}
+
 .sj-input-group > * {
   border-radius: 0 !important;
+  z-index: 0;
 }
 
 .sj-input-group > *:not(:first-child) {
   margin-left: -1px;
+}
+
+.sj-input-group > *:hover,
+.sj-input-group > *:active,
+.sj-input-group > *:focus,
+.sj-input-group > *:focus-within {
+  z-index: 1;
 }
 
 .sj-input-group > *:first-child {

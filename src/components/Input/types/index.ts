@@ -23,5 +23,10 @@ export interface IProps {
   placeholder?: string;
 }
 
+export interface IInputRefExpose {
+  focus: () => void;
+  blur: () => void;
+}
+
 export type UseSearchClasses<IProps> = (classNamePrefix: string, props: IProps) => Record<string, ComputedRef<Classes>>;
 export type UseContainerClasses<IProps> = (classNamePrefix: string, props: IProps, slots: Slots) => ComputedRef<Classes>;
