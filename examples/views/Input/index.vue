@@ -18,13 +18,14 @@
   <div class="wrapper">
     <InputGroup>
       <Input size="normal" prefix="user" suffix="gift" />
-      <Input size="normal" prefix="user" suffix="gift" v-model="test" :password="isPassword" clearable search />
+      <Input size="normal" prefix="user" suffix="gift" v-model="test" :password="isPassword" clearable search
+        search-button search-button-text="123" loading />
       <Input size="normal" prefix="user" suffix="gift" />
     </InputGroup>
   </div>
   <div class="wrapper">
-    <Input ref="sonRef" prefix="user" suffix="gift" size="normal" show-length max-length="10"
-      v-model="test" :password="isPassword" clearable search search-button :show-search="showSearch" :loading="loading"
+    <Input ref="sonRef" prefix="user" suffix="gift" size="normal" autofocus show-length max-length="10" v-model="test"
+      :password="isPassword" clearable search search-button :show-search="showSearch" :loading="loading"
       :search-place="place" @clear="handleClear" @search="handleSearch" @focus="handleFocus" @blur="handleBlur"
       @change="handleChange" @input="handleInput" placeholder="请输入自定义提示">
     <template #prepend>
@@ -34,7 +35,7 @@
       <Button type="normal">Search2</Button>
     </template>
     <template #search-button>
-      <Button type="normal">Search3</Button>
+      123
     </template>
     </Input>
     {{ test }}
@@ -91,7 +92,7 @@ export default {
 <style lang="scss">
 .wrapper {
   padding: 16px;
-  width: 660px;
+  width: 960px;
   display: inline-block;
 }
 </style>
