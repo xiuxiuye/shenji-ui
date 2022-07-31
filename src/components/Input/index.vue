@@ -217,5 +217,14 @@ const blur = () => {
     (dom as HTMLElement)?.blur()
   }
 }
-defineExpose({ focus, blur })
+
+interface IExposeVars {
+  focus: () => void;
+  blur: () => void;
+}
+const exposeVars: IExposeVars = {
+  focus,
+  blur
+}
+defineExpose(exposeVars)
 </script>

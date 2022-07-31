@@ -38,18 +38,18 @@ const handleClose = (message: Message) => {
 const transitionName = computed<string>(() => {
   const placement = props?.placement?.value
   if (placement.startsWith('bottom')) {
-    return 'global-message-slide-from-bottom'
+    return 'sj-global-message-slide-from-bottom'
   }
 
   if (placement.startsWith('right')) {
-    return 'global-message-slide-from-right'
+    return 'sj-global-message-slide-from-right'
   }
 
   if (placement.startsWith('left')) {
-    return 'global-message-slide-from-left'
+    return 'sj-global-message-slide-from-left'
   }
 
-  return 'global-message-slide-from-top'
+  return 'sj-global-message-slide-from-top'
 })
 
 /**

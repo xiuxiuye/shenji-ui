@@ -83,7 +83,7 @@ export default {
   mounted () {
     // setInterval(() => {
     // }, 3000)
-    console.log(this.$refs.focus)
+    console.log(333, this.$refs.sonRef)
   },
   components: { InputGroup }
 }

@@ -17,4 +17,6 @@ export { default as Tag } from './Tag'
 export { default as Input, InputGroup } from './Input'
 export type { IInputProps, IInputRefExpose } from './Input'
 
+export { default as Checkbox } from './Checkbox'
+
 export { default as message } from './Message'
