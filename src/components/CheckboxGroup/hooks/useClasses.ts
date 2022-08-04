@@ -5,15 +5,12 @@ import type { UseClasses, Classes } from 'src/types/global'
 const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
   const classes = computed<Classes>(() => ([
     classNamePrefix,
+    `${classNamePrefix}-${props?.vertical ? 'vertical' : 'horizontal'}`,
     {
       [`${classNamePrefix}-size-${props?.size}`]: props?.size,
-      [`${classNamePrefix}-horizontal`]: !props?.vertical,
-      [`${classNamePrefix}-vertical`]: props?.vertical,
-      [`${classNamePrefix}-horizontal-round-${props?.size}`]: props?.round && !props?.vertical,
-      [`${classNamePrefix}-vertical-round-${props?.size}`]: props?.round && props?.vertical
+      [`${classNamePrefix}-disabled`]: props?.disabled
     }
   ]))
-
   return classes
 }
 

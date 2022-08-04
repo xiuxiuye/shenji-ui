@@ -2,8 +2,8 @@ import { computed } from 'vue'
 import isObject from 'src/utils/isObject'
 import isVaildNumber from 'src/utils/isVaildNumber'
 import { ScreenSize } from 'src/utils/hooks/useScreenResize'
-import { IProps } from '../types'
-import { UseClasses, Classes } from 'src/types/global'
+import type { IProps } from '../types'
+import type { UseClasses, Classes } from 'src/types/global'
 
 const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
   const classes = computed<Classes>(() => {

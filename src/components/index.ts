@@ -19,4 +19,6 @@ export type { IInputProps, IInputRefExpose } from './Input'
 
 export { default as Checkbox } from './Checkbox'
 
+export { default as CheckboxGroup } from './CheckboxGroup'
+
 export { default as message } from './Message'

@@ -14,9 +14,12 @@
 </template>
 
 <script lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, watchEffect } from 'vue'
+import isArray from 'src/utils/isArray'
+import useInject from './hooks/useInject'
 import useClasses from './hooks/useClasses'
 import useCheckedClasses from './hooks/useCheckedClasses'
+import isValidParent from 'src/utils/isValidParent'
 const componentName = 'sj-checkbox'
 export default {
   name: componentName
@@ -24,6 +27,11 @@ export default {
 </script>
 
 <script setup lang="ts">
+/**
+ * inject
+ */
+const injects = useInject()
+
 /**
  * props
  */
@@ -33,6 +41,7 @@ interface IProps {
   autofocus?: boolean;
   modelValue?: boolean;
   indeterminate?: boolean;
+  value?: string | number | boolean;
 }
 const props = withDefaults(defineProps<IProps>(), {
   size: 'normal',
@@ -46,7 +55,7 @@ const props = withDefaults(defineProps<IProps>(), {
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props)
+const classes = useClasses(classNamePrefix, props, injects?.checkGroupProps)
 const checkedClasses = useCheckedClasses(classNamePrefix, props)
 
 /**
@@ -61,10 +70,36 @@ const emit = defineEmits<IEmit>()
 /**
  * v-model
  */
+const isCheckboxGroupChild = isValidParent('sj-checkbox-group')
 const checked = ref<boolean>(!!props?.modelValue)
 watch(() => props?.modelValue, () => {
   if (checked.value !== !!props?.modelValue) {
     checked.value = !!props?.modelValue
+  }
+})
+
+watchEffect(() => {
+  if (!isCheckboxGroupChild) return
+  if (!props?.value) {
+    console.error(new Error('value is required of checkbox in checkboxGroup'))
+    return
+  }
+  const checkboxGroupValues = injects?.checkGroupProps?.value?.modelValue
+  if (checkboxGroupValues && isArray(checkboxGroupValues)) {
+    checked.value = checkboxGroupValues?.includes(props?.value)
+  }
+})
+
+watch(checked, (val) => {
+  if (!isCheckboxGroupChild) return
+  if (!props?.value) {
+    console.error(new Error('value is required of checkbox in checkboxGroup'))
+    return
+  }
+  if (val) {
+    injects?.checkGroupMethods?.addChecked(props?.value)
+  } else {
+    injects?.checkGroupMethods?.removeChecked(props?.value)
   }
 })
 /**

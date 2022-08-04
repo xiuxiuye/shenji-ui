@@ -1,6 +1,6 @@
 import { computed } from 'vue'
-import { IProps } from '../types'
-import { UseClasses, Classes } from 'src/types/global'
+import type { IProps } from '../types'
+import type { UseClasses, Classes } from 'src/types/global'
 
 const useCheckedClasses: UseClasses<IProps> = (classNamePrefix, props) => {
   const classes = computed<Classes>(() => ([

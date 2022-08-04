@@ -4,6 +4,13 @@
     <Checkbox ref="sonRef" size="normal">Checkbox</Checkbox>
     <Checkbox size="large">Checkbox</Checkbox>
   </div>
+  <div style="padding: 16px;">{{ value }}
+    <CheckboxGroup size="large" :disabled="disabled" vertical v-model="value" @change="handleChange">
+      <Checkbox size="small" value="beijing">北京</Checkbox>
+      <Checkbox size="normal" value="shanghai">上海</Checkbox>
+      <Checkbox size="large" value="shenzhen">深圳</Checkbox>
+    </CheckboxGroup>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -19,14 +26,22 @@
 //   }
 // }
 import { ref, onMounted } from 'vue'
+import CheckboxGroup from '../../../src/components/CheckboxGroup/index.vue'
 const sonRef = ref()
-onMounted(() => {
-  console.log(sonRef.value)
-  sonRef.value.focus()
-  setTimeout(() => {
-    sonRef.value.blur()
-  }, 3000)
-})
+const disabled = ref(false)
+const value = ref(['beijing', 'shenzhen'])
+const handleChange = (val) => {
+  console.log(666, val)
+}
+// onMounted(() => {
+//   // console.log(sonRef.value)
+//   // sonRef.value.focus()
+//   setTimeout(() => {
+//     // sonRef.value.blur()
+//     // disabled.value = false
+//     value.value = ['shanghai']
+//   }, 3000)
+// })
 </script>
 
 <style lang="scss">
