@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 16px;">
-    <Checkbox size="small">Checkbox</Checkbox>
+    <Checkbox size="small" indeterminate>Checkbox</Checkbox>
     <Checkbox ref="sonRef" size="normal">Checkbox</Checkbox>
     <Checkbox size="large">Checkbox</Checkbox>
   </div>
@@ -28,7 +28,7 @@
 import { ref, onMounted } from 'vue'
 import CheckboxGroup from '../../../src/components/CheckboxGroup/index.vue'
 const sonRef = ref()
-const disabled = ref(false)
+const disabled = ref(true)
 const value = ref(['beijing', 'shenzhen'])
 const handleChange = (val) => {
   console.log(666, val)

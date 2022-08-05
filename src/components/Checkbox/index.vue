@@ -5,7 +5,6 @@
       <transition name="sj-origin-scale">
         <div :class="checkedClasses" v-if="checked"></div>
       </transition>
-      <div class="sj-checkbox-indeterminate"></div>
     </div>
     <span class="sj-checkbox-label">
       <slot></slot>

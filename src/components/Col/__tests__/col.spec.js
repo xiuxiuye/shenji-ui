@@ -28,7 +28,7 @@ describe('Col组件单元测试', () => {
     }
     mount(Col)
     const expectErrorMsg = 'Error: 非法使用Col组件，请配合Row组件使用'
-    expect(expectErrorMsg).toBe(expectErrorMsg)
+    expect(actualErrorMsg).toBe(expectErrorMsg)
   })
 
   it('基本使用', () => {
