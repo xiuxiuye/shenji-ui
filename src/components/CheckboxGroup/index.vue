@@ -1,10 +1,12 @@
 <template>
-  <div :class="classes">
+  <div :class="classes">{{realValue}}
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
+import { ref, watchEffect } from 'vue'
+import isArray from 'src/utils/isArray'
 import useClasses from './hooks/useClasses'
 import useProvide from './hooks/useProvide'
 const componentName = 'sj-checkbox-group'
@@ -47,18 +49,26 @@ const emit = defineEmits<IEmit>()
 /**
  * model-value
  */
+const realValue = ref<Array<number | string | boolean>>([])
+
+watchEffect(() => {
+  if (isArray(props?.modelValue)) {
+    realValue.value = props?.modelValue
+  }
+})
+
 const addChecked = (value: number | string | boolean) => {
-  if (props?.modelValue?.includes(value)) return
-  emit('update:modelValue', [...props?.modelValue, value])
-  emit('change', [...props?.modelValue, value])
+  if (realValue?.value?.includes(value)) return
+  realValue?.value?.push(value)
+  emit('update:modelValue', realValue?.value)
+  emit('change', realValue?.value)
 }
 const removeChecked = (value: number | string | boolean) => {
-  const tempValue = [...props?.modelValue]
-  const index = tempValue?.findIndex(val => val === value)
+  const index = realValue?.value?.findIndex(val => val === value)
   if (index >= 0) {
-    tempValue?.splice(index, 1)
-    emit('update:modelValue', tempValue)
-    emit('change', tempValue)
+    realValue?.value?.splice(index, 1)
+    emit('update:modelValue', realValue?.value)
+    emit('change', realValue?.value)
   }
 }
 

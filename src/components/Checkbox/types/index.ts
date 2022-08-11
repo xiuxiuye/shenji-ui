@@ -9,11 +9,11 @@ export interface IProps {
   indeterminate?: boolean;
 }
 
-export type UseClasses = (classNamePrefix: string, props: IProps, checkGroupProps?: ComputedRef<ProvideProps>) => ComputedRef<Classes>;
+export type UseClasses = (classNamePrefix: string, props: IProps, checkboxGroupProps?: ComputedRef<ProvideProps>) => ComputedRef<Classes>;
 
 interface UserInjectReturn {
-  checkGroupProps: ComputedRef<ProvideProps> | undefined;
-  checkGroupMethods: Record<string, (value: number | string | boolean) => void> | undefined;
+  checkboxGroupProps: ComputedRef<ProvideProps> | undefined;
+  checkboxGroupMethods: Record<string, (value: number | string | boolean) => void> | undefined;
 }
 
 export type UseInject = () => UserInjectReturn;

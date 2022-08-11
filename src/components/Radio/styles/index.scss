@@ -1,6 +1,6 @@
 @import './var.scss';
 
-.sj-checkbox {
+.sj-radio {
   display: inline-flex;
   align-items: center;
   position: relative;
@@ -15,19 +15,18 @@
     z-index: 1;
 
     &:hover {
-      & + .sj-checkbox-box {
+      & + .sj-radio-box {
         border-color: var(--sj-primary-color);
       }
     }
 
     &:focus {
-      & + .sj-checkbox-box {
+      & + .sj-radio-box {
         border-color: var(--sj-primary-color);
         outline: 3px solid var(--sj-primary-focus-background-color);
       }
     }
   }
-
   &-label {
     margin-right: 4px;
   }
@@ -36,7 +35,7 @@
     margin-right: 8px;
     box-sizing: border-box;
     border: 1px solid var(--sj-border-color);
-    border-radius: var(--sj-border-radius);
+    border-radius: 50%;
     position: relative;
 
     &-checked {
@@ -46,7 +45,8 @@
       width: inherit;
       height: inherit;
       border-radius: inherit;
-      background-color: var(--sj-primary-color);
+      background-color: var(--sj-primary-background-color);
+      outline: 3px solid var(--sj-primary-focus-background-color);
 
       &::before {
         position: absolute;
@@ -61,16 +61,16 @@
         animation: sj-ripple 0.2s ease-in 0.18s;
       }
 
-      &-partial::after {
+      &::after {
         content: '';
-        width: 60%;
-        height: 1.5px;
+        width: 50%;
+        height: 50%;
         border-radius: inherit;
-        background-color: var(--sj-primary-background-color);
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        background-color: var(--sj-primary-color);
       }
     }
   }
@@ -79,59 +79,14 @@
   @each $key,
   $value in $box-size {
     &-size-#{$key} {
-      .sj-checkbox-box {
+      .sj-radio-box {
         width: map-get($value, "height");
         height: map-get($value, "height");
       }
 
-      .sj-checkbox-label {
+      .sj-radio-label {
         font-size: map-get($value, "fontSize");
       }
-    }
-  }
-
-  &-size-small {
-    .sj-checkbox-box-checked-all::after {
-      content: '';
-      width: 6px;
-      height: 3px;
-      border: 2px solid var(--sj-primary-background-color);
-      border-top: 0;
-      border-right: 0;
-      position: absolute;
-      top: 38%;
-      left: 50%;
-      transform: translate(-50%, -38%) rotate(-45deg);
-    }
-  }
-
-  &-size-normal {
-    .sj-checkbox-box-checked-all::after {
-      content: '';
-      width: 8px;
-      height: 4px;
-      border: 2px solid var(--sj-primary-background-color);
-      border-top: 0;
-      border-right: 0;
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-45deg);
-    }
-  }
-
-  &-size-large {
-    .sj-checkbox-box-checked-all::after {
-      content: '';
-      width: 10px;
-      height: 5px;
-      border: 2px solid var(--sj-primary-background-color);
-      border-top: 0;
-      border-right: 0;
-      position: absolute;
-      top: 38%;
-      left: 50%;
-      transform: translate(-50%, -40%) rotate(-45deg);
     }
   }
 
@@ -143,37 +98,34 @@
       cursor: not-allowed;
     }
 
-    .sj-checkbox-input {
+    .sj-radio-input {
       user-select: none;
       pointer-events: none;
 
       &:hover {
-        & + .sj-checkbox-box {
+        & + .sj-radio-box {
           border-color: var(--sj-border-color);
         }
       }
   
       &:focus {
-        & + .sj-checkbox-box {
+        & + .sj-radio-box {
           border-color: var(--sj-border-color);
           outline-width: 0;
         }
       }
     }
 
-    .sj-checkbox-box-checked {
+    .sj-radio-box-checked {
       background-color: var(--sj-background-color);
+      outline-color: var(--sj-background-color);
 
       &::before {
         display: none;
       }
 
-      &-partial:after {
+      &::after {
         background-color: var(--sj-disable-color);
-      }
-
-      &-all:after {
-        border-color: var(--sj-disable-color);
       }
     }
   }

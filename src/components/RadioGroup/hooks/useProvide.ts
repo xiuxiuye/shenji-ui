@@ -1,16 +1,17 @@
 import { provide, computed } from 'vue'
 import type { ProvideProps, UseProvide } from '../types'
 
-const useProvide: UseProvide = (props, methods) => {
+const useProvide: UseProvide = (realValue, props, methods) => {
   const provideProps = computed<ProvideProps>(() => {
     return {
       size: props?.size,
       disabled: props?.disabled,
-      modelValue: props?.modelValue
+      name: props?.name,
+      realValue: realValue?.value
     }
   })
-  provide('checkboxGroupProps', provideProps)
-  provide('checkboxGroupMethods', methods)
+  provide('radioGroupProps', provideProps)
+  provide('radioGroupMethods', methods)
 }
 
 export default useProvide

@@ -1,7 +1,7 @@
 <template>
   <div :class="classes">
     <input ref="sjCheckboxRef" type="checkbox" class="sj-checkbox-input" :autofocus="autofocus" v-model="checked" @change="handleChange" />
-    <div :class="'sj-checkbox-box'">
+    <div class="sj-checkbox-box">
       <transition name="sj-origin-scale">
         <div :class="checkedClasses" v-if="checked"></div>
       </transition>
@@ -54,7 +54,7 @@ const props = withDefaults(defineProps<IProps>(), {
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props, injects?.checkGroupProps)
+const classes = useClasses(classNamePrefix, props, injects?.checkboxGroupProps)
 const checkedClasses = useCheckedClasses(classNamePrefix, props)
 
 /**
@@ -83,7 +83,7 @@ watchEffect(() => {
     console.error(new Error('value is required of checkbox in checkboxGroup'))
     return
   }
-  const checkboxGroupValues = injects?.checkGroupProps?.value?.modelValue
+  const checkboxGroupValues = injects?.checkboxGroupProps?.value?.modelValue
   if (checkboxGroupValues && isArray(checkboxGroupValues)) {
     checked.value = checkboxGroupValues?.includes(props?.value)
   }
@@ -96,9 +96,9 @@ watch(checked, (val) => {
     return
   }
   if (val) {
-    injects?.checkGroupMethods?.addChecked(props?.value)
+    injects?.checkboxGroupMethods?.addChecked(props?.value)
   } else {
-    injects?.checkGroupMethods?.removeChecked(props?.value)
+    injects?.checkboxGroupMethods?.removeChecked(props?.value)
   }
 })
 /**

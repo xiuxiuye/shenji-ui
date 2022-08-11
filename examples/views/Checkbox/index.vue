@@ -28,17 +28,17 @@
 import { ref, onMounted } from 'vue'
 import CheckboxGroup from '../../../src/components/CheckboxGroup/index.vue'
 const sonRef = ref()
-const disabled = ref(true)
+const disabled = ref(false)
 const value = ref(['beijing', 'shenzhen'])
 const handleChange = (val) => {
   console.log(666, val)
 }
 // onMounted(() => {
-//   // console.log(sonRef.value)
-//   // sonRef.value.focus()
+//   console.log(sonRef.value)
+//   sonRef.value.focus()
 //   setTimeout(() => {
-//     // sonRef.value.blur()
-//     // disabled.value = false
+//     sonRef.value.blur()
+//     disabled.value = false
 //     value.value = ['shanghai']
 //   }, 3000)
 // })

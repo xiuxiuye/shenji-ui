@@ -1,14 +1,14 @@
-.sj-checkbox-group {
+.sj-radio-group {
   display: inline-flex;
   &-horizontal {
-    .sj-checkbox:not(:first-of-type) {
-      margin-left: 14px;
+    .sj-radio:not(:first-of-type) {
+      margin-left: 16px;
     }
   }
 
   &-vertical {
     flex-direction: column;
-    .sj-checkbox:not(:first-of-type) {
+    .sj-radio:not(:first-of-type) {
       margin-top: 16px;
     }
   }
