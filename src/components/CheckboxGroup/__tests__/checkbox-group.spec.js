@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import Checkbox from 'src/components/Checkbox/index.vue'
 import CheckboxGroup from 'src/components/CheckboxGroup/index.vue'
 
-describe('Checkbox组件单元测试', () => {
+describe('CheckboxGroup组件单元测试', () => {
   it('是否是Vue组件实例', () => {
     const wrapper = mount(CheckboxGroup)
     expect(wrapper.exists()).toBe(true)
