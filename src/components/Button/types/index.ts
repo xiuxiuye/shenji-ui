@@ -1,3 +1,5 @@
+import type { CommonSize } from 'src/types/global'
+
 export interface IProps {
   long?: boolean;
   text?: boolean;
@@ -8,7 +10,7 @@ export interface IProps {
   dashed?: boolean;
   icon?: string;
   shape?: 'normal' | 'circle' | 'round';
-  size?: 'small' | 'normal' | 'large';
+  size?: CommonSize;
   type?: 'primary' | 'success' | 'warning' | 'error' | 'info' | 'normal';
   htmlType?: 'button' | 'submit' | 'reset';
 }

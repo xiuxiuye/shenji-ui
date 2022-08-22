@@ -9,3 +9,5 @@ export type UseClasses<IProps> = (classNamePrefix: string, props: IProps) => Com
 export type UseStyles<IProps> = (props: IProps) => ComputedRef<StyleValue>;
 
 export type ISJComponent = Plugin & Record<string, unknown>;
+
+export type CommonSize = 'small' | 'normal' | 'large';

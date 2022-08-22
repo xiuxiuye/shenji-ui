@@ -7,6 +7,7 @@ const useConatinerClasses: UseContainerClasses<IProps> = (classNamePrefix, props
     return [
       `${classNamePrefix}-container`,
       {
+        [`${classNamePrefix}-container-disabled`]: props?.disabled,
         [`${classNamePrefix}-group`]: props?.searchButton || slots['search-button'] || slots?.prepend || slots?.append
       }
     ]

@@ -1,4 +1,4 @@
-import { Ref, ComputedRef, StyleValue } from 'src/types/global'
+import { Ref, ComputedRef, StyleValue, CommonSize } from 'src/types/global'
 
 export interface IProps {
   bordered?: boolean;
@@ -8,7 +8,7 @@ export interface IProps {
   title?: string;
   icon?: string;
   description?: string;
-  size?: 'small' | 'normal' | 'large';
+  size?: CommonSize;
   shadow?: 'never' | 'hover' | 'always';
   noPadding?: string | string[];
 }

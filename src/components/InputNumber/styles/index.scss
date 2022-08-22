@@ -1,37 +1,36 @@
 @import './var.scss';
 
-.sj-input-container {
+.sj-input-number-container {
   display: flex;
   align-items: center;
   border-radius: var(--sj-border-radius);
 
-  .sj-input {
+  .sj-input-number {
     flex-grow: 1;
     display: flex;
     align-items: center;
     box-sizing: border-box;
     border-style: solid;
-    padding: 0 12px;
+    padding-left: 12px;
     border-color: var(--sj-border-color);
     border-radius: inherit;
     background-color: var(--sj-primary-background-color);
 
-    input {
+    input[type="number"] {
       align-self: stretch;
       flex-grow: 1;
       border-width: 0;
       border-radius: inherit;
       box-sizing: inherit;
       font-size: inherit;
+      font-family: inherit;
       background-color: transparent;
+      -moz-appearance: textfield;
 
-      /* ie */
-      &::-ms-reveal {
-        display: none;
-      }
-
-      &::-ms-clear {
-        display: none
+      /* 隐藏默认增减按钮 */ 
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
       }
 
       &:focus {
@@ -47,14 +46,14 @@
       border-color: var(--sj-primary-color);
       outline: 3px solid var(--sj-primary-focus-background-color);
 
-      input {
+      input[type="number"] {
         caret-color: var(--sj-primary-color);
       }
     }
 
     /* size */
     @each $key,
-    $value in $input-size {
+    $value in $input-number-size {
       &-size-#{$key} {
         height: map-get($value, "height");
         font-size: map-get($value, "fontSize");
@@ -67,6 +66,68 @@
       /* round */
       &-round {
         border-radius: map-get($value, "height");
+      }
+    }
+
+    /* clearable */
+    &-clear {
+      cursor: pointer;
+      margin-left: 4px;
+      color: var(--sj-disable-color);
+
+      &:hover {
+        color: var(--sj-secondary-text-color);
+      }
+    }
+
+    /* control btn */
+    &-control {
+      cursor: pointer;
+      box-sizing: border-box;
+      display: inline-block;
+      width: 22px;
+      height: 100%;
+      margin-left: 4px;
+      border-left: 1px solid var(--sj-border-color);
+
+      &-add,
+      &-minus {
+        box-sizing: inherit;
+        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .sj-icon.up,
+        .sj-icon.down {
+          transition: all 0.2s ease-in-out;
+          font-size: var(--sj-font-size-small);
+        }
+
+        &:hover {
+          .sj-icon {
+            color: var(--sj-primary-color);
+            transform: scale(1.25);
+          }
+        }
+
+        &-disabled {
+          cursor: not-allowed;
+          .sj-icon {
+            color: var(--sj-disable-color);
+          }
+
+          &:hover {
+            .sj-icon {
+              color: var(--sj-disable-color);
+              transform: scale(1);
+            }
+          }
+        }
+      }
+
+      &-add {
+        border-bottom: 1px solid var(--sj-border-color);
       }
     }
 
@@ -91,29 +152,6 @@
       }
     }
 
-    /* clearable */
-    &-clear {
-      cursor: pointer;
-      margin-left: 4px;
-      color: var(--sj-disable-color);
-
-      &:hover {
-        color: var(--sj-secondary-text-color);
-      }
-    }
-
-    /* search */
-    &-search-icon {
-      cursor: pointer;
-      margin-left: 4px;
-    }
-
-    /* password */
-    &-password {
-      cursor: pointer;
-      margin-left: 4px;
-    }
-
     /* prefix */
     &-prefix {
       margin-right: 4px;
@@ -136,7 +174,7 @@
         border-color: var(--sj-success-color);
         outline-color: var(--sj-success-focus-background-color);
 
-        input {
+        input[type="number"] {
           caret-color: var(--sj-success-color);
         }
       }
@@ -153,7 +191,7 @@
         border-color: var(--sj-error-color);
         outline-color: var(--sj-error-focus-background-color);
 
-        input {
+        input[type="number"] {
           caret-color: var(--sj-error-color);
         }
       }
@@ -170,82 +208,10 @@
         border-color: var(--sj-warning-color);
         outline-color: var(--sj-warning-focus-background-color);
 
-        input {
+        input[type="number"] {
           caret-color: var(--sj-warning-color);
         }
       }
     }
-
-    /* length */
-    &-length {
-      margin-left: 4px;
-      color: var(--sj-secondary-text-color);
-    }
-
-    /* disabled */
-    &-disabled {
-      position: relative;
-      color: var(--sj-disable-color);
-      border-color: var(--sj-border-color);
-
-      input::-webkit-input-placeholder {
-        color: inherit;
-      }
-
-      * {
-        color: inherit;
-      }
-    }
   }
-
-   /* disabled */
-   &-disabled {
-    position: relative;
-
-    * {
-      color: var(--sj-disable-color);
-    }
-
-    &::after {
-      cursor: not-allowed;
-      content: '';
-      display: block;
-      position: absolute;
-      background-color: var(--sj-background-color);
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-  }
-}
-
-.sj-input-group {
-  display: flex;
-}
-
-.sj-input-group > * {
-  border-radius: 0 !important;
-  z-index: 0;
-}
-
-.sj-input-group > *:not(:first-child) {
-  margin-left: -1px;
-}
-
-.sj-input-group > *:hover,
-.sj-input-group > *:active,
-.sj-input-group > *:focus,
-.sj-input-group > *:focus-within {
-  z-index: 1;
-}
-
-.sj-input-group > *:first-child {
-  border-top-left-radius: var(--sj-border-radius) !important;
-  border-bottom-left-radius: var(--sj-border-radius) !important;
-}
-
-.sj-input-group > *:last-child {
-  border-top-right-radius: var(--sj-border-radius) !important;
-  border-bottom-right-radius: var(--sj-border-radius) !important;
 }

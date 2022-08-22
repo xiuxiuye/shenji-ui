@@ -1,5 +1,7 @@
+import { CommonSize } from 'src/types/global'
+
 export interface IProps {
-  size?: 'small' | 'normal' | 'large';
+  size?: CommonSize
   vertical?: boolean;
   round?: boolean;
 }

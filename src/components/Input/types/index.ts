@@ -1,8 +1,8 @@
-import type { ComputedRef, Classes, Slots } from 'src/types/global'
+import type { ComputedRef, Classes, Slots, CommonSize } from 'src/types/global'
 
 export interface IProps {
   clearable?: boolean;
-  size?: 'small' | 'normal' | 'large';
+  size?: CommonSize;
   round?: boolean;
   prefix?: string;
   suffix?: string;

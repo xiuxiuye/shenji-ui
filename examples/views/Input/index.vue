@@ -7,12 +7,12 @@
   </div>
   <div class="wrapper">
     <Input prefix="user" border="none" model-value="none-border" />
-    <Input prefix="user" border="block" model-value="block-border" />
+    <Input prefix="user" disabled border="block" model-value="block-border" />
     <Input prefix="user" border="line" model-value="line-border" />
   </div>
   <div class="wrapper">
     <Input size="normal" status="success" />
-    <Input size="normal" status="error" />
+    <Input size="normal" status="error" disabled />
     <Input size="normal" status="warning" />
   </div>
   <div class="wrapper">
@@ -24,7 +24,7 @@
     </InputGroup>
   </div>
   <div class="wrapper">
-    <Input ref="sonRef" prefix="user" suffix="gift" size="normal" autofocus show-length max-length="10" v-model="test"
+    <Input ref="sonRef" prefix="user" suffix="gift" autofocus show-length max-length="10" v-model="test"
       :password="isPassword" clearable search search-button :show-search="showSearch" :loading="loading"
       :search-place="place" @clear="handleClear" @search="handleSearch" @focus="handleFocus" @blur="handleBlur"
       @change="handleChange" @input="handleInput" placeholder="请输入自定义提示">
@@ -35,7 +35,7 @@
       <Button type="normal">Search2</Button>
     </template>
     <template #search-button>
-      123
+      <Button>Custom Search Btn</Button>
     </template>
     </Input>
     {{ test }}

@@ -185,6 +185,7 @@ describe('Input组件单元测试', () => {
             disabled: true
           }
         })
+        expect(wrapper.classes()).toContain('sj-input-container-disabled')
         expect(wrapper.find('.sj-input-disabled').exists()).toBe(true)
       })
     })
@@ -208,7 +209,7 @@ describe('Input组件单元测试', () => {
             maxLength: 10
           }
         })
-        expect(wrapper.find('.sj-input > .sj-input-length').text().includes(' / 10')).toBe(true)
+        expect(wrapper.find('.sj-input > .sj-input-length').text().includes('/ 10')).toBe(true)
       })
     })
 

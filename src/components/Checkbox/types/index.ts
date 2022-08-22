@@ -1,8 +1,8 @@
-import type { ComputedRef, Classes } from 'src/types/global'
+import type { ComputedRef, Classes, CommonSize } from 'src/types/global'
 import type { ProvideProps } from '../../CheckboxGroup/types'
 
 export interface IProps {
-  size?: 'small' | 'normal' | 'large';
+  size?: CommonSize;
   disabled?: boolean;
   autofocus?: boolean;
   modelValue?: boolean;

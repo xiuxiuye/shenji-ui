@@ -1,7 +1,7 @@
-import { Ref } from 'src/types/global'
+import { Ref, CommonSize } from 'src/types/global'
 
 export interface IProps {
-  size?: 'small' | 'normal' | 'large';
+  size?: CommonSize;
   disabled?: boolean;
   modelValue?: string | number;
   vertical?: boolean;

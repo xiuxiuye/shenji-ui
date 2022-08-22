@@ -7,7 +7,7 @@
           <Icon v-if="!!prefix" :type="prefix" />
         </slot>
       </div>
-      <input ref="sjInputRef" :type="inputType" v-model="realValue" :maxlength="realMaxLength || Infinity"
+      <input ref="sjInputRef" :type="inputType" v-model="realValue" :disabled="disabled" :maxlength="realMaxLength || Infinity"
         :autofocus="isAutofocusAllowed" :placeholder="placeholder" @focus="handleFocus" @blur="handleBlur"
         @change="handleChange" @input="handleInput" />
       <span :class="`${classNamePrefix}-length`" v-if="showLength">
@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, useSlots } from 'vue'
+import { ref, computed, useSlots, watchEffect, watch } from 'vue'
 import Icon from 'src/components/Icon'
 import Button from 'src/components/Button'
 import useClasses from './hooks/useClasses'
@@ -113,10 +113,10 @@ interface IEmit {
   (e: 'clear'): void;
   (e: 'focus', event: Event): void;
   (e: 'blur', event: Event): void;
-  (e: 'change', value: string, event: Event): void;
-  (e: 'input', value: string, event: Event): void;
-  (e: 'search', value: string): void;
-  (e: 'update:modelValue', value: string): void;
+  (e: 'change', value?: string, event: Event): void;
+  (e: 'input', value?: string, event: Event): void;
+  (e: 'search', value?: string): void;
+  (e: 'update:modelValue', value?: string): void;
 }
 const emit = defineEmits<IEmit>()
 
@@ -133,13 +133,12 @@ const realMaxLength = computed<number>(() => Math.max(0, isVaildNumber(props?.ma
 /**
  * v-model
  */
-const realValue = computed<string>({
-  get () {
-    return props?.modelValue || ''
-  },
-  set (value) {
-    return emit('update:modelValue', value)
-  }
+const realValue = ref<string>()
+watchEffect(() => {
+  realValue.value = props?.modelValue
+})
+watch(realValue, () => {
+  emit('update:modelValue', realValue.value)
 })
 
 /**
@@ -212,6 +211,7 @@ const focus = () => {
 }
 
 const blur = () => {
+  if (props.disabled) return
   const dom: HTMLElement | null = sjInputRef?.value
   if (dom) {
     (dom as HTMLElement)?.blur()
