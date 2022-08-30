@@ -25,7 +25,7 @@ export default {
  */
 const isValid = isValidParent('sj-row')
 if (!isValid) {
-  console.error(new Error('非法使用Col组件，请配合Row组件使用'))
+  console.error(new Error('神机：非法使用Col组件，请配合Row组件使用'))
 }
 
 /**

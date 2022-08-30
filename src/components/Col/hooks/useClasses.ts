@@ -16,10 +16,10 @@ const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
       if (tempSpan >= 0 && tempSpan <= 24) {
         tempClassesArray.push(`${classNamePrefix}-span-${tempSpan}`)
       } else {
-        console.error(new Error('Col: span 属性取值范围错误 ([0, 24])'))
+        console.error(new Error('神机：COl组件span属性取值范围错误 ([0, 24])'))
       }
     } else {
-      console.error(new Error('Col: span 属性类型错误 (number | string)'))
+      console.error(new Error('神机：Col组件span属性类型错误 (number | string)'))
     }
 
     const tempClassesObj = {
@@ -39,12 +39,12 @@ const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
             if (isVaildNumber(screenSizeValue[key])) {
               const tempValue = Number(screenSizeValue[key])
               if (tempValue < 0 || tempValue > 24) {
-                console.error(new Error(`Col: ${size} 属性 ${key} 字段取值范围错误 ([0, 24])`))
+                console.error(new Error(`神机：Col组件${size}属性${key}字段取值范围错误 ([0, 24])`))
               } else {
                 tempClassesArray.push(`${classNamePrefix}-${size}-${key}-${Number(screenSizeValue[key])}`)
               }
             } else {
-              console.error(new Error(`Col: ${size} 属性 ${key} 字段类型错误 (number | string | Record<string, number | string>)`))
+              console.error(new Error(`神机：Col组件${size}属性${key}字段类型错误 (number | string | Record<string, number | string>)`))
             }
           }
         })
@@ -53,10 +53,10 @@ const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
         if (tempSpan >= 0 && tempSpan <= 24) {
           tempClassesArray.push(`${classNamePrefix}-${size}-span-${tempSpan}`)
         } else {
-          console.error(new Error(`Col: ${size} 属性取值范围错误 ([0, 24])`))
+          console.error(new Error(`神机：Col组件${size}属性取值范围错误 ([0, 24])`))
         }
       } else if (screenSizeValue) {
-        console.error(new Error(`Col: ${size} 属性类型错误 (number | string | Record<string, number | string>)`))
+        console.error(new Error(`神机：Col组件${size}属性类型错误 (number | string | Record<string, number | string>)`))
       }
     })
 

@@ -1,6 +1,13 @@
 <template>
   <div :class="classes">
-    <input ref="sjCheckboxRef" type="checkbox" class="sj-checkbox-input" :autofocus="autofocus" v-model="checked" @change="handleChange" />
+    <input
+      ref="sjCheckboxRef"
+      type="checkbox"
+      class="sj-checkbox-input"
+      :autofocus="autofocus"
+      v-model="checked"
+      @change="handleChange"
+    />
     <div class="sj-checkbox-box">
       <transition name="sj-origin-scale">
         <div :class="checkedClasses" v-if="checked"></div>
@@ -71,16 +78,21 @@ const emit = defineEmits<IEmit>()
  */
 const isCheckboxGroupChild = isValidParent('sj-checkbox-group')
 const checked = ref<boolean>(!!props?.modelValue)
-watch(() => props?.modelValue, () => {
-  if (checked.value !== !!props?.modelValue) {
-    checked.value = !!props?.modelValue
+watch(
+  () => props?.modelValue,
+  () => {
+    if (checked.value !== !!props?.modelValue) {
+      checked.value = !!props?.modelValue
+    }
   }
-})
+)
 
 watchEffect(() => {
   if (!isCheckboxGroupChild) return
   if (!props?.value) {
-    console.error(new Error('value is required of checkbox in checkboxGroup'))
+    console.error(
+      new Error('神机：value is required of checkbox in checkboxGroup')
+    )
     return
   }
   const checkboxGroupValues = injects?.checkboxGroupProps?.value?.modelValue
@@ -92,7 +104,9 @@ watchEffect(() => {
 watch(checked, (val) => {
   if (!isCheckboxGroupChild) return
   if (!props?.value) {
-    console.error(new Error('value is required of checkbox in checkboxGroup'))
+    console.error(
+      new Error('神机：value is required of checkbox in checkboxGroup')
+    )
     return
   }
   if (val) {

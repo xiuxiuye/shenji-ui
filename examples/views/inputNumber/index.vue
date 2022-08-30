@@ -6,7 +6,13 @@
     <InputNumber size="large" />
   </div>
   <div class="demo">
-    <InputNumber size="normal" v-model="value" clearable autofocus max="6" min="-6" step="10" />
+    <InputNumber
+      size="normal"
+      v-model="value"
+      precision="2"
+      step="0.01"
+      @change="change"
+    />
   </div>
 </template>
 
@@ -19,6 +25,9 @@ export default {
 
 <script setup lang="ts">
 const value = ref(1)
+const change = (value) => {
+  console.log('change: ', value)
+}
 </script>
 
 <style lang="scss">

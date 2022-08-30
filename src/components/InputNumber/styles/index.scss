@@ -16,7 +16,7 @@
     border-radius: inherit;
     background-color: var(--sj-primary-background-color);
 
-    input[type="number"] {
+    input {
       align-self: stretch;
       flex-grow: 1;
       border-width: 0;
@@ -25,13 +25,6 @@
       font-size: inherit;
       font-family: inherit;
       background-color: transparent;
-      -moz-appearance: textfield;
-
-      /* 隐藏默认增减按钮 */ 
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-      }
 
       &:focus {
         outline-width: 0;
@@ -46,9 +39,21 @@
       border-color: var(--sj-primary-color);
       outline: 3px solid var(--sj-primary-focus-background-color);
 
-      input[type="number"] {
+      input {
         caret-color: var(--sj-primary-color);
       }
+    }
+
+    /* invalid value */
+    &-invalid-value {
+      input {
+        text-decoration: line-through;
+      }
+    }
+
+    /* no controls */
+    &-no-controls {
+      padding-right: 12px;
     }
 
     /* size */
@@ -98,16 +103,15 @@
         justify-content: center;
         align-items: center;
 
-        .sj-icon.up,
-        .sj-icon.down {
+        .sj-icon {
+          transform: scale(0.75);
           transition: all 0.2s ease-in-out;
-          font-size: var(--sj-font-size-small);
         }
 
         &:hover {
           .sj-icon {
             color: var(--sj-primary-color);
-            transform: scale(1.25);
+            transform: scale(1);
           }
         }
 
@@ -174,7 +178,7 @@
         border-color: var(--sj-success-color);
         outline-color: var(--sj-success-focus-background-color);
 
-        input[type="number"] {
+        input {
           caret-color: var(--sj-success-color);
         }
       }
@@ -191,7 +195,7 @@
         border-color: var(--sj-error-color);
         outline-color: var(--sj-error-focus-background-color);
 
-        input[type="number"] {
+        input {
           caret-color: var(--sj-error-color);
         }
       }
@@ -208,7 +212,7 @@
         border-color: var(--sj-warning-color);
         outline-color: var(--sj-warning-focus-background-color);
 
-        input[type="number"] {
+        input {
           caret-color: var(--sj-warning-color);
         }
       }

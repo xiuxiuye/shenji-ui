@@ -18,9 +18,12 @@ export interface IProps {
   controls?: boolean;
   addIcon?: string;
   minusIcon?: string;
-  formatter?: (value: number) => string;
+  formatter?: (value?: number) => string | undefined;
+  parser?: (value?: string) => number | undefined;
   keyboard?: boolean;
 }
+
+export type UseClasses = (classNamePrefix: string, props: IProps, isValidValue: ComputedRef<boolean>) => ComputedRef<Classes>;
 
 export type UseContainerClasses = (classNamePrefix: string, slots: Slots) => ComputedRef<Classes>;
 

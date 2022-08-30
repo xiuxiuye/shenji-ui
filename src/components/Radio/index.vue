@@ -67,7 +67,6 @@ const emit = defineEmits<IEmit>()
 /**
  * model-value
  */
-// const realChecked = ref<boolean>(false)
 const realValue = ref<string | number>('')
 watchEffect(() => {
   const radioGroupValue = injects?.radioGroupProps?.value?.realValue

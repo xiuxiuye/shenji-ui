@@ -33,6 +33,7 @@ const value = ref(['beijing', 'shenzhen'])
 const handleChange = (val) => {
   console.log(666, val)
 }
+
 // onMounted(() => {
 //   console.log(sonRef.value)
 //   sonRef.value.focus()

@@ -20,7 +20,7 @@ export default {
  */
 const isValid = isValidParent('sj-grid')
 if (!isValid) {
-  console.error(new Error('非法使用GridItem组件，请配合Grid组件使用'))
+  console.error(new Error('神机：非法使用GridItem组件，请配合Grid组件使用'))
 }
 
 /**
