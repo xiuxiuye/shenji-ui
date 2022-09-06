@@ -27,6 +27,12 @@ const handleChange = (v, e) => {
   console.log(v, e)
 }
 const myRadio = ref(null)
+onMounted(() => {
+  myRadio.value.focus()
+  setTimeout(() => {
+    myRadio.value.blur()
+  }, 3000)
+})
 </script>
 
 <style lang="scss">

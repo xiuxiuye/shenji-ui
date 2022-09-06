@@ -1,6 +1,5 @@
 <template>
   <div :class="conatinerClasses">
-    {{ realValue }}
     <slot name="prepend" v-if="slots?.prepend"></slot>
     <div :class="classes">
       <div :class="`${classNamePrefix}-prefix`" v-if="slots?.prefix || prefix">
@@ -27,12 +26,16 @@
         type="close-circle-fill"
         @click="handleClear"
       />
-      <div class="sj-input-number-control" v-if="controls">
-        <div :class="addClasses">
-          <Icon :type="addIcon" size="small" @click="handleAddNumber" />
+      <div :class="`${classNamePrefix}-controls`" v-if="controls">
+        <div :class="addControlClasses" @click="handleAddNumber">
+          <slot name="add-icon">
+            <Icon :type="addIcon" size="small" />
+          </slot>
         </div>
-        <div :class="minusClasses">
-          <Icon :type="minusIcon" size="small" @click="handleMinusNumber" />
+        <div :class="minusControlClasses" @click="handleMinusNumber">
+          <slot name="minus-icon">
+            <Icon :type="minusIcon" size="small" />
+          </slot>
         </div>
       </div>
     </div>
@@ -43,6 +46,8 @@
 <script lang="ts">
 import { ref, computed, useSlots, watch } from 'vue'
 import Icon from 'src/components/Icon'
+import sum from 'src/utils/sum'
+import minus from 'src/utils/minus'
 import toFixed from 'src/utils/toFixed'
 import isNumber from 'src/utils/isNumber'
 import isFunction from 'src/utils/isFunction'
@@ -50,6 +55,7 @@ import isVaildNumber from 'src/utils/isVaildNumber'
 import useClasses from './hooks/useClasses'
 import useControlClasses from './hooks/useControlClasses'
 import useConatinerClasses from './hooks/useContainerClasses'
+import type { IInputNumberRefExpose } from './types'
 const componentName = 'sj-input-number'
 export default {
   name: componentName
@@ -60,8 +66,8 @@ export default {
 /**
  * props
  */
-type Formatter = (value?: number) => string;
-type Parse = (value?: string) => number | undefined;
+type Formatter = (value: string) => string;
+type Parse = (value: string) => number | undefined;
 interface IProps {
   size?: 'small' | 'normal' | 'large';
   clearable?: boolean;
@@ -109,75 +115,12 @@ const slots = useSlots()
  */
 interface IEmit {
   (e: 'clear'): void;
-  (e: 'focus', event: Event): void;
-  (e: 'blur', event: Event): void;
+  (e: 'focus', event: FocusEvent): void;
+  (e: 'blur', event: FocusEvent): void;
   (e: 'change', value?: number): void;
   (e: 'update:modelValue', value?: number): void;
 }
 const emit = defineEmits<IEmit>()
-
-/**
- * formatter & parser
- */
-const isFormatted = computed<boolean>(
-  () => isFunction(props?.formatter) && isFunction(props?.parser)
-)
-
-/**
- * v-model
- */
-const realValue = ref<number | string>('')
-const preRealValue = ref<number | string>('')
-const isValidValue = computed<boolean>(() => isVaildNumber(realValue?.value))
-
-const setValuePrecision = (value?: number): string => {
-  if (value === undefined) return ''
-  return toFixed(
-    value,
-    isVaildNumber(props?.precision) ? +props?.precision : 0
-  )
-}
-
-const getFinalRealValue = (value?: number): string => {
-  console.log(value)
-  const preciseValue = setValuePrecision(value)
-  return isFormatted?.value
-    ? (props?.formatter as Formatter)(+preciseValue || undefined)
-    : preciseValue
-}
-/**
- * 根据外界的传进的值初始化实际的number值
- */
-watch(
-  () => props?.modelValue,
-  (newValue) => {
-    if (newValue === undefined) {
-      realValue.value = ''
-    } else if (isNumber(newValue)) {
-      realValue.value = getFinalRealValue(newValue)
-    } else {
-      console.error(
-        new Error('神机：InputNumber的modelValue(v-model)属性类型错误')
-      )
-    }
-  },
-  {
-    immediate: true
-  }
-)
-
-watch(realValue, (newValue, preValue) => {
-  if (isVaildNumber(newValue)) {
-    const changeValue = isFormatted?.value
-      ? (props?.parser as Parse)(newValue as string)
-      : newValue === ''
-        ? undefined
-        : +newValue
-    emit('change', changeValue)
-  } else if (isVaildNumber(preValue)) {
-    preRealValue.value = preValue
-  }
-})
 
 /**
  * max value & min value
@@ -190,6 +133,95 @@ const realMin = computed<number>(() =>
     ? +props?.min
     : -Infinity
 )
+
+/**
+ * step
+ */
+const realStep = computed<number>(() =>
+  isVaildNumber(props?.step) ? +props?.step : 1
+)
+
+/**
+ * formatter & parser
+ */
+const isFormatted = computed<boolean>(
+  () => isFunction(props?.formatter) && isFunction(props?.parser)
+)
+
+/**
+ * v-model
+ */
+const realValue = ref<string>('')
+const preRealValue = ref<string>('')
+const judgeValueValidity = (value?: number): boolean => {
+  if (value === undefined) return true
+  if (!isVaildNumber(value)) return false
+  if (isVaildNumber(props?.max) && value > realMax?.value) return false
+  if (isVaildNumber(props?.min) && value < realMin?.value) return false
+  return true
+}
+const isValidValue = computed<boolean>(() => {
+  const tempValue = recoverRealValue(realValue?.value)
+  return judgeValueValidity(tempValue)
+})
+
+const setValuePrecision = (value?: number): string => {
+  if (value === undefined) return ''
+  return toFixed(
+    value,
+    isVaildNumber(props?.precision) ? +props?.precision : 0
+  )
+}
+
+const getFinalRealValue = (value?: number): string => {
+  const preciseValue = setValuePrecision(value)
+  return isFormatted?.value
+    ? (props?.formatter as Formatter)(preciseValue)
+    : preciseValue
+}
+
+const recoverRealValue = (value: string): number | undefined => {
+  return isFormatted?.value
+    ? (props?.parser as Parse)(value)
+    : value === ''
+      ? undefined
+      : +value
+}
+/**
+ * 根据外界的传进的值初始化实际的number值
+ */
+watch(
+  () => props?.modelValue,
+  (newValue) => {
+    if (newValue === undefined || isNumber(newValue)) {
+      if (newValue !== recoverRealValue(realValue.value)) {
+        realValue.value = getFinalRealValue(newValue)
+      }
+    } else {
+      console.error(
+        new Error(
+          '神机：InputNumber的modelValue(v-model)类型错误，需number类型的数据。'
+        )
+      )
+    }
+  },
+  {
+    immediate: true
+  }
+)
+
+watch(realValue, (newValue, preValue) => {
+  if (isValidValue?.value) {
+    const changeValue = recoverRealValue(newValue)
+    emit('change', changeValue)
+    emit('update:modelValue', changeValue)
+  } else {
+    const tempValue = recoverRealValue(preValue)
+    if (judgeValueValidity(tempValue)) {
+      preRealValue.value = preValue
+    }
+  }
+})
 
 /**
  * add value & minus value
@@ -215,11 +247,13 @@ const handleAddNumber = () => {
       : realMin?.value > 0
         ? realMin?.value
         : 0
-  if (realValue?.value === '') {
-    realValue.value = resetValue
+  const tempValue = recoverRealValue(realValue?.value)
+  if (tempValue === undefined) {
+    realValue.value = `${resetValue}`
   } else {
-    const step = isVaildNumber(props?.step) ? +props?.step : 1
-    realValue.value = getFinalRealValue(+(+realValue.value + step).toFixed(+props?.precision))
+    realValue.value = getFinalRealValue(
+      Math.min(sum(tempValue, realStep?.value), realMax?.value)
+    )
   }
 }
 const handleMinusNumber = () => {
@@ -230,11 +264,13 @@ const handleMinusNumber = () => {
       : realMin?.value > 0
         ? realMin?.value
         : 0
-  if (realValue?.value === '') {
-    realValue.value = resetValue
+  const tempValue = recoverRealValue(realValue?.value)
+  if (tempValue === undefined) {
+    realValue.value = `${resetValue}`
   } else {
-    const step = isVaildNumber(props?.step) ? +props?.step : 1
-    realValue.value = getFinalRealValue(+(+realValue.value - step).toFixed(+props?.precision))
+    realValue.value = getFinalRealValue(
+      Math.max(minus(tempValue, realStep?.value), realMin?.value)
+    )
   }
 }
 
@@ -243,9 +279,9 @@ const handleMinusNumber = () => {
  */
 const classNamePrefix = componentName
 const classes = useClasses(classNamePrefix, props, isValidValue)
-const conatinerClasses = useConatinerClasses(classNamePrefix, slots)
-const addClasses = useControlClasses(classNamePrefix, 'add', isAddBtnDisabled)
-const minusClasses = useControlClasses(
+const conatinerClasses = useConatinerClasses(classNamePrefix, props, slots)
+const addControlClasses = useControlClasses(classNamePrefix, 'add', isAddBtnDisabled)
+const minusControlClasses = useControlClasses(
   classNamePrefix,
   'minus',
   isMinusDisabled
@@ -255,7 +291,7 @@ const minusClasses = useControlClasses(
  * clearable
  */
 const isClearBtnVisible = computed<boolean>(
-  () => props?.clearable && !!realValue?.value
+  () => props?.clearable && !!realValue?.value && !props?.disabled
 )
 const handleClear = () => {
   realValue.value = getFinalRealValue(undefined)
@@ -265,19 +301,56 @@ const handleClear = () => {
 /**
  * blur event
  */
-const handleBlur = (event: Event) => {
+const handleBlur = (event: FocusEvent) => {
+  const tempValue = recoverRealValue(realValue?.value)
   if (!isValidValue?.value) {
-    realValue.value = preRealValue?.value
+    if (isVaildNumber(tempValue)) {
+      if ((tempValue as number) > realMax?.value) {
+        realValue.value = getFinalRealValue(realMax?.value)
+      } else {
+        realValue.value = getFinalRealValue(realMin?.value)
+      }
+    } else {
+      realValue.value = preRealValue?.value
+    }
   } else {
-    const tempValue = realValue?.value === '' ? undefined : +realValue?.value
-    realValue.value = getFinalRealValue(tempValue)
+    const formattedValue = getFinalRealValue(tempValue)
+    if (formattedValue !== realValue?.value) {
+      realValue.value = formattedValue
+    }
   }
   emit('blur', event)
 }
 /**
  * focus event
  */
-const handleFocus = (event: Event) => {
+const handleFocus = (event: FocusEvent) => {
   emit('focus', event)
 }
+
+/**
+ * methods
+ */
+const sjInputNumberRef = ref(null)
+const focus = () => {
+  if (props.disabled) return
+  const dom: HTMLElement | null = sjInputNumberRef?.value
+  if (dom) {
+    (dom as HTMLElement)?.focus()
+  }
+}
+
+const blur = () => {
+  if (props.disabled) return
+  const dom: HTMLElement | null = sjInputNumberRef?.value
+  if (dom) {
+    (dom as HTMLElement)?.blur()
+  }
+}
+
+const exposeVars: IInputNumberRefExpose = {
+  focus,
+  blur
+}
+defineExpose(exposeVars)
 </script>

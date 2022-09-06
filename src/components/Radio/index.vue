@@ -17,6 +17,7 @@
 import { computed, ref, watchEffect } from 'vue'
 import useInject from './hooks/useInject'
 import useClasses from './hooks/useClasses'
+import type { IRadioRefExpose } from './types'
 const componentName = 'sj-radio'
 export default {
   name: componentName
@@ -108,11 +109,7 @@ const blur = () => {
   }
 }
 
-interface IExposeVars {
-  focus: () => void;
-  blur: () => void;
-}
-const exposeVars: IExposeVars = {
+const exposeVars: IRadioRefExpose = {
   focus,
   blur
 }

@@ -5,6 +5,24 @@
   align-items: center;
   border-radius: var(--sj-border-radius);
 
+  /* size */
+  @each $key,
+  $value in $input-size {
+    &-size-#{$key} {
+      height: map-get($value, "height");
+      font-size: map-get($value, "fontSize");
+
+      /* round */
+      &-round {
+        border-radius: map-get($value, "height");
+      }
+
+      .sj-icon {
+        font-size: inherit;
+      }
+    }
+  }
+
   .sj-input {
     flex-grow: 1;
     display: flex;
@@ -12,14 +30,16 @@
     box-sizing: border-box;
     border-style: solid;
     padding: 0 12px;
+    height: inherit;
+    font-size: inherit;
     border-color: var(--sj-border-color);
     border-radius: inherit;
     background-color: var(--sj-primary-background-color);
 
     input {
-      align-self: stretch;
       flex-grow: 1;
       border-width: 0;
+      margin-top: 3px;
       border-radius: inherit;
       box-sizing: inherit;
       font-size: inherit;
@@ -49,24 +69,6 @@
 
       input {
         caret-color: var(--sj-primary-color);
-      }
-    }
-
-    /* size */
-    @each $key,
-    $value in $input-size {
-      &-size-#{$key} {
-        height: map-get($value, "height");
-        font-size: map-get($value, "fontSize");
-
-        .sj-icon {
-          font-size: map-get($value, "fontSize");
-        }
-      }
-
-      /* round */
-      &-round {
-        border-radius: map-get($value, "height");
       }
     }
 
@@ -181,42 +183,46 @@
       margin-left: 4px;
       color: var(--sj-secondary-text-color);
     }
-
-    /* disabled */
-    &-disabled {
-      position: relative;
-      color: var(--sj-disable-color);
-      border-color: var(--sj-border-color);
-
-      input::-webkit-input-placeholder {
-        color: inherit;
-      }
-
-      * {
-        color: inherit;
-      }
-    }
   }
 
-   /* disabled */
-   &-disabled {
+  /* disabled */
+  &-disabled {
     position: relative;
 
     * {
       color: var(--sj-disable-color);
+      border-color: var(--sj-border-color);
+      background-color: transparent;
     }
 
-    &::after {
-      cursor: not-allowed;
-      content: '';
-      display: block;
+    .sj-input-disabled-mask {
       position: absolute;
       background-color: var(--sj-background-color);
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
+      z-index: 1;
     }
+  }
+
+  /* prepend label & append label */
+  .sj-input-prepend-label,
+  .sj-input-append-label {
+    box-sizing: border-box;
+    align-self: stretch;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    color: var(--sj-secondary-text-color);
+    border: 1px solid var(--sj-border-color);
+    background-color: var(--sj-table-header-background-color);
+  }
+  .sj-input-prepend-label {
+    border-right-width: 0;
+  }
+  .sj-input-append-label {
+    border-left-width: 0;
   }
 }
 
@@ -224,28 +230,28 @@
   display: flex;
 }
 
-.sj-input-group > * {
+.sj-input-group>* {
   border-radius: 0 !important;
   z-index: 0;
 }
 
-.sj-input-group > *:not(:first-child) {
+.sj-input-group>*:not(:first-child) {
   margin-left: -1px;
 }
 
-.sj-input-group > *:hover,
-.sj-input-group > *:active,
-.sj-input-group > *:focus,
-.sj-input-group > *:focus-within {
+.sj-input-group>*:hover,
+.sj-input-group>*:active,
+.sj-input-group>*:focus,
+.sj-input-group>*:focus-within {
   z-index: 1;
 }
 
-.sj-input-group > *:first-child {
+.sj-input-group>*:first-child {
   border-top-left-radius: var(--sj-border-radius) !important;
   border-bottom-left-radius: var(--sj-border-radius) !important;
 }
 
-.sj-input-group > *:last-child {
+.sj-input-group>*:last-child {
   border-top-right-radius: var(--sj-border-radius) !important;
   border-bottom-right-radius: var(--sj-border-radius) !important;
 }

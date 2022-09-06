@@ -44,7 +44,7 @@ describe('Input组件单元测试', () => {
             size: 'normal'
           }
         })
-        expect(wrapper.find('.sj-input-size-normal').exists()).toBe(true)
+        expect(wrapper.classes()).toContain('sj-input-container-size-normal')
       })
       it('size="small"', () => {
         const wrapper = mount(Input, {
@@ -52,7 +52,7 @@ describe('Input组件单元测试', () => {
             size: 'small'
           }
         })
-        expect(wrapper.find('.sj-input-size-small').exists()).toBe(true)
+        expect(wrapper.classes()).toContain('sj-input-container-size-small')
       })
       it('size="large"', () => {
         const wrapper = mount(Input, {
@@ -60,7 +60,7 @@ describe('Input组件单元测试', () => {
             size: 'large'
           }
         })
-        expect(wrapper.find('.sj-input-size-large').exists()).toBe(true)
+        expect(wrapper.classes()).toContain('sj-input-container-size-large')
       })
     })
 
@@ -68,18 +68,11 @@ describe('Input组件单元测试', () => {
       it('round=true', () => {
         const wrapper = mount(Input, {
           propsData: {
-            round: true
+            round: true,
+            size: 'small'
           }
         })
-        expect(wrapper.find('.sj-input-round').exists()).toBe(true)
-      })
-      it('round=false', () => {
-        const wrapper = mount(Input, {
-          propsData: {
-            round: false
-          }
-        })
-        expect(wrapper.find('.sj-input-round').exists()).toBe(false)
+        expect(wrapper.classes()).toContain('sj-input-container-size-small-round')
       })
     })
 
@@ -104,6 +97,27 @@ describe('Input组件单元测试', () => {
         })
         expect(wrapper.find('.sj-input > .sj-input-suffix').exists()).toBe(true)
         expect(wrapper.find('.sj-input-suffix > i').classes()).toContain('search')
+      })
+    })
+
+    describe('prepend属性', () => {
+      it('prepend="search"', () => {
+        const wrapper = mount(Input, {
+          propsData: {
+            prepend: 'search'
+          }
+        })
+        expect(wrapper.find('.sj-input-prepend-label').text()).toBe('search')
+      })
+    })
+    describe('append属性', () => {
+      it('append="search"', () => {
+        const wrapper = mount(Input, {
+          propsData: {
+            append: 'search'
+          }
+        })
+        expect(wrapper.find('.sj-input-append-label').text()).toBe('search')
       })
     })
 
@@ -186,7 +200,6 @@ describe('Input组件单元测试', () => {
           }
         })
         expect(wrapper.classes()).toContain('sj-input-container-disabled')
-        expect(wrapper.find('.sj-input-disabled').exists()).toBe(true)
       })
     })
 

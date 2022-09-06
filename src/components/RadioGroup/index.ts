@@ -1,5 +1,7 @@
 import withInstall from 'src/utils/withInstall'
-import CheckboxGroup from './index.vue'
+import RadioGroup from './index.vue'
 import './styles'
 
-export default withInstall(CheckboxGroup)
+export type { IProps as IRadioGroupProps } from './types'
+
+export default withInstall(RadioGroup)

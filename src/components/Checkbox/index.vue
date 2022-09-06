@@ -26,6 +26,7 @@ import useInject from './hooks/useInject'
 import useClasses from './hooks/useClasses'
 import useCheckedClasses from './hooks/useCheckedClasses'
 import isValidParent from 'src/utils/isValidParent'
+import type { ICheckboxRefExpose } from './types'
 const componentName = 'sj-checkbox'
 export default {
   name: componentName
@@ -141,11 +142,7 @@ const blur = () => {
   }
 }
 
-interface IExposeVars {
-  focus: () => void;
-  blur: () => void;
-}
-const exposeVars: IExposeVars = {
+const exposeVars: ICheckboxRefExpose = {
   focus,
   blur
 }

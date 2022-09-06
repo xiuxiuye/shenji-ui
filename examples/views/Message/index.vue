@@ -12,8 +12,10 @@ let count = 1
 export default {
   methods: {
     all () {
-      this.$message.error({
-        content: '3333333333'
+      this.$message.create({
+        content: '3333333333',
+        icon: 'search',
+        iconColor: '#ff0000'
       })
     },
     add () {

@@ -5,9 +5,9 @@ import { Classes } from 'src/types/global'
 const useControlClasses: UseControlClasses = (classNamePrefix, type, disabled) => {
   const classes = computed<Classes>(() => {
     return [
-      `${classNamePrefix}-control-${type}`,
+      `${classNamePrefix}-controls-${type}`,
       {
-        [`${classNamePrefix}-control-${type}-disabled`]: disabled?.value
+        [`${classNamePrefix}-controls-${type}-disabled`]: disabled?.value
       }
     ]
   })

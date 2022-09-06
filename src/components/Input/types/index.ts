@@ -21,6 +21,8 @@ export interface IProps {
   value?: string;
   border?: 'none' | 'line' | 'block';
   placeholder?: string;
+  prepend?: string;
+  append?: string;
 }
 
 export interface IInputRefExpose {
@@ -28,5 +30,4 @@ export interface IInputRefExpose {
   blur: () => void;
 }
 
-export type UseSearchClasses<IProps> = (classNamePrefix: string, props: IProps) => Record<string, ComputedRef<Classes>>;
-export type UseContainerClasses<IProps> = (classNamePrefix: string, props: IProps, slots: Slots) => ComputedRef<Classes>;
+export type UseContainerClasses = (classNamePrefix: string, props: IProps, slots: Slots) => ComputedRef<Classes>;

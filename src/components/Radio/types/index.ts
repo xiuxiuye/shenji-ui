@@ -10,6 +10,11 @@ export interface IProps {
   value?: string | number;
 }
 
+export interface IRadioRefExpose {
+  focus: () => void;
+  blur: () => void;
+}
+
 export type UseClasses = (classNamePrefix: string, props: IProps, radioGroupProps?: ComputedRef<ProvideProps>) => ComputedRef<Classes>;
 
 interface UserInjectReturn {

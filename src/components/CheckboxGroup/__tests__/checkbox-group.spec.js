@@ -20,7 +20,7 @@ describe('CheckboxGroup组件单元测试', () => {
         default: <Checkbox>Checkbox1</Checkbox>
       }
     })
-    const expectErrorMsg = 'Error: value is required of checkbox in checkboxGroup'
+    const expectErrorMsg = 'Error: 神机：value is required of checkbox in checkboxGroup'
     expect(actualErrorMsg).toBe(expectErrorMsg)
   })
 

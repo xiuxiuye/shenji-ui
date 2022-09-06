@@ -1,9 +1,11 @@
 <template>
   <Input size="normal" round />
   <div class="wrapper">
-    <Input size="small" round />
-    <Input size="normal" round />
-    <Input size="large" round />
+    <Input prefix="user" suffix="gift" size="small" round />
+    <br />
+    <Input prefix="user" suffix="gift" size="normal" round />
+    <br />
+    <Input prefix="user" suffix="gift" size="large" round />
   </div>
   <div class="wrapper">
     <Input prefix="user" border="none" model-value="none-border" />
@@ -17,28 +19,61 @@
   </div>
   <div class="wrapper">
     <InputGroup>
-      <Input size="normal" prefix="user" suffix="gift" />
-      <Input size="normal" prefix="user" suffix="gift" v-model="test" :password="isPassword" clearable search
-        search-button search-button-text="123" loading />
-      <Input size="normal" prefix="user" suffix="gift" />
+      <Input
+        size="normal"
+        prefix="user"
+        suffix="gift"
+        v-model="test"
+        :password="isPassword"
+        clearable
+        search
+      >
+      </Input>
+      <Input>
+        <template #prepend>
+          <Button type="normal">Search1</Button>
+          <Button type="normal">Search1</Button>
+        </template>
+        <template #append>
+          <Button type="normal">Search2</Button>
+        </template>
+        <template #search-button>
+          <Button>Custom Search Btn</Button>
+        </template>
+      </Input>
+      <InputNumber />
     </InputGroup>
   </div>
   <div class="wrapper">
-    <Input ref="sonRef" prefix="user" suffix="gift" autofocus show-length max-length="10" v-model="test"
-      :password="isPassword" clearable search search-button :show-search="showSearch" :loading="loading"
-      :search-place="place" @clear="handleClear" @search="handleSearch" @focus="handleFocus" @blur="handleBlur"
-      @change="handleChange" @input="handleInput" placeholder="请输入自定义提示">
-    <template #prepend>
-      <Button type="normal">Search1</Button>
-    </template>
-    <template #append>
-      <Button type="normal">Search2</Button>
-    </template>
-    <template #search-button>
-      <Button>Custom Search Btn</Button>
-    </template>
+    <Input
+      ref="sonRef"
+      round
+      prefix="user"
+      suffix="gift"
+      autofocus
+      :disabled="true"
+      show-length
+      max-length="100"
+      v-model="test"
+      :password="isPassword"
+      clearable
+      :loading="loading"
+      :search-place="place"
+      @clear="handleClear"
+      @search="handleSearch"
+      @focus="handleFocus"
+      @blur="handleBlur"
+      @change="handleChange"
+      @input="handleInput"
+      placeholder="请输入自定义提示"
+    >
+      <template #prepend>
+        <Input />
+      </template>
+      <template #append>
+        <Button type="primary">Search</Button>
+      </template>
     </Input>
-    {{ test }}
   </div>
 </template>
 
@@ -50,7 +85,7 @@ export default {
   data () {
     return {
       test: '',
-      isPassword: true,
+      isPassword: false,
       place: 'after',
       loading: false,
       showSearch: true
@@ -92,7 +127,6 @@ export default {
 <style lang="scss">
 .wrapper {
   padding: 16px;
-  width: 960px;
   display: inline-block;
 }
 </style>

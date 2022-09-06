@@ -52,21 +52,35 @@ export type AddMessage = (message: Message) => void;
 
 export type CreateMessageId = () => string;
 
-export type CreateMessage = (options: ICreateOptions) => Pick<IMessage, 'destroyed'>;
+type CreateMethod<T> = (options: T) => Pick<IMessage, 'destroyed'>;
 
-export type HandleCreatingMessage = (options: ICreateOptions | string, icon?: string, iconColor?: string) => Pick<IMessage, 'destroyed'>;
+export type CreateMessage = CreateMethod<ICreateOptions>;
 
-export type Create = CreateMessage;
+export type CreateOptions = ICreateOptions | string;
 
-export type Info = (options: Omit<ICreateOptions, 'icon' | 'iconColor'> | string) => Pick<IMessage, 'destroyed'>;
+export type HandleCreatingMessage = (options: CreateOptions, icon?: string, iconColor?: string) => Pick<IMessage, 'destroyed'>;
 
-export type Success = Info;
+export type Create = CreateMethod<CreateOptions>;
 
-export type Error = Info;
+export type InfoOptions = Omit<ICreateOptions, 'icon' | 'iconColor'> | string;
 
-export type Warning = Info;
+export type Info = CreateMethod<InfoOptions>;
 
-export type Loading = Info;
+export type SuccessOptions = InfoOptions;
+
+export type Success = CreateMethod<SuccessOptions>;
+
+export type ErrorOptions = InfoOptions;
+
+export type Error = CreateMethod<ErrorOptions>;
+
+export type WarningOptions = InfoOptions;
+
+export type Warning = CreateMethod<WarningOptions>;
+
+export type LoadingOptions = InfoOptions;
+
+export type Loading = CreateMethod<LoadingOptions>;
 
 export interface IMessageProvider {
   create: Create;

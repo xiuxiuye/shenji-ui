@@ -27,7 +27,7 @@ describe('Col组件单元测试', () => {
       err.call(null, error)
     }
     mount(Col)
-    const expectErrorMsg = 'Error: 非法使用Col组件，请配合Row组件使用'
+    const expectErrorMsg = 'Error: 神机：非法使用Col组件，请配合Row组件使用'
     expect(actualErrorMsg).toBe(expectErrorMsg)
   })
 

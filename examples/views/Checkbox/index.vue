@@ -34,15 +34,15 @@ const handleChange = (val) => {
   console.log(666, val)
 }
 
-// onMounted(() => {
-//   console.log(sonRef.value)
-//   sonRef.value.focus()
-//   setTimeout(() => {
-//     sonRef.value.blur()
-//     disabled.value = false
-//     value.value = ['shanghai']
-//   }, 3000)
-// })
+onMounted(() => {
+  // console.log(sonRef.value)
+  sonRef.value.focus()
+  setTimeout(() => {
+    sonRef.value.blur()
+    // disabled.value = false
+    // value.value = ['shanghai']
+  }, 3000)
+})
 </script>
 
 <style lang="scss">

@@ -9,6 +9,11 @@ export interface IProps {
   indeterminate?: boolean;
 }
 
+export interface ICheckboxRefExpose {
+  focus: () => void;
+  blur: () => void;
+}
+
 export type UseClasses = (classNamePrefix: string, props: IProps, checkboxGroupProps?: ComputedRef<ProvideProps>) => ComputedRef<Classes>;
 
 interface UserInjectReturn {

@@ -1,4 +1,4 @@
-import { Ref, ComputedRef, StyleValue, CommonSize } from 'src/types/global'
+import { ComputedRef, StyleValue, CommonSize } from 'src/types/global'
 
 export interface IProps {
   bordered?: boolean;

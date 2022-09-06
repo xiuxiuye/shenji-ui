@@ -8,10 +8,7 @@ const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
       classNamePrefix,
       {
         [`${classNamePrefix}-border-${props?.border}`]: !!props?.border,
-        [`${classNamePrefix}-size-${props?.size}`]: !!props?.size,
-        [`${classNamePrefix}-round`]: props?.round,
-        [`${classNamePrefix}-status-${props?.status}`]: props?.status,
-        [`${classNamePrefix}-disabled`]: props?.disabled
+        [`${classNamePrefix}-status-${props?.status}`]: props?.status
       }
     ]
   })
