@@ -1,11 +1,29 @@
 @import './var.scss';
 
 .sj-input-number-container {
+  flex-grow: 1;
   display: flex;
   align-items: center;
   border-radius: var(--sj-border-radius);
+  color: var(--sj-primary-text-color);
+
+  /* size */
+  @each $key,
+  $value in $sj-input-number-size {
+    &-size-#{$key} {
+      height: map-get($value, "height");
+      font-size: map-get($value, "fontSize");
+
+      .sj-icon {
+        font-size: inherit;
+      }
+    }
+  }
 
   .sj-input-number {
+    font-size: inherit;
+    font-family: inherit;
+    align-self: stretch;
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -17,7 +35,6 @@
     background-color: var(--sj-primary-background-color);
 
     input {
-      align-self: stretch;
       flex-grow: 1;
       border-width: 0;
       border-radius: inherit;
@@ -54,24 +71,6 @@
     /* no controls */
     &-no-controls {
       padding-right: 12px;
-    }
-
-    /* size */
-    @each $key,
-    $value in $input-number-size {
-      &-size-#{$key} {
-        height: map-get($value, "height");
-        font-size: map-get($value, "fontSize");
-
-        .sj-icon {
-          font-size: map-get($value, "fontSize");
-        }
-      }
-
-      /* round */
-      &-round {
-        border-radius: map-get($value, "height");
-      }
     }
 
     /* clearable */
@@ -126,6 +125,7 @@
 
         &-disabled {
           cursor: not-allowed;
+
           .sj-icon {
             color: var(--sj-disable-color);
           }
@@ -176,53 +176,22 @@
     }
 
     /* status */
-    &-status-success {
-      border-color: var(--sj-success-color);
+    @each $key,
+    $value in $sj-input-number-status {
+      &-status-#{$key} {
+        border-color: map-get($value, "border-color");
 
-      &:hover {
-        border-color: var(--sj-success-color);
-      }
-
-      &:focus-within {
-        border-color: var(--sj-success-color);
-        outline-color: var(--sj-success-focus-background-color);
-
-        input {
-          caret-color: var(--sj-success-color);
+        &:hover {
+          border-color: map-get($value, "border-color-hover");
         }
-      }
-    }
 
-    &-status-error {
-      border-color: var(--sj-error-color);
+        &:focus-within {
+          border-color: map-get($value, "border-color-focus");
+          outline-color: map-get($value, "outline-color-foucs");
 
-      &:hover {
-        border-color: var(--sj-error-color);
-      }
-
-      &:focus-within {
-        border-color: var(--sj-error-color);
-        outline-color: var(--sj-error-focus-background-color);
-
-        input {
-          caret-color: var(--sj-error-color);
-        }
-      }
-    }
-
-    &-status-warning {
-      border-color: var(--sj-warning-color);
-
-      &:hover {
-        border-color: var(--sj-warning-color);
-      }
-
-      &:focus-within {
-        border-color: var(--sj-warning-color);
-        outline-color: var(--sj-warning-focus-background-color);
-
-        input {
-          caret-color: var(--sj-warning-color);
+          input {
+            caret-color: map-get($value, "border-color");
+          }
         }
       }
     }
@@ -234,48 +203,19 @@
 
     * {
       color: var(--sj-disable-color);
+      border-color: var(--sj-border-color);
+      background-color: transparent;
     }
 
-    &::after {
+    .sj-input-number-disabled-mask {
       cursor: not-allowed;
-      content: '';
-      display: block;
+      width: 100%;
+      height: 100%;
       position: absolute;
-      background-color: var(--sj-background-color);
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
+      z-index: 1;
+      background-color: var(--sj-background-color);
     }
   }
-}
-
-.sj-input-number-group {
-  display: flex;
-}
-
-.sj-input-number-group>* {
-  border-radius: 0 !important;
-  z-index: 0;
-}
-
-.sj-input-number-group>*:not(:first-child) {
-  margin-left: -1px;
-}
-
-.sj-input-number-group>*:hover,
-.sj-input-number-group>*:active,
-.sj-input-number-group>*:focus,
-.sj-input-number-group>*:focus-within {
-  z-index: 1;
-}
-
-.sj-input-number-group>*:first-child {
-  border-top-left-radius: var(--sj-border-radius) !important;
-  border-bottom-left-radius: var(--sj-border-radius) !important;
-}
-
-.sj-input-number-group>*:last-child {
-  border-top-right-radius: var(--sj-border-radius) !important;
-  border-bottom-right-radius: var(--sj-border-radius) !important;
 }

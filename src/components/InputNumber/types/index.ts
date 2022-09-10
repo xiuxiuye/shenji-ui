@@ -1,4 +1,4 @@
-import type { ComputedRef, Classes, CommonSize, Ref, Slots } from 'src/types/global'
+import type { ComputedRef, Classes, CommonSize, Ref } from 'src/types/global'
 
 type Formatter = (value: string) => string;
 type Parse = (value: string) => number | undefined;
@@ -33,6 +33,6 @@ export interface IInputNumberRefExpose {
 
 export type UseClasses = (classNamePrefix: string, props: IProps, isValidValue: ComputedRef<boolean>) => ComputedRef<Classes>;
 
-export type UseContainerClasses = (classNamePrefix: string, props: IProps, slots: Slots) => ComputedRef<Classes>;
+export type UseContainerClasses = (classNamePrefix: string, props: IProps) => ComputedRef<Classes>;
 
 export type UseControlClasses = (classNamePrefix: string, type: 'add' | 'minus', disabled: Ref<boolean>) => ComputedRef<Classes>;

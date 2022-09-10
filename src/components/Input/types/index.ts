@@ -1,4 +1,4 @@
-import type { ComputedRef, Classes, Slots, CommonSize } from 'src/types/global'
+import type { ComputedRef, Classes, CommonSize } from 'src/types/global'
 
 export interface IProps {
   clearable?: boolean;
@@ -21,8 +21,6 @@ export interface IProps {
   value?: string;
   border?: 'none' | 'line' | 'block';
   placeholder?: string;
-  prepend?: string;
-  append?: string;
 }
 
 export interface IInputRefExpose {
@@ -30,4 +28,4 @@ export interface IInputRefExpose {
   blur: () => void;
 }
 
-export type UseContainerClasses = (classNamePrefix: string, props: IProps, slots: Slots) => ComputedRef<Classes>;
+export type UseContainerClasses = (classNamePrefix: string, props: IProps, searchBtnVisible: ComputedRef<boolean>) => ComputedRef<Classes>;

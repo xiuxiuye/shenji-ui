@@ -78,8 +78,6 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted } from 'vue'
-import InputGroup from '../../../src/components/Input/InputGroup.vue'
 export default {
   name: '',
   data () {
@@ -119,8 +117,7 @@ export default {
     // setInterval(() => {
     // }, 3000)
     console.log(333, this.$refs.sonRef)
-  },
-  components: { InputGroup }
+  }
 }
 </script>
 

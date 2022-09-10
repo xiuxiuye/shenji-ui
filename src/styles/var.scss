@@ -32,3 +32,41 @@
   /* font-family */
   --sj-font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
 }
+
+$sj-size: (
+  normal: (
+    height: var(--sj-height-normal),
+    fontSize: var(--sj-font-size-normal)
+  ),
+  small: (
+    height: var(--sj-height-small),
+    fontSize: var(--sj-font-size-small)
+  ),
+  large: (
+    height: var(--sj-height-large),
+    fontSize: var(--sj-font-size-large)
+  )
+);
+
+$sj-input-status: (
+  success: (
+    border-color: var(--sj-success-color),
+    border-color-hover: var(--sj-success-hover-color),
+    border-color-focus: var(--sj-success-active-color),
+    outline-color-foucs: var(--sj-success-focus-background-color),
+  ),
+  error: (
+    border-color: var(--sj-error-color),
+    border-color-hover: var(--sj-error-hover-color),
+    border-color-focus: var(--sj-error-active-color),
+    outline-color-foucs: var(--sj-error-focus-background-color),
+  ),
+  warning: (
+    border-color: var(--sj-warning-color),
+    border-color-hover: var(--sj-warning-hover-color),
+    border-color-focus: var(--sj-warning-active-color),
+    outline-color-foucs: var(--sj-warning-focus-background-color),
+  ),
+);
+
+// 过一遍所有的css 把通用的变量，样式抽一下

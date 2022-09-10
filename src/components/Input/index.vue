@@ -1,8 +1,5 @@
 <template>
   <div :class="conatinerClasses" @keypress.enter="handleSearch">
-    <slot name="prepend" v-if="isPrependVisible">
-      <div :class="`${classNamePrefix}-prepend-label`">{{ prepend }}</div>
-    </slot>
     <div :class="`${classNamePrefix}-disabled-mask`" v-if="disabled"></div>
     <div :class="classes">
       <div :class="`${classNamePrefix}-prefix`" v-if="slots?.prefix || prefix">
@@ -45,26 +42,25 @@
         @click="handleClear"
       />
       <Icon
-        v-if="isSearchIconExist"
+        v-if="isSearchIconVisible"
         :class="`${classNamePrefix}-search-icon`"
         :type="searchIcon"
         @click="handleSearch"
       />
     </div>
-    <slot name="search-button" v-if="isSearchBtnExist">
-      <Button
-        type="primary"
-        :loading="loading"
-        :size="size"
-        @click="handleSearch"
-      >
-        <template v-if="searchButtonText">{{ searchButtonText }}</template>
-        <Icon v-else-if="!loading" type="search" />
-      </Button>
-    </slot>
-    <slot name="append" v-if="isAppendVisible">
-      <div :class="`${classNamePrefix}-append-label`">{{ append }}</div>
-    </slot>
+    <div :class="`${classNamePrefix}-search-button`" v-if="isSearchBtnVisible">
+      <slot name="search-button">
+        <Button
+          type="primary"
+          :loading="loading"
+          :size="size"
+          @click="handleSearch"
+        >
+          <template v-if="searchButtonText">{{ searchButtonText }}</template>
+          <Icon v-else-if="!loading" type="search" />
+        </Button>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -104,11 +100,9 @@ interface IProps {
   showLength?: boolean;
   status?: 'success' | 'warning' | 'error';
   autofocus?: boolean;
-  modelValue?: string;
+  modelValue?: string | number;
   border?: 'none' | 'line' | 'block';
   placeholder?: string;
-  prepend?: string;
-  append?: string;
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -132,23 +126,6 @@ const props = withDefaults(defineProps<IProps>(), {
  * slots
  */
 const slots = useSlots()
-
-/**
- * append & prepend
- */
-const isPrependVisible = computed<boolean>(
-  () => !!slots?.prepend || !!props?.prepend
-)
-const isAppendVisible = computed<boolean>(
-  () => !!slots?.append || !!props?.append
-)
-
-/**
- * classes
- */
-const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props)
-const conatinerClasses = useConatinerClasses(classNamePrefix, props, slots)
 
 /**
  * emit
@@ -183,7 +160,7 @@ const realMaxLength = computed<number>(() =>
  */
 const realValue = ref<string>('')
 watchEffect(() => {
-  realValue.value = props?.modelValue || ''
+  realValue.value = props?.modelValue as string || ''
 })
 watch(realValue, () => {
   emit('update:modelValue', realValue.value)
@@ -217,10 +194,10 @@ const handlePassword = () => {
 /**
  * search
  */
-const isSearchIconExist = computed<boolean>(
+const isSearchIconVisible = computed<boolean>(
   () => props?.search && !props?.searchButton && props?.showSearch
 )
-const isSearchBtnExist = computed<boolean>(
+const isSearchBtnVisible = computed<boolean>(
   () => props?.search && props?.searchButton && props?.showSearch
 )
 const searchIcon = computed<string>(() =>
@@ -230,6 +207,13 @@ const handleSearch = () => {
   if (!props?.search || props?.loading) return
   emit('search', realValue?.value)
 }
+
+/**
+ * classes
+ */
+const classNamePrefix = componentName
+const classes = useClasses(classNamePrefix, props)
+const conatinerClasses = useConatinerClasses(classNamePrefix, props, isSearchBtnVisible)
 
 /**
  * focus

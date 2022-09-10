@@ -1,14 +1,5 @@
-$input-size: (
-  normal: (
-    height: var(--sj-height-normal),
-    fontSize: var(--sj-font-size-normal)
-  ),
-  small: (
-    height: var(--sj-height-small),
-    fontSize: var(--sj-font-size-small)
-  ),
-  large: (
-    height: var(--sj-height-large),
-    fontSize: var(--sj-font-size-large)
-  )
-);
+@import 'src/styles/var.scss';
+
+$sj-input-size: $sj-size;
+
+$sj-input-status: $sj-input-status;

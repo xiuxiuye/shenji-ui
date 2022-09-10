@@ -8,9 +8,7 @@ const useClasses: UseClasses = (classNamePrefix, props, isValidValue) => {
       classNamePrefix,
       {
         [`${classNamePrefix}-border-${props?.border}`]: !!props?.border,
-        [`${classNamePrefix}-size-${props?.size}`]: !!props?.size,
         [`${classNamePrefix}-status-${props?.status}`]: props?.status,
-        [`${classNamePrefix}-disabled`]: props?.disabled,
         [`${classNamePrefix}-no-controls`]: !props?.controls,
         [`${classNamePrefix}-invalid-value`]: !isValidValue?.value
       }

@@ -1,37 +1,49 @@
 <template>
   <div class="demo">
     <h3>Size</h3>
-    <InputNumber size="small" />
-    <InputNumber size="normal" />
-    <InputNumber size="large" />
+    <!-- <InputNumber
+      status="warning"
+      prefix="user"
+      size="small"
+      precision="2"
+      v-model="value"
+    /><br />
+    <InputNumber
+      status="error"
+      prefix="user"
+      size="normal"
+      precision="2"
+      v-model="value"
+    /><br />
+    <InputNumber
+      status="success"
+      prefix="user"
+      suffix="lock"
+      size="large"
+      precision="2"
+      v-model="value"
+      prepend="https://"
+      append=".com"
+    /><br /> -->
+    <Input prefix="user" size="large" v-model="value" />
   </div>
   <div class="demo">
     <InputGroup>
-      <Button>Default</Button>
-      <InputNumber
-        ref="myInputNumber"
-        size="normal"
-        v-model="value"
-        precision="2"
-        min="-2"
-        max="2"
-        step="0.1"
-        clearable
-        @change="change"
-        :disabled="true"
-        :controls="true"
-      >
-        <template #prefix> 人民币 </template>
-        <template #suffix> 元 </template>
-        <template #prepend>
-          <Button search>Search</Button>
+      <Input prefix="user" suffix="lock" search search-button >
+        <template #search-button>
+          <Button>
+            <Icon type="loading-a" />
+          </Button>
         </template>
-        <template #append>
-          <Input />
-          <InputNumber />
+      </Input>
+      <InputNumber prefix="user" suffix="lock" />
+      <Input prefix="user" suffix="lock" search search-button search-button-text="Search" />
+      <InputNumber prefix="user" suffix="lock" />
+      <Input prefix="user" suffix="lock" search search-button >
+        <template #search-button>
+          <Button type="error">Error</Button>
         </template>
-      </InputNumber>
-      <Input />
+      </Input>
     </InputGroup>
   </div>
   {{ value }}
@@ -45,7 +57,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-const value = ref(0.01)
+const value = ref(2.22)
 const change = (value) => {
   console.log('change: ', value)
 }

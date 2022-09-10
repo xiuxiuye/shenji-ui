@@ -43,8 +43,10 @@ export type { ILoadingProps } from './Loading'
 export { default as Tag } from './Tag'
 export type { ITagProps } from './Tag'
 
-export { default as Input, InputGroup } from './Input'
+export { default as Input } from './Input'
 export type { IInputProps, IInputRefExpose } from './Input'
+
+export { default as InputGroup, InputGroupLabel } from './InputGroup'
 
 export { default as Checkbox } from './Checkbox'
 export type { ICheckboxProps, ICheckboxRefExpose } from './Checkbox'

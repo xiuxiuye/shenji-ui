@@ -2,7 +2,6 @@ import { mount } from '@vue/test-utils'
 import Input from 'src/components/Input/index.vue'
 import Icon from 'src/components/Icon/index.vue'
 import Button from 'src/components/Button/index.vue'
-import InputGroup from 'src/components/Input/InputGroup.vue'
 
 describe('Input组件单元测试', () => {
   it('是否是Vue组件实例', () => {

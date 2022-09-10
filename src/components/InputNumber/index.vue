@@ -1,6 +1,6 @@
 <template>
   <div :class="conatinerClasses">
-    <slot name="prepend" v-if="slots?.prepend"></slot>
+    <div :class="`${classNamePrefix}-disabled-mask`" v-if="disabled"></div>
     <div :class="classes">
       <div :class="`${classNamePrefix}-prefix`" v-if="slots?.prefix || prefix">
         <slot name="prefix">
@@ -39,7 +39,6 @@
         </div>
       </div>
     </div>
-    <slot name="append" v-if="slots?.append"></slot>
   </div>
 </template>
 
@@ -279,8 +278,12 @@ const handleMinusNumber = () => {
  */
 const classNamePrefix = componentName
 const classes = useClasses(classNamePrefix, props, isValidValue)
-const conatinerClasses = useConatinerClasses(classNamePrefix, props, slots)
-const addControlClasses = useControlClasses(classNamePrefix, 'add', isAddBtnDisabled)
+const conatinerClasses = useConatinerClasses(classNamePrefix, props)
+const addControlClasses = useControlClasses(
+  classNamePrefix,
+  'add',
+  isAddBtnDisabled
+)
 const minusControlClasses = useControlClasses(
   classNamePrefix,
   'minus',

@@ -1,13 +1,15 @@
 @import './var.scss';
 
 .sj-input-container {
+  flex-grow: 1;
   display: flex;
   align-items: center;
   border-radius: var(--sj-border-radius);
+  color: var(--sj-primary-text-color);
 
   /* size */
   @each $key,
-  $value in $input-size {
+  $value in $sj-input-size {
     &-size-#{$key} {
       height: map-get($value, "height");
       font-size: map-get($value, "fontSize");
@@ -24,14 +26,15 @@
   }
 
   .sj-input {
+    font-size: inherit;
+    font-family: inherit;
+    align-self: stretch;
     flex-grow: 1;
     display: flex;
     align-items: center;
     box-sizing: border-box;
     border-style: solid;
     padding: 0 12px;
-    height: inherit;
-    font-size: inherit;
     border-color: var(--sj-border-color);
     border-radius: inherit;
     background-color: var(--sj-primary-background-color);
@@ -39,10 +42,10 @@
     input {
       flex-grow: 1;
       border-width: 0;
-      margin-top: 3px;
       border-radius: inherit;
       box-sizing: inherit;
       font-size: inherit;
+      font-family: inherit;
       background-color: transparent;
 
       /* ie */
@@ -70,6 +73,11 @@
       input {
         caret-color: var(--sj-primary-color);
       }
+    }
+
+    &:hover,
+    &:focus-within {
+      z-index: 1;
     }
 
     /* border */
@@ -127,53 +135,22 @@
     }
 
     /* status */
-    &-status-success {
-      border-color: var(--sj-success-color);
+    @each $key,
+    $value in $sj-input-status {
+      &-status-#{$key} {
+        border-color: map-get($value, "border-color");
 
-      &:hover {
-        border-color: var(--sj-success-color);
-      }
-
-      &:focus-within {
-        border-color: var(--sj-success-color);
-        outline-color: var(--sj-success-focus-background-color);
-
-        input {
-          caret-color: var(--sj-success-color);
+        &:hover {
+          border-color: map-get($value, "border-color-hover");
         }
-      }
-    }
 
-    &-status-error {
-      border-color: var(--sj-error-color);
+        &:focus-within {
+          border-color: map-get($value, "border-color-focus");
+          outline-color: map-get($value, "outline-color-foucs");
 
-      &:hover {
-        border-color: var(--sj-error-color);
-      }
-
-      &:focus-within {
-        border-color: var(--sj-error-color);
-        outline-color: var(--sj-error-focus-background-color);
-
-        input {
-          caret-color: var(--sj-error-color);
-        }
-      }
-    }
-
-    &-status-warning {
-      border-color: var(--sj-warning-color);
-
-      &:hover {
-        border-color: var(--sj-warning-color);
-      }
-
-      &:focus-within {
-        border-color: var(--sj-warning-color);
-        outline-color: var(--sj-warning-focus-background-color);
-
-        input {
-          caret-color: var(--sj-warning-color);
+          input {
+            caret-color: map-get($value, "border-color");
+          }
         }
       }
     }
@@ -182,6 +159,29 @@
     &-length {
       margin-left: 4px;
       color: var(--sj-secondary-text-color);
+    }
+  }
+
+  &-search-button {
+    .sj-input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .sj-input-search-button {
+      margin-left: -1px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: inherit;
+      border-bottom-right-radius: inherit;
+
+      & > * {
+        border-radius: inherit;
+      }
+
+      .sj-button:not(.sj-button-type-normal) {
+        z-index: 2;
+      }
     }
   }
 
@@ -196,62 +196,14 @@
     }
 
     .sj-input-disabled-mask {
+      cursor: not-allowed;
+      width: 100%;
+      height: 100%;
       position: absolute;
-      background-color: var(--sj-background-color);
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
       z-index: 1;
+      background-color: var(--sj-background-color);
     }
   }
-
-  /* prepend label & append label */
-  .sj-input-prepend-label,
-  .sj-input-append-label {
-    box-sizing: border-box;
-    align-self: stretch;
-    padding: 0 12px;
-    display: flex;
-    align-items: center;
-    color: var(--sj-secondary-text-color);
-    border: 1px solid var(--sj-border-color);
-    background-color: var(--sj-table-header-background-color);
-  }
-  .sj-input-prepend-label {
-    border-right-width: 0;
-  }
-  .sj-input-append-label {
-    border-left-width: 0;
-  }
-}
-
-.sj-input-group {
-  display: flex;
-}
-
-.sj-input-group>* {
-  border-radius: 0 !important;
-  z-index: 0;
-}
-
-.sj-input-group>*:not(:first-child) {
-  margin-left: -1px;
-}
-
-.sj-input-group>*:hover,
-.sj-input-group>*:active,
-.sj-input-group>*:focus,
-.sj-input-group>*:focus-within {
-  z-index: 1;
-}
-
-.sj-input-group>*:first-child {
-  border-top-left-radius: var(--sj-border-radius) !important;
-  border-bottom-left-radius: var(--sj-border-radius) !important;
-}
-
-.sj-input-group>*:last-child {
-  border-top-right-radius: var(--sj-border-radius) !important;
-  border-bottom-right-radius: var(--sj-border-radius) !important;
 }

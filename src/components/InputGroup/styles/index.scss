@@ -1,0 +1,29 @@
+.sj-input-group {
+  display: flex;
+}
+
+.sj-input-group>* {
+  border-radius: 0 !important;
+  z-index: 0;
+}
+
+.sj-input-group>*:not(:first-child) {
+  margin-left: -1px;
+}
+
+.sj-input-group>*:hover,
+.sj-input-group>*:active,
+.sj-input-group>*:focus,
+.sj-input-group>*:focus-within {
+  z-index: 1;
+}
+
+.sj-input-group>*:first-child {
+  border-top-left-radius: var(--sj-border-radius) !important;
+  border-bottom-left-radius: var(--sj-border-radius) !important;
+}
+
+.sj-input-group>*:last-child {
+  border-top-right-radius: var(--sj-border-radius) !important;
+  border-bottom-right-radius: var(--sj-border-radius) !important;
+}
