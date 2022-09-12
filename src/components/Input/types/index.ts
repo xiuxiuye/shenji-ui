@@ -19,7 +19,7 @@ export interface IProps {
   status?: 'success' | 'warning' | 'error';
   autofocus?: boolean;
   value?: string;
-  border?: 'none' | 'line' | 'block';
+  borderType?: 'none' | 'line' | 'block';
   placeholder?: string;
 }
 

@@ -1,35 +1,27 @@
 <template>
   <div class="demo">
-    <h3>Size</h3>
-    <!-- <InputNumber
+    <InputNumber
+      size="large"
+      clearable
+      :disabled="false"
+      :autofocus="false"
+      precision="3"
+      max="4"
+      min="-4"
+      step="0.222"
+      v-model="value"
       status="warning"
-      prefix="user"
-      size="small"
-      precision="2"
-      v-model="value"
-    /><br />
-    <InputNumber
-      status="error"
-      prefix="user"
-      size="normal"
-      precision="2"
-      v-model="value"
-    /><br />
-    <InputNumber
-      status="success"
+      border-type="block"
       prefix="user"
       suffix="lock"
-      size="large"
-      precision="2"
-      v-model="value"
-      prepend="https://"
-      append=".com"
-    /><br /> -->
-    <Input prefix="user" size="large" v-model="value" />
+      :controls="true"
+      :keyboard="false"
+    >
+  </InputNumber>
   </div>
   <div class="demo">
     <InputGroup>
-      <Input prefix="user" suffix="lock" search search-button >
+      <Input prefix="user" suffix="lock" search search-button>
         <template #search-button>
           <Button>
             <Icon type="loading-a" />
@@ -37,9 +29,15 @@
         </template>
       </Input>
       <InputNumber prefix="user" suffix="lock" />
-      <Input prefix="user" suffix="lock" search search-button search-button-text="Search" />
+      <Input
+        prefix="user"
+        suffix="lock"
+        search
+        search-button
+        search-button-text="Search"
+      />
       <InputNumber prefix="user" suffix="lock" />
-      <Input prefix="user" suffix="lock" search search-button >
+      <Input prefix="user" suffix="lock" search search-button>
         <template #search-button>
           <Button type="error">Error</Button>
         </template>

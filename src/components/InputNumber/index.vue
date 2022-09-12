@@ -1,7 +1,7 @@
 <template>
   <div :class="conatinerClasses">
     <div :class="`${classNamePrefix}-disabled-mask`" v-if="disabled"></div>
-    <div :class="classes">
+    <div :class="classes" @keydown.up="handleKeyUp" @keydown.down="handleKeyDown">
       <div :class="`${classNamePrefix}-prefix`" v-if="slots?.prefix || prefix">
         <slot name="prefix">
           <Icon v-if="!!prefix" :type="prefix" />
@@ -78,7 +78,7 @@ interface IProps {
   step?: number | string;
   precision?: number | string;
   status?: 'success' | 'warning' | 'error';
-  border?: 'none' | 'block' | 'line';
+  borderType?: 'none' | 'block' | 'line';
   stringMode?: boolean;
   prefix?: string;
   suffix?: string;
@@ -96,7 +96,7 @@ const props = withDefaults(defineProps<IProps>(), {
   autofocus: false,
   step: 1,
   precision: 0,
-  border: 'block',
+  borderType: 'block',
   stringMode: false,
   controls: true,
   addIcon: 'up',
@@ -271,6 +271,18 @@ const handleMinusNumber = () => {
       Math.max(minus(tempValue, realStep?.value), realMin?.value)
     )
   }
+}
+
+const handleKeyUp = (event: Event) => {
+  if (!props?.keyboard) return
+  event.preventDefault()
+  handleAddNumber()
+}
+
+const handleKeyDown = (event: Event) => {
+  if (!props?.keyboard) return
+  event.preventDefault()
+  handleMinusNumber()
 }
 
 /**

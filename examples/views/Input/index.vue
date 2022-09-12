@@ -19,6 +19,7 @@
   </div>
   <div class="wrapper">
     <InputGroup>
+      <Input-Group-Label>Https://</Input-Group-Label>
       <Input
         size="normal"
         prefix="user"
@@ -29,19 +30,9 @@
         search
       >
       </Input>
-      <Input>
-        <template #prepend>
-          <Button type="normal">Search1</Button>
-          <Button type="normal">Search1</Button>
-        </template>
-        <template #append>
-          <Button type="normal">Search2</Button>
-        </template>
-        <template #search-button>
-          <Button>Custom Search Btn</Button>
-        </template>
-      </Input>
-      <InputNumber />
+      <Input-Group-Label>.Com</Input-Group-Label>
+      <Input />
+      <Input-Group-Label>.Cn</Input-Group-Label>
     </InputGroup>
   </div>
   <div class="wrapper">
@@ -66,14 +57,7 @@
       @change="handleChange"
       @input="handleInput"
       placeholder="请输入自定义提示"
-    >
-      <template #prepend>
-        <Input />
-      </template>
-      <template #append>
-        <Button type="primary">Search</Button>
-      </template>
-    </Input>
+    />
   </div>
 </template>
 

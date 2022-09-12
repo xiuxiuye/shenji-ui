@@ -1,5 +1,14 @@
 .sj-input-group {
   display: flex;
+  &-label {
+    font-size: 14px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    border: 1px solid var(--sj-border-color);
+    background-color: var(--sj-background-color);
+  }
 }
 
 .sj-input-group>* {

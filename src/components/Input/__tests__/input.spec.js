@@ -15,8 +15,8 @@ describe('Input组件单元测试', () => {
   })
 
   describe('Props测试', () => {
-    describe('clear属性', () => {
-      it('clear=true', () => {
+    describe('clearable属性', () => {
+      it('clearable=true', () => {
         const wrapper = mount(Input, {
           propsData: {
             clearable: true,
@@ -25,7 +25,7 @@ describe('Input组件单元测试', () => {
         })
         expect(wrapper.find('.sj-input > .sj-input-clear').exists()).toBe(true)
       })
-      it('clear=false', () => {
+      it('clearable=false', () => {
         const wrapper = mount(Input, {
           propsData: {
             clearable: false,
@@ -96,27 +96,6 @@ describe('Input组件单元测试', () => {
         })
         expect(wrapper.find('.sj-input > .sj-input-suffix').exists()).toBe(true)
         expect(wrapper.find('.sj-input-suffix > i').classes()).toContain('search')
-      })
-    })
-
-    describe('prepend属性', () => {
-      it('prepend="search"', () => {
-        const wrapper = mount(Input, {
-          propsData: {
-            prepend: 'search'
-          }
-        })
-        expect(wrapper.find('.sj-input-prepend-label').text()).toBe('search')
-      })
-    })
-    describe('append属性', () => {
-      it('append="search"', () => {
-        const wrapper = mount(Input, {
-          propsData: {
-            append: 'search'
-          }
-        })
-        expect(wrapper.find('.sj-input-append-label').text()).toBe('search')
       })
     })
 
@@ -263,27 +242,27 @@ describe('Input组件单元测试', () => {
       })
     })
 
-    describe('border属性', () => {
-      it('border="none"', () => {
+    describe('border-type属性', () => {
+      it('border-type="none"', () => {
         const wrapper = mount(Input, {
           propsData: {
-            border: 'none'
+            borderType: 'none'
           }
         })
         expect(wrapper.find('.sj-input-border-none').exists()).toBe(true)
       })
-      it('border="block"', () => {
+      it('border-type="block"', () => {
         const wrapper = mount(Input, {
           propsData: {
-            border: 'block'
+            borderType: 'block'
           }
         })
         expect(wrapper.find('.sj-input-border-block').exists()).toBe(true)
       })
-      it('border="line"', () => {
+      it('border-type="line"', () => {
         const wrapper = mount(Input, {
           propsData: {
-            border: 'line'
+            borderType: 'line'
           }
         })
         expect(wrapper.find('.sj-input-border-line').exists()).toBe(true)
@@ -306,6 +285,11 @@ describe('Input组件单元测试', () => {
       const wrapper = mount(Input)
       wrapper.vm.$emit('focus')
       expect(wrapper.emitted().focus).toBeTruthy()
+    })
+    it('blur', () => {
+      const wrapper = mount(Input)
+      wrapper.vm.$emit('blur')
+      expect(wrapper.emitted().blur).toBeTruthy()
     })
     it('change', () => {
       const wrapper = mount(Input)
@@ -347,24 +331,6 @@ describe('Input组件单元测试', () => {
         }
       })
       expect(wrapper.find('.sj-button').text()).toBe('My Search')
-    })
-    it('prepend', () => {
-      const wrapper = mount(Input, {
-        slots: {
-          prepend: <Button>Prepend</Button>
-        }
-      })
-      expect(wrapper.classes()).toContain('sj-input-group')
-      expect(wrapper.find('.sj-input-group > .sj-button').text()).toBe('Prepend')
-    })
-    it('append', () => {
-      const wrapper = mount(Input, {
-        slots: {
-          append: <Button>Append</Button>
-        }
-      })
-      expect(wrapper.classes()).toContain('sj-input-group')
-      expect(wrapper.find('.sj-input-group > .sj-button').text()).toBe('Append')
     })
   })
 })

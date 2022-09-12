@@ -7,7 +7,7 @@ const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
     return [
       classNamePrefix,
       {
-        [`${classNamePrefix}-border-${props?.border}`]: !!props?.border,
+        [`${classNamePrefix}-border-${props?.borderType}`]: !!props?.borderType,
         [`${classNamePrefix}-status-${props?.status}`]: props?.status
       }
     ]

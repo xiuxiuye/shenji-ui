@@ -14,7 +14,7 @@ export interface IProps {
   step?: number | string;
   precision?: number | string;
   status?: 'success' | 'warning' | 'error';
-  border?: 'none' | 'block' | 'line';
+  borderType?: 'none' | 'block' | 'line';
   stringMode?: boolean;
   prefix?: string;
   suffix?: string;

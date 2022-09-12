@@ -101,7 +101,7 @@ interface IProps {
   status?: 'success' | 'warning' | 'error';
   autofocus?: boolean;
   modelValue?: string | number;
-  border?: 'none' | 'line' | 'block';
+  borderType?: 'none' | 'line' | 'block';
   placeholder?: string;
 }
 
@@ -119,7 +119,7 @@ const props = withDefaults(defineProps<IProps>(), {
   maxLength: 0,
   showLength: false,
   autofocus: false,
-  border: 'block'
+  borderType: 'block'
 })
 
 /**
