@@ -22,7 +22,7 @@
 
   /* type */
   @each $key,
-  $value in $button-type {
+  $value in $sj-button-type {
     &-type-#{$key} {
       background-color: map-get($value, "backgroundColor");
       border-color: map-get($value, "borderColor");
@@ -67,7 +67,7 @@
 
   /* size */
   @each $key,
-  $value in $button-size {
+  $value in $sj-button-size {
     &-size-#{$key} {
       height: map-get($value, "height");
       line-height: map-get($value, "height");
@@ -117,7 +117,7 @@
   }
 
   @each $key,
-  $value in $button-ghost {
+  $value in $sj-button-ghost {
     &-#{$key}-ghost {
       color: map-get($value, "color");
 
@@ -134,7 +134,7 @@
 
   /* text */
   @each $key,
-  $value in $button-text {
+  $value in $sj-button-text {
     &-#{$key}-text {
       padding: 0;
       border-width: 0;
@@ -162,7 +162,7 @@
   }
 
   @each $key,
-  $value in $button-size {
+  $value in $sj-button-size {
     &-text-#{$key} {
       font-size: map-get($value, "fontSize");
 

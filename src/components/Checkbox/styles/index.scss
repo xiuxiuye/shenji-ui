@@ -77,7 +77,7 @@
 
   /* size */
   @each $key,
-  $value in $box-size {
+  $value in $sj-box-size {
     &-size-#{$key} {
       .sj-checkbox-box {
         width: map-get($value, "height");

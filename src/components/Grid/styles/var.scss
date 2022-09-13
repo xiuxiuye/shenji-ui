@@ -1,17 +1,17 @@
-$flow: (
+$sj-flex-flow: (
   row: row,
   row-dense: row dense,
   column: column,
   column-dense: column dense
 );
 
-$justify-items: (
+$sj-flex-justify-items: (
   start: start,
   end: end,
   center: center,
   stretch: stretch
 );
 
-$justify-self: $justify-items;
+$sj-flex-justify-self: $sj-flex-justify-items;
 
-$align-self: $justify-items;
+$sj-flex-align-self: $sj-flex-justify-items;

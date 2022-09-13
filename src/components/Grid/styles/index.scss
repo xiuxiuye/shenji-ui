@@ -4,13 +4,13 @@
   box-sizing: border-box;
   display: grid;
 
-  @each $key, $value in $flow {
+  @each $key, $value in $sj-flex-flow {
     &-flow-#{$key} {
       grid-auto-flow: $value;
     }
   }
 
-  @each $key, $value in $justify-items {
+  @each $key, $value in $sj-flex-justify-items {
     &-justify-items-#{$key} {
       justify-items: $value;
     }
@@ -19,13 +19,13 @@
   &-item {
     box-sizing: border-box;
 
-    @each $key, $value in $justify-self {
+    @each $key, $value in $sj-flex-justify-self {
       &-justify-self-#{$key} {
         justify-self: $value;
       }
     }
   
-    @each $key, $value in $align-self {
+    @each $key, $value in $sj-flex-align-self {
       &-align-self-#{$key} {
         align-self: $value;
       }

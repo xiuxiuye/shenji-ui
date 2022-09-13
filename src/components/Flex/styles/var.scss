@@ -1,4 +1,4 @@
-$justify: (
+$sj-flex-justify: (
   start: flex-start,
   end: flex-end,
   center: center,
@@ -7,7 +7,7 @@ $justify: (
   space-evenly: space-evenly
 );
 
-$align: (
+$sj-flex-align: (
   start: flex-start,
   end: flex-end,
   center: center,
@@ -15,6 +15,6 @@ $align: (
   stretch: stretch
 );
 
-$wrap: wrap, nowrap;
+$sj-flex-wrap: wrap, nowrap;
 
-$direction: row, row-reverse, column, column-reverse;
+$sj-flex-direction: row, row-reverse, column, column-reverse;

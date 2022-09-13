@@ -30,7 +30,7 @@
 
   /* size */
   @each $key,
-  $value in $tag-size {
+  $value in $sj-tag-size {
     &-size-#{$key} {
       height: map-get($value, "size");
       font-size: map-get($value, "fontSize");

@@ -8,10 +8,10 @@
 
   /* size */
   @each $key,
-  $value in $avatar-size {
+  $value in $sj-avatar-size {
     &-size-#{$key} {
-      width: map-get($value, "size");
-      height: map-get($value, "size");
+      width: map-get($value, "height");
+      height: map-get($value, "height");
 
       .sj-avatar-text-content {
         font-size: map-get($value, "fontSize");

@@ -47,7 +47,7 @@
 
   /* size */
   @each $key,
-  $value in $card-size {
+  $value in $sj-card-size {
     &-size-#{$key} {
       .sj-card-header {
         padding: map-get($value, "padding");

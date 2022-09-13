@@ -1,14 +1,3 @@
-$box-size: (
-  normal: (
-    height: 16px,
-    fontSize: var(--sj-font-size-normal)
-  ),
-  small: (
-    height: 14px,
-    fontSize: var(--sj-font-size-small)
-  ),
-  large: (
-    height: 18px,
-    fontSize: var(--sj-font-size-large)
-  )
-);
+@import 'src/styles/var.scss';
+
+$sj-box-size: $sj-size;

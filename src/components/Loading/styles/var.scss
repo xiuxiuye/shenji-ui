@@ -1,17 +1,6 @@
-$loading-size: (
-  normal: (
-    size: var(--sj-height-normal),
-    fontSize: var(--sj-font-size-normal)
-  ),
-  small: (
-    size: var(--sj-height-small),
-    fontSize: var(--sj-font-size-small)
-  ),
-  large: (
-    size: var(--sj-height-large),
-    fontSize: var(--sj-font-size-large)
-  ),
-);
+@import 'src/styles/var.scss';
+
+$sj-loading-size: $sj-size;
 
 @keyframes sj-loading-spin {
   0% { transform: rotate(0); }

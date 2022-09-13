@@ -1,14 +1,3 @@
-$avatar-size: (
-  normal: (
-    fontSize: var(--sj-font-size-normal),
-    size: var(--sj-height-normal)
-  ),
-  small: (
-    fontSize: var(--sj-font-size-small),
-    size: var(--sj-height-small)
-  ),
-  large: (
-    fontSize: var(--sj-font-size-large),
-    size: var(--sj-height-large)
-  )
-);
+@import 'src/styles/var.scss';
+
+$sj-avatar-size: $sj-size;

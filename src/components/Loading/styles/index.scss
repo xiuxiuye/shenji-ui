@@ -50,7 +50,7 @@
 
   /* size */
   @each $key,
-  $value in $loading-size {
+  $value in $sj-loading-size {
     &-size-#{$key} {
       .sj-loading-bloom {
         width: map-get($value, "size");

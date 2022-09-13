@@ -38,7 +38,7 @@
       }
 
       @each $key,
-      $value in $button-ghost {
+      $value in $sj-button-ghost {
         &-type-#{$key} {
           border-right-color: var(--sj-primary-background-color);
 
@@ -51,7 +51,7 @@
 
     /* horizontal round */
     @each $key,
-    $value in $button-size {
+    $value in $sj-button-size {
       &-round-#{$key} {
         .sj-button:first-of-type {
           border-top-left-radius: map-get($value, 'height');
@@ -99,7 +99,7 @@
       }
 
       @each $key,
-      $value in $button-ghost {
+      $value in $sj-button-ghost {
         &-type-#{$key} {
           border-bottom-color: var(--sj-primary-background-color);
 
@@ -112,7 +112,7 @@
 
     /* vertical round */
     @each $key,
-    $value in $button-size {
+    $value in $sj-button-size {
       &-round-#{$key} {
         .sj-button:first-of-type {
           border-top-left-radius: map-get($value, 'height');
@@ -129,7 +129,7 @@
 
   /* size */
   @each $key,
-  $value in $button-size {
+  $value in $sj-button-size {
     &-size-#{$key} {
       .sj-button {
         height: map-get($value, 'height');

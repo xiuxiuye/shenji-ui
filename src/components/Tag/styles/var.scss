@@ -1,17 +1,6 @@
-$tag-size: (
-  normal: (
-    size: calc(var(--sj-height-normal) - 4px),
-    fontSize: var(--sj-font-size-normal)
-  ),
-  small: (
-    size: calc(var(--sj-height-small) - 2px),
-    fontSize: var(--sj-font-size-small)
-  ),
-  large: (
-    size: calc(var(--sj-height-normal) + 2px),
-    fontSize: var(--sj-font-size-normal)
-  )
-);
+@import 'src/styles/var.scss';
+
+$sj-tag-size: $sj-size;
 
 $tag-type: (
   normal: (
