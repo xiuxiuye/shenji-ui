@@ -1,7 +1,7 @@
 import type { App, Component } from 'vue'
 import './theme/init'
-import { ISJComponent } from 'src/types/global'
 import registerVueComponent from 'src/utils/registerVueComponent'
+import type { ISJComponent } from 'src/types/global'
 
 type WithInstall = (component: Component) => ISJComponent
 

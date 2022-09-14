@@ -63,5 +63,8 @@ export type { IRadioGroupProps } from './RadioGroup'
 export { default as InputNumber } from './InputNumber'
 export type { IInputNumberProps, IInputNumberRefExpose } from './InputNumber'
 
+export { default as Switch } from './Switch'
+export type { ISwitchProps } from './Switch'
+
 export { default as message } from './Message'
 export type { CreateOptions, InfoOptions, SuccessOptions, ErrorOptions, WarningOptions, LoadingOptions } from './Message'

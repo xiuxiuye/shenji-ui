@@ -5,6 +5,7 @@
 </template>
 <script lang="ts">
 import useClasses from './hooks/useClasses'
+import type { CommonSize } from 'src/types/global'
 const componentName = 'sj-button-group'
 export default {
   name: componentName
@@ -16,7 +17,7 @@ export default {
  * props
  */
 interface IProps {
-  size?: 'small' | 'normal' | 'large';
+  size?: CommonSize;
   vertical?: boolean;
   round?: boolean;
 }

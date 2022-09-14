@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { StyleValue, ComputedRef } from 'src/types/global'
+import type { StyleValue, ComputedRef } from 'src/types/global'
 
 const useStyles: (offset: ComputedRef<[number, number]>) => ComputedRef<StyleValue> = (offset) => {
   const styles = computed<StyleValue>(() => {

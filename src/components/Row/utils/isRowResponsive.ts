@@ -1,7 +1,7 @@
 import { ScreenSize } from 'src/utils/hooks/useScreenResize'
 import isObject from 'src/utils/isObject'
 import isVaildNumber from 'src/utils/isVaildNumber'
-import { IProps } from '../types'
+import type { IProps } from '../types'
 
 const isRowResponsive: (props: IProps) => boolean = (props) => {
   if (props?.gutter && isObject(props?.gutter)) {

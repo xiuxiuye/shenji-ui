@@ -1,4 +1,4 @@
-import { ComputedRef, StyleValue } from 'src/types/global'
+import type { ComputedRef, StyleValue } from 'src/types/global'
 
 export interface IProps {
   dashed?: boolean;

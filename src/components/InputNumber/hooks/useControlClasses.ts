@@ -1,6 +1,6 @@
 import { computed } from 'vue'
-import { UseControlClasses } from '../types'
-import { Classes } from 'src/types/global'
+import type { UseControlClasses } from '../types'
+import type { Classes } from 'src/types/global'
 
 const useControlClasses: UseControlClasses = (classNamePrefix, type, disabled) => {
   const classes = computed<Classes>(() => {

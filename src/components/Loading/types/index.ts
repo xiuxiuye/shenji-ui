@@ -1,4 +1,4 @@
-import { ComputedRef, Classes } from 'src/types/global'
+import type { ComputedRef, Classes } from 'src/types/global'
 
 export interface IProps {
   tips?: string;

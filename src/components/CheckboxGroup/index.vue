@@ -9,6 +9,7 @@ import { ref, watchEffect } from 'vue'
 import isArray from 'src/utils/isArray'
 import useClasses from './hooks/useClasses'
 import useProvide from './hooks/useProvide'
+import type { CommonSize } from 'src/types/global'
 const componentName = 'sj-checkbox-group'
 export default {
   name: componentName
@@ -20,7 +21,7 @@ export default {
  * props
  */
 interface IProps {
-  size?: 'small' | 'normal' | 'large';
+  size?: CommonSize;
   disabled?: boolean;
   modelValue?: Array<number | string | boolean>;
   vertical?: boolean;

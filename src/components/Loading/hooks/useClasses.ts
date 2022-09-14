@@ -1,6 +1,6 @@
 import { computed } from 'vue'
-import { UseClasses } from '../types'
-import { Classes } from 'src/types/global'
+import type { UseClasses } from '../types'
+import type { Classes } from 'src/types/global'
 
 const useClasses: UseClasses = (classNamePrefix, isMaskExist, props) => {
   const classes = computed<Classes>(() => {

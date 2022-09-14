@@ -18,10 +18,10 @@
 <script setup lang="ts">
 import Icon from '../Icon'
 import { computed } from 'vue'
-import { Ref, StyleValue } from 'src/types/global'
 import isFunction from 'src/utils/isFunction'
 import type { MessagePlacement } from './types'
 import type { Message } from './message'
+import type { Ref, StyleValue } from 'src/types/global'
 
 interface IProps {
   data: Set<Message>;

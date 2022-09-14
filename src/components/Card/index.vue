@@ -41,6 +41,7 @@ import { useSlots, computed } from 'vue'
 import Icon from 'src/components/Icon'
 import useClasses from './hooks/useClasses'
 import useContentStyles from './hooks/useContentStyles'
+import type { CommonSize } from 'src/types/global'
 
 const componentName = 'sj-card'
 export default {
@@ -60,7 +61,7 @@ interface IProps {
   title?: string;
   icon?: string;
   description?: string;
-  size?: 'small' | 'normal' | 'large';
+  size?: CommonSize;
   shadow?: 'never' | 'hover' | 'always';
   noPadding?: string | string[];
 }

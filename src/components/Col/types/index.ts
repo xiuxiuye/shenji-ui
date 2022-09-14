@@ -1,5 +1,5 @@
 
-import { Ref, ComputedRef, StyleValue } from 'src/types/global'
+import type { Ref, ComputedRef, StyleValue } from 'src/types/global'
 
 interface IBaseProps {
   order?: number | string;

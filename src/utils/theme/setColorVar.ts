@@ -1,4 +1,4 @@
-import { SetColorVar } from './types'
+import type { SetColorVar } from './types'
 
 const setColorVar: SetColorVar = (prop, value) => {
   document.documentElement.style.setProperty(prop, value)

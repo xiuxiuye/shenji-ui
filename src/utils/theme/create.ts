@@ -1,7 +1,7 @@
 import generateColors from './generateColors'
-import { Create } from './types'
 import setColorVar from './setColorVar'
 import initSubColorVars from './initSubColorVars'
+import type { Create } from './types'
 
 const PRIMARY_COLOR_VARS_INDEX = {
   '--sj-primary-focus-background-color': 0,

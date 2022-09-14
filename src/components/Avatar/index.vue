@@ -9,11 +9,13 @@
 </template>
 
 <script lang="ts">
-import { ImgHTMLAttributes, computed, useSlots, ref } from 'vue'
+import { computed, useSlots, ref } from 'vue'
 import isString from 'src/utils/isString'
 import useClasses from './hooks/useClasses'
 import useStyles from './hooks/useStyles'
 import useImgStyles from './hooks/useImgStyles'
+import type { ImgHTMLAttributes } from 'vue'
+import type { CommonSize } from 'src/types/global'
 const componentName = 'sj-avatar'
 export default {
   name: componentName
@@ -22,7 +24,7 @@ export default {
 
 <script setup lang="ts">
 interface IProps {
-  size?: 'normal' | 'large' | 'small' | number | string;
+  size?: CommonSize | number | string;
   bordered?: boolean;
   borderColor?: string;
   color?: string;

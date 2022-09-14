@@ -1,6 +1,6 @@
 import { computed } from 'vue'
-import { UseContentClasses } from '../types'
-import { Classes } from 'src/types/global'
+import type { UseContentClasses } from '../types'
+import type { Classes } from 'src/types/global'
 
 const useContentClasses: UseContentClasses = (classNamePrefix, isMaskVisible) => {
   const classes = computed<Classes>(() => {

@@ -1,4 +1,4 @@
-import { Ref, CommonSize } from 'src/types/global'
+import type { Ref, CommonSize } from 'src/types/global'
 
 export interface IProps {
   size?: CommonSize;

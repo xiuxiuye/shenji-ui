@@ -1,9 +1,9 @@
 import { Message } from './message'
 import { render, createVNode, ref } from 'vue'
 import MessageComponent from './Message.vue'
-import { Ref } from 'src/types/global'
 import isString from 'src/utils/isString'
 import { MessagePlacements } from './types'
+import type { Ref } from 'src/types/global'
 import type { RemoveMessage, RemoveAllMessage, AddMessage, CreateMessageId, CreateMessage, MessagePlacement } from './types'
 
 let idCounter = 1

@@ -1,7 +1,7 @@
 import { computed } from 'vue'
-import { IProps } from '../types/index'
 import isString from 'src/utils/isString'
-import { StyleValue, UseStyles } from 'src/types/global'
+import type { IProps } from '../types/index'
+import type { StyleValue, UseStyles } from 'src/types/global'
 
 const useImgStyles: UseStyles<IProps> = (props) => {
   const styles = computed<StyleValue>(() => {

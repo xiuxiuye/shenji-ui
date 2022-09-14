@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import { computed, ref, onMounted, onUnmounted } from 'vue'
-import { Classes } from 'src/types/global'
+import type { Classes } from 'src/types/global'
 const componentName = 'sj-wave'
 export default {
   name: componentName
@@ -12,7 +12,6 @@ export default {
 
 <script setup lang="ts">
 const isWaving = ref(false)
-
 const classNamePrefix = componentName
 const classes = computed<Classes>(() => ([
   classNamePrefix,

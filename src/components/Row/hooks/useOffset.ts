@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import isVaildNumber from 'src/utils/isVaildNumber'
-import { IProps } from '../types'
-import { Ref, ComputedRef } from 'src/types/global'
+import type { IProps } from '../types'
+import type { Ref, ComputedRef } from 'src/types/global'
 
 const useOffset: (size: Ref<string> | null, props: IProps) => ComputedRef<[number, number]> = (size, props) => {
   const offset = computed<[number, number]>(() => {

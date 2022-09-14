@@ -1,6 +1,6 @@
 import generateColors from './generateColors'
-import { InitSubColorVars } from './types'
 import setColorVar from './setColorVar'
+import type { InitSubColorVars } from './types'
 
 const COLOR_VARS = [
   {

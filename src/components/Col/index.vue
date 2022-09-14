@@ -6,12 +6,13 @@
 </template>
 
 <script lang="ts">
-import { Ref, inject, ComputedRef, computed } from 'vue'
+import { inject, computed } from 'vue'
 import isValidParent from 'src/utils/isValidParent'
 import useScreenResize from 'src/utils/hooks/useScreenResize'
 import isColResponsive from './utils/isColResponsive'
 import useStyles from './hooks/useStyles'
 import useClasses from './hooks/useClasses'
+import type { Ref, ComputedRef } from 'vue'
 
 const componentName = 'sj-col'
 export default {
