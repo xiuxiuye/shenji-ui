@@ -1,9 +1,12 @@
 <template>
-  <div></div>
+  <div :class="classes" tabindex="0">
+    <div :class="`${classNamePrefix}-checked`" v-if="realValue"></div>
+    <div :class="`${classNamePrefix}-unchecked`" v-else>自然</div>
+  </div>
 </template>
 
 <script lang="ts">
-
+import { ref, watch } from 'vue'
 import useClasses from './hooks/useClasses'
 import type { CommonSize } from 'src/types/global'
 const componentName = 'sj-switch'
@@ -41,5 +44,18 @@ const props = withDefaults(defineProps<IProps>(), {
  * classes
  */
 const classNamePrefix = componentName
-const classes = 
+const classes = useClasses(classNamePrefix, props)
+
+/**
+ * model value
+ */
+const realValue = ref<boolean>(false)
+
+watch(
+  () => props?.modelValue,
+  () => {
+    realValue.value = props?.modelValue === props?.checkedValue
+  },
+  { immediate: true }
+)
 </script>

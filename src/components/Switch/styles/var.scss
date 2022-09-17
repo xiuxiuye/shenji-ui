@@ -1,0 +1,19 @@
+@import 'src/styles/var.scss';
+
+$sj-switch-size: (
+  normal: (
+    height: 22px,
+    min-width: 40px,
+    fontSize: var(--sj-font-size-normal)
+  ),
+  small: (
+    height: 18px,
+    min-width: 32px,
+    fontSize: var(--sj-font-size-small)
+  ),
+  large: (
+    height: 26px,
+    min-width: 48px,
+    fontSize: var(--sj-font-size-large)
+  )
+);
