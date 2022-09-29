@@ -1,20 +1,24 @@
 <template>
-  <Switch />
-  <Input @focus="focus" @blur="blur" />
-
   <div class="main">
-    <div class="left" :style="{ width: check ? '280px' : '' }"></div>
-    <div class="right"></div>
+    <Switch size="large" disabled loading :round="true" v-model="check" @change="handleChange" />{{check}}
+    <Switch size="normal" icon="lock" checked-text="一花一世" unchecked-text="一念花开" v-model="check"
+      @change="handleChange">
+    </Switch>{{check}}
+    <Switch size="normal" icon="user" :rubber-band="true" :round="true" v-model="check" @change="handleChange" />
+    {{check}}
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 const check = ref(false)
-const focus = () => {
+const handleChange = (...rest) => {
+  console.log(rest)
+}
+const enter = () => {
   check.value = true
 }
-const blur = () => {
+const leave = () => {
   check.value = false
 }
 </script>
@@ -23,26 +27,8 @@ const blur = () => {
 .sj-switch {
   margin: 16px;
 }
-.main{
-  margin-top: 100px;
-  height: 40px;
-  width: 300px;
-  display: flex;
 
-  .left,
-  .right {
-    height: inherit;
-  }
-
-  .left {
-    background-color: red;
-    width: 20px;
-    transition: width 5s ease-in;
-  }
-  .right {
-    flex-grow: 1;
-    flex-shrink: 1;
-    background-color: aqua;
-  }
+.main {
+  border: 1px solid red;
 }
 </style>

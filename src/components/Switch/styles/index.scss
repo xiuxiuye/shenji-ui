@@ -1,8 +1,82 @@
-@import './var.scss';
+@import "./var.scss";
 
 .sj-switch {
+  cursor: pointer;
+  position: relative;
   box-sizing: border-box;
   display: inline-block;
+  vertical-align: middle;
+
+  &-stand-in {
+    height: inherit;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  &-rail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+    color: var(--sj-primary-background-color);
+    background-color: var(--sj-disable-color);
+    transition-property: all;
+    transition-duration: $sj-switch-transition-duration;
+    transition-timing-function: $sj-switch-transition-timing-function;
+
+    .sj-switch-dot {
+      position: absolute;
+      top: 50%;
+      left: $sj-switch-dot-left;
+      transform: translateY(-50%);
+      background-color: var(--sj-primary-background-color);
+      box-shadow: var(--sj-shadow-level-2);
+      transition-property: left;
+      transition-duration: $sj-switch-transition-duration;
+      transition-timing-function: $sj-switch-transition-timing-function;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .sj-switch-checked-text,
+      .sj-switch-unchecked-text {
+        box-sizing: border-box;
+        width: max-content;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background-color: inherit;
+        transition-property: all;
+        transition-duration: $sj-switch-transition-duration;
+        transition-timing-function: $sj-switch-transition-timing-function;
+      }
+
+      &-checked-rubber-band {
+        &:after {
+          left: -$sj-switch-dot-gap * 3;
+        }
+      }
+      &-unchecked-rubber-band {
+        &:after {
+          right: -$sj-switch-dot-gap * 3;
+        }
+      }
+    }
+  }
 
   &:hover {
     outline: 2px solid var(--sj-primary-hover-background-color);
@@ -12,30 +86,96 @@
     outline: 2px solid var(--sj-primary-focus-background-color);
   }
 
+  &-checked {
+    .sj-switch-rail {
+      background-color: var(--sj-primary-color);
+    }
+  }
+
   /* size */
-  @each $key,
-  $value in $sj-switch-size {
+  @each $key, $value in $sj-switch-size {
     &-size-#{$key} {
       height: map-get($value, "height");
       min-width: map-get($value, "min-width");
       font-size: map-get($value, "fontSize");
       border-radius: map-get($value, "height");
       line-height: map-get($value, "height");
+
+      .sj-switch-stand-in {
+        padding: 0 map-get($value, "dot-height");
+      }
+
+      .sj-switch-rail {
+        .sj-switch-dot {
+          width: map-get($value, "dot-height");
+          height: map-get($value, "dot-height");
+          border-radius: map-get($value, "dot-height");
+
+          .sj-switch-checked-text,
+          .sj-switch-unchecked-text {
+            height: map-get($value, "height");
+            font-size: map-get($value, "fontSize");
+            border-radius: map-get($value, "height");
+            line-height: map-get($value, "height");
+          }
+
+          .sj-switch-checked-text {
+            right: -$sj-switch-dot-gap;
+            padding-left: $sj-switch-dot-gap * 8;
+            padding-right: map-get($value, "dot-height") +
+              $sj-switch-dot-gap *
+              4;
+          }
+
+          .sj-switch-unchecked-text {
+            left: -$sj-switch-dot-gap;
+            padding-right: $sj-switch-dot-gap * 8;
+            padding-left: map-get($value, "dot-height") +
+              $sj-switch-dot-gap *
+              4;
+          }
+        }
+        .sj-switch-dot-checked {
+          left: calc(100% - map-get($value, "dot-height") - $sj-switch-dot-gap);
+          .sj-switch-icon {
+            color: var(--sj-primary-color);
+          }
+        }
+      }
     }
   }
-
-  &-checked,
-  &-unchecked {
-    box-sizing: inherit;
-    height: inherit;
-    min-width: inherit;
-    border-radius: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    padding: 0 8px;
+  /* round */
+  &-square {
+    border-radius: var(--sj-border-radius);
+    .sj-switch-dot {
+      border-radius: inherit;
+    }
   }
-
-  &-unchecked {
-    background-color: var(--sj-background-color);
+  /* loading */
+  &-loading {
+    cursor: wait;
+    &:hover,
+    &:focus {
+      outline-width: 0;
+    }
+  }
+  /* disabled */
+  &-disabled {
+    cursor: not-allowed;
+    &:hover,
+    &:focus {
+      outline-width: 0;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $sj-switch-disabled-background-color;
+      user-select: none;
+      pointer-events: none;
+    }
   }
 }

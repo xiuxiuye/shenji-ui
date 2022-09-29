@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { computed } from 'vue'
-import Wave from './Wave/index.vue'
+import Wave from '../Wave/index.vue'
 import Icon from '../Icon'
 import useClasses from './hooks/useClasses'
 const componentName = 'sj-button'

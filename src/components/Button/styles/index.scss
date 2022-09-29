@@ -1,14 +1,4 @@
-@import './var.scss';
-
-@keyframes sj-wave-opacity {
-  from {
-    opacity: 0.6;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
+@import "./var.scss";
 
 .sj-button {
   position: relative;
@@ -21,8 +11,7 @@
   cursor: pointer;
 
   /* type */
-  @each $key,
-  $value in $sj-button-type {
+  @each $key, $value in $sj-button-type {
     &-type-#{$key} {
       background-color: map-get($value, "backgroundColor");
       border-color: map-get($value, "borderColor");
@@ -48,15 +37,12 @@
         }
 
         to {
-          outline: 5.5px solid map-get($value, "waveColor");
+          outline: 6px solid map-get($value, "waveColor");
         }
       }
 
       .sj-wave-spread-active {
-        animation-name: sj-wave-spread-#{$key},
-        sj-wave-opacity;
-        animation-duration: 0.6s;
-        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        animation-name: sj-wave-spread-#{$key}, sj-wave-opacity;
       }
 
       .sj-icon {
@@ -66,8 +52,7 @@
   }
 
   /* size */
-  @each $key,
-  $value in $sj-button-size {
+  @each $key, $value in $sj-button-size {
     &-size-#{$key} {
       height: map-get($value, "height");
       line-height: map-get($value, "height");
@@ -95,7 +80,7 @@
       left: -1px;
       right: -1px;
       bottom: -1px;
-      background-color: rgba(255, 255, 255, 0.35)
+      background-color: rgba(255, 255, 255, 0.35);
     }
   }
 
@@ -103,7 +88,6 @@
   &-border-dashed {
     border-style: dashed;
   }
-
 
   /* ghost */
   &-ghost {
@@ -116,8 +100,7 @@
     }
   }
 
-  @each $key,
-  $value in $sj-button-ghost {
+  @each $key, $value in $sj-button-ghost {
     &-#{$key}-ghost {
       color: map-get($value, "color");
 
@@ -133,8 +116,7 @@
   }
 
   /* text */
-  @each $key,
-  $value in $sj-button-text {
+  @each $key, $value in $sj-button-text {
     &-#{$key}-text {
       padding: 0;
       border-width: 0;
@@ -147,8 +129,7 @@
         background-color: transparent;
       }
 
-      @if $key !='normal' {
-
+      @if $key != "normal" {
         &:hover,
         &:focus {
           color: map-get($value, "hoverColor");
@@ -161,8 +142,7 @@
     }
   }
 
-  @each $key,
-  $value in $sj-button-size {
+  @each $key, $value in $sj-button-size {
     &-text-#{$key} {
       font-size: map-get($value, "fontSize");
 

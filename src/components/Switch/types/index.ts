@@ -1,4 +1,4 @@
-import type { CommonSize } from 'src/types/global'
+import type { CommonSize, ComputedRef, Classes, Ref } from 'src/types/global'
 
 export interface IProps {
   size?: CommonSize;
@@ -10,5 +10,11 @@ export interface IProps {
   icon?: string;
   checkedValue?: boolean | number | string;
   uncheckedValue?: boolean | number | string;
+  checkedText?: string;
+  uncheckedText?: string;
   rubberBand?: boolean;
 }
+
+export type UseClasses = (classNamePrefix: string, props: IProps, checked: Ref<boolean>) => ComputedRef<Classes>;
+
+export type UseDotClasses = (classNamePrefix: string, checked: Ref<boolean>, rubberBanding: Ref<boolean>) => ComputedRef<Classes>;
