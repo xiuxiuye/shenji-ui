@@ -76,7 +76,7 @@
 
 .sj-origin-scale-enter-active,
 .sj-origin-scale-leave-active {
-  transition: all 0.2s ease;
+  transition: all 0.2s linear;
 }
 
 .sj-origin-scale-enter-from,

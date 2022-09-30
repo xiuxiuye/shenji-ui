@@ -101,7 +101,7 @@
       height: 100%;
       margin-left: 4px;
       border-left: 1px solid var(--sj-border-color);
-      transition: all 0.2s ease-in-out;
+      transition: all 0.3s ease-in-out;
 
       &-add,
       &-minus {
@@ -113,7 +113,7 @@
 
         .sj-icon {
           transform: scale(0.75);
-          transition: all 0.2s ease-in-out;
+          transition: all 0.3s ease-in-out;
         }
 
         &:hover {
