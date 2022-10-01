@@ -3,4 +3,4 @@
 
 https://v1.test-utils.vuejs.org/zh/
 
-test push
+test pus
