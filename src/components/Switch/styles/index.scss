@@ -51,7 +51,7 @@
       }
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -147,8 +147,10 @@
   /* round */
   &-square {
     border-radius: var(--sj-border-radius);
-    .sj-switch-dot {
-      border-radius: inherit;
+    .sj-switch-rail {
+      .sj-switch-dot {
+        border-radius: inherit;
+      }
     }
   }
   /* loading */

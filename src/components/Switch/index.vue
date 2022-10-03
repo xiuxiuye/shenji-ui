@@ -1,6 +1,5 @@
 <template>
-  <div :class="classes" tabindex="0" :autofocus="autofocus" @click="handleClick" @mousedown="handleMouseDown"
-    @mouseup="handleMouseUp">
+  <div :class="classes" tabindex="0" :autofocus="autofocus" @click="handleClick" @mousedown="handleMouseDown">
     <div :class="`${classNamePrefix}-stand-in`" v-if="isCheckedTextVisible">
       <div :class="`${classNamePrefix}-stand-in-checked`">
         <slot name="checked">{{checkedText}}</slot>
@@ -111,12 +110,14 @@ const handleClick = () => {
  * rubber-band
  */
 const rubberBanding = ref<boolean>(false)
-const handleMouseDown = () => {
-  if (!props?.rubberBand) return
-  rubberBanding.value = true
-}
 const handleMouseUp = () => {
   rubberBanding.value = false
+  document.removeEventListener('mouseup', handleMouseUp)
+}
+const handleMouseDown = () => {
+  if (!props?.rubberBand || props?.disabled || props?.loading) return
+  rubberBanding.value = true
+  document.addEventListener('mouseup', handleMouseUp)
 }
 
 /**
