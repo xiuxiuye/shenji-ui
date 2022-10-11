@@ -1,4 +1,4 @@
-import type { ComputedRef, Classes, CommonSize, Ref } from 'src/types/global'
+import type { ComputedRef, Classes, CommonSize, Ref, CommonFormStatus } from 'src/types/global'
 
 type Formatter = (value: string) => string;
 type Parse = (value: string) => number | undefined;
@@ -13,7 +13,7 @@ export interface IProps {
   min?: number | string;
   step?: number | string;
   precision?: number | string;
-  status?: 'success' | 'warning' | 'error';
+  status?: CommonFormStatus;
   borderType?: 'none' | 'block' | 'line';
   stringMode?: boolean;
   prefix?: string;

@@ -55,6 +55,7 @@ import useClasses from './hooks/useClasses'
 import useControlClasses from './hooks/useControlClasses'
 import useConatinerClasses from './hooks/useContainerClasses'
 import type { IInputNumberRefExpose } from './types'
+import type { CommonFormStatus } from 'src/types/global'
 const componentName = 'sj-input-number'
 export default {
   name: componentName
@@ -77,7 +78,7 @@ interface IProps {
   min?: number | string;
   step?: number | string;
   precision?: number | string;
-  status?: 'success' | 'warning' | 'error';
+  status?: CommonFormStatus;
   borderType?: 'none' | 'block' | 'line';
   stringMode?: boolean;
   prefix?: string;

@@ -72,6 +72,7 @@ import useClasses from './hooks/useClasses'
 import useConatinerClasses from './hooks/useContainerClasses'
 import isVaildNumber from 'src/utils/isVaildNumber'
 import type { IInputRefExpose } from './types'
+import type { CommonFormStatus } from 'src/types/global'
 const componentName = 'sj-input'
 export default {
   name: componentName
@@ -98,7 +99,7 @@ interface IProps {
   disabled?: boolean;
   maxLength?: number | string;
   showLength?: boolean;
-  status?: 'success' | 'warning' | 'error';
+  status?: CommonFormStatus;
   autofocus?: boolean;
   modelValue?: string | number;
   borderType?: 'none' | 'line' | 'block';

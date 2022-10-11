@@ -1,13 +1,15 @@
-import { Ref, ComputedRef, StyleValue, Plugin, Slots } from 'vue'
+import type { Ref, ComputedRef, StyleValue, Plugin, Slots, Component } from 'vue'
 
 export type { Ref, ComputedRef, StyleValue, Slots }
 
-export type Classes = Array<string | Record<string, unknown>>;
+export type Classes = Array<string | Record<string, boolean>>;
 
 export type UseClasses<IProps> = (classNamePrefix: string, props: IProps) => ComputedRef<Classes>;
 
 export type UseStyles<IProps> = (props: IProps) => ComputedRef<StyleValue>;
 
-export type ISJComponent = Plugin & Record<string, unknown>;
+export type ISJComponent = Plugin & Component;
 
 export type CommonSize = 'small' | 'normal' | 'large';
+
+export type CommonFormStatus = 'success' | 'error' | 'warning';
