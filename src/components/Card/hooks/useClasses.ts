@@ -9,7 +9,7 @@ const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
       {
         [`${classNamePrefix}-bordered`]: props?.bordered,
         [`${classNamePrefix}-divideble`]: props?.divideble,
-        [`${classNamePrefix}-size-${props?.size}`]: props?.size,
+        [`${classNamePrefix}-size-${props?.size}`]: !!props?.size,
         [`${classNamePrefix}-shadow-${props?.shadow}`]: props?.shadow && props?.shadow !== 'never'
       }
     ]

@@ -9,7 +9,7 @@ const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
       classNamePrefix,
       {
         [`${classNamePrefix}-size-${props?.size}`]: SIZE.includes(props?.size as string),
-        [`${classNamePrefix}-bordered`]: !!props?.bordered,
+        [`${classNamePrefix}-bordered`]: props?.bordered,
         [`${classNamePrefix}-shape-${props?.shape}`]: !!props?.shape
       }
     ]

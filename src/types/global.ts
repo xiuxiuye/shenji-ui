@@ -2,7 +2,7 @@ import type { Ref, ComputedRef, StyleValue, Plugin, Slots, Component } from 'vue
 
 export type { Ref, ComputedRef, StyleValue, Slots }
 
-export type Classes = Array<string | Record<string, boolean>>;
+export type Classes = Array<string | Record<string, boolean | undefined>>;
 
 export type UseClasses<IProps> = (classNamePrefix: string, props: IProps) => ComputedRef<Classes>;
 
