@@ -36,10 +36,10 @@
 </template>
 
 <script lang="ts">
-import Loading from './components/Loading.vue'
+import Icon from '../Icon'
 import { useSlots, computed } from 'vue'
-import Icon from 'src/components/Icon'
 import useClasses from './hooks/useClasses'
+import Loading from './components/Loading.vue'
 import useContentStyles from './hooks/useContentStyles'
 import type { CommonSize } from 'src/types/global'
 

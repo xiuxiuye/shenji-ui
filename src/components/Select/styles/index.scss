@@ -1,0 +1,104 @@
+@import "./var.scss";
+
+.sj-select {
+  width: 360px;
+  cursor: pointer;
+  box-sizing: border-box;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  border-width: 0;
+  border-style: solid;
+  border-radius: var(--sj-border-radius);
+  color: var(--sj-primary-text-color);
+
+  &:hover {
+    border-color: var(--sj-primary-color);
+  }
+
+  &:focus {
+    border-color: var(--sj-primary-color);
+    outline: 3px solid var(--sj-primary-focus-background-color);
+  }
+
+  @each $key, $value in $sj-select-size {
+    &-size-#{$key} {
+      height: map-get($value, "height");
+      font-size: map-get($value, "fontSize");
+    }
+    &-#{$key}-round {
+      border-radius: map-get($value, "height");
+    }
+  }
+
+  /* status */
+  @each $key, $value in $sj-select-status {
+    &-status-#{$key} {
+      border-color: map-get($value, "border-color");
+      &:hover {
+        border-color: map-get($value, "border-color");
+      }
+      &:focus {
+        border-color: map-get($value, "border-color");
+        border-color: map-get($value, "border-color");
+        outline-color: map-get($value, "outline-color-foucs");
+      }
+    }
+  }
+
+  /* border */
+  &-border-block {
+    border-width: 1px;
+  }
+
+  &-border-none {
+    border-width: 0;
+
+    &:focus-within {
+      outline-width: 0;
+    }
+  }
+
+  &-border-line {
+    border-width: 0 0 1px 0;
+
+    &:focus-within {
+      outline-width: 0;
+    }
+  }
+
+  &-content {
+    box-sizing: inherit;
+    height: inherit;
+    border-radius: inherit;
+    flex-grow: 1;
+  }
+
+  &-arrow {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 28px;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.sj-select-popup,
+.sj-select-popup-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 600px;
+  border: 1px solid red;
+  background-color: green;
+  overflow-y: auto;
+}
+
+.sj-select-popup-shadow {
+  user-select: none;
+  pointer-events: none;
+  visibility: hidden !important;
+}

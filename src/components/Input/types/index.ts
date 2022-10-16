@@ -1,4 +1,4 @@
-import type { ComputedRef, Classes, CommonSize, CommonFormStatus } from 'src/types/global'
+import type { ComputedRef, Classes, CommonSize, CommonFormStatus, CommonFormBorderType } from 'src/types/global'
 
 export interface IProps {
   clearable?: boolean;
@@ -19,7 +19,7 @@ export interface IProps {
   status?: CommonFormStatus;
   autofocus?: boolean;
   value?: string;
-  borderType?: 'none' | 'line' | 'block';
+  borderType?: CommonFormBorderType;
   placeholder?: string;
 }
 

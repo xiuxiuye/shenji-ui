@@ -13,3 +13,5 @@ export type ISJComponent = Plugin & Component;
 export type CommonSize = 'small' | 'normal' | 'large';
 
 export type CommonFormStatus = 'success' | 'error' | 'warning';
+
+export type CommonFormBorderType = 'none' | 'line' | 'block';

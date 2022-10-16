@@ -9,9 +9,9 @@
       @change="handleChange"
     />
     <div class="sj-checkbox-box">
-      <transition name="sj-origin-scale">
+      <Transition name="sj-origin-scale">
         <div :class="checkedClasses" v-if="checked"></div>
-      </transition>
+      </Transition>
     </div>
     <span class="sj-checkbox-label">
       <slot></slot>

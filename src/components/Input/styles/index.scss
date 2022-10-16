@@ -141,11 +141,11 @@
         border-color: map-get($value, "border-color");
 
         &:hover {
-          border-color: map-get($value, "border-color-hover");
+          border-color: map-get($value, "border-color");
         }
 
         &:focus-within {
-          border-color: map-get($value, "border-color-focus");
+          border-color: map-get($value, "border-color");
           outline-color: map-get($value, "outline-color-foucs");
 
           input {

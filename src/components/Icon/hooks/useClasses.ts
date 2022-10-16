@@ -1,18 +1,21 @@
 import { computed } from 'vue'
+import { COMMON_SIZE } from 'src/utils/constant'
 import type { IProps } from '../types'
-import type { UseClasses, Classes } from 'src/types/global'
+import type { UseClasses, Classes, CommonSize } from 'src/types/global'
 
 const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
-  const SIZE = ['large', 'normal', 'small']
-  const classes = computed<Classes>(() => ([
-    'iconfont',
-    props.type,
-    classNamePrefix,
-    SIZE.includes(props?.size as string) ? `${classNamePrefix}-size-${props?.size}` : '',
-    {
-      'sj-spin': /^loading-[a-f]$/.test(props?.type)
-    }
-  ]))
+  const isValidSize = COMMON_SIZE.includes(props?.size as CommonSize)
+  const classes = computed<Classes>(() => {
+    return [
+      'iconfont',
+      props.type,
+      classNamePrefix,
+      {
+        'sj-spin': /^loading-[a-f]$/.test(props?.type),
+        [`${classNamePrefix}-size-${props?.size}`]: isValidSize
+      }
+    ]
+  })
   return classes
 }
 

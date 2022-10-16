@@ -51,20 +51,14 @@ $sj-size: (
 $sj-input-status: (
   success: (
     border-color: var(--sj-success-color),
-    border-color-hover: var(--sj-success-hover-color),
-    border-color-focus: var(--sj-success-active-color),
     outline-color-foucs: var(--sj-success-focus-background-color),
   ),
   error: (
     border-color: var(--sj-error-color),
-    border-color-hover: var(--sj-error-hover-color),
-    border-color-focus: var(--sj-error-active-color),
     outline-color-foucs: var(--sj-error-focus-background-color),
   ),
   warning: (
     border-color: var(--sj-warning-color),
-    border-color-hover: var(--sj-warning-hover-color),
-    border-color-focus: var(--sj-warning-active-color),
     outline-color-foucs: var(--sj-warning-focus-background-color),
   ),
 );

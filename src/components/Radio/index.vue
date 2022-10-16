@@ -3,9 +3,9 @@
     <input ref="sjRadioRef" type="radio" class="sj-radio-input" v-model="realValue" :checked="realChecked"
       :value="value" :autofocus="autofocus" :name="realName" @change="handleChange" />
     <div class="sj-radio-box">
-      <transition name="sj-origin-scale">
+      <Transition name="sj-origin-scale">
         <div class="sj-radio-box-checked" v-if="realChecked"></div>
-      </transition>
+      </Transition>
     </div>
     <span class="sj-radio-label">
       <slot></slot>

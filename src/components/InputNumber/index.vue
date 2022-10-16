@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { ref, computed, useSlots, watch } from 'vue'
-import Icon from 'src/components/Icon'
+import Icon from '../Icon'
 import sum from 'src/utils/sum'
 import minus from 'src/utils/minus'
 import toFixed from 'src/utils/toFixed'
@@ -55,7 +55,7 @@ import useClasses from './hooks/useClasses'
 import useControlClasses from './hooks/useControlClasses'
 import useConatinerClasses from './hooks/useContainerClasses'
 import type { IInputNumberRefExpose } from './types'
-import type { CommonFormStatus } from 'src/types/global'
+import type { CommonSize, CommonFormStatus, CommonFormBorderType } from 'src/types/global'
 const componentName = 'sj-input-number'
 export default {
   name: componentName
@@ -69,7 +69,7 @@ export default {
 type Formatter = (value: string) => string;
 type Parse = (value: string) => number | undefined;
 interface IProps {
-  size?: 'small' | 'normal' | 'large';
+  size?: CommonSize;
   clearable?: boolean;
   disabled?: boolean;
   autofocus?: boolean;
@@ -79,7 +79,7 @@ interface IProps {
   step?: number | string;
   precision?: number | string;
   status?: CommonFormStatus;
-  borderType?: 'none' | 'block' | 'line';
+  borderType?: CommonFormBorderType;
   stringMode?: boolean;
   prefix?: string;
   suffix?: string;

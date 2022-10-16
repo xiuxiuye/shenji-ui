@@ -1,6 +1,6 @@
 <template>
   <div class="sj-message-container" :style="containerStyles">
-    <transition-group :name="transitionName" tag="div">
+    <TransitionGroup :name="transitionName" tag="div">
       <div v-for="message in data" :key="message?.id" class="sj-message-body" :style="bodyStyles">
         <div class="sj-message">
           <Icon v-if="message?.showIcon && message?.icon" class="sj-message-icon" :type="message?.icon"
@@ -11,7 +11,7 @@
           <Icon v-if="message?.closable" class="sj-message-close" type="close" @click="handleClose(message)" />
         </div>
       </div>
-    </transition-group>
+    </TransitionGroup>
   </div>
 </template>
 

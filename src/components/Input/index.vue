@@ -66,13 +66,13 @@
 
 <script lang="ts">
 import { ref, computed, useSlots, watchEffect, watch } from 'vue'
-import Icon from 'src/components/Icon'
-import Button from 'src/components/Button'
+import Icon from '../Icon'
+import Button from '../Button'
 import useClasses from './hooks/useClasses'
 import useConatinerClasses from './hooks/useContainerClasses'
 import isVaildNumber from 'src/utils/isVaildNumber'
 import type { IInputRefExpose } from './types'
-import type { CommonFormStatus } from 'src/types/global'
+import type { CommonSize, CommonFormStatus, CommonFormBorderType } from 'src/types/global'
 const componentName = 'sj-input'
 export default {
   name: componentName
@@ -85,7 +85,7 @@ export default {
  */
 interface IProps {
   clearable?: boolean;
-  size?: 'small' | 'normal' | 'large';
+  size?: CommonSize;
   round?: boolean;
   prefix?: string;
   suffix?: string;
@@ -102,7 +102,7 @@ interface IProps {
   status?: CommonFormStatus;
   autofocus?: boolean;
   modelValue?: string | number;
-  borderType?: 'none' | 'line' | 'block';
+  borderType?: CommonFormBorderType;
   placeholder?: string;
 }
 

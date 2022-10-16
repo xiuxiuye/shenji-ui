@@ -1,4 +1,4 @@
-import type { ComputedRef, Classes, CommonSize, Ref, CommonFormStatus } from 'src/types/global'
+import type { ComputedRef, Classes, CommonSize, Ref, CommonFormStatus, CommonFormBorderType } from 'src/types/global'
 
 type Formatter = (value: string) => string;
 type Parse = (value: string) => number | undefined;
@@ -14,7 +14,7 @@ export interface IProps {
   step?: number | string;
   precision?: number | string;
   status?: CommonFormStatus;
-  borderType?: 'none' | 'block' | 'line';
+  borderType?: CommonFormBorderType;
   stringMode?: boolean;
   prefix?: string;
   suffix?: string;
