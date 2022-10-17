@@ -17,7 +17,8 @@ export default {}
   // padding-left: 100px;
 }
 .test {
-  border: 1px solid red;
+  border: 1px solid green;
   height: 600px;
+  margin: 16px 0;
 }
 </style>

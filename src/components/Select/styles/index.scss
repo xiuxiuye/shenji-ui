@@ -92,9 +92,8 @@
   left: 0;
   width: 500px;
   height: 600px;
-  border: 1px solid red;
-  background-color: green;
   overflow-y: auto;
+  box-shadow: var(--sj-shadow-level-2);
 }
 
 .sj-select-popup-shadow {

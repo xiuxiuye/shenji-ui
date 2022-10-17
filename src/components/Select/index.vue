@@ -6,7 +6,7 @@
     @focus="handleFocus"
     @blur="handleBlur"
   >
-  {{transitionName}}
+    {{ transitionName }}
     <div :class="`${classNamePrefix}-content`"></div>
     <div :class="`${classNamePrefix}-arrow`">
       <Icon type="down" />
@@ -41,6 +41,14 @@ import {
 import Icon from '../Icon'
 import useClasses from './hooks/useClasses'
 import usePopupStyles from './hooks/usePopupStyles'
+import {
+  transitionName,
+  initPopupPosition,
+  setPopupClean,
+  setPopupShadowClean,
+  cleanPopup,
+  cleanPopupShadow
+} from './hooks/usePopup'
 import type {
   CommonSize,
   CommonFormStatus,
@@ -139,60 +147,10 @@ const popupStyles = usePopupStyles(props)
 /**
  * handle popup mounted
  */
-const transitionName = ref<string>()
 const popupVisible = ref<boolean>(false)
 const sjSelectRef = ref<ReferenceElement>()
 const sjSelectPopupRef = ref<FloatingElement>()
 const sjSelectPopupShadowRef = ref<FloatingElement>()
-const cleanPopupAutoUpdate = ref<() => void>()
-const cleanPopupShadowAutoUpdate = ref<() => void>()
-
-const initPopupPosition = (
-  referenceEle: ReferenceElement,
-  floatingEle: FloatingElement
-): () => void => {
-  const postionOptions: ComputePositionConfig = {
-    placement: props?.placement,
-    middleware: [offset(4), flip(), shift(), hide()]
-  }
-  /**
-   * auto update position
-   */
-  return autoUpdate(referenceEle, floatingEle, () => {
-    computePosition(referenceEle, floatingEle, postionOptions).then(
-      ({ x, y, placement, middlewareData }) => {
-        Object.assign(floatingEle.style, {
-          left: `${x}px`,
-          top: `${y}px`
-        })
-
-        const placementPrefix = placement?.split('-')[0]
-        transitionName.value = `sj-popup-slide-from-${placementPrefix}`
-
-        if (middlewareData.hide) {
-          const { referenceHidden } = middlewareData.hide
-          Object.assign(floatingEle.style, {
-            visibility: referenceHidden ? 'hidden' : 'visible'
-          })
-        }
-      }
-    )
-  })
-}
-
-const cleanonPopup = async () => {
-  if (cleanPopupAutoUpdate?.value) {
-    cleanPopupAutoUpdate?.value()
-    cleanPopupAutoUpdate.value = undefined
-  }
-}
-
-const cleanonPopupShadow = async () => {
-  if (cleanPopupShadowAutoUpdate?.value) {
-    cleanPopupShadowAutoUpdate?.value()
-    cleanPopupShadowAutoUpdate.value = undefined
-  }
-}
 
 watch(popupVisible, async (newValue, preValue) => {
   if (newValue) {
@@ -200,10 +158,13 @@ watch(popupVisible, async (newValue, preValue) => {
     const select = sjSelectRef.value
     const selectPopup = sjSelectPopupRef.value
     if (select && selectPopup) {
-      cleanPopupAutoUpdate.value = initPopupPosition(select, selectPopup)
+      const clean = initPopupPosition(select, selectPopup, {
+        placement: props?.placement
+      })
+      setPopupClean(clean)
     }
   } else {
-    cleanonPopup()
+    cleanPopup()
   }
 })
 
@@ -211,13 +172,16 @@ onMounted(() => {
   const select = sjSelectRef.value
   const selectPopupShadow = sjSelectPopupShadowRef?.value
   if (select && selectPopupShadow) {
-    cleanPopupShadowAutoUpdate.value = initPopupPosition(select, selectPopupShadow)
+    const clean = initPopupPosition(select, selectPopupShadow, {
+      placement: props?.placement
+    })
+    setPopupShadowClean(clean)
   }
 })
 
 onUnmounted(() => {
-  cleanonPopup()
-  cleanonPopupShadow()
+  cleanPopup()
+  cleanPopupShadow()
 })
 
 /**
