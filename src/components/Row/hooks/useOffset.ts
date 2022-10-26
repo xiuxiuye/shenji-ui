@@ -1,13 +1,14 @@
 import { computed } from 'vue'
 import isVaildNumber from 'src/utils/isVaildNumber'
-import type { IProps } from '../types'
+import type { Props, Gutter } from '../types'
 import type { Ref, ComputedRef } from 'src/types/global'
+import type { ScreenSize } from 'src/utils/hooks/useScreenResize'
 
-const useOffset: (size: Ref<string> | null, props: IProps) => ComputedRef<[number, number]> = (size, props) => {
+const useOffset: (size: Ref<ScreenSize> | null, props: Props) => ComputedRef<[number, number]> = (size, props) => {
   const offset = computed<[number, number]>(() => {
     let [horOffset, verOffset] = [0, 0]
     if (props?.gutter) {
-      const gutter = size?.value ? props?.gutter[size?.value] : props?.gutter
+      const gutter = size?.value ? (props?.gutter as Gutter)[size?.value] : props?.gutter
       if (isVaildNumber(gutter)) {
         // gutter: number | string
         horOffset = Number(gutter) / 2

@@ -24,7 +24,7 @@ export default {
 /**
  * props
  */
-interface IProps {
+interface Props {
   dashed?: boolean;
   text?: string;
   placement?: 'left' | 'right' | 'center';
@@ -32,7 +32,7 @@ interface IProps {
   offset?: string | number;
 }
 
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   dashed: false,
   placement: 'center',
   vertical: false,

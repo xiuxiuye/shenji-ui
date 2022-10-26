@@ -23,7 +23,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-interface IProps {
+interface Props {
   size?: CommonSize | number | string;
   bordered?: boolean;
   borderColor?: string;
@@ -35,7 +35,7 @@ interface IProps {
   shape?: 'circle' | 'square';
 }
 
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   bordered: false,
   shape: 'circle'
@@ -56,15 +56,15 @@ const imgStyles = useImgStyles(props)
 /**
  * img load error
  */
-interface ILoadErrorEmit {
+interface LoadErrorEmit {
   (e: 'on-error', event: Event): void;
 }
-interface IImage extends ImgHTMLAttributes {
+interface Image extends ImgHTMLAttributes {
   onerror: null;
 }
 
 const isImageLoadErrorCount = ref(0)
-const loadErrorEmit = defineEmits<ILoadErrorEmit>()
+const loadErrorEmit = defineEmits<LoadErrorEmit>()
 const handleImageLoadError = (event: Event) => {
   isImageLoadErrorCount.value++
   loadErrorEmit('on-error', event)
@@ -72,7 +72,7 @@ const handleImageLoadError = (event: Event) => {
    * load fallback image
    */
   if (props?.fallbackSrc && isString(props?.fallbackSrc) && event?.target) {
-    const imgRef = event?.target as unknown as IImage
+    const imgRef = event?.target as unknown as Image
     imgRef.src = props?.fallbackSrc
     if (isImageLoadErrorCount.value >= 2) {
       imgRef.onerror = null

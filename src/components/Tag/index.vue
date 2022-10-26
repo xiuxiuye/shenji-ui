@@ -27,7 +27,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-interface IProps {
+interface Props {
   closable?: boolean;
   closeIcon?: string;
   size?: 'small' | 'normal' | 'large' | number | string;
@@ -42,7 +42,7 @@ interface IProps {
   round?: boolean;
 }
 
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   closable: false,
   closeIcon: 'close',
   size: 'normal',
@@ -68,10 +68,10 @@ const iconStyles = useIconStyles(props)
 /**
  * event
  */
-interface IEmit {
+interface Emit {
   (e: 'close', event: Event): void;
 }
-const emit = defineEmits<IEmit>()
+const emit = defineEmits<Emit>()
 const handleClose = (event: Event) => {
   if (!props?.disabled) emit('close', event)
 }

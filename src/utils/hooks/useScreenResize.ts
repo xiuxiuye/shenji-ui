@@ -1,6 +1,6 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
-export enum ScreenSize {
+export enum DefaultScreenSize {
   xs = '(max-width: 575px)',
   sm = '(min-width: 576px)',
   md = '(min-width: 768px)',
@@ -10,8 +10,10 @@ export enum ScreenSize {
   xxxl = '(min-width: 2000px)'
 }
 
+export type ScreenSize = keyof typeof DefaultScreenSize;
+
 export default () => {
-  const size = ref<string>('')
+  const size = ref<ScreenSize>('xxxl')
   const matchers = new Set<MediaQueryList>()
 
   const initSize = () => {
@@ -34,9 +36,9 @@ export default () => {
   }
 
   const initMediaMatcher = () => {
-    const keys = Object.keys(ScreenSize).reverse()
+    const keys = Object.keys(DefaultScreenSize).reverse() as Array<ScreenSize>
     keys.forEach((key) => {
-      const matcher = window.matchMedia(ScreenSize[key])
+      const matcher = window.matchMedia(DefaultScreenSize[key])
       matcher.addEventListener('change', initSize)
       matchers.add(matcher)
     })

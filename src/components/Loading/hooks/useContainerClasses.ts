@@ -1,8 +1,8 @@
 import { computed } from 'vue'
-import type { IProps } from '../types'
+import type { Props } from '../types'
 import type { Classes, UseClasses } from 'src/types/global'
 
-const useContainerClasses: UseClasses<IProps> = (classNamePrefix, props) => {
+const useContainerClasses: UseClasses<Props> = (classNamePrefix, props) => {
   const classes = computed<Classes>(() => {
     return [
       `${classNamePrefix}-container`,

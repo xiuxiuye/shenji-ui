@@ -10,6 +10,8 @@ import useScreenResize from 'src/utils/hooks/useScreenResize'
 import isRowResponsive from './utils/isRowResponsive'
 import useOffset from './hooks/useOffset'
 import useStyles from './hooks/useStyles'
+import type { BaseType, Gutter } from './types'
+import type { ScreenSize } from 'src/utils/hooks/useScreenResize'
 
 const componentName = 'sj-row'
 export default {
@@ -21,26 +23,16 @@ export default {
 /**
  * props
  */
-type BaseType = number | string | [number | string, number | string];
-interface IGutter {
-  xs?: BaseType;
-  sm?: BaseType;
-  md?: BaseType;
-  lg?: BaseType;
-  xl?: BaseType;
-  xxl?: BaseType;
-  xxxl?: BaseType;
-}
-interface IProps {
-  gutter?: BaseType | IGutter;
+interface Props {
+  gutter?: BaseType | Gutter;
 }
 
-const props = defineProps<IProps>()
+const props = defineProps<Props>()
 
 /**
  * handle screen resize
  */
-const size: Ref<string> | null = isRowResponsive(props) ? useScreenResize() : null
+const size: Ref<ScreenSize> | null = isRowResponsive(props) ? useScreenResize() : null
 
 const offset = useOffset(size, props)
 const styles = useStyles(offset)

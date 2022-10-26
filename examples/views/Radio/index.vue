@@ -4,7 +4,6 @@
     <Radio size="normal" @change="handleChange" ref="myRadio">Radio</Radio>
     <Radio size="large" disabled>Radio</Radio>
   </div>
-  {{radioValue}}
   <RadioGroup size="normal" name="duck" v-model="radioValue" @change="handleChange">
     <Radio size="normal" value="one">Radio1</Radio>
     <Radio size="normal" value="two">Radio2</Radio>

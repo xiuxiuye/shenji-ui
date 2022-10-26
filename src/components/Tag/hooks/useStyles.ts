@@ -1,9 +1,9 @@
 import { computed } from 'vue'
-import { IProps } from '../types/index'
+import { Props } from '../types/index'
 import isString from 'src/utils/isString'
 import { StyleValue, UseStyles } from 'src/types/global'
 
-const useStyles: UseStyles<IProps> = (props) => {
+const useStyles: UseStyles<Props> = (props) => {
   const styles = computed<StyleValue>(() => {
     const tempStyles: StyleValue = {}
     /**

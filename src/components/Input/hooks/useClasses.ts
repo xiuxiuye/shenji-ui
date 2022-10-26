@@ -1,9 +1,9 @@
 import { computed } from 'vue'
 import { COMMON_FORM_BORDER_TYPE, COMMON_FORM_STATUS } from 'src/utils/constant'
-import type { IProps } from '../types'
+import type { Props } from '../types'
 import type { UseClasses, Classes, CommonFormBorderType, CommonFormStatus } from 'src/types/global'
 
-const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
+const useClasses: UseClasses<Props> = (classNamePrefix, props) => {
   const classes = computed<Classes>(() => {
     const isValidStatus = COMMON_FORM_STATUS?.includes(props?.status as CommonFormStatus)
     const isValidBorderType = COMMON_FORM_BORDER_TYPE?.includes(props?.borderType as CommonFormBorderType)

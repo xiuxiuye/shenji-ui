@@ -1,6 +1,6 @@
 import type { ComputedRef, StyleValue } from 'src/types/global'
 
-export interface IProps {
+export interface Props {
   dashed?: boolean;
   text?: string;
   placement?: 'left' | 'right' | 'center';
@@ -8,4 +8,4 @@ export interface IProps {
   offset?: string | number;
 }
 
-export type UseStyles = (hasText: ComputedRef<boolean>, props: IProps) => ComputedRef<StyleValue>;
+export type UseStyles = (hasText: ComputedRef<boolean>, props: Props) => ComputedRef<StyleValue>;

@@ -1,6 +1,6 @@
 import type { CommonSize } from 'src/types/global'
 
-export interface IProps {
+export interface Props {
   size?: CommonSize | number | string;
   icon?: string;
   bordered?: boolean;

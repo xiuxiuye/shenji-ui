@@ -2,7 +2,12 @@ import generateColors from './generateColors'
 import setColorVar from './setColorVar'
 import type { InitSubColorVars } from './types'
 
-const COLOR_VARS = [
+interface Color {
+  color: string;
+  cssVarsIndex: Record<string, number>;
+}
+
+const COLOR_VARS: Color[] = [
   {
     color: 'blue',
     cssVarsIndex: {

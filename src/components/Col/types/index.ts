@@ -1,7 +1,8 @@
 
+import type { ScreenSize } from 'src/utils/hooks/useScreenResize'
 import type { Ref, ComputedRef, StyleValue } from 'src/types/global'
 
-interface IBaseProps {
+export interface BaseProps {
   order?: number | string;
   span?: number | string;
   offset?: number | string;
@@ -9,14 +10,16 @@ interface IBaseProps {
   pull?: number | string;
 }
 
-export interface IProps extends IBaseProps {
-  xs?: number | string | IBaseProps;
-  sm?: number | string | IBaseProps;
-  md?: number | string | IBaseProps;
-  lg?: number | string | IBaseProps;
-  xl?: number | string | IBaseProps;
-  xxl?: number | string | IBaseProps;
-  xxxl?: number | string | IBaseProps;
+export type SizeProp = number | string | BaseProps;
+
+export interface Props extends BaseProps {
+  xs?: SizeProp
+  sm?: SizeProp
+  md?: SizeProp
+  lg?: SizeProp
+  xl?: SizeProp
+  xxl?: SizeProp
+  xxxl?: SizeProp
 }
 
-export type UseStyles = (size: Ref<string> | null, offset: ComputedRef<[number, number]>, props: IProps) => ComputedRef<StyleValue>;
+export type UseStyles = (size: Ref<ScreenSize> | null, offset: ComputedRef<[number, number]>, props: Props) => ComputedRef<StyleValue>;

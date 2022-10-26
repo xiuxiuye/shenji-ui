@@ -3,7 +3,7 @@ import type { ComputedRef, Classes, CommonSize, Ref, CommonFormStatus, CommonFor
 type Formatter = (value: string) => string;
 type Parse = (value: string) => number | undefined;
 
-export interface IProps {
+export interface Props {
   size?: CommonSize;
   clearable?: boolean;
   disabled?: boolean;
@@ -26,13 +26,13 @@ export interface IProps {
   keyboard?: boolean;
 }
 
-export interface IInputNumberRefExpose {
+export interface InputNumberRefExpose {
   focus: () => void;
   blur: () => void;
 }
 
-export type UseClasses = (classNamePrefix: string, props: IProps, isValidValue: ComputedRef<boolean>) => ComputedRef<Classes>;
+export type UseClasses = (classNamePrefix: string, props: Props, isValidValue: ComputedRef<boolean>) => ComputedRef<Classes>;
 
-export type UseContainerClasses = (classNamePrefix: string, props: IProps) => ComputedRef<Classes>;
+export type UseContainerClasses = (classNamePrefix: string, props: Props) => ComputedRef<Classes>;
 
 export type UseControlClasses = (classNamePrefix: string, type: 'add' | 'minus', disabled: Ref<boolean>) => ComputedRef<Classes>;

@@ -51,11 +51,13 @@ import toFixed from 'src/utils/toFixed'
 import isNumber from 'src/utils/isNumber'
 import isFunction from 'src/utils/isFunction'
 import isVaildNumber from 'src/utils/isVaildNumber'
+import consoleError from 'src/utils/console/error'
 import useClasses from './hooks/useClasses'
 import useControlClasses from './hooks/useControlClasses'
 import useConatinerClasses from './hooks/useContainerClasses'
-import type { IInputNumberRefExpose } from './types'
+import type { InputNumberRefExpose } from './types'
 import type { CommonSize, CommonFormStatus, CommonFormBorderType } from 'src/types/global'
+
 const componentName = 'sj-input-number'
 export default {
   name: componentName
@@ -68,7 +70,7 @@ export default {
  */
 type Formatter = (value: string) => string;
 type Parse = (value: string) => number | undefined;
-interface IProps {
+interface Props {
   size?: CommonSize;
   clearable?: boolean;
   disabled?: boolean;
@@ -90,7 +92,7 @@ interface IProps {
   parser?: Parse;
   keyboard?: boolean;
 }
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   clearable: false,
   disabled: false,
@@ -113,14 +115,14 @@ const slots = useSlots()
 /**
  * emit
  */
-interface IEmit {
+interface Emit {
   (e: 'clear'): void;
   (e: 'focus', event: FocusEvent): void;
   (e: 'blur', event: FocusEvent): void;
   (e: 'change', value?: number): void;
   (e: 'update:modelValue', value?: number): void;
 }
-const emit = defineEmits<IEmit>()
+const emit = defineEmits<Emit>()
 
 /**
  * max value & min value
@@ -198,11 +200,7 @@ watch(
         realValue.value = getFinalRealValue(newValue)
       }
     } else {
-      console.error(
-        new Error(
-          '神机：InputNumber的modelValue(v-model)类型错误，需number类型的数据。'
-        )
-      )
+      consoleError('神机：InputNumber的modelValue(v-model)类型错误，需number类型的数据。')
     }
   },
   {
@@ -364,7 +362,7 @@ const blur = () => {
   }
 }
 
-const exposeVars: IInputNumberRefExpose = {
+const exposeVars: InputNumberRefExpose = {
   focus,
   blur
 }

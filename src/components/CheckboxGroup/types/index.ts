@@ -1,12 +1,16 @@
 import type { CommonSize } from 'src/types/global'
 
-export interface IProps {
+export interface Props {
   size?: CommonSize;
   disabled?: boolean;
   modelValue?: Array<number | string | boolean>;
   vertical?: boolean;
 }
 
-export type ProvideProps = Pick<IProps, 'size' | 'disabled' | 'modelValue'> | undefined;
-
-export type UseProvide = (props: IProps, methods: Record<string, (value: number | string | boolean) => void>) => void;
+export type Provider = {
+  size?: CommonSize;
+  disabled: boolean;
+  modelValue: Array<number | string | boolean>;
+  addChecked: (value: number | string | boolean) => void;
+  removeChecked: (value: number | string | boolean) => void;
+}

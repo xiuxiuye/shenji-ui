@@ -1,7 +1,7 @@
 import type { ComputedRef, Classes, CommonSize } from 'src/types/global'
-import type { ProvideProps } from '../../CheckboxGroup/types'
+import type { Provider } from '../../CheckboxGroup/types'
 
-export interface IProps {
+export interface Props {
   size?: CommonSize;
   disabled?: boolean;
   autofocus?: boolean;
@@ -9,16 +9,9 @@ export interface IProps {
   indeterminate?: boolean;
 }
 
-export interface ICheckboxRefExpose {
+export interface CheckboxRefExpose {
   focus: () => void;
   blur: () => void;
 }
 
-export type UseClasses = (classNamePrefix: string, props: IProps, checkboxGroupProps?: ComputedRef<ProvideProps>) => ComputedRef<Classes>;
-
-interface UserInjectReturn {
-  checkboxGroupProps: ComputedRef<ProvideProps> | undefined;
-  checkboxGroupMethods: Record<string, (value: number | string | boolean) => void> | undefined;
-}
-
-export type UseInject = () => UserInjectReturn;
+export type UseClasses = (classNamePrefix: string, props: Props, injecter?: ComputedRef<Provider>) => ComputedRef<Classes>;

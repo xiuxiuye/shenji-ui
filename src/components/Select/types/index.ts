@@ -1,6 +1,6 @@
 import type { CommonSize, CommonFormStatus, CommonFormBorderType } from 'src/types/global'
 
-export interface IProps {
+export interface Props {
   size?: CommonSize;
   disabled?: boolean;
   autofocus?: boolean;
@@ -30,7 +30,11 @@ export interface IProps {
   popupWithSelectWidth?: boolean | number | string;
 }
 
-export interface ISelectRefExpose {
+export interface SelectRefExpose {
   focus: () => void;
   blur: () => void;
+}
+
+export type Provider = {
+  selectedValues: Array<string | number>;
 }

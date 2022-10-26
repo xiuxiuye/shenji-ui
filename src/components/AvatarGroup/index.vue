@@ -13,12 +13,12 @@ export default {
 </script>
 
 <script setup lang="ts">
-interface IProps {
+interface Props {
   tight?: boolean;
   vertical?: boolean;
 }
 
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   tight: false,
   vertical: false
 })

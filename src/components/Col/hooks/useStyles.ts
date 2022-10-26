@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import isVaildNumber from 'src/utils/isVaildNumber'
 import type { StyleValue } from 'src/types/global'
-import type { UseStyles } from '../types'
+import type { UseStyles, BaseProps } from '../types'
 
 const useStyles: UseStyles = (size, offset, props) => {
   const styles = computed<StyleValue>(() => {
@@ -9,7 +9,7 @@ const useStyles: UseStyles = (size, offset, props) => {
     /**
      * order
      */
-    const tempOrder = size?.value ? props[size?.value]?.order : props?.order
+    const tempOrder = size?.value ? (props[size?.value] as BaseProps)?.order : props?.order
     if (isVaildNumber(tempOrder) && Number(tempOrder)) tempStyles.order = Number(tempOrder)
     /**
      * gutter

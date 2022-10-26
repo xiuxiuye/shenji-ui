@@ -1,6 +1,6 @@
 import type { ComputedRef, Classes, CommonSize, CommonFormStatus, CommonFormBorderType } from 'src/types/global'
 
-export interface IProps {
+export interface Props {
   clearable?: boolean;
   size?: CommonSize;
   round?: boolean;
@@ -23,9 +23,9 @@ export interface IProps {
   placeholder?: string;
 }
 
-export interface IInputRefExpose {
+export interface InputRefExpose {
   focus: () => void;
   blur: () => void;
 }
 
-export type UseContainerClasses = (classNamePrefix: string, props: IProps, searchBtnVisible: ComputedRef<boolean>) => ComputedRef<Classes>;
+export type UseContainerClasses = (classNamePrefix: string, props: Props, searchBtnVisible: ComputedRef<boolean>) => ComputedRef<Classes>;

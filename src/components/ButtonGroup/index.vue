@@ -16,13 +16,13 @@ export default {
 /**
  * props
  */
-interface IProps {
+interface Props {
   size?: CommonSize;
   vertical?: boolean;
   round?: boolean;
 }
 
-const props = withDefaults(defineProps<IProps>(), { size: 'normal', vertical: false, round: false })
+const props = withDefaults(defineProps<Props>(), { size: 'normal', vertical: false, round: false })
 
 /**
  * classes

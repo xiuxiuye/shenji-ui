@@ -1,14 +1,17 @@
-import { ScreenSize } from 'src/utils/hooks/useScreenResize'
 import isObject from 'src/utils/isObject'
+import isArray from 'src/utils/isArray'
 import isVaildNumber from 'src/utils/isVaildNumber'
-import type { IProps } from '../types'
+import { DefaultScreenSize } from 'src/utils/hooks/useScreenResize'
+import type { Props, Gutter, GutterArrayValue } from '../types'
+import type { ScreenSize } from 'src/utils/hooks/useScreenResize'
 
-const isRowResponsive: (props: IProps) => boolean = (props) => {
+const isRowResponsive: (props: Props) => boolean = (props) => {
   if (props?.gutter && isObject(props?.gutter)) {
-    const keys = Object.keys(ScreenSize)
+    const gutter = props?.gutter as Gutter
+    const keys = Object.keys(DefaultScreenSize) as ScreenSize[]
     for (const key of keys) {
-      if (isVaildNumber(props?.gutter[key])) return true
-      if (Array.isArray(props?.gutter[key]) && (isVaildNumber(props?.gutter[key])[0] || isVaildNumber(props?.gutter[key])[1])) return true
+      if (isVaildNumber(gutter[key])) return true
+      if (isArray(gutter[key]) && (isVaildNumber((gutter[key] as GutterArrayValue)[0]) || isVaildNumber((gutter[key] as GutterArrayValue)[1]))) return true
     }
   }
   return false

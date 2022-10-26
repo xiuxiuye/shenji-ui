@@ -1,8 +1,8 @@
 import isFunction from 'src/utils/isFunction'
 import { removeMessage } from './queue'
-import type { IMessage, IMessageConstructorOptions } from './types'
+import type { Message, MessageConstructorOptions } from './types'
 
-export class Message implements IMessage {
+export class DefaultMessage implements Message {
   id: string
   closable: boolean
   icon: string | null
@@ -12,7 +12,7 @@ export class Message implements IMessage {
   content: () => unknown
   onClose: () => void
 
-  constructor (options: IMessageConstructorOptions) {
+  constructor (options: MessageConstructorOptions) {
     const { id, closable, icon, iconColor, duration, showIcon, content, onClose } = options
 
     this.id = id

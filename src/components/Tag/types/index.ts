@@ -1,4 +1,4 @@
-export interface IProps {
+export interface Props {
   closable?: boolean;
   closeIcon?: string;
   size?: 'small' | 'normal' | 'large' | number | string;

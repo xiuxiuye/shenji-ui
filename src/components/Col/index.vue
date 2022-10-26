@@ -6,13 +6,15 @@
 </template>
 
 <script lang="ts">
-import { inject, computed } from 'vue'
-import isValidParent from 'src/utils/isValidParent'
-import useScreenResize from 'src/utils/hooks/useScreenResize'
-import isColResponsive from './utils/isColResponsive'
+import { inject, computed, Ref, ComputedRef } from 'vue'
 import useStyles from './hooks/useStyles'
 import useClasses from './hooks/useClasses'
-import type { Ref, ComputedRef } from 'vue'
+import isValidParent from 'src/utils/isValidParent'
+import isColResponsive from './utils/isColResponsive'
+import useScreenResize from 'src/utils/hooks/useScreenResize'
+import consoleError from 'src/utils/console/error'
+import type { ScreenSize } from 'src/utils/hooks/useScreenResize'
+import type { SizeProp } from './types'
 
 const componentName = 'sj-col'
 export default {
@@ -26,28 +28,28 @@ export default {
  */
 const isValid = isValidParent('sj-row')
 if (!isValid) {
-  console.error(new Error('神机：非法使用Col组件，请配合Row组件使用'))
+  consoleError('神机：非法使用Col组件，请配合Row组件使用')
 }
 
 /**
  * props
  */
-interface IProps {
+interface Props {
   order?: number | string;
   span?: number | string;
   offset?: number | string;
   push?: number | string;
   pull?: number | string;
-  xs?: number | string | Pick<IProps, 'order' | 'span' | 'offset' | 'push' | 'pull'>;
-  sm?: number | string | Pick<IProps, 'order' | 'span' | 'offset' | 'push' | 'pull'>;
-  md?: number | string | Pick<IProps, 'order' | 'span' | 'offset' | 'push' | 'pull'>;
-  lg?: number | string | Pick<IProps, 'order' | 'span' | 'offset' | 'push' | 'pull'>;
-  xl?: number | string | Pick<IProps, 'order' | 'span' | 'offset' | 'push' | 'pull'>;
-  xxl?: number | string | Pick<IProps, 'order' | 'span' | 'offset' | 'push' | 'pull'>;
-  xxxl?: number | string | Pick<IProps, 'order' | 'span' | 'offset' | 'push' | 'pull'>;
+  xs?: SizeProp;
+  sm?: SizeProp;
+  md?: SizeProp;
+  lg?: SizeProp;
+  xl?: SizeProp;
+  xxl?: SizeProp;
+  xxxl?: SizeProp;
 }
 
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   order: 0,
   span: 24,
   offset: 0,
@@ -58,7 +60,7 @@ const props = withDefaults(defineProps<IProps>(), {
 /**
  * handle screen resize
  */
-const size: Ref<string> | null = isColResponsive(props) ? useScreenResize() : null
+const size: Ref<ScreenSize> | null = isColResponsive(props) ? useScreenResize() : null
 
 const offset: ComputedRef<[number, number]> = inject('gutterOffset') || computed(() => [0, 0])
 

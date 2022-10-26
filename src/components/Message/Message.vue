@@ -20,17 +20,17 @@ import Icon from '../Icon'
 import { computed } from 'vue'
 import isFunction from 'src/utils/isFunction'
 import type { MessagePlacement } from './types'
-import type { Message } from './message'
+import type { DefaultMessage } from './message'
 import type { Ref, StyleValue } from 'src/types/global'
 
-interface IProps {
-  data: Set<Message>;
+interface Props {
+  data: Set<DefaultMessage>;
   placement: Ref<MessagePlacement>;
 }
 
-const props = defineProps<IProps>()
+const props = defineProps<Props>()
 
-const handleClose = (message: Message) => {
+const handleClose = (message: DefaultMessage) => {
   message.destroyed()
   if (isFunction(message?.onClose)) message?.onClose()
 }

@@ -1,6 +1,6 @@
 import type { Ref, CommonSize } from 'src/types/global'
 
-export interface IProps {
+export interface Props {
   size?: CommonSize;
   disabled?: boolean;
   modelValue?: string | number;
@@ -8,14 +8,10 @@ export interface IProps {
   name?: string;
 }
 
-interface IProvideProps extends Omit<IProps, 'vertical' | 'modelValue'> {
+export type Provider = {
+  size?: CommonSize;
+  disabled: boolean;
+  name?: string;
   realValue: string | number;
-}
-
-export type ProvideProps = IProvideProps | undefined;
-
-export interface IProvideMethods {
   updateRadioGroupValue: (value: string | number) => void;
 }
-
-export type UseProvide = (realValue: Ref<string | number>, props: IProps, methods: IProvideMethods) => void;

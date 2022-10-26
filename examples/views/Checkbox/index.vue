@@ -4,7 +4,7 @@
     <Checkbox ref="sonRef" size="normal">Checkbox</Checkbox>
     <Checkbox size="large">Checkbox</Checkbox>
   </div>
-  <div style="padding: 16px;">{{ value }}
+  <div style="padding: 16px;">
     <CheckboxGroup size="large" :disabled="disabled" vertical v-model="value" @change="handleChange">
       <Checkbox size="small" value="beijing">北京</Checkbox>
       <Checkbox size="normal" value="shanghai">上海</Checkbox>

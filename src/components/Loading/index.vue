@@ -32,14 +32,14 @@ export default {
 </script>
 
 <script setup lang="ts">
-interface IProps {
+interface Props {
   tips?: string;
   size?: 'small' | 'normal' | 'large' | number | string;
   visible?: boolean;
   fit?: boolean;
 }
 
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   visible: true,
   fit: false

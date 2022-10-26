@@ -1,6 +1,10 @@
-type BaseType = number | string | [number | string, number | string];
+type NumOrStr = number | string;
 
-interface IGutter {
+export type GutterArrayValue = [NumOrStr, NumOrStr];
+
+export type BaseType = NumOrStr | GutterArrayValue;
+
+export interface Gutter {
   xs?: BaseType;
   sm?: BaseType;
   md?: BaseType;
@@ -10,6 +14,6 @@ interface IGutter {
   xxxl?: BaseType;
 }
 
-export interface IProps {
-  gutter?: BaseType | IGutter;
+export interface Props {
+  gutter?: BaseType | Gutter;
 }

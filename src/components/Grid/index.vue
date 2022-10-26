@@ -14,7 +14,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-interface IProps {
+interface Props {
   cols?: number | string;
   rows?: number | string;
   colGap?: number | string;
@@ -23,7 +23,7 @@ interface IProps {
   justify?: 'start' | 'end' | 'center' | 'stretch';
 }
 
-const props = withDefaults(defineProps<IProps>(), { cols: 24 })
+const props = withDefaults(defineProps<Props>(), { cols: 24 })
 
 const classes = useClasses(componentName, props)
 const styles = useStyles(props)

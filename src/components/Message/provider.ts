@@ -1,16 +1,16 @@
 import { createMessage, removeAllMessage } from './queue'
 import isObject from 'src/utils/isObject'
 import isString from 'src/utils/isString'
-import type { IMessageProvider, ICreateOptions, HandleCreatingMessage } from './types'
+import type { MessageProvider, OriginCreateOptions, HandleCreatingMessage } from './types'
 
 const handleCreatingMessage: HandleCreatingMessage = (options, icon, iconColor) => {
-  let tempOptions: ICreateOptions
+  let tempOptions: OriginCreateOptions
   if (!isObject(options)) {
     tempOptions = {
       content: String(options)
     }
   } else {
-    tempOptions = options as ICreateOptions
+    tempOptions = options as OriginCreateOptions
   }
 
   if (isString(icon) && icon) tempOptions.icon = icon
@@ -20,7 +20,7 @@ const handleCreatingMessage: HandleCreatingMessage = (options, icon, iconColor) 
   return createMessage(tempOptions)
 }
 
-const provider: Readonly<IMessageProvider> = {
+const provider: Readonly<MessageProvider> = {
   create (options) {
     return handleCreatingMessage(options)
   },

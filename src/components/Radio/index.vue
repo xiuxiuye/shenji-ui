@@ -15,9 +15,12 @@
 
 <script lang="ts">
 import { computed, ref, watchEffect } from 'vue'
-import useInject from './hooks/useInject'
 import useClasses from './hooks/useClasses'
-import type { IRadioRefExpose } from './types'
+import useInject from 'src/utils/hooks/useInject'
+import { componentName as radioGroupComponentName } from '../RadioGroup/index.vue'
+import type { RadioRefExpose } from './types'
+import type { Provider } from '../RadioGroup/types'
+
 const componentName = 'sj-radio'
 export default {
   name: componentName
@@ -28,12 +31,12 @@ export default {
 /**
  * inject
  */
-const injects = useInject()
+const injecter = useInject<Provider>(radioGroupComponentName)
 
 /**
  * props
  */
-interface IProps {
+interface Props {
   size?: 'small' | 'normal' | 'large';
   disabled?: boolean;
   autofocus?: boolean;
@@ -41,7 +44,7 @@ interface IProps {
   name?: string;
   value?: string | number;
 }
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   disabled: false,
   autofocus: false,
@@ -52,25 +55,25 @@ const props = withDefaults(defineProps<IProps>(), {
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props, injects?.radioGroupProps)
+const classes = useClasses(classNamePrefix, props, injecter)
 /**
  * name
  */
-const realName = computed<string>(() => injects?.radioGroupProps?.value?.name || props?.name)
+const realName = computed<string>(() => injecter?.value?.name || props?.name)
 /**
  * emit
  */
-interface IEmit {
+interface Emit {
   (e: 'change', value: string | number, event: Event): void;
   (e: 'update:modelValue', value: boolean): void;
 }
-const emit = defineEmits<IEmit>()
+const emit = defineEmits<Emit>()
 /**
  * model-value
  */
 const realValue = ref<string | number>('')
 watchEffect(() => {
-  const radioGroupValue = injects?.radioGroupProps?.value?.realValue
+  const radioGroupValue = injecter?.value?.realValue
   if (radioGroupValue) {
     realValue.value = radioGroupValue
   } else if (props?.modelValue) {
@@ -85,9 +88,7 @@ const realChecked = computed<boolean>(() => realValue?.value === props?.value)
  * event
  */
 const handleChange = (event: Event) => {
-  if (injects?.radioGroupMethods) {
-    injects?.radioGroupMethods?.updateRadioGroupValue(props?.value)
-  }
+  injecter?.value?.updateRadioGroupValue(props?.value)
   emit('change', realValue?.value, event)
   emit('update:modelValue', realChecked?.value)
 }
@@ -109,7 +110,7 @@ const blur = () => {
   }
 }
 
-const exposeVars: IRadioRefExpose = {
+const exposeVars: RadioRefExpose = {
   focus,
   blur
 }

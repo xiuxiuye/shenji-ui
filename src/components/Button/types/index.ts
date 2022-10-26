@@ -1,6 +1,6 @@
 import type { CommonSize } from 'src/types/global'
 
-export interface IProps {
+export interface Props {
   long?: boolean;
   text?: boolean;
   disabled?: boolean;

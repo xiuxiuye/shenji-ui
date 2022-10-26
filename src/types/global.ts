@@ -4,11 +4,11 @@ export type { Ref, ComputedRef, StyleValue, Slots }
 
 export type Classes = Array<string | Record<string, boolean | undefined>>;
 
-export type UseClasses<IProps> = (classNamePrefix: string, props: IProps) => ComputedRef<Classes>;
+export type UseClasses<Props> = (classNamePrefix: string, props: Props) => ComputedRef<Classes>;
 
-export type UseStyles<IProps> = (props: IProps) => ComputedRef<StyleValue>;
+export type UseStyles<Props> = (props: Props) => ComputedRef<StyleValue>;
 
-export type ISJComponent = Plugin & Component;
+export type SJComponent = Plugin & Component;
 
 export type CommonSize = 'small' | 'normal' | 'large';
 

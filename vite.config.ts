@@ -6,11 +6,7 @@ import eslintPlugin from 'vite-plugin-eslint'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueJSX(),
-    eslintPlugin() as never
-  ],
+  plugins: [vue(), vueJSX(), eslintPlugin()],
   resolve: {
     alias: [
       { find: 'src', replacement: path.resolve(__dirname, 'src') },

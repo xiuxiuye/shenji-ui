@@ -1,6 +1,6 @@
 import type { CommonSize, ComputedRef, Classes, Ref } from 'src/types/global'
 
-export interface IProps {
+export interface Props {
   size?: CommonSize;
   disabled?: boolean;
   autofocus?: boolean;
@@ -15,6 +15,6 @@ export interface IProps {
   rubberBand?: boolean;
 }
 
-export type UseClasses = (classNamePrefix: string, props: IProps, checked: Ref<boolean>) => ComputedRef<Classes>;
+export type UseClasses = (classNamePrefix: string, props: Props, checked: Ref<boolean>) => ComputedRef<Classes>;
 
 export type UseDotClasses = (classNamePrefix: string, checked: Ref<boolean>, rubberBanding: Ref<boolean>) => ComputedRef<Classes>;

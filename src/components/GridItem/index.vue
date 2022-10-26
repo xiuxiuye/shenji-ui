@@ -4,9 +4,10 @@
   </div>
 </template>
 <script lang="ts">
-import isValidParent from 'src/utils/isValidParent'
 import useClasses from './hooks/useClasses'
 import useStyles from './hooks/useStyles'
+import isValidParent from 'src/utils/isValidParent'
+import consoleError from 'src/utils/console/error'
 
 const componentName = 'sj-grid-item'
 export default {
@@ -20,20 +21,20 @@ export default {
  */
 const isValid = isValidParent('sj-grid')
 if (!isValid) {
-  console.error(new Error('神机：非法使用GridItem组件，请配合Grid组件使用'))
+  consoleError('神机：非法使用GridItem组件，请配合Grid组件使用')
 }
 
 /**
  * props
  */
-interface IProps {
+interface Props {
   colSpan?: number | string | [number | string, number | string];
   rowSpan?: number | string | [number | string, number | string];
   justify?: 'start' | 'end' | 'center' | 'stretch';
   align?: 'start' | 'end' | 'center' | 'stretch';
 }
 
-const props = defineProps<IProps>()
+const props = defineProps<Props>()
 
 const classes = useClasses(componentName, props)
 const styles = useStyles(props)

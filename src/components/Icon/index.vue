@@ -11,13 +11,13 @@ export default {
 </script>
 
 <script setup lang="ts">
-interface IProps {
+interface Props {
   color?: string;
   size?: 'large' | 'normal' | 'small' | string | number;
   type: string;
 }
 
-const props = withDefaults(defineProps<IProps>(), { size: 'normal' })
+const props = withDefaults(defineProps<Props>(), { size: 'normal' })
 
 const classes = useClasses(componentName, props)
 

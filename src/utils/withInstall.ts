@@ -1,9 +1,9 @@
 import type { App, Component } from 'vue'
 import './theme/init'
 import registerVueComponent from 'src/utils/registerVueComponent'
-import type { ISJComponent } from 'src/types/global'
+import type { SJComponent } from 'src/types/global'
 
-type WithInstall = (component: Component) => ISJComponent
+type WithInstall = (component: Component) => SJComponent
 
 const withInstall: WithInstall = (component) => {
   return {

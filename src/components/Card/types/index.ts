@@ -1,6 +1,6 @@
 import type { ComputedRef, StyleValue, CommonSize } from 'src/types/global'
 
-export interface IProps {
+export interface Props {
   bordered?: boolean;
   loading?: boolean;
   divideble?: boolean;

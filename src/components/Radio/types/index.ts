@@ -1,7 +1,7 @@
 import type { ComputedRef, Classes, CommonSize } from 'src/types/global'
-import type { ProvideProps, IProvideMethods } from '../../RadioGroup/types'
+import type { Provider } from '../../RadioGroup/types'
 
-export interface IProps {
+export interface Props {
   size?: CommonSize;
   disabled?: boolean;
   autofocus?: boolean;
@@ -10,16 +10,9 @@ export interface IProps {
   value?: string | number;
 }
 
-export interface IRadioRefExpose {
+export interface RadioRefExpose {
   focus: () => void;
   blur: () => void;
 }
 
-export type UseClasses = (classNamePrefix: string, props: IProps, radioGroupProps?: ComputedRef<ProvideProps>) => ComputedRef<Classes>;
-
-interface UserInjectReturn {
-  radioGroupProps: ComputedRef<ProvideProps> | undefined;
-  radioGroupMethods: IProvideMethods | undefined;
-}
-
-export type UseInject = () => UserInjectReturn;
+export type UseClasses = (classNamePrefix: string, props: Props, injecter?: ComputedRef<Provider>) => ComputedRef<Classes>;

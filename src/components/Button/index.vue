@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { computed } from 'vue'
-import Wave from '../Wave/index.vue'
+import Wave from '../Wave'
 import Icon from '../Icon'
 import useClasses from './hooks/useClasses'
 const componentName = 'sj-button'
@@ -22,7 +22,7 @@ export default {
 /**
  * props
  */
-interface IProps {
+interface Props {
   long?: boolean;
   text?: boolean;
   disabled?: boolean;
@@ -37,7 +37,7 @@ interface IProps {
   htmlType?: 'button' | 'submit' | 'reset';
 }
 
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   long: false,
   text: false,
   disabled: false,
@@ -62,10 +62,10 @@ const clickable = computed<boolean>(() => !props?.disabled && !props?.loading)
 /**
  * event
  */
-interface IEmit {
+interface Emit {
   (e: 'click', event: Event): void;
 }
-const emit = defineEmits<IEmit>()
+const emit = defineEmits<Emit>()
 const handleClick = (event: Event) => {
   if (clickable.value) emit('click', event)
 }

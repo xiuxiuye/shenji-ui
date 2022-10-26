@@ -71,7 +71,7 @@ import Button from '../Button'
 import useClasses from './hooks/useClasses'
 import useConatinerClasses from './hooks/useContainerClasses'
 import isVaildNumber from 'src/utils/isVaildNumber'
-import type { IInputRefExpose } from './types'
+import type { InputRefExpose } from './types'
 import type { CommonSize, CommonFormStatus, CommonFormBorderType } from 'src/types/global'
 const componentName = 'sj-input'
 export default {
@@ -83,7 +83,7 @@ export default {
 /**
  * props
  */
-interface IProps {
+interface Props {
   clearable?: boolean;
   size?: CommonSize;
   round?: boolean;
@@ -106,7 +106,7 @@ interface IProps {
   placeholder?: string;
 }
 
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   clearable: false,
   size: 'normal',
   round: false,
@@ -131,7 +131,7 @@ const slots = useSlots()
 /**
  * emit
  */
-interface IEmit {
+interface Emit {
   (e: 'clear'): void;
   (e: 'focus', event: FocusEvent): void;
   (e: 'blur', event: FocusEvent): void;
@@ -140,7 +140,7 @@ interface IEmit {
   (e: 'search', value: string): void;
   (e: 'update:modelValue', value: string): void;
 }
-const emit = defineEmits<IEmit>()
+const emit = defineEmits<Emit>()
 
 /**
  * autofocus
@@ -265,7 +265,7 @@ const blur = () => {
   }
 }
 
-const exposeVars: IInputRefExpose = {
+const exposeVars: InputRefExpose = {
   focus,
   blur
 }

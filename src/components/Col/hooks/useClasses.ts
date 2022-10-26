@@ -1,11 +1,13 @@
 import { computed } from 'vue'
 import isObject from 'src/utils/isObject'
 import isVaildNumber from 'src/utils/isVaildNumber'
-import { ScreenSize } from 'src/utils/hooks/useScreenResize'
-import type { IProps } from '../types'
+import consoleError from 'src/utils/console/error'
+import { DefaultScreenSize } from 'src/utils/hooks/useScreenResize'
+import type { ScreenSize } from 'src/utils/hooks/useScreenResize'
+import type { Props, BaseProps } from '../types'
 import type { UseClasses, Classes } from 'src/types/global'
 
-const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
+const useClasses: UseClasses<Props> = (classNamePrefix, props) => {
   const classes = computed<Classes>(() => {
     const tempClassesArray: Classes = [classNamePrefix]
     /**
@@ -16,10 +18,10 @@ const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
       if (tempSpan >= 0 && tempSpan <= 24) {
         tempClassesArray.push(`${classNamePrefix}-span-${tempSpan}`)
       } else {
-        console.error(new Error('神机：COl组件span属性取值范围错误 ([0, 24])'))
+        consoleError('神机：COl组件span属性取值范围错误 ([0, 24])')
       }
     } else {
-      console.error(new Error('神机：Col组件span属性类型错误 (number | string)'))
+      consoleError('神机：Col组件span属性类型错误 (number | string)')
     }
 
     const tempClassesObj = {
@@ -31,20 +33,22 @@ const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
     /**
      * handle responsive props
      */
-    Object.keys(ScreenSize).forEach((size) => {
-      const screenSizeValue = props[size]
+    const screenSizeKeys = Object.keys(DefaultScreenSize) as Array<ScreenSize>
+    screenSizeKeys.forEach((size) => {
+      const screenSizeValue = props[size] as BaseProps
       if (isObject(screenSizeValue)) {
-        Object.keys(screenSizeValue).forEach((key) => {
+        const screenSizeValueKeys = Object.keys(screenSizeValue) as Array<keyof BaseProps>
+        screenSizeValueKeys.forEach((key) => {
           if (key !== 'order') {
             if (isVaildNumber(screenSizeValue[key])) {
               const tempValue = Number(screenSizeValue[key])
               if (tempValue < 0 || tempValue > 24) {
-                console.error(new Error(`神机：Col组件${size}属性${key}字段取值范围错误 ([0, 24])`))
+                consoleError(`神机：Col组件${size}属性${key}字段取值范围错误 ([0, 24])`)
               } else {
                 tempClassesArray.push(`${classNamePrefix}-${size}-${key}-${Number(screenSizeValue[key])}`)
               }
             } else {
-              console.error(new Error(`神机：Col组件${size}属性${key}字段类型错误 (number | string | Record<string, number | string>)`))
+              consoleError(`神机：Col组件${size}属性${key}字段类型错误 (number | string | Record<string, number | string>)`)
             }
           }
         })
@@ -53,10 +57,10 @@ const useClasses: UseClasses<IProps> = (classNamePrefix, props) => {
         if (tempSpan >= 0 && tempSpan <= 24) {
           tempClassesArray.push(`${classNamePrefix}-${size}-span-${tempSpan}`)
         } else {
-          console.error(new Error(`神机：Col组件${size}属性取值范围错误 ([0, 24])`))
+          consoleError(`神机：Col组件${size}属性取值范围错误 ([0, 24])`)
         }
       } else if (screenSizeValue) {
-        console.error(new Error(`神机：Col组件${size}属性类型错误 (number | string | Record<string, number | string>)`))
+        consoleError(`神机：Col组件${size}属性类型错误 (number | string | Record<string, number | string>)`)
       }
     })
 

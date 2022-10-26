@@ -3,11 +3,11 @@ import { COMMON_SIZE } from 'src/utils/constant'
 import type { UseClasses } from '../types'
 import type { Classes, CommonSize } from 'src/types/global'
 
-const useClasses: UseClasses = (classNamePrefix, props, radioGroupProps) => {
+const useClasses: UseClasses = (classNamePrefix, props, injecter) => {
   const classes = computed<Classes>(() => {
-    const size = radioGroupProps?.value?.size || props?.size
+    const size = injecter?.value?.size || props?.size
     const isValidSize = COMMON_SIZE.includes(size as CommonSize)
-    const disabled = radioGroupProps?.value?.disabled || props?.disabled
+    const disabled = injecter?.value?.disabled || props?.disabled
     return [
       classNamePrefix,
       {

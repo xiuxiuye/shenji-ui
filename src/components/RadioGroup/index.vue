@@ -5,10 +5,12 @@
 </template>
 
 <script lang="ts">
-import { watchEffect, ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 import useClasses from './hooks/useClasses'
-import useProvide from './hooks/useProvide'
-const componentName = 'sj-radio-group'
+import useProvide from 'src/utils/hooks/useProvide'
+import type { Provider } from './types'
+
+export const componentName = 'sj-radio-group'
 export default {
   name: componentName
 }
@@ -18,14 +20,14 @@ export default {
 /**
  * props
  */
-interface IProps {
+interface Props {
   size?: 'small' | 'normal' | 'large';
   disabled?: boolean;
   modelValue?: string | number;
   vertical?: boolean;
   name?: string;
 }
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   vertical: false,
   modelValue: ''
@@ -40,20 +42,24 @@ const classes = useClasses(classNamePrefix, props)
 /**
  * emit
  */
-interface IEmit {
+interface Emit {
   (e: 'change', value: string | number): void;
   (e: 'update:modelValue', value: string | number): void;
 }
-const emit = defineEmits<IEmit>()
+const emit = defineEmits<Emit>()
 
 /**
  * model-value
  */
 const realValue = ref<string | number>('')
 
-watchEffect(() => {
-  realValue.value = props?.modelValue
-})
+watch(
+  () => props?.modelValue,
+  () => {
+    realValue.value = props?.modelValue
+  },
+  { immediate: true }
+)
 
 const updateRadioGroupValue = (value: string | number) => {
   realValue.value = value
@@ -64,5 +70,14 @@ const updateRadioGroupValue = (value: string | number) => {
 /**
  * provide
  */
-useProvide(realValue, props, { updateRadioGroupValue })
+const provider = computed<Provider>(() => {
+  return {
+    size: props?.size,
+    disabled: props?.disabled,
+    name: props?.name,
+    realValue: realValue?.value,
+    updateRadioGroupValue
+  }
+})
+useProvide<Provider>(componentName, provider)
 </script>

@@ -1,5 +1,5 @@
 import { VNode } from 'vue'
-import type { Message } from '../message'
+import type { DefaultMessage } from '../message'
 
 export enum MessagePlacements {
   'top' = 'top',
@@ -16,7 +16,7 @@ export enum MessagePlacements {
 
 export type MessagePlacement = keyof typeof MessagePlacements;
 
-export interface IMessage {
+export interface Message {
   id: string;
   closable: boolean;
   icon: string | null;
@@ -29,7 +29,7 @@ export interface IMessage {
   onClose: () => void;
 }
 
-export interface ICreateOptions {
+export interface OriginCreateOptions {
   closable?: boolean;
   duration?: number;
   placement?: MessagePlacement;
@@ -40,29 +40,29 @@ export interface ICreateOptions {
   onClose?: () => void;
 }
 
-export interface IMessageConstructorOptions extends Required<Omit<ICreateOptions, 'placement'>> {
+export interface MessageConstructorOptions extends Required<Omit<OriginCreateOptions, 'placement'>> {
   id: string;
 }
 
-export type RemoveMessage = (message: Message) => void;
+export type RemoveMessage = (message: DefaultMessage) => void;
 
 export type RemoveAllMessage = () => void;
 
-export type AddMessage = (message: Message) => void;
+export type AddMessage = (message: DefaultMessage) => void;
 
 export type CreateMessageId = () => string;
 
-type CreateMethod<T> = (options: T) => Pick<IMessage, 'destroyed'>;
+type CreateMethod<T> = (options: T) => Pick<Message, 'destroyed'>;
 
-export type CreateMessage = CreateMethod<ICreateOptions>;
+export type CreateMessage = CreateMethod<OriginCreateOptions>;
 
-export type CreateOptions = ICreateOptions | string;
+export type CreateOptions = OriginCreateOptions | string;
 
-export type HandleCreatingMessage = (options: CreateOptions, icon?: string, iconColor?: string) => Pick<IMessage, 'destroyed'>;
+export type HandleCreatingMessage = (options: CreateOptions, icon?: string, iconColor?: string) => Pick<Message, 'destroyed'>;
 
 export type Create = CreateMethod<CreateOptions>;
 
-export type InfoOptions = Omit<ICreateOptions, 'icon' | 'iconColor'> | string;
+export type InfoOptions = Omit<OriginCreateOptions, 'icon' | 'iconColor'> | string;
 
 export type Info = CreateMethod<InfoOptions>;
 
@@ -82,7 +82,7 @@ export type LoadingOptions = InfoOptions;
 
 export type Loading = CreateMethod<LoadingOptions>;
 
-export interface IMessageProvider {
+export interface MessageProvider {
   create: Create;
   info: Info;
   error: Error;

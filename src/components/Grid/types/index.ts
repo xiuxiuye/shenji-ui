@@ -1,4 +1,4 @@
-export interface IProps {
+export interface Props {
   cols?: number | string;
   rows?: number | string;
   colGap?: number | string;

@@ -1,4 +1,4 @@
-import { Message } from './message'
+import { DefaultMessage } from './message'
 import { render, createVNode, ref } from 'vue'
 import MessageComponent from './Message.vue'
 import isString from 'src/utils/isString'
@@ -7,7 +7,7 @@ import type { Ref } from 'src/types/global'
 import type { RemoveMessage, RemoveAllMessage, AddMessage, CreateMessageId, CreateMessage, MessagePlacement } from './types'
 
 let idCounter = 1
-const messageQueue: Ref<Set<Message>> = ref(new Set())
+const messageQueue: Ref<Set<DefaultMessage>> = ref(new Set())
 
 const placement = ref<MessagePlacement>(MessagePlacements.top)
 
@@ -55,7 +55,7 @@ export const createMessage: CreateMessage = (options) => {
     onClose = () => {}
   } = options
   const id = createMessageId()
-  const message = new Message({
+  const message = new DefaultMessage({
     id,
     closable,
     duration,

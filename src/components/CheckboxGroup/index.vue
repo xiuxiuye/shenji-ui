@@ -1,16 +1,18 @@
 <template>
-  <div :class="classes">{{realValue}}
+  <div :class="classes">
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, watchEffect } from 'vue'
+import { ref, computed, watch } from 'vue'
 import isArray from 'src/utils/isArray'
 import useClasses from './hooks/useClasses'
-import useProvide from './hooks/useProvide'
+import useProvide from 'src/utils/hooks/useProvide'
+import type { Provider } from './types'
 import type { CommonSize } from 'src/types/global'
-const componentName = 'sj-checkbox-group'
+
+export const componentName = 'sj-checkbox-group'
 export default {
   name: componentName
 }
@@ -20,16 +22,16 @@ export default {
 /**
  * props
  */
-interface IProps {
+interface Props {
   size?: CommonSize;
   disabled?: boolean;
   modelValue?: Array<number | string | boolean>;
   vertical?: boolean;
 }
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   vertical: false,
-  modelValue: () => ([])
+  modelValue: () => []
 })
 
 /**
@@ -41,22 +43,22 @@ const classes = useClasses(classNamePrefix, props)
 /**
  * emit
  */
-interface IEmit {
+interface Emit {
   (e: 'change', value: Array<number | string | boolean>): void;
   (e: 'update:modelValue', value: Array<number | string | boolean>): void;
 }
-const emit = defineEmits<IEmit>()
+const emit = defineEmits<Emit>()
 
 /**
  * model-value
  */
 const realValue = ref<Array<number | string | boolean>>([])
 
-watchEffect(() => {
+watch(props?.modelValue, () => {
   if (isArray(props?.modelValue)) {
     realValue.value = props?.modelValue
   }
-})
+}, { immediate: true })
 
 const addChecked = (value: number | string | boolean) => {
   if (realValue?.value?.includes(value)) return
@@ -65,7 +67,7 @@ const addChecked = (value: number | string | boolean) => {
   emit('change', realValue?.value)
 }
 const removeChecked = (value: number | string | boolean) => {
-  const index = realValue?.value?.findIndex(val => val === value)
+  const index = realValue?.value?.findIndex((val) => val === value)
   if (index >= 0) {
     realValue?.value?.splice(index, 1)
     emit('update:modelValue', realValue?.value)
@@ -76,5 +78,14 @@ const removeChecked = (value: number | string | boolean) => {
 /**
  * provide
  */
-useProvide(props, { addChecked, removeChecked })
+const provider = computed<Provider>(() => {
+  return {
+    size: props?.size,
+    disabled: props?.disabled,
+    modelValue: props?.modelValue,
+    addChecked,
+    removeChecked
+  }
+})
+useProvide<Provider>(componentName, provider)
 </script>

@@ -53,7 +53,7 @@ export default {
 /**
  * props
  */
-interface IProps {
+interface Props {
   bordered?: boolean;
   loading?: boolean;
   divideble?: boolean;
@@ -66,7 +66,7 @@ interface IProps {
   noPadding?: string | string[];
 }
 
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   bordered: true,
   loading: false,
   size: 'normal',

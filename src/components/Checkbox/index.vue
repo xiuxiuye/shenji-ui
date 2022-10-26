@@ -22,11 +22,15 @@
 <script lang="ts">
 import { ref, watch, watchEffect } from 'vue'
 import isArray from 'src/utils/isArray'
-import useInject from './hooks/useInject'
 import useClasses from './hooks/useClasses'
 import useCheckedClasses from './hooks/useCheckedClasses'
+import useInject from 'src/utils/hooks/useInject'
 import isValidParent from 'src/utils/isValidParent'
-import type { ICheckboxRefExpose } from './types'
+import consoleError from 'src/utils/console/error'
+import { componentName as checkboxGroupComponentName } from '../CheckboxGroup/index.vue'
+import type { CheckboxRefExpose } from './types'
+import type { Provider } from '../CheckboxGroup/types'
+
 const componentName = 'sj-checkbox'
 export default {
   name: componentName
@@ -37,12 +41,12 @@ export default {
 /**
  * inject
  */
-const injects = useInject()
+const injecter = useInject<Provider>(checkboxGroupComponentName)
 
 /**
  * props
  */
-interface IProps {
+interface Props {
   size?: 'small' | 'normal' | 'large';
   disabled?: boolean;
   autofocus?: boolean;
@@ -50,7 +54,7 @@ interface IProps {
   indeterminate?: boolean;
   value?: string | number | boolean;
 }
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   disabled: false,
   autofocus: false,
@@ -62,17 +66,17 @@ const props = withDefaults(defineProps<IProps>(), {
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props, injects?.checkboxGroupProps)
+const classes = useClasses(classNamePrefix, props, injecter)
 const checkedClasses = useCheckedClasses(classNamePrefix, props)
 
 /**
  * emit
  */
-interface IEmit {
+interface Emit {
   (e: 'change', value: boolean, event: Event): void;
   (e: 'update:modelValue', value: boolean): void;
 }
-const emit = defineEmits<IEmit>()
+const emit = defineEmits<Emit>()
 
 /**
  * v-model
@@ -91,12 +95,10 @@ watch(
 watchEffect(() => {
   if (!isCheckboxGroupChild) return
   if (!props?.value) {
-    console.error(
-      new Error('神机：value is required of checkbox in checkboxGroup')
-    )
+    consoleError('神机：value is required of checkbox in checkboxGroup')
     return
   }
-  const checkboxGroupValues = injects?.checkboxGroupProps?.value?.modelValue
+  const checkboxGroupValues = injecter?.value?.modelValue
   if (checkboxGroupValues && isArray(checkboxGroupValues)) {
     checked.value = checkboxGroupValues?.includes(props?.value)
   }
@@ -105,15 +107,13 @@ watchEffect(() => {
 watch(checked, (val) => {
   if (!isCheckboxGroupChild) return
   if (!props?.value) {
-    console.error(
-      new Error('神机：value is required of checkbox in checkboxGroup')
-    )
+    consoleError('神机：value is required of checkbox in checkboxGroup')
     return
   }
   if (val) {
-    injects?.checkboxGroupMethods?.addChecked(props?.value)
+    injecter?.value?.addChecked(props?.value)
   } else {
-    injects?.checkboxGroupMethods?.removeChecked(props?.value)
+    injecter?.value?.removeChecked(props?.value)
   }
 })
 /**
@@ -142,7 +142,7 @@ const blur = () => {
   }
 }
 
-const exposeVars: ICheckboxRefExpose = {
+const exposeVars: CheckboxRefExpose = {
   focus,
   blur
 }

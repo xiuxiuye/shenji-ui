@@ -20,11 +20,11 @@ import isValidNumber from 'src/utils/isVaildNumber'
 import isString from 'src/utils/isString'
 import type { StyleValue } from 'src/types/global'
 
-interface IProps {
+interface Props {
   size?: number | string;
 }
 
-const props = defineProps<IProps>()
+const props = defineProps<Props>()
 
 const styles = computed<StyleValue>(() => {
   const tempStyles: StyleValue = {}

@@ -29,8 +29,8 @@
 </template>
 
 <script lang="ts">
-import Icon from '../Icon/index.vue'
-import Wave from '../Wave/index.vue'
+import Icon from '../Icon'
+import Wave from '../Wave'
 import { ref, watch, computed, useSlots } from 'vue'
 import useClasses from './hooks/useClasses'
 import useDotClasses from './hooks/useDotClasses'
@@ -42,7 +42,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-export interface IProps {
+export interface Props {
   size?: CommonSize;
   disabled?: boolean;
   autofocus?: boolean;
@@ -56,7 +56,7 @@ export interface IProps {
   uncheckedText?: string;
   rubberBand?: boolean;
 }
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   disabled: false,
   autofocus: false,
@@ -76,11 +76,11 @@ const slots = useSlots()
 /**
  * emit
  */
-interface IEmit {
+interface Emit {
   (e: 'change', checked: boolean, checkedValue: boolean | number | string): void;
   (e: 'update:modelValue', value: boolean | number | string): void;
 }
-const emit = defineEmits<IEmit>()
+const emit = defineEmits<Emit>()
 
 /**
  * model value

@@ -11,14 +11,23 @@
     <div :class="`${classNamePrefix}-arrow`">
       <Icon type="down" />
     </div>
-    <Transition :name="transitionName">
+    <transition :name="transitionName">
       <div
         v-if="popupVisible"
         ref="sjSelectPopupRef"
         :class="`${classNamePrefix}-popup`"
         :style="popupStyles"
-      ></div>
-    </Transition>
+      >
+        <Option
+          v-for="option in options"
+          :key="option[valueField]"
+          :value="option[valueField]"
+          :label="option[labelField]"
+          :disabled="option?.disabled"
+        ></Option>
+        <!-- <slot /> -->
+      </div>
+    </transition>
     <!-- popup shadow -->
     <div
       ref="sjSelectPopupShadowRef"
@@ -29,16 +38,9 @@
 </template>
 
 <script lang="ts">
-import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
-import {
-  computePosition,
-  flip,
-  shift,
-  offset,
-  hide,
-  autoUpdate
-} from '@floating-ui/dom'
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import Icon from '../Icon'
+import Option from '../Option'
 import useClasses from './hooks/useClasses'
 import usePopupStyles from './hooks/usePopupStyles'
 import {
@@ -49,39 +51,42 @@ import {
   cleanPopup,
   cleanPopupShadow
 } from './hooks/usePopup'
+import isArray from 'src/utils/isArray'
+import isString from 'src/utils/isString'
+import isNumber from 'src/utils/isNumber'
+import consoleError from 'src/utils/console/error'
+import useProvide from 'src/utils/hooks/useProvide'
+import type { Provider } from './types'
 import type {
   CommonSize,
   CommonFormStatus,
   CommonFormBorderType
 } from 'src/types/global'
-import type {
-  ComputePositionConfig,
-  ReferenceElement,
-  FloatingElement
-} from '@floating-ui/dom'
+import type { ReferenceElement, FloatingElement } from '@floating-ui/dom'
 
-const componentName = 'sj-select'
+export const componentName = 'sj-select'
 export default {
   name: componentName
 }
 </script>
 
 <script setup lang="ts">
-interface IProps {
+type SingleModelValue = string | number
+type Props = {
   size?: CommonSize;
   disabled?: boolean;
   autofocus?: boolean;
-  modelValue?: string | number | Array<string | number>;
+  modelValue?: SingleModelValue | SingleModelValue[];
   clearable?: boolean;
   loading?: boolean;
   round?: boolean;
   filterable?: boolean;
-  filter?: (pattern: string, option: Record<string, any>) => boolean;
+  filter?: (pattern: string, option: Record<string, unknown>) => boolean;
   labelField?: string;
   valueField?: string;
   maxCount?: number;
   multiple?: boolean;
-  options?: Array<Record<string, any>>;
+  options?: Array<Record<string, unknown>>;
   placeholder?: string;
   placement?:
     | 'top-start'
@@ -97,7 +102,7 @@ interface IProps {
     | 'left'
     | 'left-end';
   remote?: boolean;
-  remoteMethod?: () => Promise<Array<Record<string, any>>>;
+  remoteMethod?: () => Promise<Array<Record<string, unknown>>>;
   status?: CommonFormStatus;
   container?: string | HTMLElement;
   virtual?: boolean;
@@ -109,7 +114,7 @@ interface IProps {
   popupWithSelectWidth?: boolean | number | string;
 }
 
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   disabled: true,
   autofocus: false,
@@ -143,6 +148,14 @@ const classes = useClasses(classNamePrefix, props)
  * styles
  */
 const popupStyles = usePopupStyles(props)
+
+/**
+ * emit
+ */
+type Emit = {
+  (e: 'update:modelValue', value: SingleModelValue | SingleModelValue[]): void;
+}
+const emit = defineEmits<Emit>()
 
 /**
  * handle popup mounted
@@ -191,6 +204,45 @@ const handleFocus = () => {
   popupVisible.value = true
 }
 const handleBlur = () => {
-  popupVisible.value = false
+  // popupVisible.value = false
 }
+
+/**
+ * model-value
+ */
+const realValues = ref<Array<string | number>>([])
+
+watch(() => props?.modelValue, () => {
+  if (props?.multiple) {
+    if (isArray(props?.modelValue)) {
+      realValues.value = [...props?.modelValue as SingleModelValue[]]
+    } else {
+      consoleError('神机：Select在多选模式下model-value的类型应为数组')
+    }
+  } else {
+    if (isString(props?.modelValue) || isNumber(props?.modelValue)) {
+      realValues.value = [props?.modelValue as SingleModelValue]
+    } else {
+      consoleError('神机：Select在单选模式下model-value的类型应为string | number')
+    }
+  }
+}, { immediate: true })
+
+watch(realValues, () => {
+  if (props?.multiple) {
+    emit('update:modelValue', realValues.value)
+  } else {
+    emit('update:modelValue', realValues.value[0])
+  }
+})
+
+/**
+ * provide
+ */
+const provider = computed<Provider>(() => {
+  return {
+    selectedValues: props?.multiple ? [...realValues?.value] : [realValues?.value[0]]
+  }
+})
+useProvide<Provider>(componentName, provider)
 </script>
