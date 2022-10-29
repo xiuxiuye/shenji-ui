@@ -7,7 +7,7 @@ export interface Props {
   vertical?: boolean;
 }
 
-export type Provider = {
+export interface Provider {
   size?: CommonSize;
   disabled: boolean;
   modelValue: Array<number | string | boolean>;

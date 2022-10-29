@@ -23,11 +23,17 @@
 
   @each $key, $value in $sj-select-size {
     &-size-#{$key} {
-      height: map-get($value, "height");
+      min-height: map-get($value, "height");
       font-size: map-get($value, "fontSize");
 
+      .sj-select-content {
+        &-item {
+          height: calc(map-get($value, "height") - 6px);
+        }
+      }
+
       .sj-select-option {
-        height: map-get($value, "height");
+        min-height: map-get($value, "height");
         font-size: map-get($value, "fontSize");
       }
     }
@@ -74,9 +80,39 @@
 
   &-content {
     box-sizing: inherit;
-    height: inherit;
+    font-size: inherit;
     border-radius: inherit;
     flex-grow: 1;
+    padding-left: 10px;
+    padding-bottom: 3px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    &-item {
+      flex-grow: 0;
+      flex-shrink: 0;
+      box-sizing: inherit;
+      font-size: inherit;
+      border-radius: inherit;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &-tag {
+      padding-left: 8px;
+      padding-right: 6px;
+      margin-right: 6px;
+      margin-top: 3px;
+      border: 1px solid var(--sj-border-color);
+      background-color: var(--sj-background-color);
+
+      &-close {
+        // cursor: pointer;
+        margin-left: 4px;
+      }
+    }
   }
 
   &-arrow {
@@ -87,6 +123,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.2s ease-in-out;
+
+    &-up {
+      transform: rotate(180deg);
+    }
   }
 
   /* popup */
@@ -97,8 +138,7 @@
     left: 0;
     box-sizing: border-box;
     border-radius: inherit;
-    width: 500px;
-    height: 600px;
+    width: inherit;
     overflow-y: auto;
     box-shadow: var(--sj-shadow-level-2);
     background-color: var(--sj-primary-background-color);
@@ -147,9 +187,9 @@
 
     /* option disabled */
     &-disabled {
+      cursor: not-allowed;
       color: var(--sj-disable-color);
       &:hover {
-        cursor: not-allowed;
         background-color: transparent;
       }
     }

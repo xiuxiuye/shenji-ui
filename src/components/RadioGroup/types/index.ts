@@ -8,7 +8,7 @@ export interface Props {
   name?: string;
 }
 
-export type Provider = {
+export interface Provider {
   size?: CommonSize;
   disabled: boolean;
   name?: string;

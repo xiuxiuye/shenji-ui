@@ -3,12 +3,25 @@
     ref="sjSelectRef"
     :class="classes"
     :tabindex="0"
+    @click="handleClick"
     @focus="handleFocus"
     @blur="handleBlur"
   >
-    {{ transitionName }}
-    <div :class="`${classNamePrefix}-content`"></div>
-    <div :class="`${classNamePrefix}-arrow`">
+    <div :class="`${classNamePrefix}-content`">
+      <div
+        :class="selectedTagClasses"
+        v-for="item in selectedOptions"
+        :key="item?.value"
+      >
+        {{ item?.label }}
+        <span
+          :class="`${classNamePrefix}-content-tag-close`"
+          @click.stop="removeSelectedOption(item.value)"
+          ><Icon type="close"
+        /></span>
+      </div>
+    </div>
+    <div :class="arrowClasses">
       <Icon type="down" />
     </div>
     <transition :name="transitionName">
@@ -42,6 +55,8 @@ import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import Icon from '../Icon'
 import Option from '../Option'
 import useClasses from './hooks/useClasses'
+import useArrowClasses from './hooks/useArrowClasses'
+import useSelectedTagClasses from './hooks/useSelectedTagClasses'
 import usePopupStyles from './hooks/usePopupStyles'
 import {
   transitionName,
@@ -56,7 +71,7 @@ import isString from 'src/utils/isString'
 import isNumber from 'src/utils/isNumber'
 import consoleError from 'src/utils/console/error'
 import useProvide from 'src/utils/hooks/useProvide'
-import type { Provider } from './types'
+import type { Provider, SelectedOption } from './types'
 import type {
   CommonSize,
   CommonFormStatus,
@@ -71,7 +86,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-type SingleModelValue = string | number
+type SingleModelValue = string | number;
 type Props = {
   size?: CommonSize;
   disabled?: boolean;
@@ -81,12 +96,12 @@ type Props = {
   loading?: boolean;
   round?: boolean;
   filterable?: boolean;
-  filter?: (pattern: string, option: Record<string, unknown>) => boolean;
+  filter?: (pattern: string, option: Record<string, any>) => boolean;
   labelField?: string;
   valueField?: string;
   maxCount?: number;
   multiple?: boolean;
-  options?: Array<Record<string, unknown>>;
+  options?: Array<Record<string, any>>;
   placeholder?: string;
   placement?:
     | 'top-start'
@@ -112,11 +127,11 @@ type Props = {
   search?: boolean;
   visible?: boolean;
   popupWithSelectWidth?: boolean | number | string;
-}
+};
 
 const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
-  disabled: true,
+  disabled: false,
   autofocus: false,
   clearable: false,
   loading: false,
@@ -139,12 +154,6 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 /**
- * classes
- */
-const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props)
-
-/**
  * styles
  */
 const popupStyles = usePopupStyles(props)
@@ -154,7 +163,7 @@ const popupStyles = usePopupStyles(props)
  */
 type Emit = {
   (e: 'update:modelValue', value: SingleModelValue | SingleModelValue[]): void;
-}
+};
 const emit = defineEmits<Emit>()
 
 /**
@@ -198,50 +207,120 @@ onUnmounted(() => {
 })
 
 /**
- * event handler
+ * classes
  */
-const handleFocus = () => {
-  popupVisible.value = true
-}
-const handleBlur = () => {
-  // popupVisible.value = false
-}
+const classNamePrefix = componentName
+const classes = useClasses(classNamePrefix, props)
+const arrowClasses = useArrowClasses(classNamePrefix, popupVisible)
+const selectedTagClasses = useSelectedTagClasses(classNamePrefix, props)
 
 /**
  * model-value
  */
-const realValues = ref<Array<string | number>>([])
+const selectedOptions = ref<SelectedOption[]>([])
 
-watch(() => props?.modelValue, () => {
-  if (props?.multiple) {
-    if (isArray(props?.modelValue)) {
-      realValues.value = [...props?.modelValue as SingleModelValue[]]
-    } else {
-      consoleError('神机：Select在多选模式下model-value的类型应为数组')
+const filterSelectedOptions = (
+  values: SingleModelValue[]
+): SelectedOption[] => {
+  const options = props?.options
+  const tempOptions: SelectedOption[] = []
+  values?.forEach((value) => {
+    const selectedItem = options?.find(
+      (option) => option[props?.valueField] === value
+    )
+    if (selectedItem) {
+      tempOptions.push({
+        label: selectedItem[props?.labelField],
+        value: selectedItem[props?.valueField]
+      })
     }
-  } else {
-    if (isString(props?.modelValue) || isNumber(props?.modelValue)) {
-      realValues.value = [props?.modelValue as SingleModelValue]
-    } else {
-      consoleError('神机：Select在单选模式下model-value的类型应为string | number')
-    }
-  }
-}, { immediate: true })
+  })
+  return tempOptions
+}
 
-watch(realValues, () => {
-  if (props?.multiple) {
-    emit('update:modelValue', realValues.value)
-  } else {
-    emit('update:modelValue', realValues.value[0])
-  }
+const removeSelectedOption = (value: SingleModelValue) => {
+  const index = selectedOptions.value?.findIndex(
+    (option) => option?.value === value
+  )
+  selectedOptions.value?.splice(index, 1)
+}
+
+watch(
+  () => props?.modelValue,
+  () => {
+    if (props?.multiple) {
+      if (isArray(props?.modelValue)) {
+        selectedOptions.value = filterSelectedOptions(
+          props?.modelValue as SingleModelValue[]
+        )
+      } else {
+        consoleError('神机：Select在多选模式下model-value的类型应为数组')
+      }
+    } else {
+      if (isString(props?.modelValue) || isNumber(props?.modelValue)) {
+        selectedOptions.value = filterSelectedOptions([
+          props?.modelValue
+        ] as SingleModelValue[])
+      } else {
+        consoleError(
+          '神机：Select在单选模式下model-value的类型应为string | number'
+        )
+      }
+    }
+  },
+  { immediate: true }
+)
+const selectedValues = computed<SingleModelValue[]>(() =>
+  selectedOptions.value?.map((option) => option.value)
+)
+
+watch(selectedValues, () => {
+  emit('update:modelValue', props?.multiple ? selectedValues.value : selectedValues.value[0])
 })
+
+/**
+ * event handler
+ */
+const handleClick = () => {
+  popupVisible.value = true
+}
+
+const handleFocus = () => {
+  //
+}
+const handleBlur = () => {
+  popupVisible.value = false
+}
 
 /**
  * provide
  */
+const handleOptionClicked = (option: SelectedOption) => {
+  console.log(option)
+  const index = selectedOptions.value?.findIndex(
+    (selectedOption) => selectedOption.value === option?.value
+  )
+  // multiple
+  if (props?.multiple) {
+    if (index >= 0) {
+      selectedOptions.value?.splice(index, 1)
+    } else {
+      selectedOptions.value?.push(option)
+    }
+  } else {
+    if (index === -1) {
+      selectedOptions.value = [option]
+    }
+  }
+}
+
 const provider = computed<Provider>(() => {
   return {
-    selectedValues: props?.multiple ? [...realValues?.value] : [realValues?.value[0]]
+    selectedValues: props?.multiple
+      ? [...selectedValues.value]
+      : [selectedValues.value[0]],
+    disabled: props?.disabled,
+    handleOptionClicked
   }
 })
 useProvide<Provider>(componentName, provider)

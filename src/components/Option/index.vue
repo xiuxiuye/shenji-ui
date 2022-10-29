@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { computed, watch } from 'vue'
+import { computed } from 'vue'
 import Icon from '../Icon'
 import useInject from 'src/utils/hooks/useInject'
 import { componentName as selectComponentName } from '../Select/index.vue'
@@ -54,7 +54,7 @@ const classes = computed<Classes>(() => {
     classNamePrefix,
     {
       [`${classNamePrefix}-selected`]: selected?.value,
-      [`${classNamePrefix}-disabled`]: props?.disabled
+      [`${classNamePrefix}-disabled`]: injecter?.value?.disabled || props?.disabled
     }
   ]
 })
@@ -63,6 +63,9 @@ const classes = computed<Classes>(() => {
  * event handler
  */
 const handleClick = () => {
-  console.log('click', props?.value)
+  if (props?.disabled) return
+  if (props?.label !== undefined && props?.value !== undefined) {
+    injecter?.value?.handleOptionClicked({ label: props?.label, value: props?.value })
+  }
 }
 </script>

@@ -1,4 +1,4 @@
-import type { CommonSize, CommonFormStatus, CommonFormBorderType } from 'src/types/global'
+import type { CommonSize, CommonFormStatus, CommonFormBorderType, ComputedRef, Ref, Classes } from 'src/types/global'
 
 export interface Props {
   size?: CommonSize;
@@ -35,6 +35,15 @@ export interface SelectRefExpose {
   blur: () => void;
 }
 
-export type Provider = {
-  selectedValues: Array<string | number>;
+export interface SelectedOption {
+  label: string;
+  value: string | number;
 }
+
+export interface Provider {
+  selectedValues: Array<string | number>;
+  disabled: boolean;
+  handleOptionClicked: (option: SelectedOption) => void;
+}
+
+export type UseClasses = (classNamePrefix: string, popupVisible: Ref<boolean>) => ComputedRef<Classes>;
