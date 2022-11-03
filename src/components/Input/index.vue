@@ -220,7 +220,6 @@ const conatinerClasses = useConatinerClasses(classNamePrefix, props, isSearchBtn
  * focus
  */
 const handleFocus = (event: FocusEvent) => {
-  console.log(222, event)
   emit('focus', event)
 }
 
@@ -248,20 +247,18 @@ const handleInput = (event: Event) => {
 /**
  * methods
  */
-const sjInputRef = ref(null)
+const sjInputRef = ref<HTMLElement | null>(null)
 const focus = () => {
   if (props.disabled) return
-  const dom: HTMLElement | null = sjInputRef?.value
-  if (dom) {
-    (dom as HTMLElement)?.focus()
+  if (sjInputRef.value) {
+    sjInputRef.value?.focus()
   }
 }
 
 const blur = () => {
   if (props.disabled) return
-  const dom: HTMLElement | null = sjInputRef?.value
-  if (dom) {
-    (dom as HTMLElement)?.blur()
+  if (sjInputRef.value) {
+    sjInputRef.value?.blur()
   }
 }
 

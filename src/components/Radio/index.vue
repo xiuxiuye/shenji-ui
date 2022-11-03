@@ -95,18 +95,16 @@ const handleChange = (event: Event) => {
 /**
  * methods
  */
-const sjRadioRef = ref(null)
+const sjRadioRef = ref<HTMLElement | null>(null)
 const focus = () => {
-  const dom: HTMLElement | null = sjRadioRef?.value
-  if (dom) {
-    (dom as HTMLElement)?.focus()
+  if (sjRadioRef.value) {
+    sjRadioRef.value?.focus()
   }
 }
 
 const blur = () => {
-  const dom: HTMLElement | null = sjRadioRef?.value
-  if (dom) {
-    (dom as HTMLElement)?.blur()
+  if (sjRadioRef.value) {
+    sjRadioRef.value?.blur()
   }
 }
 

@@ -16,18 +16,19 @@
     border-color: var(--sj-primary-color);
   }
 
-  &:focus {
+  &:focus-within {
     border-color: var(--sj-primary-color);
     outline: 3px solid var(--sj-primary-focus-background-color);
   }
 
+  /* size */
   @each $key, $value in $sj-select-size {
     &-size-#{$key} {
       min-height: map-get($value, "height");
       font-size: map-get($value, "fontSize");
 
       .sj-select-content {
-        &-item {
+        &-tag {
           height: calc(map-get($value, "height") - 6px);
         }
       }
@@ -35,6 +36,10 @@
       .sj-select-option {
         min-height: map-get($value, "height");
         font-size: map-get($value, "fontSize");
+      }
+
+      .sj-select-filter {
+        height: calc(map-get($value, "height") - 6px);
       }
     }
     &-#{$key}-round {
@@ -49,10 +54,17 @@
       &:hover {
         border-color: map-get($value, "border-color");
       }
-      &:focus {
-        border-color: map-get($value, "border-color");
+      &:focus-within {
         border-color: map-get($value, "border-color");
         outline-color: map-get($value, "outline-color-foucs");
+      }
+
+      .sj-select-loading {
+        color: map-get($value, "border-color");
+      }
+
+      .sj-select-filter {
+        caret-color: map-get($value, "border-color");
       }
     }
   }
@@ -84,12 +96,13 @@
     border-radius: inherit;
     flex-grow: 1;
     padding-left: 10px;
-    padding-bottom: 3px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    position: relative;
 
     &-item {
+      max-width: 100%;
       flex-grow: 0;
       flex-shrink: 0;
       box-sizing: inherit;
@@ -98,19 +111,68 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
+      word-wrap: break-word;
+      word-break: break-all;
     }
 
     &-tag {
       padding-left: 8px;
       padding-right: 6px;
       margin-right: 6px;
-      margin-top: 3px;
+      margin-top: 2px;
+      margin-bottom: 2px;
       border: 1px solid var(--sj-border-color);
       background-color: var(--sj-background-color);
 
       &-close {
-        // cursor: pointer;
         margin-left: 4px;
+      }
+    }
+
+    /* placeholder */
+    .sj-select-placeholder {
+      color: var(--sj-secondary-text-color);
+    }
+
+    /* filter */
+    .sj-select-filter {
+      flex-grow: 1;
+      border-width: 0;
+      border-radius: inherit;
+      box-sizing: inherit;
+      font-size: inherit;
+      font-family: inherit;
+      background-color: transparent;
+      caret-color: var(--sj-primary-color);
+
+      /* ie */
+      &::-ms-reveal {
+        display: none;
+      }
+
+      &::-ms-clear {
+        display: none;
+      }
+
+      &:focus {
+        outline-width: 0;
+      }
+
+      &-single {
+        position: absolute;
+        left: 6px;
+        right: 0;
+
+        &:focus {
+          background-color: rgba(255, 255, 255, 0.8);
+        }
+      }
+
+      &-solid {
+        background-color: rgba(255, 255, 255, 1);
+        &:focus {
+          background-color: rgba(255, 255, 255, 1);
+        }
       }
     }
   }
@@ -142,6 +204,13 @@
     overflow-y: auto;
     box-shadow: var(--sj-shadow-level-2);
     background-color: var(--sj-primary-background-color);
+
+    .sj-select-empty {
+      box-sizing: inherit;
+      padding: 4px 0;
+      text-align: center;
+      color: var(--sj-secondary-text-color);
+    }
   }
 
   &-popup {
@@ -149,6 +218,7 @@
   }
 
   &-popup-shadow {
+    z-index: -1;
     user-select: none;
     pointer-events: none;
     visibility: hidden !important;
@@ -192,6 +262,66 @@
       &:hover {
         background-color: transparent;
       }
+    }
+  }
+
+  /* clearable */
+  &-clear {
+    display: none;
+    cursor: pointer;
+    margin-left: 4px;
+    color: var(--sj-disable-color);
+
+    &:hover {
+      color: var(--sj-secondary-text-color);
+    }
+  }
+
+  &:hover,
+  &:focus-within {
+    .sj-select-clear {
+      display: block;
+    }
+  }
+
+  /* loading */
+  &-loading {
+    color: var(--sj-primary-color);
+  }
+
+  /* disabled */
+  &-disabled {
+    position: relative;
+    border-color: var(--sj-border-color);
+
+    .sj-select-arrow > .sj-icon,
+    .sj-select-content > .sj-select-content-item {
+      color: var(--sj-disable-color);
+    }
+
+    &:hover {
+      border-color: var(--sj-border-color);
+    }
+    &:focus-within {
+      border-color: var(--sj-border-color);
+      outline-width: 0;
+    }
+    &:hover,
+    &:focus-within {
+      .sj-select-clear {
+        display: none;
+      }
+    }
+
+    .sj-select-disabled-mask {
+      cursor: not-allowed;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background-color: var(--sj-background-color);
     }
   }
 }

@@ -1,24 +1,48 @@
-import type { CommonSize, CommonFormStatus, CommonFormBorderType, ComputedRef, Ref, Classes } from 'src/types/global'
+import type { CommonSize, CommonFormStatus, CommonFormBorderType, ComputedRef, Ref, Classes, VNode } from 'src/types/global'
+
+export type SingleModelValue = string | number;
+
+export type Option = Record<string, any> & {
+  groupable?: boolean;
+  children?: Option[];
+}
+
+export type Options = Option[];
+
+export type OptionRender = (option: Option, selected: boolean) => VNode;
+
+export type LabelRender = (option: Option, onRemove?: () => void) => VNode;
 
 export interface Props {
   size?: CommonSize;
   disabled?: boolean;
   autofocus?: boolean;
-  modelValue?: string | number | Array<string | number>;
+  modelValue?: SingleModelValue | SingleModelValue[];
   clearable?: boolean;
-  loading?: boolean;
   round?: boolean;
   filterable?: boolean;
-  filter?: (pattern: string, option: Record<string, any>) => boolean;
+  filter?: (filterText: string, option: Record<string, any>) => boolean;
   labelField?: string;
   valueField?: string;
-  maxCount?: number;
+  maxCount?: number | string;
   multiple?: boolean;
-  options?: Array<Record<string, any>>;
+  options?: Options;
   placeholder?: string;
-  placement?: 'top-start' | 'top' | 'top-end' | 'right-start' | 'right' | 'right-end' | 'bottom-start' | 'bottom' | 'bottom-end' | 'left-start' | 'left' | 'left-end';
+  placement?:
+  | 'top-start'
+  | 'top'
+  | 'top-end'
+  | 'right-start'
+  | 'right'
+  | 'right-end'
+  | 'bottom-start'
+  | 'bottom'
+  | 'bottom-end'
+  | 'left-start'
+  | 'left'
+  | 'left-end';
   remote?: boolean;
-  remoteMethod?: () => Promise<Array<Record<string, any>>>;
+  remoteMethod?: (filterText: string) => Promise<Options>;
   status?: CommonFormStatus;
   container?: string | HTMLElement;
   virtual?: boolean;
@@ -28,6 +52,9 @@ export interface Props {
   search?: boolean;
   visible?: boolean;
   popupWithSelectWidth?: boolean | number | string;
+  empty?: string;
+  optionRender?: OptionRender;
+  labelRender?: LabelRender;
 }
 
 export interface SelectRefExpose {
@@ -35,9 +62,14 @@ export interface SelectRefExpose {
   blur: () => void;
 }
 
+export interface SelectedOptionMeta {
+  originOption: Record<string, any>;
+}
+
 export interface SelectedOption {
   label: string;
   value: string | number;
+  meta?: SelectedOptionMeta;
 }
 
 export interface Provider {
@@ -46,4 +78,6 @@ export interface Provider {
   handleOptionClicked: (option: SelectedOption) => void;
 }
 
-export type UseClasses = (classNamePrefix: string, popupVisible: Ref<boolean>) => ComputedRef<Classes>;
+export type UseArrowClasses = (classNamePrefix: string, popupVisible: Ref<boolean>) => ComputedRef<Classes>;
+
+export type UseFilterClasses = (classNamePrefix: string, props: Props, filterText: Ref<string>) => ComputedRef<Classes>;

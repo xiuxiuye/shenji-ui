@@ -345,20 +345,18 @@ const handleFocus = (event: FocusEvent) => {
 /**
  * methods
  */
-const sjInputNumberRef = ref(null)
+const sjInputNumberRef = ref<HTMLElement | null>(null)
 const focus = () => {
   if (props.disabled) return
-  const dom: HTMLElement | null = sjInputNumberRef?.value
-  if (dom) {
-    (dom as HTMLElement)?.focus()
+  if (sjInputNumberRef.value) {
+    sjInputNumberRef.value?.focus()
   }
 }
 
 const blur = () => {
   if (props.disabled) return
-  const dom: HTMLElement | null = sjInputNumberRef?.value
-  if (dom) {
-    (dom as HTMLElement)?.blur()
+  if (sjInputNumberRef.value) {
+    sjInputNumberRef.value?.blur()
   }
 }
 

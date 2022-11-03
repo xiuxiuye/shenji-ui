@@ -1,19 +1,27 @@
 <template>
-  <div :class="classes" @click="handleClick">
-    <div :class="`${classNamePrefix}-content`">
-      <slot>{{ label }}</slot>
-    </div>
-    <Icon v-if="selected" :class="`${classNamePrefix}-selected-icon`" type="check" />
+  <div ref="sjSelectOption" :class="classes" @click="handleClick">
+    <template v-if="!custom">
+      <slot>
+        <div :class="`${classNamePrefix}-content`">
+          <slot>{{ label }}</slot>
+        </div>
+        <Icon
+          v-if="selected"
+          :class="`${classNamePrefix}-selected-icon`"
+          type="check"
+        />
+      </slot>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
-import { computed } from 'vue'
+import { computed, render, ref, watch, onMounted } from 'vue'
 import Icon from '../Icon'
 import useInject from 'src/utils/hooks/useInject'
 import { componentName as selectComponentName } from '../Select/index.vue'
 import type { Provider } from '../Select/types'
-import type { Classes } from 'src/types/global'
+import type { Classes, VNode } from 'src/types/global'
 
 const componentName = 'sj-option'
 export default {
@@ -26,6 +34,7 @@ interface Props {
   disabled?: boolean;
   label?: string;
   value?: string | number;
+  custom?: VNode;
 }
 
 const props = withDefaults(defineProps<Props>(), { disabled: false })
@@ -54,9 +63,32 @@ const classes = computed<Classes>(() => {
     classNamePrefix,
     {
       [`${classNamePrefix}-selected`]: selected?.value,
-      [`${classNamePrefix}-disabled`]: injecter?.value?.disabled || props?.disabled
+      [`${classNamePrefix}-disabled`]:
+        injecter?.value?.disabled || props?.disabled
     }
   ]
+})
+
+/**
+ * 自定义option
+ */
+const sjSelectOption = ref<HTMLElement | null>(null)
+
+const renderCustomOption = () => {
+  if (sjSelectOption.value && props?.custom) {
+    render(props?.custom, sjSelectOption.value)
+  }
+}
+
+watch(
+  () => props?.custom,
+  () => {
+    renderCustomOption()
+  }
+)
+
+onMounted(() => {
+  renderCustomOption()
 })
 
 /**
@@ -65,7 +97,10 @@ const classes = computed<Classes>(() => {
 const handleClick = () => {
   if (props?.disabled) return
   if (props?.label !== undefined && props?.value !== undefined) {
-    injecter?.value?.handleOptionClicked({ label: props?.label, value: props?.value })
+    injecter?.value?.handleOptionClicked({
+      label: props?.label,
+      value: props?.value
+    })
   }
 }
 </script>

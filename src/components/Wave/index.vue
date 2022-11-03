@@ -1,5 +1,5 @@
 <template>
-  <div ref="wave" :class="classes" @click="startWaving" />
+  <div ref="sjWave" :class="classes" @click="startWaving" />
 </template>
 <script lang="ts">
 import { computed, ref, onMounted, onUnmounted } from 'vue'
@@ -32,11 +32,10 @@ const endWaving = () => {
 /**
  * add animation listenser
  */
-const wave = ref(null)
+const sjWave = ref<HTMLElement | null>(null)
 onMounted(() => {
-  const dom = wave.value
-  if (dom) {
-    (dom as HTMLElement).addEventListener('animationend', endWaving)
+  if (sjWave.value) {
+    sjWave.value.addEventListener('animationend', endWaving)
   }
 })
 
@@ -44,9 +43,8 @@ onMounted(() => {
  * remove animation listenser
  */
 onUnmounted(() => {
-  const dom = wave.value
-  if (dom) {
-    (dom as HTMLElement).removeEventListener('animationend', endWaving)
+  if (sjWave.value) {
+    sjWave.value.removeEventListener('animationend', endWaving)
   }
 })
 </script>

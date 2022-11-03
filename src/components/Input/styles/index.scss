@@ -64,6 +64,9 @@
 
     &:hover {
       border-color: var(--sj-primary-color);
+      .sj-input-clear {
+        display: block;
+      }
     }
 
     &:focus-within {
@@ -72,6 +75,10 @@
 
       input {
         caret-color: var(--sj-primary-color);
+      }
+
+      .sj-input-clear {
+        display: block;
       }
     }
 
@@ -103,6 +110,7 @@
 
     /* clearable */
     &-clear {
+      display: none;
       cursor: pointer;
       margin-left: 4px;
       color: var(--sj-disable-color);

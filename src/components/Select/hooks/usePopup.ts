@@ -72,8 +72,3 @@ export const cleanPopupShadow = async () => {
     cleanPopupShadowAutoUpdate.value = undefined
   }
 }
-
-onUnmounted(() => {
-  cleanPopup()
-  cleanPopupShadow()
-})

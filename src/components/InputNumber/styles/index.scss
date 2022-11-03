@@ -50,6 +50,15 @@
 
     &:hover {
       border-color: var(--sj-primary-color);
+
+      .sj-input-number-controls {
+        width: 22px;
+        opacity: 1;
+      }
+
+      .sj-input-number-clear {
+        display: block;
+      }
     }
 
     &:focus-within {
@@ -58,6 +67,10 @@
 
       input {
         caret-color: var(--sj-primary-color);
+      }
+
+      .sj-input-number-clear {
+        display: block;
       }
     }
 
@@ -75,19 +88,13 @@
 
     /* clearable */
     &-clear {
+      display: none;
       cursor: pointer;
       margin-left: 4px;
       color: var(--sj-disable-color);
 
       &:hover {
         color: var(--sj-secondary-text-color);
-      }
-    }
-
-    &:hover {
-      .sj-input-number-controls {
-        width: 22px;
-        opacity: 1;
       }
     }
 

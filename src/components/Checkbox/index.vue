@@ -127,18 +127,16 @@ const handleChange = (event: Event) => {
 /**
  * methods
  */
-const sjCheckboxRef = ref(null)
+const sjCheckboxRef = ref<HTMLElement | null>(null)
 const focus = () => {
-  const dom: HTMLElement | null = sjCheckboxRef?.value
-  if (dom) {
-    (dom as HTMLElement)?.focus()
+  if (sjCheckboxRef?.value) {
+    sjCheckboxRef?.value?.focus()
   }
 }
 
 const blur = () => {
-  const dom: HTMLElement | null = sjCheckboxRef?.value
-  if (dom) {
-    (dom as HTMLElement)?.blur()
+  if (sjCheckboxRef?.value) {
+    sjCheckboxRef?.value?.blur()
   }
 }
 

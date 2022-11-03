@@ -1,6 +1,6 @@
-import type { Ref, ComputedRef, StyleValue, Plugin, Slots, Component } from 'vue'
+import type { Ref, ComputedRef, StyleValue, Plugin, Slots, Component, VNode } from 'vue'
 
-export type { Ref, ComputedRef, StyleValue, Slots }
+export type { Ref, ComputedRef, StyleValue, Slots, VNode }
 
 export type Classes = Array<string | Record<string, boolean | undefined>>;
 
