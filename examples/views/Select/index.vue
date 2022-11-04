@@ -3,14 +3,13 @@
     <div class="test"></div>
     {{ selected }}
     <Select
-      :visible="true"
-      :options="options"
+      :options="optionsRef"
       v-model="selected"
+      :loading="loading"
+      loading-icon="loading-b"
       filterable
       clearable
       placeholder="请选择"
-      remote
-      :remote-method="handleRemote"
       :option-render="renderOption"
       :label-render="renderLabel"
     >
@@ -30,12 +29,19 @@ const options = [
   { label: '浙江', value: 'zhejiang', name: 'ZheJiang' },
   { label: '浙江-义乌', value: 'zhejiang-yiwu', name: 'ZheJiang-YiWu' }
 ]
+const optionsRef = ref(options)
+
+const loading = ref(false)
 const handleRemote = (query) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(options)
-    }, 100000)
-  })
+  loading.value = true
+  setTimeout(() => {
+    if (query) {
+      optionsRef.value = options.filter(el => el?.name?.includes(query))
+    } else {
+      optionsRef.value = options
+    }
+    loading.value = false
+  }, 3000)
 }
 const renderOption = (option, selected) => {
   return h('div', {

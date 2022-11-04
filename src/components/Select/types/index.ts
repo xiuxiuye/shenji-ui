@@ -19,9 +19,15 @@ export interface Props {
   autofocus?: boolean;
   modelValue?: SingleModelValue | SingleModelValue[];
   clearable?: boolean;
+  clearIcon?: string;
   round?: boolean;
+  loading?: boolean;
+  loadingIcon?: string;
+  loadingIconVisible?: boolean;
+  loadingText?: string;
   filterable?: boolean;
   filter?: (filterText: string, option: Record<string, any>) => boolean;
+  asyncFilter?: (filterText: string) => void;
   labelField?: string;
   valueField?: string;
   maxCount?: number | string;
@@ -41,8 +47,6 @@ export interface Props {
   | 'left-start'
   | 'left'
   | 'left-end';
-  remote?: boolean;
-  remoteMethod?: (filterText: string) => Promise<Options>;
   status?: CommonFormStatus;
   container?: string | HTMLElement;
   virtual?: boolean;
@@ -52,7 +56,7 @@ export interface Props {
   search?: boolean;
   visible?: boolean;
   popupWithSelectWidth?: boolean | number | string;
-  empty?: string;
+  emptyText?: string;
   optionRender?: OptionRender;
   labelRender?: LabelRender;
 }

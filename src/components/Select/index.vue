@@ -41,24 +41,23 @@
         </div>
       </template>
       <input
-        v-if="filterVisible"
+        v-if="filterable"
         :class="filterClasses"
         v-model="filterText"
         @focus="handleFocus"
         @blur="handleBlur"
       />
     </div>
-    <Icon
+    <span
       v-if="isClearBtnVisible"
       :class="`${classNamePrefix}-clear`"
       @click="handleClear"
-      type="close-circle-fill"
-    />
-    <Icon
-      v-if="loadingVisible"
-      :class="`${classNamePrefix}-loading`"
-      type="loading-a"
-    />
+    >
+      <Icon :type="clearIcon" />
+    </span>
+    <span v-if="loadingIconVisible && loading" :class="`${classNamePrefix}-loading-icon`">
+      <Icon :type="loadingIcon" />
+    </span>
     <div :class="arrowClasses" @click="handleClick">
       <slot name="arrow">
         <Icon :type="arrow" />
@@ -71,7 +70,10 @@
         :class="`${classNamePrefix}-popup`"
         :style="popupStyles"
       >
-        <template v-if="filterOptions?.length">
+        <div v-if="loading" :class="`${classNamePrefix}-loading`">
+          <slot name="loading">{{ loadingText }}</slot>
+        </div>
+        <template v-else-if="filterOptions?.length">
           <SelectOption
             v-for="option in filterOptions"
             :key="option[valueField]"
@@ -85,7 +87,7 @@
           />
         </template>
         <div v-else :class="`${classNamePrefix}-empty`">
-          <slot name="empty">{{ empty }}</slot>
+          <slot name="empty">{{ emptyText }}</slot>
         </div>
         <!-- <slot /> -->
       </div>
@@ -105,7 +107,7 @@
         />
       </template>
       <div v-else :class="`${classNamePrefix}-empty`">
-        <slot name="empty">{{ empty }}</slot>
+        <slot name="empty">{{ emptyText }}</slot>
       </div>
     </div>
   </div>
@@ -174,9 +176,15 @@ type Props = {
   autofocus?: boolean;
   modelValue?: string | number | Array<string | number>;
   clearable?: boolean;
+  clearIcon?: string;
   round?: boolean;
+  loading?: boolean;
+  loadingIcon?: string;
+  loadingIconVisible?: boolean;
+  loadingText?: string;
   filterable?: boolean;
   filter?: (filterText: string, option: Record<string, any>) => boolean;
+  asyncFilter?: (filterText: string) => void;
   labelField?: string;
   valueField?: string;
   maxCount?: number | string;
@@ -196,8 +204,6 @@ type Props = {
     | 'left-start'
     | 'left'
     | 'left-end';
-  remote?: boolean;
-  remoteMethod?: (filterText: string) => Promise<Options>;
   status?: CommonFormStatus;
   container?: string | HTMLElement;
   virtual?: boolean;
@@ -207,7 +213,7 @@ type Props = {
   search?: boolean;
   visible?: boolean;
   popupWithSelectWidth?: boolean | number | string;
-  empty?: string;
+  emptyText?: string;
   optionRender?: OptionRender;
   labelRender?: LabelRender;
 };
@@ -217,13 +223,17 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   autofocus: false,
   clearable: false,
+  clearIcon: 'close-circle-fill',
   round: false,
+  loading: false,
+  loadingIcon: 'loading-a',
+  loadingIconVisible: true,
+  loadingText: '加载中',
   filterable: false,
   labelField: 'label',
   valueField: 'value',
   multiple: false,
   options: () => [],
-  remote: false,
   container: 'body',
   virtual: false,
   arrow: 'down',
@@ -233,7 +243,7 @@ const props = withDefaults(defineProps<Props>(), {
   visible: undefined,
   popupWithSelectWidth: true,
   placement: 'bottom-start',
-  empty: '暂无数据'
+  emptyText: '暂无数据'
 })
 
 /**
@@ -248,6 +258,29 @@ type Emit = {
   (e: 'update:modelValue', value: SingleModelValue | SingleModelValue[]): void;
 };
 const emit = defineEmits<Emit>()
+
+/**
+ * filter
+ */
+const filterText = ref<string>('')
+const filterOptions = computed<Options>(() => {
+  if (props?.asyncFilter && isFunction(props?.asyncFilter)) {
+    return props?.options
+  }
+  if (!filterText.value) return props?.options
+  const regExp = new RegExp(filterText.value)
+  return props?.options?.filter((el) => {
+    if (props?.filter && isFunction(props?.filter)) {
+      return props?.filter(filterText.value, el)
+    }
+    return regExp?.test(el[props?.labelField])
+  })
+})
+watch(filterText, async () => {
+  if (props?.asyncFilter && isFunction(props?.asyncFilter)) {
+    props?.asyncFilter(filterText.value)
+  }
+})
 
 /**
  * handle popup mounted
@@ -285,6 +318,9 @@ watch(
       }
     } else {
       cleanPopup()
+      if (filterText.value) {
+        filterText.value = ''
+      }
     }
   },
   { immediate: true }
@@ -418,48 +454,6 @@ const isClearBtnVisible = computed<boolean>(
 )
 
 /**
- * loading
- */
-const loadingVisible = ref<boolean>(false)
-
-/**
- * filter
- */
-const filterVisible = computed<boolean>(() => {
-  return props?.filterable || props?.remote
-})
-const filterText = ref<string>('')
-const filterOptions = ref<Options>([])
-watch(
-  filterText,
-  async () => {
-    if (props?.remote) {
-      if (props?.remoteMethod && isFunction(props?.remoteMethod)) {
-        try {
-          loadingVisible.value = true
-          filterOptions.value = await props?.remoteMethod(filterText.value)
-        } catch (error) {
-          consoleError(error as string)
-        } finally {
-          loadingVisible.value = false
-        }
-      }
-    } else if (!props?.filterable || !filterText.value) {
-      filterOptions.value = props?.options
-    } else {
-      const regExp = new RegExp(filterText.value)
-      filterOptions.value = props?.options?.filter((el) => {
-        if (props?.filter && isFunction(props?.filter)) {
-          return props?.filter(filterText.value, el)
-        }
-        return regExp?.test(el[props?.labelField])
-      })
-    }
-  },
-  { immediate: true }
-)
-
-/**
  * classes
  */
 const classNamePrefix = componentName
@@ -506,6 +500,9 @@ const handleOptionClicked = (option: SelectedOption) => {
       selectedOptions.value?.push(option)
     }
   } else {
+    if (filterText.value) {
+      filterText.value = ''
+    }
     if (index === -1) {
       selectedOptions.value = [option]
     }
