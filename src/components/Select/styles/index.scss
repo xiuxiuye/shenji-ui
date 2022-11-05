@@ -1,7 +1,6 @@
 @import "./var.scss";
 
 .sj-select {
-  width: 360px;
   cursor: pointer;
   box-sizing: border-box;
   flex-grow: 1;
@@ -200,7 +199,6 @@
     left: 0;
     box-sizing: border-box;
     border-radius: inherit;
-    width: inherit;
     overflow-y: auto;
     box-shadow: var(--sj-shadow-level-2);
     background-color: var(--sj-primary-background-color);

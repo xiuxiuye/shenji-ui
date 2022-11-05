@@ -11,7 +11,7 @@ export type Options = Option[];
 
 export type OptionRender = (option: Option, selected: boolean) => VNode;
 
-export type LabelRender = (option: Option, onRemove?: () => void) => VNode;
+export type LabelRender = (option: Option, onRemove?: (value: SingleModelValue) => void) => VNode;
 
 export interface Props {
   size?: CommonSize;

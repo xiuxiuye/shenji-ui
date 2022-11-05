@@ -18,18 +18,18 @@
           v-for="item in selectedOptions?.slice(0, realMaxCount)"
           :class="selectedTagClasses"
           :key="item?.value"
+          :data-value="item?.value"
+          :data-value-type="typeof item?.value"
         >
-          <template v-if="isFunction(labelRender)">
-            {{ renderLabel(item) }}
-          </template>
-          <span v-else>
+          <span v-if="!isCustomRenderLabel">
             {{ item?.label }}
             <span
               v-if="multiple"
               :class="`${classNamePrefix}-content-tag-close`"
               @click.stop="removeSelectedOption(item.value)"
-              ><Icon type="close"
-            /></span>
+            >
+              <Icon type="close" />
+            </span>
           </span>
         </div>
         <div
@@ -55,7 +55,10 @@
     >
       <Icon :type="clearIcon" />
     </span>
-    <span v-if="loadingIconVisible && loading" :class="`${classNamePrefix}-loading-icon`">
+    <span
+      v-if="loadingIconVisible && loading"
+      :class="`${classNamePrefix}-loading-icon`"
+    >
       <Icon :type="loadingIcon" />
     </span>
     <div :class="arrowClasses" @click="handleClick">
@@ -302,7 +305,6 @@ watch(
   },
   { immediate: true }
 )
-
 watch(
   popupVisible,
   async (newValue) => {
@@ -325,7 +327,6 @@ watch(
   },
   { immediate: true }
 )
-
 onMounted(() => {
   const select = sjSelectRef.value
   const selectPopupShadow = sjSelectPopupShadowRef?.value
@@ -336,7 +337,6 @@ onMounted(() => {
     setPopupShadowClean(clean)
   }
 })
-
 onUnmounted(() => {
   cleanPopup()
   cleanPopupShadow()
@@ -353,8 +353,58 @@ const realMaxCount = computed<number>(() => {
 /**
  * model-value
  */
-const selectedOptions = ref<SelectedOption[]>([])
-
+const selectedValues = ref<SingleModelValue[]>([])
+const removeSelectedOption = (value: SingleModelValue) => {
+  const index = selectedValues.value?.findIndex(
+    (selectedValue) => selectedValue === value
+  )
+  selectedValues.value?.splice(index, 1)
+}
+const isSelectedValuesChanged = (
+  newValues: SingleModelValue[],
+  preValues: SingleModelValue[]
+): boolean => {
+  if (newValues?.length !== preValues?.length) return true
+  for (let i = 0; i < newValues?.length; i++) {
+    if (newValues[i] !== preValues[i]) return true
+  }
+  return false
+}
+watch(
+  () => props?.modelValue,
+  () => {
+    if (props?.multiple) {
+      if (
+        isArray(props?.modelValue) &&
+        isSelectedValuesChanged(
+          props?.modelValue as SingleModelValue[],
+          selectedValues.value
+        )
+      ) {
+        selectedValues.value = props?.modelValue as SingleModelValue[]
+      } else {
+        consoleError('神机：Select在多选模式下model-value的类型应为数组')
+      }
+    } else {
+      if (
+        (isString(props?.modelValue) ||
+          isNumber(props?.modelValue) ||
+          props?.modelValue === undefined) &&
+        isSelectedValuesChanged(
+          [props?.modelValue as SingleModelValue],
+          selectedValues.value
+        )
+      ) {
+        selectedValues.value = [props?.modelValue as SingleModelValue]
+      } else {
+        consoleError(
+          '神机：Select在单选模式下model-value的类型应为string | number'
+        )
+      }
+    }
+  },
+  { immediate: true }
+)
 const filterSelectedOptions = (
   values: SingleModelValue[]
 ): SelectedOption[] => {
@@ -376,47 +426,9 @@ const filterSelectedOptions = (
   })
   return tempOptions
 }
-
-const removeSelectedOption = (value: SingleModelValue) => {
-  const index = selectedOptions.value?.findIndex(
-    (option) => option?.value === value
-  )
-  selectedOptions.value?.splice(index, 1)
-}
-
-watch(
-  () => props?.modelValue,
-  () => {
-    if (props?.multiple) {
-      if (isArray(props?.modelValue)) {
-        selectedOptions.value = filterSelectedOptions(
-          props?.modelValue as SingleModelValue[]
-        )
-      } else {
-        consoleError('神机：Select在多选模式下model-value的类型应为数组')
-      }
-    } else {
-      if (
-        isString(props?.modelValue) ||
-        isNumber(props?.modelValue) ||
-        props?.modelValue === undefined
-      ) {
-        selectedOptions.value = filterSelectedOptions([
-          props?.modelValue
-        ] as SingleModelValue[])
-      } else {
-        consoleError(
-          '神机：Select在单选模式下model-value的类型应为string | number'
-        )
-      }
-    }
-  },
-  { immediate: true }
-)
-const selectedValues = computed<SingleModelValue[]>(() =>
-  selectedOptions.value?.map((option) => option.value)
-)
-
+const selectedOptions = computed<SelectedOption[]>(() => {
+  return filterSelectedOptions(selectedValues.value)
+})
 watch(selectedValues, () => {
   emit(
     'update:modelValue',
@@ -427,17 +439,40 @@ watch(selectedValues, () => {
 /**
  * custom render label
  */
+const isCustomRenderLabel = computed<boolean>(
+  () => !!props?.labelRender && isFunction(props?.labelRender)
+)
 const sjSelectLabelRef = ref<HTMLElement[] | null>(null)
-const renderLabel = (option: SelectedOption) => {
-  if (props?.labelRender && sjSelectLabelRef.value) {
+const renderLabel = async (option: SelectedOption) => {
+  await nextTick()
+  if (isCustomRenderLabel.value && sjSelectLabelRef.value) {
     sjSelectLabelRef.value?.forEach((selectedItemWrapper) => {
-      const labelVNode = (props?.labelRender as LabelRender)(option)
-      if (labelVNode) {
-        render(labelVNode, selectedItemWrapper)
+      const dataValueAttr = selectedItemWrapper?.getAttribute('data-value')
+      const dataValueTypeAttr =
+        selectedItemWrapper?.getAttribute('data-value-type')
+      if (dataValueAttr && dataValueTypeAttr) {
+        const dataValue =
+          dataValueTypeAttr === 'number' ? +dataValueAttr : dataValueAttr
+        if (dataValue === option?.value) {
+          const labelVNode = (props?.labelRender as LabelRender)(
+            option,
+            props?.multiple ? removeSelectedOption : undefined
+          )
+          if (labelVNode) {
+            render(labelVNode, selectedItemWrapper)
+          }
+        }
       }
     })
   }
 }
+watch(
+  selectedOptions,
+  (newValue) => {
+    newValue?.forEach((item) => renderLabel(item))
+  },
+  { immediate: true }
+)
 
 /**
  * placeholder
@@ -471,7 +506,7 @@ const handleClick = () => {
 }
 
 const handleClear = () => {
-  selectedOptions.value = []
+  selectedValues.value = []
 }
 
 const handleFocus = () => {
@@ -489,22 +524,22 @@ const handleBlur = () => {
  */
 const handleOptionClicked = (option: SelectedOption) => {
   if (props?.disabled) return
-  const index = selectedOptions.value?.findIndex(
-    (selectedOption) => selectedOption.value === option?.value
+  const index = selectedValues.value?.findIndex(
+    (value) => value === option?.value
   )
   // multiple
   if (props?.multiple) {
     if (index >= 0) {
-      selectedOptions.value?.splice(index, 1)
+      selectedValues.value?.splice(index, 1)
     } else {
-      selectedOptions.value?.push(option)
+      selectedValues.value?.push(option?.value)
     }
   } else {
     if (filterText.value) {
       filterText.value = ''
     }
     if (index === -1) {
-      selectedOptions.value = [option]
+      selectedValues.value = [option?.value]
     }
   }
 }

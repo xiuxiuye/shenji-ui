@@ -2,12 +2,14 @@
   <div class="main">
     <div class="test"></div>
     {{ selected }}
+    <br /><br />
     <Select
       :options="optionsRef"
       v-model="selected"
       :loading="loading"
+      multiple
       loading-icon="loading-b"
-      filterable
+      :filterable="false"
       clearable
       placeholder="请选择"
       :option-render="renderOption"
@@ -19,7 +21,9 @@
 </template>
 <script setup>
 import { ref, h } from 'vue'
-const selected = ref('shanghai')
+import Icon from 'src/components/Icon'
+import Button from 'src/components/Button'
+const selected = ref(['shanghai'])
 
 const options = [
   { label: '北京', value: 'beijing', disabled: true, name: 'BeiJing' },
@@ -36,7 +40,7 @@ const handleRemote = (query) => {
   loading.value = true
   setTimeout(() => {
     if (query) {
-      optionsRef.value = options.filter(el => el?.name?.includes(query))
+      optionsRef.value = options.filter((el) => el?.name?.includes(query))
     } else {
       optionsRef.value = options
     }
@@ -44,19 +48,36 @@ const handleRemote = (query) => {
   }, 3000)
 }
 const renderOption = (option, selected) => {
-  return h('div', {
-    style: {
-      flexGrow: 1,
-      display: 'flex',
-      color: option?.disabled ? '#aaa' : selected ? 'red' : 'green',
-      alignItems: 'center',
-      justifyContent: 'space-between'
-    }
-  }, [option?.label, h('span', {}, option?.name)])
+  return h(
+    'div',
+    {
+      style: {
+        flexGrow: 1,
+        display: 'flex',
+        color: option?.disabled ? '#aaa' : selected ? 'red' : 'green',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      }
+    },
+    [option?.label, h('span', {}, option?.name)]
+  )
 }
-const renderLabel = (option) => {
+const renderLabel = (option, onRemove) => {
   const originOption = option?.meta?.originOption
-  return h('span', {}, `${originOption?.label}(${originOption?.name})`)
+  return h('span', {}, [
+    h('span', `${originOption?.label}(${originOption?.name})`),
+    h(Icon, {
+      style: {
+        marginLeft: '8px'
+      },
+      type: 'close',
+      onclick: (event) => {
+        event.stopPropagation()
+        onRemove(option?.value)
+      }
+    }, [''])
+  ]
+  )
 }
 </script>
 <style lang="scss">
