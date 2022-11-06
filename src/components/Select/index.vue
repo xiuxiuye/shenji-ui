@@ -156,7 +156,8 @@ import type {
   SingleModelValue,
   Options,
   OptionRender,
-  LabelRender
+  LabelRender,
+  SelectRefExpose
 } from './types'
 import type {
   CommonSize,
@@ -250,15 +251,31 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 /**
+ * select width
+ */
+const selectWidth = ref<number>(0)
+onMounted(() => {
+  const selectRef = sjSelectRef.value
+  if (selectRef) {
+    selectWidth.value = (selectRef as HTMLElement)?.clientWidth
+  }
+})
+
+/**
  * styles
  */
-const popupStyles = usePopupStyles(props)
+const popupStyles = usePopupStyles(props, selectWidth)
 
 /**
  * emit
  */
 type Emit = {
-  (e: 'update:modelValue', value: SingleModelValue | SingleModelValue[]): void;
+  (e: 'clear'): void;
+  (e: 'focus', event: FocusEvent): void;
+  (e: 'blur', event: FocusEvent): void;
+  (e: 'visible-change', value: boolean): void;
+  (e: 'change', value?: SingleModelValue | SingleModelValue[]): void;
+  (e: 'update:modelValue', value?: SingleModelValue | SingleModelValue[]): void;
 };
 const emit = defineEmits<Emit>()
 
@@ -327,6 +344,11 @@ watch(
   },
   { immediate: true }
 )
+
+watch(popupVisible, (newValue) => {
+  emit('visible-change', newValue)
+})
+
 onMounted(() => {
   const select = sjSelectRef.value
   const selectPopupShadow = sjSelectPopupShadowRef?.value
@@ -390,10 +412,7 @@ watch(
         (isString(props?.modelValue) ||
           isNumber(props?.modelValue) ||
           props?.modelValue === undefined) &&
-        isSelectedValuesChanged(
-          [props?.modelValue as SingleModelValue],
-          selectedValues.value
-        )
+        selectedValues.value[0] !== props?.modelValue
       ) {
         selectedValues.value = [props?.modelValue as SingleModelValue]
       } else {
@@ -430,9 +449,10 @@ const selectedOptions = computed<SelectedOption[]>(() => {
   return filterSelectedOptions(selectedValues.value)
 })
 watch(selectedValues, () => {
+  emit('change', props?.multiple ? [...selectedValues.value] : selectedValues.value[0])
   emit(
     'update:modelValue',
-    props?.multiple ? selectedValues.value : selectedValues.value[0]
+    props?.multiple ? [...selectedValues.value] : selectedValues.value[0]
   )
 })
 
@@ -487,6 +507,10 @@ const placeholderVisible = computed<boolean>(() => {
 const isClearBtnVisible = computed<boolean>(
   () => props?.clearable && !!selectedOptions.value?.length
 )
+const handleClear = () => {
+  selectedValues.value = []
+  emit('clear')
+}
 
 /**
  * classes
@@ -505,18 +529,14 @@ const handleClick = () => {
   popupVisible.value = true
 }
 
-const handleClear = () => {
-  selectedValues.value = []
+const handleFocus = (event: FocusEvent) => {
+  emit('focus', event)
 }
 
-const handleFocus = () => {
-  //
-  console.log(1111)
-}
-
-const handleBlur = () => {
+const handleBlur = (event: FocusEvent) => {
   if (isBoolean(props?.visible) || props?.disabled) return
   popupVisible.value = false
+  emit('blur', event)
 }
 
 /**
@@ -524,21 +544,21 @@ const handleBlur = () => {
  */
 const handleOptionClicked = (option: SelectedOption) => {
   if (props?.disabled) return
-  const index = selectedValues.value?.findIndex(
+  const indexFinded = selectedValues.value?.findIndex(
     (value) => value === option?.value
   )
   // multiple
   if (props?.multiple) {
-    if (index >= 0) {
-      selectedValues.value?.splice(index, 1)
+    if (indexFinded >= 0) {
+      selectedValues.value = selectedValues.value?.filter((_, index) => index !== indexFinded)
     } else {
-      selectedValues.value?.push(option?.value)
+      selectedValues.value = [...selectedValues.value, option?.value]
     }
   } else {
     if (filterText.value) {
       filterText.value = ''
     }
-    if (index === -1) {
+    if (indexFinded === -1) {
       selectedValues.value = [option?.value]
     }
   }
@@ -554,4 +574,26 @@ const provider = computed<Provider>(() => {
   }
 })
 useProvide<Provider>(componentName, provider)
+
+/**
+ * methods
+ */
+const focus = () => {
+  if (props.disabled) return
+  if (sjSelectRef.value) {
+    (sjSelectRef.value as HTMLElement)?.focus()
+  }
+}
+
+const blur = () => {
+  if (props.disabled) return
+  if (sjSelectRef.value) {
+    (sjSelectRef.value as HTMLElement)?.blur()
+  }
+}
+const exposeVars: SelectRefExpose = {
+  focus,
+  blur
+}
+defineExpose(exposeVars)
 </script>

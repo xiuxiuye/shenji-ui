@@ -2,10 +2,10 @@ import { computed } from 'vue'
 import isNumber from 'src/utils/isNumber'
 import isString from 'src/utils/isString'
 import isVaildNumber from 'src/utils/isVaildNumber'
-import type { Props } from '../types/index'
-import type { StyleValue, UseStyles } from 'src/types/global'
+import type { Props, UsePopupStyles } from '../types/index'
+import type { StyleValue } from 'src/types/global'
 
-const usePopupStyles: UseStyles<Props> = (props) => {
+const usePopupStyles: UsePopupStyles = (props, selectWidth) => {
   const styles = computed<StyleValue>(() => {
     const tempStyles: StyleValue = {}
     /**
@@ -20,7 +20,9 @@ const usePopupStyles: UseStyles<Props> = (props) => {
     /**
      * popup width
      */
-    if (props?.popupWithSelectWidth === false) {
+    if (props?.popupWithSelectWidth === true) {
+      tempStyles.width = `${selectWidth?.value}px`
+    } else if (props?.popupWithSelectWidth === false) {
       tempStyles.width = 'auto'
     } else if (isNumber(props?.popupWithSelectWidth)) {
       tempStyles.width = `${props?.popupWithSelectWidth}px`

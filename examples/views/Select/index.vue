@@ -7,13 +7,12 @@
       :options="optionsRef"
       v-model="selected"
       :loading="loading"
-      multiple
       loading-icon="loading-b"
       :filterable="false"
       clearable
       placeholder="请选择"
       :option-render="renderOption"
-      :label-render="renderLabel"
+      @visible-change="handleEvent"
     >
     </Select>
     <div class="test"></div>
@@ -23,7 +22,7 @@
 import { ref, h } from 'vue'
 import Icon from 'src/components/Icon'
 import Button from 'src/components/Button'
-const selected = ref(['shanghai'])
+const selected = ref('shanghai')
 
 const options = [
   { label: '北京', value: 'beijing', disabled: true, name: 'BeiJing' },
@@ -34,6 +33,10 @@ const options = [
   { label: '浙江-义乌', value: 'zhejiang-yiwu', name: 'ZheJiang-YiWu' }
 ]
 const optionsRef = ref(options)
+
+const handleEvent = (value) => {
+  console.log(22, value)
+}
 
 const loading = ref(false)
 const handleRemote = (query) => {
