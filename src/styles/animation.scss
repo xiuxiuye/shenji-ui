@@ -94,7 +94,7 @@
 .sj-popup-slide-from-left-leave-active,
 .sj-popup-slide-from-right-enter-active,
 .sj-popup-slide-from-right-leave-active {
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transition: opacity 0.2s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .sj-popup-slide-from-top-enter-from,
@@ -119,4 +119,20 @@
 .sj-popup-slide-from-right-leave-to {
   transform: translateX(-4px);
   opacity: 0;
+}
+
+.sjtest {
+  animation: sjtest 4s ease-in-out;
+}
+.sjtest-reverse {
+  animation: sjtest 4s ease-in-out reverse;
+}
+@keyframes sjtest {
+  0% { transform: translateY(-30px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes sjtestReverse {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-30px); }
 }

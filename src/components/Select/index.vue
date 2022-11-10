@@ -66,10 +66,13 @@
         <Icon :type="arrow" />
       </slot>
     </div>
-    <transition :name="transitionName">
+    <!-- Popup -->
+    <Popup
+      :visible="popupVisible"
+      :reference-ref="sjSelectRef"
+      :placement="placement"
+    >
       <div
-        v-if="popupVisible"
-        ref="sjSelectPopupRef"
         :class="`${classNamePrefix}-popup`"
         :style="popupStyles"
       >
@@ -92,41 +95,15 @@
         <div v-else :class="`${classNamePrefix}-empty`">
           <slot name="empty">{{ emptyText }}</slot>
         </div>
-        <!-- <slot /> -->
       </div>
-    </transition>
-    <!-- popup shadow -->
-    <div
-      ref="sjSelectPopupShadowRef"
-      :class="`${classNamePrefix}-popup-shadow`"
-      :style="popupStyles"
-    >
-      <template v-if="filterOptions?.length">
-        <SelectOption
-          v-for="option in filterOptions"
-          :key="option[valueField]"
-          :value="option[valueField]"
-          :label="option[labelField]"
-        />
-      </template>
-      <div v-else :class="`${classNamePrefix}-empty`">
-        <slot name="empty">{{ emptyText }}</slot>
-      </div>
-    </div>
+    </Popup>
   </div>
 </template>
 
 <script lang="ts">
-import {
-  ref,
-  computed,
-  watch,
-  onMounted,
-  onUnmounted,
-  nextTick,
-  render
-} from 'vue'
+import { ref, computed, watch, onMounted, nextTick, render } from 'vue'
 import Icon from '../Icon'
+import Popup from '../Popup'
 import SelectOption from '../Option'
 import {
   useClasses,
@@ -135,14 +112,6 @@ import {
   useFilterClasses
 } from './hooks/useClasses'
 import usePopupStyles from './hooks/usePopupStyles'
-import {
-  transitionName,
-  initPopupPosition,
-  setPopupClean,
-  setPopupShadowClean,
-  cleanPopup,
-  cleanPopupShadow
-} from './hooks/usePopup'
 import isArray from 'src/utils/isArray'
 import isString from 'src/utils/isString'
 import isNumber from 'src/utils/isNumber'
@@ -164,7 +133,6 @@ import type {
   CommonFormStatus,
   CommonFormBorderType
 } from 'src/types/global'
-import type { ReferenceElement, FloatingElement } from '@floating-ui/dom'
 import isBoolean from 'src/utils/isBoolean'
 
 export const componentName = 'sj-select'
@@ -251,6 +219,27 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 /**
+ * handle popup mounted
+ */
+const popupVisible = ref<boolean>(false)
+const sjSelectRef = ref<HTMLElement | null>()
+/**
+ * popup的显示是受控的
+ */
+watch(
+  () => props?.visible,
+  (newValue) => {
+    if (isBoolean(newValue)) {
+      popupVisible.value = newValue
+    }
+  },
+  { immediate: true }
+)
+watch(popupVisible, (newValue) => {
+  emit('visible-change', newValue)
+})
+
+/**
  * select width
  */
 const selectWidth = ref<number>(0)
@@ -303,68 +292,6 @@ watch(filterText, async () => {
 })
 
 /**
- * handle popup mounted
- */
-const popupVisible = ref<boolean>(false)
-const sjSelectRef = ref<ReferenceElement>()
-const sjSelectPopupRef = ref<FloatingElement>()
-const sjSelectPopupShadowRef = ref<FloatingElement>()
-
-/**
- * popup的显示是受控的
- */
-watch(
-  () => props?.visible,
-  (newValue) => {
-    if (isBoolean(newValue)) {
-      popupVisible.value = newValue
-    }
-  },
-  { immediate: true }
-)
-watch(
-  popupVisible,
-  async (newValue) => {
-    if (newValue) {
-      await nextTick()
-      const select = sjSelectRef.value
-      const selectPopup = sjSelectPopupRef.value
-      if (select && selectPopup) {
-        const clean = initPopupPosition(select, selectPopup, {
-          placement: props?.placement
-        })
-        setPopupClean(clean)
-      }
-    } else {
-      cleanPopup()
-      if (filterText.value) {
-        filterText.value = ''
-      }
-    }
-  },
-  { immediate: true }
-)
-
-watch(popupVisible, (newValue) => {
-  emit('visible-change', newValue)
-})
-
-onMounted(() => {
-  const select = sjSelectRef.value
-  const selectPopupShadow = sjSelectPopupShadowRef?.value
-  if (select && selectPopupShadow) {
-    const clean = initPopupPosition(select, selectPopupShadow, {
-      placement: props?.placement
-    })
-    setPopupShadowClean(clean)
-  }
-})
-onUnmounted(() => {
-  cleanPopup()
-  cleanPopupShadow()
-})
-
-/**
  * max-count
  */
 const realMaxCount = computed<number>(() => {
@@ -396,25 +323,27 @@ watch(
   () => props?.modelValue,
   () => {
     if (props?.multiple) {
-      if (
-        isArray(props?.modelValue) &&
-        isSelectedValuesChanged(
-          props?.modelValue as SingleModelValue[],
-          selectedValues.value
-        )
-      ) {
-        selectedValues.value = props?.modelValue as SingleModelValue[]
+      if (isArray(props?.modelValue)) {
+        if (
+          isSelectedValuesChanged(
+            props?.modelValue as SingleModelValue[],
+            selectedValues.value
+          )
+        ) {
+          selectedValues.value = props?.modelValue as SingleModelValue[]
+        }
       } else {
         consoleError('神机：Select在多选模式下model-value的类型应为数组')
       }
     } else {
       if (
-        (isString(props?.modelValue) ||
-          isNumber(props?.modelValue) ||
-          props?.modelValue === undefined) &&
-        selectedValues.value[0] !== props?.modelValue
+        isString(props?.modelValue) ||
+        isNumber(props?.modelValue) ||
+        props?.modelValue === undefined
       ) {
-        selectedValues.value = [props?.modelValue as SingleModelValue]
+        if (selectedValues.value[0] !== props?.modelValue) {
+          selectedValues.value = [props?.modelValue as SingleModelValue]
+        }
       } else {
         consoleError(
           '神机：Select在单选模式下model-value的类型应为string | number'
@@ -449,7 +378,10 @@ const selectedOptions = computed<SelectedOption[]>(() => {
   return filterSelectedOptions(selectedValues.value)
 })
 watch(selectedValues, () => {
-  emit('change', props?.multiple ? [...selectedValues.value] : selectedValues.value[0])
+  emit(
+    'change',
+    props?.multiple ? [...selectedValues.value] : selectedValues.value[0]
+  )
   emit(
     'update:modelValue',
     props?.multiple ? [...selectedValues.value] : selectedValues.value[0]
@@ -526,7 +458,7 @@ const filterClasses = useFilterClasses(classNamePrefix, props, filterText)
  */
 const handleClick = () => {
   if (isBoolean(props?.visible) || props?.disabled) return
-  popupVisible.value = true
+  popupVisible.value = !popupVisible.value
 }
 
 const handleFocus = (event: FocusEvent) => {
@@ -550,7 +482,9 @@ const handleOptionClicked = (option: SelectedOption) => {
   // multiple
   if (props?.multiple) {
     if (indexFinded >= 0) {
-      selectedValues.value = selectedValues.value?.filter((_, index) => index !== indexFinded)
+      selectedValues.value = selectedValues.value?.filter(
+        (_, index) => index !== indexFinded
+      )
     } else {
       selectedValues.value = [...selectedValues.value, option?.value]
     }
@@ -561,6 +495,7 @@ const handleOptionClicked = (option: SelectedOption) => {
     if (indexFinded === -1) {
       selectedValues.value = [option?.value]
     }
+    handleClick()
   }
 }
 

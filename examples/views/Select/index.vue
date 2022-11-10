@@ -1,9 +1,10 @@
 <template>
   <div class="main">
-    <div class="test"></div>
+    <div class="test test1"></div>
     {{ selected }}
     <br /><br />
     <Select
+      visible
       :options="optionsRef"
       v-model="selected"
       :loading="loading"
@@ -93,7 +94,10 @@ const renderLabel = (option, onRemove) => {
 }
 .test {
   border: 1px solid green;
-  height: 300px;
+  height: 100px;
   margin: 16px 0;
+}
+.test1 {
+  height: 30px;
 }
 </style>

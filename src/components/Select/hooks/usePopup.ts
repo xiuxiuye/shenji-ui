@@ -1,4 +1,4 @@
-import { ref, onUnmounted } from 'vue'
+import { ref } from 'vue'
 import {
   computePosition,
   flip,
@@ -34,10 +34,26 @@ export const initPopupPosition = (
       ({ x, y, placement, middlewareData }) => {
         Object.assign(floatingEle.style, {
           left: `${x}px`,
-          top: `${y}px`
+          top: `${y}px`,
+          backgroundColor: 'red'
         })
 
         const placementPrefix = placement?.split('-')[0]
+        setTimeout(() => {
+          floatingEle.classList.add('sjtest')
+          console.log(333, placementPrefix, floatingEle)
+          // floatingEle.classList.remove('sjtest')
+          // floatingEle.classList.add('sjtest-reverse')
+          // console.log(444, placementPrefix, floatingEle)
+        }, 4000)
+        setTimeout(() => {
+          floatingEle.classList.remove('sjtest')
+          floatingEle.classList.add('sjtest-reverse')
+          console.log(444, placementPrefix, floatingEle)
+          // floatingEle.classList.remove('sjtest')
+          // floatingEle.classList.add('sjtest-reverse')
+          // console.log(444, placementPrefix, floatingEle)
+        }, 10000)
         transitionName.value = `sj-popup-slide-from-${placementPrefix}`
 
         if (middlewareData.hide) {
@@ -60,6 +76,7 @@ export const setPopupShadowClean = (clean: () => void) => {
 }
 
 export const cleanPopup = async () => {
+  console.log('clean')
   if (cleanPopupAutoUpdate?.value) {
     cleanPopupAutoUpdate?.value()
     cleanPopupAutoUpdate.value = undefined

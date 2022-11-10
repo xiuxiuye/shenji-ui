@@ -192,11 +192,8 @@
   }
 
   /* popup */
-  &-popup,
-  &-popup-shadow {
-    position: absolute;
-    top: 0;
-    left: 0;
+  &-popup {
+    padding: 4px;
     box-sizing: border-box;
     border-radius: inherit;
     overflow-y: auto;
@@ -210,17 +207,6 @@
       text-align: center;
       color: var(--sj-secondary-text-color);
     }
-  }
-
-  &-popup {
-    padding: 4px;
-  }
-
-  &-popup-shadow {
-    z-index: -1;
-    user-select: none;
-    pointer-events: none;
-    visibility: hidden !important;
   }
 
   /* option */
