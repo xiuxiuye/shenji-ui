@@ -18,10 +18,11 @@
 <script lang="ts">
 import { computed, render, ref, watch, onMounted } from 'vue'
 import Icon from '../Icon'
+import useClasses from './hooks/useClasses'
 import useInject from 'src/utils/hooks/useInject'
 import { componentName as selectComponentName } from '../Select/index.vue'
 import type { Provider } from '../Select/types'
-import type { Classes, VNode } from 'src/types/global'
+import type { VNode } from 'src/types/global'
 
 const componentName = 'sj-option'
 export default {
@@ -58,35 +59,23 @@ const selected = computed<boolean>(() => {
  * classes
  */
 const classNamePrefix = 'sj-select-option'
-const classes = computed<Classes>(() => {
-  return [
-    classNamePrefix,
-    {
-      [`${classNamePrefix}-selected`]: selected?.value,
-      [`${classNamePrefix}-disabled`]:
-        injecter?.value?.disabled || props?.disabled
-    }
-  ]
-})
+const classes = useClasses(classNamePrefix, props, injecter, selected)
 
 /**
  * 自定义option
  */
 const sjSelectOption = ref<HTMLElement | null>(null)
-
 const renderCustomOption = () => {
   if (sjSelectOption.value && props?.custom) {
     render(props?.custom, sjSelectOption.value)
   }
 }
-
 watch(
   () => props?.custom,
   () => {
     renderCustomOption()
   }
 )
-
 onMounted(() => {
   renderCustomOption()
 })

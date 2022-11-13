@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import InputNumber from 'src/components/InputNumber/index.vue'
-import Icon from 'src/components/Icon/index.vue'
+import InputNumber from 'src/components/InputNumber'
+import Icon from 'src/components/Icon'
 
 describe('InputNumber组件单元测试', () => {
   it('是否是Vue组件实例', () => {

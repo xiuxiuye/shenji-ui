@@ -71,11 +71,9 @@
       :visible="popupVisible"
       :reference-ref="sjSelectRef"
       :placement="placement"
+      flipable
     >
-      <div
-        :class="`${classNamePrefix}-popup`"
-        :style="popupStyles"
-      >
+      <div :class="`${classNamePrefix}-popup`" :style="popupStyles">
         <div v-if="loading" :class="`${classNamePrefix}-loading`">
           <slot name="loading">{{ loadingText }}</slot>
         </div>
@@ -101,7 +99,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch, onMounted, nextTick, render } from 'vue'
+import { ref, computed, watch, nextTick, render, onMounted, onUnmounted } from 'vue'
 import Icon from '../Icon'
 import Popup from '../Popup'
 import SelectOption from '../Option'
@@ -230,12 +228,12 @@ watch(
   () => props?.visible,
   (newValue) => {
     if (isBoolean(newValue)) {
-      popupVisible.value = newValue
+      popupVisible.value = newValue as boolean
     }
   },
   { immediate: true }
 )
-watch(popupVisible, (newValue) => {
+watch(popupVisible, (newValue: boolean) => {
   emit('visible-change', newValue)
 })
 
@@ -243,10 +241,22 @@ watch(popupVisible, (newValue) => {
  * select width
  */
 const selectWidth = ref<number>(0)
+const resizeObserver = ref<ResizeObserver>()
 onMounted(() => {
   const selectRef = sjSelectRef.value
   if (selectRef) {
-    selectWidth.value = (selectRef as HTMLElement)?.clientWidth
+    /**
+     * 监听select的宽度变化
+     */
+    resizeObserver.value = new ResizeObserver(function (entries) {
+      selectWidth.value = (selectRef as HTMLElement)?.offsetWidth
+    })
+    resizeObserver.value.observe(selectRef)
+  }
+})
+onUnmounted(() => {
+  if (resizeObserver.value) {
+    resizeObserver.value.disconnect()
   }
 })
 
@@ -505,6 +515,7 @@ const provider = computed<Provider>(() => {
       ? [...selectedValues.value]
       : [selectedValues.value[0]],
     disabled: props?.disabled,
+    size: props?.size,
     handleOptionClicked
   }
 })

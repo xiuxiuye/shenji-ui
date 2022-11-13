@@ -1,4 +1,4 @@
-@import 'src/styles/var.scss';
+@import "src/styles/var.scss";
 
 $sj-tag-size: $sj-size;
 
@@ -7,30 +7,30 @@ $tag-type: (
     color: var(--sj-primary-text-color),
     borderColor: var(--sj-border-color),
     hoverColor: var(--sj-border-color),
-    backgroundColor: var(--sj-table-header-background-color)
+    backgroundColor: var(--sj-table-header-background-color),
   ),
   info: (
     color: var(--sj-info-color),
     borderColor: var(--sj-info-color),
     hoverColor: var(--sj-info-hover-background-color),
-    backgroundColor: var(--sj-info-focus-background-color)
+    backgroundColor: var(--sj-info-focus-background-color),
   ),
   success: (
     color: var(--sj-success-color),
     borderColor: var(--sj-success-color),
     hoverColor: var(--sj-success-hover-background-color),
-    backgroundColor: var(--sj-success-focus-background-color)
+    backgroundColor: var(--sj-success-focus-background-color),
   ),
   error: (
     color: var(--sj-error-color),
     borderColor: var(--sj-error-color),
     hoverColor: var(--sj-error-hover-background-color),
-    backgroundColor: var(--sj-error-focus-background-color)
+    backgroundColor: var(--sj-error-focus-background-color),
   ),
   warning: (
     color: var(--sj-warning-color),
     borderColor: var(--sj-warning-color),
     hoverColor: var(--sj-warning-hover-background-color),
-    backgroundColor: var(--sj-warning-focus-background-color)
+    backgroundColor: var(--sj-warning-focus-background-color),
   ),
 );

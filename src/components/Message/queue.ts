@@ -69,4 +69,4 @@ export const createMessage: CreateMessage = (options) => {
   return { destroyed: message?.destroyed }
 }
 
-render(createVNode(MessageComponent, { data: messageQueue?.value, placement: placement }), document.body)
+render(createVNode(MessageComponent, { data: messageQueue?.value, placement }), document.body)

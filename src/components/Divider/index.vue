@@ -9,6 +9,7 @@
     </template>
   </div>
 </template>
+
 <script lang="ts">
 import { computed, useSlots } from 'vue'
 import useClasses from './hooks/useClasses'

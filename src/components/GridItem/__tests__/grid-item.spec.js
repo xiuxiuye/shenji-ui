@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { defineComponent, h } from 'vue'
-import Grid from 'src/components/Grid/index.vue'
-import GridItem from 'src/components/GridItem/index.vue'
+import Grid from 'src/components/Grid'
+import GridItem from 'src/components/GridItem'
 
 const justifyValues = ['start', 'end', 'center', 'stretch']
 

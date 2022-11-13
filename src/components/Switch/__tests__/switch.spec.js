@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Switch from 'src/components/Switch/index.vue'
+import Switch from 'src/components/Switch'
 
 describe('Switch组件单元测试', () => {
   it('是否是Vue组件实例', () => {

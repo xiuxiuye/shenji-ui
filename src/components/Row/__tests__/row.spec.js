@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { defineComponent, h } from 'vue'
-import Row from 'src/components/Row/index.vue'
-import Col from 'src/components/Col/index.vue'
+import Row from 'src/components/Row'
+import Col from 'src/components/Col'
 
 const createComponent = (props = {}) => {
   return defineComponent({

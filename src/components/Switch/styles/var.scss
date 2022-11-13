@@ -1,24 +1,24 @@
-@import 'src/styles/var.scss';
+@import "src/styles/var.scss";
 
 $sj-switch-size: (
   normal: (
     height: 22px,
     min-width: 40px,
     dot-height: 18px,
-    fontSize: var(--sj-font-size-normal)
+    fontSize: var(--sj-font-size-normal),
   ),
   small: (
     height: 18px,
     min-width: 32px,
     dot-height: 14px,
-    fontSize: var(--sj-font-size-small)
+    fontSize: var(--sj-font-size-small),
   ),
   large: (
     height: 26px,
     min-width: 48px,
     dot-height: 22px,
-    fontSize: var(--sj-font-size-large)
-  )
+    fontSize: var(--sj-font-size-large),
+  ),
 );
 
 $sj-switch-dot-gap: 2px;

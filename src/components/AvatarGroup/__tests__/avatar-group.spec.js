@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import Avatar from 'src/components/Avatar/index.vue'
-import AvatarGroup from 'src/components/AvatarGroup/index.vue'
+import AvatarGroup from 'src/components/AvatarGroup'
+import Avatar from 'src/components/Avatar'
 
 describe('AvatarGroup组件单元测试', () => {
   it('是否是Vue组件实例', () => {

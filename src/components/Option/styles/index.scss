@@ -1,0 +1,49 @@
+@import "./var.scss";
+
+.sj-select-option {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-radius: inherit;
+  padding: 0 8px;
+  color: var(--sj-primary-text-color);
+  transition: background-color 0.1s ease-in-out;
+
+  &:hover {
+    background-color: var(--sj-background-color);
+  }
+
+  &-selected {
+    color: var(--sj-primary-color);
+
+    &-icon {
+      color: inherit;
+      margin-left: 4px;
+    }
+  }
+
+  &-content {
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* option disabled */
+  &-disabled {
+    cursor: not-allowed;
+    color: var(--sj-disable-color);
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  /* size */
+  @each $key, $value in $sj-select-option-size {
+    &-size-#{$key} {
+      min-height: map-get($value, "height");
+      font-size: map-get($value, "fontSize");
+    }
+  }
+}

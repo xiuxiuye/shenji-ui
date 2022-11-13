@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Grid from 'src/components/Grid/index.vue'
+import Grid from 'src/components/Grid'
 
 const flowValues = ['row', 'row-dense', 'colunm', 'column-dense']
 const justifyValues = ['start', 'end', 'center', 'stretch']

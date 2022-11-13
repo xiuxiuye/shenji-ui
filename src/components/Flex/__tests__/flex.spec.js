@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Flex from 'src/components/Flex/index.vue'
+import Flex from 'src/components/Flex'
 
 const justifyProp = ['start', 'end', 'center', 'space-between', 'space-around', 'space-evenly']
 const alignProp = ['start', 'end', 'center', 'baseline', 'stretch']

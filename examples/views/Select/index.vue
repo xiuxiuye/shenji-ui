@@ -4,7 +4,6 @@
     {{ selected }}
     <br /><br />
     <Select
-      visible
       :options="optionsRef"
       v-model="selected"
       :loading="loading"
@@ -13,7 +12,6 @@
       clearable
       placeholder="请选择"
       :option-render="renderOption"
-      @visible-change="handleEvent"
     >
     </Select>
     <div class="test"></div>
@@ -70,18 +68,21 @@ const renderLabel = (option, onRemove) => {
   const originOption = option?.meta?.originOption
   return h('span', {}, [
     h('span', `${originOption?.label}(${originOption?.name})`),
-    h(Icon, {
-      style: {
-        marginLeft: '8px'
+    h(
+      Icon,
+      {
+        style: {
+          marginLeft: '8px'
+        },
+        type: 'close',
+        onclick: (event) => {
+          event.stopPropagation()
+          onRemove(option?.value)
+        }
       },
-      type: 'close',
-      onclick: (event) => {
-        event.stopPropagation()
-        onRemove(option?.value)
-      }
-    }, [''])
-  ]
-  )
+      ['']
+    )
+  ])
 }
 </script>
 <style lang="scss">
@@ -91,13 +92,21 @@ const renderLabel = (option, onRemove) => {
   // overflow-y: auto;
   // border: 1px solid blue;
   padding-left: 100px;
+  width: 400px;
 }
 .test {
   border: 1px solid green;
-  height: 100px;
+  height: 400px;
   margin: 16px 0;
 }
 .test1 {
-  height: 30px;
+  height: 400px;
+}
+.test2 {
+  height: 100px;
+  overflow: auto;
+}
+.test3 {
+  height: 700px;
 }
 </style>

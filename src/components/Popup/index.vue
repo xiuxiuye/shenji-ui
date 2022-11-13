@@ -1,7 +1,9 @@
 <template>
-  <div v-show="popupVisible" class="sj-popup" ref="sjPopupRef">
-    <slot></slot>
-  </div>
+  <Teleport to="body">
+    <div v-if="popupVisible" class="sj-popup" ref="sjPopupRef">
+      <slot></slot>
+    </div>
+  </Teleport>
 </template>
 
 <script lang="ts">
@@ -12,12 +14,15 @@ import {
   shift,
   offset,
   hide,
-  autoUpdate
+  autoUpdate,
+  autoPlacement
 } from '@floating-ui/dom'
 import type {
   ComputePositionConfig,
   ReferenceElement,
-  FloatingElement
+  FloatingElement,
+  Alignment,
+  Placement
 } from '@floating-ui/dom'
 
 const componentName = 'sj-popup'
@@ -28,28 +33,21 @@ export default {
 
 <script setup lang="ts">
 interface Props {
-  visible?: boolean;
   referenceRef?: HTMLElement;
-  placement?:
-    | 'top-start'
-    | 'top'
-    | 'top-end'
-    | 'right-start'
-    | 'right'
-    | 'right-end'
-    | 'bottom-start'
-    | 'bottom'
-    | 'bottom-end'
-    | 'left-start'
-    | 'left'
-    | 'left-end';
+  visible?: boolean;
+  placement?: Placement;
+  flipable?: boolean;
+  autoPlacement?: boolean;
+  alignment?: Alignment;
+  autoAlignment?: boolean;
+  allowedPlacements?: Placement[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  placement: 'bottom'
+  autoAlignment: true
 })
 
-type PlacementFrom = 'top' | 'bottom' | 'left' | 'right'
+type PlacementFrom = 'top' | 'bottom' | 'left' | 'right';
 interface PlacementFromAction {
   enter: string;
   leave: string;
@@ -72,49 +70,60 @@ const transitionClassName: Record<PlacementFrom, PlacementFromAction> = {
     leave: 'sj-popup-slide-leave-from-right'
   }
 }
-const popupVisible = ref<boolean>(false)
-const sjPopupRef = ref<HTMLElement | null>(null)
-const cleanPopupAutoUpdate = ref<() => void>()
-const placementFrom = ref<PlacementFrom>()
 
-const initPopupPosition = (
+/**
+ * handle popup position
+ */
+const placementFrom = ref<PlacementFrom>()
+const cleanPopupAutoUpdate = ref<() => void>()
+const handlePopupEnter = (
   referenceEle: ReferenceElement,
-  floatingEle: FloatingElement,
-  options: ComputePositionConfig
+  floatingEle: FloatingElement
 ): (() => void) => {
-  const postionOptions: ComputePositionConfig = {
-    middleware: [offset(4), flip(), shift(), hide()],
-    ...options
+  /**
+   * set computePosition options
+   */
+  const options: ComputePositionConfig = {
+    middleware: [
+      offset(4),
+      shift(),
+      hide()
+    ]
+  }
+  if (props?.autoPlacement) {
+    const { alignment, autoAlignment, allowedPlacements } = props
+    options.middleware?.push(autoPlacement({ alignment, autoAlignment, allowedPlacements }))
+  } else {
+    const { placement, flipable } = props
+    options.placement = placement
+    if (flipable) {
+      options.middleware?.push(flip())
+    }
   }
   /**
    * auto update position
    */
   return autoUpdate(referenceEle, floatingEle, () => {
-    computePosition(referenceEle, floatingEle, postionOptions).then(
+    computePosition(referenceEle, floatingEle, options).then(
       ({ x, y, placement, middlewareData }) => {
         Object.assign(floatingEle.style, {
           left: `${x}px`,
-          top: `${y}px`,
-          backgroundColor: 'red'
+          top: `${y}px`
         })
         const placementPrefix = placement?.split('-')[0] as PlacementFrom
         placementFrom.value = placementPrefix
-        console.log(placementPrefix, props?.visible, popupVisible.value)
-        if (props?.visible && !popupVisible.value) {
-          floatingEle?.classList?.add(transitionClassName[placementPrefix]?.enter)
-          popupVisible.value = true
+        console.log(placementPrefix)
+        if (props?.visible) {
+          const preEnterClassName = floatingEle?.classList[1]
+          const currentEnterClassName =
+            transitionClassName[placementPrefix]?.enter
+          if (!preEnterClassName) {
+            floatingEle?.classList?.add(currentEnterClassName)
+          } else if (preEnterClassName !== currentEnterClassName) {
+            floatingEle?.classList.remove(preEnterClassName)
+            floatingEle?.classList?.add(currentEnterClassName)
+          }
         }
-        // setTimeout(() => {
-        //   floatingEle.classList.add('sjtest')
-        //   console.log(333, placementPrefix, floatingEle)
-        // }, 4000)
-        // setTimeout(() => {
-        //   floatingEle.classList.remove('sjtest')
-        //   floatingEle.classList.add('sjtest-reverse')
-        //   console.log(444, placementPrefix, floatingEle)
-        // }, 10000)
-        // transitionName.value = `sj-popup-slide-from-${placementPrefix}`
-
         if (middlewareData.hide) {
           const { referenceHidden } = middlewareData.hide
           Object.assign(floatingEle.style, {
@@ -126,92 +135,44 @@ const initPopupPosition = (
   })
 }
 
-watch(() => props?.visible, async (newValue) => {
-  if (newValue) {
-    await nextTick()
-    const referenceEle = props?.referenceRef
-    const floatingEle = sjPopupRef?.value
-    if (referenceEle && floatingEle) {
-      cleanPopupAutoUpdate.value = initPopupPosition(referenceEle, floatingEle, {
-        placement: props?.placement
-      })
+/**
+ * 根据外部的visible值控制popup的可见性
+ */
+const popupVisible = ref<boolean>(false)
+const sjPopupRef = ref<HTMLElement | null>(null)
+watch(
+  () => props?.visible,
+  async (newValue) => {
+    if (newValue) {
+      popupVisible.value = newValue
+      await nextTick()
+      const referenceEle = props?.referenceRef
+      const floatingEle = sjPopupRef?.value
+      if (referenceEle && floatingEle) {
+        cleanPopupAutoUpdate.value = handlePopupEnter(
+          referenceEle,
+          floatingEle
+        )
+      }
+    } else if (popupVisible.value) {
+      const floatingEle = sjPopupRef?.value
+      if (floatingEle && placementFrom.value) {
+        const leaveClassName = transitionClassName[placementFrom.value]?.leave
+        floatingEle?.classList?.remove(
+          transitionClassName[placementFrom.value]?.enter
+        )
+        floatingEle?.classList?.add(leaveClassName)
+        setTimeout(() => {
+          popupVisible.value = false
+          floatingEle?.classList?.remove(leaveClassName)
+          console.log(999, floatingEle)
+        }, 300)
+      }
+      if (cleanPopupAutoUpdate.value) {
+        cleanPopupAutoUpdate.value()
+      }
     }
-  } else {
-    if (cleanPopupAutoUpdate.value) {
-      cleanPopupAutoUpdate.value()
-    }
-  }
-}, { immediate: true })
-
+  },
+  { immediate: true }
+)
 </script>
-
-<style lang="scss">
-.sj-popup {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-/* top */
-.sj-popup-slide-enter-from-top {
-  animation: sjPopupSlideFromTop 4s ease-in-out forwards;
-}
-@keyframes sjPopupSlideFromTop {
-  0% { transform: translateY(4px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-.sj-popup-slide-leave-from-top {
-  animation: sjPopupSlideFromTopReservce 4s ease-in-out forwards;
-}
-@keyframes sjPopupSlideFromTopReservce {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(4px); opacity: 0; }
-}
-
-/* bottom */
-.sj-popup-slide-enter-from-bottom {
-  animation: sjPopupSlideFromBottom 4s ease-in-out forwards;
-}
-@keyframes sjPopupSlideFromBottom {
-  0% { transform: translateY(-4px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-.sj-popup-slide-leave-from-bottom {
-  animation: sjPopupSlideFromBottomReservce 4s ease-in-out forwards;
-}
-@keyframes sjPopupSlideFromBottomReservce {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-4px); opacity: 0; }
-}
-
-/* left */
-.sj-popup-slide-enter-from-left {
-  animation: sjPopupSlideFromLeft 4s ease-in-out forwards;
-}
-@keyframes sjPopupSlideFromLeft {
-  0% { transform: translateX(4px); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
-}
-.sj-popup-slide-leave-from-left {
-  animation: sjPopupSlideFromLeftReservce 4s ease-in-out forwards;
-}
-@keyframes sjPopupSlideFromLeftReservce {
-  0% { transform: translateX(0); opacity: 1; }
-  100% { transform: translateX(4px); opacity: 0; }
-}
-
-/* right */
-.sj-popup-slide-enter-from-right {
-  animation: sjPopupSlideFromRight 4s ease-in-out forwards;
-}
-@keyframes sjPopupSlideFromRight {
-  0% { transform: translateX(-4px); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
-}
-.sj-popup-slide-leave-from-right {
-  animation: sjPopupSlideFromRightReservce 4s ease-in-out forwards;
-}
-@keyframes sjPopupSlideFromRightReservce {
-  0% { transform: translateX(0); opacity: 1; }
-  100% { transform: translateX(-4px); opacity: 0; }
-}
-</style>

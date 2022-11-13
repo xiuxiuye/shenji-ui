@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { defineComponent, h } from 'vue'
-import Divider from '../index.vue'
+import Divider from 'src/components/Divider'
 
 const createComponent = (slot) => {
   return defineComponent({

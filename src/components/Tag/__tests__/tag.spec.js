@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Tag from 'src/components/Tag/index.vue'
-import Icon from 'src/components/Icon/index.vue'
+import Tag from 'src/components/Tag'
 
 describe('Tag组件单元测试', () => {
   it('是否是Vue组件实例', () => {

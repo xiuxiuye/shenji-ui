@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { defineComponent, h } from 'vue'
-import Flex from 'src/components/Flex/index.vue'
-import FlexItem from 'src/components/FlexItem/index.vue'
+import Flex from 'src/components/Flex'
+import FlexItem from 'src/components/FlexItem'
 
 const alignProp = ['start', 'end', 'center', 'baseline', 'stretch']
 const orderProp = [{ value: 1, type: 'number' }, { value: '1', type: 'string' }]

@@ -1,4 +1,4 @@
-import type { Ref, CommonSize } from 'src/types/global'
+import type { CommonSize } from 'src/types/global'
 
 export interface Props {
   size?: CommonSize;

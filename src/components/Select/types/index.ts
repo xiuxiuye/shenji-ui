@@ -6,8 +6,8 @@ import type {
   Ref,
   Classes,
   VNode,
-  StyleValue,
-} from "src/types/global";
+  StyleValue
+} from 'src/types/global'
 
 export type SingleModelValue = string | number;
 
@@ -47,18 +47,18 @@ export interface Props {
   options?: Options;
   placeholder?: string;
   placement?:
-  | "top-start"
-  | "top"
-  | "top-end"
-  | "right-start"
-  | "right"
-  | "right-end"
-  | "bottom-start"
-  | "bottom"
-  | "bottom-end"
-  | "left-start"
-  | "left"
-  | "left-end";
+  | 'top-start'
+  | 'top'
+  | 'top-end'
+  | 'right-start'
+  | 'right'
+  | 'right-end'
+  | 'bottom-start'
+  | 'bottom'
+  | 'bottom-end'
+  | 'left-start'
+  | 'left'
+  | 'left-end';
   status?: CommonFormStatus;
   container?: string | HTMLElement;
   virtual?: boolean;
@@ -71,11 +71,6 @@ export interface Props {
   emptyText?: string;
   optionRender?: OptionRender;
   labelRender?: LabelRender;
-}
-
-export interface SelectRefExpose {
-  focus: () => void;
-  blur: () => void;
 }
 
 export interface SelectedOptionMeta {
@@ -91,6 +86,7 @@ export interface SelectedOption {
 export interface Provider {
   selectedValues: Array<string | number>;
   disabled: boolean;
+  size: CommonSize;
   handleOptionClicked: (option: SelectedOption) => void;
 }
 

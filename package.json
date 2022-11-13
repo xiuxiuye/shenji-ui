@@ -8,11 +8,14 @@
   "module": "./dist/es/index.js",
   "typings": "./dist/lib/index.d.ts",
   "scripts": {
-    "dev": "vue-tsc --noEmit && vite",
-    "build": "vue-tsc --noEmit && node scripts/build/index.js",
-    "vite": "vue-tsc --noEmit && vite build",
+    "test": "jest",
     "preview": "vite preview",
-    "test": "jest"
+    "tslint": "vue-tsc --noEmit",
+    "dev": "npm run tslint && vite",
+    "vite": "npm run tslint && vite build",
+    "build:lib": "node scripts/build/index.js",
+    "eslint": "eslint --fix --ext .js,.ts,.vue src",
+    "build": "npm run tslint && npm run eslint && npm run test && npm run build:lib"
   },
   "dependencies": {
     "@ant-design/colors": "^6.0.0",

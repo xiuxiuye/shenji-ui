@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import Checkbox from 'src/components/Checkbox/index.vue'
-import CheckboxGroup from 'src/components/CheckboxGroup/index.vue'
+import Checkbox from 'src/components/Checkbox'
+import CheckboxGroup from 'src/components/CheckboxGroup'
 
 describe('CheckboxGroup组件单元测试', () => {
   it('是否是Vue组件实例', () => {

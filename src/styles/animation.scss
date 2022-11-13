@@ -124,9 +124,11 @@
 .sjtest {
   animation: sjtest 4s ease-in-out;
 }
+
 .sjtest-reverse {
   animation: sjtest 4s ease-in-out reverse;
 }
+
 @keyframes sjtest {
   0% { transform: translateY(-30px); }
   100% { transform: translateY(0); }

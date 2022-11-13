@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Loading from 'src/components/Loading/index.vue'
+import Loading from 'src/components/Loading'
 
 describe('Loading组件单元测试', () => {
   it('是否是Vue组件实例', () => {

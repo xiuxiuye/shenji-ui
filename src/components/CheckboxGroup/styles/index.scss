@@ -1,5 +1,6 @@
 .sj-checkbox-group {
   display: inline-flex;
+
   &-horizontal {
     .sj-checkbox:not(:first-of-type) {
       margin-left: 14px;
@@ -8,6 +9,7 @@
 
   &-vertical {
     flex-direction: column;
+
     .sj-checkbox:not(:first-of-type) {
       margin-top: 16px;
     }

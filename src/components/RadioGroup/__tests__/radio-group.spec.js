@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import Radio from 'src/components/Radio/index.vue'
-import RadioGroup from 'src/components/RadioGroup/index.vue'
+import Radio from 'src/components/Radio'
+import RadioGroup from 'src/components/RadioGroup'
 
 describe('RadioGroup组件单元测试', () => {
   it('是否是Vue组件实例', () => {

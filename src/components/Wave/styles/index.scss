@@ -19,8 +19,7 @@
 }
 
 .sj-wave-spread-active {
-  animation-name: sj-wave-spread-primary,
-    sj-wave-opacity;
+  animation-name: sj-wave-spread-primary, sj-wave-opacity;
   animation-duration: 0.6s;
   animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }

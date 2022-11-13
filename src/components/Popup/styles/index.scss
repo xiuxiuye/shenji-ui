@@ -1,0 +1,137 @@
+.sj-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* top */
+@keyframes sjPopupSlideFromTop {
+  0% {
+    transform: translateY(4px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.sj-popup-slide-enter-from-top {
+  animation: sjPopupSlideFromTop 0.3s ease-in-out forwards;
+}
+
+@keyframes sjPopupSlideFromTopReservce {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(4px);
+    opacity: 0;
+  }
+}
+
+.sj-popup-slide-leave-from-top {
+  animation: sjPopupSlideFromTopReservce 0.3s ease-in-out forwards;
+}
+
+/* bottom */
+@keyframes sjPopupSlideFromBottom {
+  0% {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.sj-popup-slide-enter-from-bottom {
+  animation: sjPopupSlideFromBottom 0.3s ease-in-out forwards;
+}
+
+@keyframes sjPopupSlideFromBottomReservce {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+}
+
+.sj-popup-slide-leave-from-bottom {
+  animation: sjPopupSlideFromBottomReservce 0.3s ease-in-out forwards;
+}
+
+/* left */
+@keyframes sjPopupSlideFromLeft {
+  0% {
+    transform: translateX(4px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.sj-popup-slide-enter-from-left {
+  animation: sjPopupSlideFromLeft 0.3s ease-in-out forwards;
+}
+
+@keyframes sjPopupSlideFromLeftReservce {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(4px);
+    opacity: 0;
+  }
+}
+
+.sj-popup-slide-leave-from-left {
+  animation: sjPopupSlideFromLeftReservce 0.3s ease-in-out forwards;
+}
+
+/* right */
+@keyframes sjPopupSlideFromRight {
+  0% {
+    transform: translateX(-4px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.sj-popup-slide-enter-from-right {
+  animation: sjPopupSlideFromRight 0.3s ease-in-out forwards;
+}
+
+@keyframes sjPopupSlideFromRightReservce {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-4px);
+    opacity: 0;
+  }
+}
+
+.sj-popup-slide-leave-from-right {
+  animation: sjPopupSlideFromRightReservce 0.3s ease-in-out forwards;
+}

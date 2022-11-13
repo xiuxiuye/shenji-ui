@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Card from 'src/components/Card/index.vue'
+import Card from 'src/components/Card'
 
 describe('Card组件单元测试', () => {
   it('是否是Vue组件实例', () => {
