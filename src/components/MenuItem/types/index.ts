@@ -1,6 +1,5 @@
 export interface Props {
-  key: string;
-  title?: string;
+  symbol: string;
   icon?: string;
   disabled?: boolean;
 }

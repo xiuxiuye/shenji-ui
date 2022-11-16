@@ -51,6 +51,18 @@ export type { InputNumberProps, InputNumberRefExpose } from './InputNumber'
 export { default as Loading } from './Loading'
 export type { LoadingProps } from './Loading'
 
+export { default as Menu } from './Menu'
+export type { MenuProps } from './Menu'
+
+export { default as SubMenu } from './SubMenu'
+export type { SubMenuProps } from './SubMenu'
+
+export { default as MenuItem } from './MenuItem'
+export type { MenuItemProps } from './MenuItem'
+
+export { default as MenuGroup } from './MenuGroup'
+export type { MenuGroupProps } from './MenuGroup'
+
 export { default as Row } from './Row'
 export type { RowProps } from './Row'
 

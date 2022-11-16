@@ -1,0 +1,12 @@
+.sj-menu {
+  &-item {
+    padding: 0 16px;
+    box-sizing: inherit;
+    height: var(--sj-height-large);
+    line-height: var(--sj-height-large);
+
+    &-icon {
+      margin-right: 8px;
+    }
+  }
+}
