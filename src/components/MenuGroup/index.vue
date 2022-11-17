@@ -1,10 +1,24 @@
 <template>
-  <div>
-    <slot></slot>
+  <div :class="classNamePrefix">
+    <div :class="`${classNamePrefix}-header`">
+      <span v-if="icon" :class="`${classNamePrefix}-icon`">
+        <Icon :type="icon" />
+      </span>
+      <span :class="`${classNamePrefix}-title`">
+        <slot name="title">
+          {{ title }}
+        </slot>
+      </span>
+    </div>
+    <div :class="`${classNamePrefix}-body`">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import Icon from '../Icon'
+
 const componentName = 'sj-menu-group'
 
 export default {
@@ -17,7 +31,7 @@ interface Props {
   title?: string;
   icon?: string;
 }
-const props = defineProps<Props>()
+defineProps<Props>()
 
 /**
  * classes

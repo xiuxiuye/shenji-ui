@@ -1,12 +1,22 @@
 .sj-menu {
   &-item {
+    cursor: pointer;
     padding: 0 16px;
-    box-sizing: inherit;
+    box-sizing: border-box;
     height: var(--sj-height-large);
     line-height: var(--sj-height-large);
 
     &-icon {
       margin-right: 8px;
+    }
+
+    /* disabled */
+    &-disabled {
+      cursor: not-allowed;
+      .sj-menu-item-icon > .sj-icon,
+      .sj-menu-item-content {
+        color: var(--sj-disable-color)
+      }
     }
   }
 }

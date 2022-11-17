@@ -1,0 +1,19 @@
+.sj-menu {
+  &-group {
+    box-sizing: border-box;
+    &-header {
+      padding: 0 16px;
+      height: var(--sj-height-large);
+      line-height: var(--sj-height-large);
+
+      .sj-menu-group-icon {
+        margin-right: 8px;
+      }
+
+      .sj-menu-group-icon > .sj-icon,
+      .sj-menu-group-title {
+        color: var(--sj-secondary-text-color);
+      }
+    }
+  }
+}

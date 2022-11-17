@@ -7,7 +7,7 @@ const useClasses: UseClasses<Props> = (classNamePrefix, props) => {
     return [
       classNamePrefix,
       {
-        [`${classNamePrefix}-${props?.disabled}`]: props?.disabled
+        [`${classNamePrefix}-disabled`]: props?.disabled
       }
     ]
   })

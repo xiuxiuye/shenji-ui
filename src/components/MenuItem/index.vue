@@ -1,7 +1,7 @@
 <template>
   <div v-if="isValid" :class="classes" :key="symbol">
-    <span :class="`${classNamePrefix}-icon`">
-      <Icon type="mail" />
+    <span v-if="icon" :class="`${classNamePrefix}-icon`">
+      <Icon :type="icon" />
     </span>
     <span :class="`${classNamePrefix}-content`">
       <slot></slot>
@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import Icon from '../Icon'
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import isString from 'src/utils/isString'
 import consoleError from 'src/utils/console/error'
 import useClasses from './hooks/useClasses'
