@@ -26,7 +26,6 @@ const enter = (el: HTMLElement) => {
   el.offsetHeight; // force repaint
   // noinspection JSSuspiciousNameCombination
   el.style.height = height
-  console.log('enter', el, el.offsetHeight, height)
 }
 const afterEnter = (el: HTMLElement) => {
   el.style.height = 'auto'
@@ -45,6 +44,10 @@ const afterLeave = (el: HTMLElement) => {
 <style lang="scss">
 .sj-collapse-enter-active,
 .sj-collapse-leave-active {
-  transition: height 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.sj-collapse-enter-from,
+.sj-collapse-leave-to {
+  opacity: 0;
 }
 </style>
