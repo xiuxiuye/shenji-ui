@@ -1,18 +1,19 @@
 <template>
-  <div>
+  <div class="main">
     <Menu>
-      <MenuGroup title="分组一">
-        <template #title>
-          <div>Custom Title</div>
-        </template>
-        <MenuItem symbol="menu1" icon="user">菜单一</MenuItem>
-        <MenuItem symbol="menu2" icon="user" disabled>菜单二</MenuItem>
-        <MenuItem symbol="menu3" icon="user">菜单三</MenuItem>
-      </MenuGroup>
+      <SubMenu symbol="submenu1" icon="user" title="七月的肖邦">
+        <MenuItem symbol="menu1" icon="user">花海</MenuItem>
+        <MenuItem symbol="menu2" icon="user" disabled>七里香</MenuItem>
+        <MenuItem symbol="menu3" icon="user">一路向北</MenuItem>
+      </SubMenu>
     </Menu>
   </div>
 </template>
 
 <script setup></script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.main {
+  width: 200px;
+}
+</style>

@@ -1,5 +1,5 @@
 export interface Props {
-  key: string;
+  symbol: string;
   title?: string;
   icon?: string;
   expandedIcon?: string;

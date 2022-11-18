@@ -112,7 +112,6 @@ const handlePopupEnter = (
         })
         const placementPrefix = placement?.split('-')[0] as PlacementFrom
         placementFrom.value = placementPrefix
-        console.log(placementPrefix)
         if (props?.visible) {
           const preEnterClassName = floatingEle?.classList[1]
           const currentEnterClassName =
@@ -165,7 +164,6 @@ watch(
         setTimeout(() => {
           popupVisible.value = false
           floatingEle?.classList?.remove(leaveClassName)
-          console.log(999, floatingEle)
         }, 300)
       }
       if (cleanPopupAutoUpdate.value) {
