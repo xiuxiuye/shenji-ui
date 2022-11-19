@@ -41,7 +41,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), { disabled: false })
 
 /**
- * inject
+ * injecter
  */
 const injecter = useInject<Provider>(selectComponentName)
 

@@ -1,10 +1,26 @@
 <template>
   <div class="main">
-    <Menu>
-      <SubMenu symbol="submenu1" icon="user" title="七月的肖邦">
-        <MenuItem symbol="menu1" icon="user">花海</MenuItem>
-        <MenuItem symbol="menu2" icon="user" disabled>七里香</MenuItem>
-        <MenuItem symbol="menu3" icon="user">一路向北</MenuItem>
+    <Menu activeItem="menu41" :expanded-sub-menus="['submenu11', 'submenu121']">
+      <SubMenu symbol="submenu11" icon="user" title="最伟大的作品">
+        <MenuItem symbol="menu11" icon="user">倒影</MenuItem>
+        <MenuItem symbol="menu21" icon="user" disabled>粉色海洋</MenuItem>
+        <MenuItem symbol="menu31" icon="user">错过的烟火</MenuItem>
+        <MenuGroup title="中国古风">
+          <MenuItem symbol="menu41" icon="user">红颜如霜</MenuItem>
+          <MenuItem symbol="menu51" icon="user">还在流浪</MenuItem>
+          <MenuItem symbol="menu61" icon="user">我是如此相信</MenuItem>
+          <MenuItem symbol="menu71" icon="user">等你下课</MenuItem>
+        </MenuGroup>
+        <SubMenu symbol="submenu121" icon="user" title="叶惠美">
+          <MenuItem symbol="menu121" icon="user">听妈妈的话</MenuItem>
+          <MenuItem symbol="menu221" icon="user" disabled>我不配</MenuItem>
+          <MenuItem symbol="menu321" icon="user">以父之名</MenuItem>
+        </SubMenu>
+      </SubMenu>
+      <SubMenu symbol="submenu12" icon="user" title="七月的肖邦">
+        <MenuItem symbol="menu12" icon="user">花海</MenuItem>
+        <MenuItem symbol="menu22" icon="user" disabled>七里香</MenuItem>
+        <MenuItem symbol="menu32" icon="user">一路向北</MenuItem>
       </SubMenu>
     </Menu>
   </div>

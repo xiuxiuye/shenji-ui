@@ -1,7 +1,7 @@
 .sj-menu {
   &-item {
     cursor: pointer;
-    padding: 0 16px;
+    padding-right: 16px;
     box-sizing: border-box;
     height: var(--sj-height-large);
     line-height: var(--sj-height-large);
@@ -15,7 +15,17 @@
       cursor: not-allowed;
       .sj-menu-item-icon > .sj-icon,
       .sj-menu-item-content {
-        color: var(--sj-disable-color)
+        color: var(--sj-disable-color);
+      }
+    }
+
+    /* avtive */
+    &-active {
+      background-color: var(--sj-primary-focus-background-color);
+
+      .sj-menu-item-icon > .sj-icon,
+      .sj-menu-item-content {
+        color: var(--sj-primary-color);
       }
     }
   }

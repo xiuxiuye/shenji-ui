@@ -2,7 +2,7 @@
   &-group {
     box-sizing: border-box;
     &-header {
-      padding: 0 16px;
+      padding-right: 16px;
       height: var(--sj-height-large);
       line-height: var(--sj-height-large);
 
@@ -14,10 +14,6 @@
       .sj-menu-group-title {
         color: var(--sj-secondary-text-color);
       }
-    }
-
-    &-body {
-      padding-left: 16px;
     }
   }
 }

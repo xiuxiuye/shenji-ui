@@ -5,9 +5,14 @@
 </template>
 
 <script lang="ts">
+import { ref, computed, watch } from 'vue'
 import useClasses from './hooks/useClasses'
+import useProvide from 'src/utils/hooks/useProvide'
+import isArray from 'src/utils/isArray'
+import isString from 'src/utils/isString'
+import type { Provider } from './types'
 
-const componentName = 'sj-menu'
+export const componentName = 'sj-menu'
 
 export default {
   name: componentName
@@ -17,8 +22,8 @@ export default {
 <script setup lang="ts">
 interface Props {
   mode?: 'horizontal' | 'vertical' | 'inline';
-  activeKey?: string;
-  expandedKeys?: string[];
+  activeItem?: string;
+  expandedSubMenus?: string[];
   theme?: 'light' | 'dark';
   accordion?: boolean;
 }
@@ -33,4 +38,64 @@ const props = withDefaults(defineProps<Props>(), {
  */
 const classNamePrefix = componentName
 const classes = useClasses(classNamePrefix, props)
+
+/**
+ * active menu-item
+ */
+const activeItem = ref<string>('')
+watch(
+  () => props?.activeItem,
+  (newValue) => {
+    if (newValue && isString(newValue)) {
+      activeItem.value = newValue
+    }
+  },
+  {
+    immediate: true
+  }
+)
+const updateActiveItem = (symbol: string) => {
+  if (activeItem.value !== symbol) {
+    activeItem.value = symbol
+  }
+}
+
+/**
+ * active sub-menu
+ */
+const expandedSubMenus = ref<string[]>([])
+watch(
+  () => props?.expandedSubMenus,
+  (newValue) => {
+    if (newValue && isArray(newValue)) {
+      expandedSubMenus.value = newValue
+    }
+  },
+  {
+    immediate: true
+  }
+)
+const updateExpandedSubMenus = (symbol: string) => {
+  console.log(symbol)
+  const index = expandedSubMenus.value.indexOf(symbol)
+  if (index === -1) {
+    expandedSubMenus.value.push(symbol)
+  } else {
+    expandedSubMenus.value.splice(index, 1)
+  }
+}
+
+/**
+ * provider
+ */
+const provider = computed<Provider>(() => {
+  return {
+    basePaddingLeft: 16,
+    activeItem: activeItem.value,
+    expandedSubMenus: expandedSubMenus.value,
+    updateActiveItem,
+    updateExpandedSubMenus
+  }
+})
+useProvide<Provider>(componentName, provider)
 </script>

@@ -4,7 +4,7 @@
     &-header {
       display: flex;
       cursor: pointer;
-      padding: 0 16px;
+      padding-right: 16px;
       height: var(--sj-height-large);
       line-height: var(--sj-height-large);
 
@@ -20,7 +20,7 @@
       &:hover {
         .sj-sub-menu-icon > .sj-icon,
         .sj-sub-menu-title,
-        .sj-sub-menu-expand > .sj-icon {
+        .sj-sub-menu-expand-icon > .sj-icon {
           color: var(--sj-primary-color);
         }
       }
@@ -28,10 +28,20 @@
       &:active {
         background-color: var(--sj-primary-focus-background-color);
       }
+
+      .sj-sub-menu-expand-icon {
+        transition: transform 0.2s ease-in-out;
+        &-up {
+          transform: rotate(180deg);
+        }
+      }
+
+      .sj-sub-menu-expanded-icon {
+        transform: rotate(180deg);
+      }
     }
 
     &-body {
-      padding-left: 16px;
       overflow-y: hidden;
     }
   }

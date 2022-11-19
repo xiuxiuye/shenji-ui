@@ -1,8 +1,8 @@
 import { computed } from 'vue'
-import type { Props } from '../types'
+import type { Props, UseExpandIconClasses } from '../types'
 import type { UseClasses, Classes } from 'src/types/global'
 
-const useClasses: UseClasses<Props> = (classNamePrefix, props) => {
+export const useClasses: UseClasses<Props> = (classNamePrefix, props) => {
   const classes = computed<Classes>(() => {
     return [
       classNamePrefix,
@@ -15,4 +15,15 @@ const useClasses: UseClasses<Props> = (classNamePrefix, props) => {
   return classes
 }
 
-export default useClasses
+export const useExpandIconClasses: UseExpandIconClasses = (classNamePrefix, expanded) => {
+  const classes = computed<Classes>(() => {
+    return [
+      `${classNamePrefix}-expand-icon`,
+      {
+        [`${classNamePrefix}-expanded-icon`]: expanded.value
+      }
+    ]
+  })
+
+  return classes
+}
