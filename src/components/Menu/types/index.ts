@@ -7,9 +7,12 @@ export interface Props {
 }
 
 export interface Provider {
+  menuLevel: number;
   basePaddingLeft: number;
   activeItem: string;
+  activeSubMenus: string[];
   expandedSubMenus: string[];
   updateActiveItem: (symbol: string) => void;
+  updateActiveSubMenus: (symbols: string[]) => void;
   updateExpandedSubMenus: (symbol: string) => void;
 }

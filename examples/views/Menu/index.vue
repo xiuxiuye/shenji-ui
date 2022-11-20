@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <Menu activeItem="menu41" :expanded-sub-menus="['submenu11', 'submenu121']">
+    <Menu activeItem="menu321" :expanded-sub-menus="['submenu11', 'submenu121']">
       <SubMenu symbol="submenu11" icon="user" title="最伟大的作品">
         <MenuItem symbol="menu11" icon="user">倒影</MenuItem>
         <MenuItem symbol="menu21" icon="user" disabled>粉色海洋</MenuItem>
@@ -30,6 +30,6 @@
 
 <style lang="scss">
 .main {
-  width: 200px;
+  width: 240px;
 }
 </style>

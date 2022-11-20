@@ -55,17 +55,22 @@ const menuGroupInjecter = useInject<Provider>(componentName)
 const classNamePrefix = componentName
 
 /**
+ * current menu level
+ */
+const currentMenuLevel = computed<number>(() => {
+  const menuLevel = menuInjecter?.value?.menuLevel || 0
+  const subMenuLevel = subMenuInjecter?.value?.menuLevel || 0
+  const menuGroupLevel = menuGroupInjecter?.value?.menuLevel || 0
+  return Math.max(menuLevel, subMenuLevel, menuGroupLevel) + 1
+})
+
+/**
  * styles
  */
-const paddingLeftLevel = computed<number>(() => {
-  const subMenuPaddingLeftCount = subMenuInjecter?.value?.paddingLeftLevel || 1
-  const menuGroupPaddingLeftCount = menuGroupInjecter?.value?.paddingLeftLevel || 1
-  return Math.max(subMenuPaddingLeftCount, menuGroupPaddingLeftCount)
-})
 const styles = computed<StyleValue>(() => {
   const basePaddingLeft = menuInjecter?.value?.basePaddingLeft || 0
   return {
-    paddingLeft: `${paddingLeftLevel.value * basePaddingLeft}px`
+    paddingLeft: `${currentMenuLevel.value * basePaddingLeft}px`
   }
 })
 
@@ -74,7 +79,7 @@ const styles = computed<StyleValue>(() => {
  */
 const provider = computed<Provider>(() => {
   return {
-    paddingLeftLevel: paddingLeftLevel.value + 1
+    menuLevel: currentMenuLevel.value
   }
 })
 useProvide<Provider>(componentName, provider)

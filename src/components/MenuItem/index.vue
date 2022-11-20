@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import Icon from '../Icon'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import isString from 'src/utils/isString'
 import consoleError from 'src/utils/console/error'
 import useClasses from './hooks/useClasses'
@@ -65,6 +65,16 @@ const disabled = computed<boolean>(() => {
 })
 
 /**
+ * current menu level
+ */
+const currentMenuLevel = computed<number>(() => {
+  const menuLevel = menuInjecter?.value?.menuLevel || 0
+  const subMenuLevel = subMenuInjecter?.value?.menuLevel || 0
+  const menuGroupLevel = menuGroupInjecter?.value?.menuLevel || 0
+  return Math.max(menuLevel, subMenuLevel, menuGroupLevel) + 1
+})
+
+/**
  * active
  */
 const active = computed<boolean>(() => {
@@ -78,6 +88,15 @@ const handleClick = () => {
     updateActiveItem(props?.symbol)
   }
 }
+watch(active, (newValue) => {
+  if (newValue) {
+    if (subMenuInjecter) {
+      subMenuInjecter?.value?.updateActiveSubMenus([])
+    } else {
+      menuInjecter?.value?.updateActiveSubMenus([])
+    }
+  }
+}, { immediate: true })
 
 /**
  * classes
@@ -88,15 +107,10 @@ const classes = useClasses(classNamePrefix, props, active)
 /**
  * styles
  */
-const paddingLeftLevel = computed<number>(() => {
-  const subMenuPaddingLeftCount = subMenuInjecter?.value?.paddingLeftLevel || 1
-  const menuGroupPaddingLeftCount = menuGroupInjecter?.value?.paddingLeftLevel || 1
-  return Math.max(subMenuPaddingLeftCount, menuGroupPaddingLeftCount)
-})
 const styles = computed<StyleValue>(() => {
   const basePaddingLeft = menuInjecter?.value?.basePaddingLeft || 0
   return {
-    paddingLeft: `${paddingLeftLevel.value * basePaddingLeft}px`
+    paddingLeft: `${currentMenuLevel.value * basePaddingLeft}px`
   }
 })
 </script>

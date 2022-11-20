@@ -44,5 +44,16 @@
     &-body {
       overflow-y: hidden;
     }
+
+    /* active */
+    &-active {
+      > .sj-sub-menu-header {
+        .sj-sub-menu-icon > .sj-icon,
+        .sj-sub-menu-title,
+        .sj-sub-menu-expand-icon > .sj-icon {
+          color: var(--sj-primary-color);
+        }
+      }
+    }
   }
 }

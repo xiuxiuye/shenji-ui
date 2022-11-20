@@ -8,7 +8,10 @@ export interface Props {
 }
 
 export interface Provider {
-  paddingLeftLevel?: number;
+  menuLevel: number;
+  updateActiveSubMenus: (symbols: string[]) => void;
 }
+
+export type UseClasses = (classNamePrefix: string, props: Props, active: ComputedRef<boolean>) => ComputedRef<Classes>;
 
 export type UseExpandIconClasses = (classNamePrefix: string, expanded: ComputedRef<boolean>) => ComputedRef<Classes>;

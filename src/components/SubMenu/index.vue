@@ -73,10 +73,29 @@ const isValid = computed<boolean>(() => {
 })
 
 /**
+ * current menu level
+ */
+const currentMenuLevel = computed<number>(() => {
+  const menuLevel = menuInjecter?.value?.menuLevel || 0
+  const subMenuLevel = subMenuInjecter?.value?.menuLevel || 0
+  const menuGroupLevel = menuGroupInjecter?.value?.menuLevel || 0
+  return Math.max(menuLevel, subMenuLevel, menuGroupLevel) + 1
+})
+
+/**
+ * active
+ */
+const active = computed<boolean>(() => {
+  if (!isValid.value || !menuInjecter) return false
+  console.log(props?.symbol, menuInjecter?.value?.activeSubMenus)
+  return menuInjecter?.value?.activeSubMenus?.includes(props?.symbol)
+})
+
+/**
  * toggle expand
  */
 const expanded = computed<boolean>(() => {
-  if (!isValid.value || !menuInjecter?.value?.expandedSubMenus) return false
+  if (!isValid.value || !menuInjecter) return false
   return menuInjecter?.value?.expandedSubMenus?.includes(props?.symbol)
 })
 const handleClick = () => {
@@ -91,30 +110,37 @@ const handleClick = () => {
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props)
+const classes = useClasses(classNamePrefix, props, active)
 const expandIconClasses = useExpandIconClasses(classNamePrefix, expanded)
 
 /**
  * styles
  */
-const paddingLeftLevel = computed<number>(() => {
-  const subMenuPaddingLeftCount = subMenuInjecter?.value?.paddingLeftLevel || 1
-  const menuGroupPaddingLeftCount = menuGroupInjecter?.value?.paddingLeftLevel || 1
-  return Math.max(subMenuPaddingLeftCount, menuGroupPaddingLeftCount)
-})
 const styles = computed<StyleValue>(() => {
   const basePaddingLeft = menuInjecter?.value?.basePaddingLeft || 0
   return {
-    paddingLeft: `${paddingLeftLevel.value * basePaddingLeft}px`
+    paddingLeft: `${currentMenuLevel.value * basePaddingLeft}px`
   }
 })
+
+/**
+ * update active sub-menus
+ */
+const updateActiveSubMenus = (symbols: string[]) => {
+  if (subMenuInjecter) {
+    subMenuInjecter?.value?.updateActiveSubMenus([props?.symbol, ...symbols])
+  } else if (menuInjecter) {
+    menuInjecter?.value?.updateActiveSubMenus([props?.symbol, ...symbols])
+  }
+}
 
 /**
  * provider
  */
 const provider = computed<Provider>(() => {
   return {
-    paddingLeftLevel: paddingLeftLevel.value + 1
+    menuLevel: currentMenuLevel.value + 1,
+    updateActiveSubMenus
   }
 })
 useProvide<Provider>(componentName, provider)

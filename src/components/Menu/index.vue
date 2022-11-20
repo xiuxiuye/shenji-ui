@@ -61,7 +61,15 @@ const updateActiveItem = (symbol: string) => {
 }
 
 /**
- * active sub-menu
+ * active sub-menus
+ */
+const activeSubMenus = ref<string[]>([])
+const updateActiveSubMenus = (symbols: string[]) => {
+  activeSubMenus.value = symbols
+}
+
+/**
+ * expanded sub-menu
  */
 const expandedSubMenus = ref<string[]>([])
 watch(
@@ -90,10 +98,13 @@ const updateExpandedSubMenus = (symbol: string) => {
  */
 const provider = computed<Provider>(() => {
   return {
+    menuLevel: 0,
     basePaddingLeft: 16,
     activeItem: activeItem.value,
+    activeSubMenus: activeSubMenus.value,
     expandedSubMenus: expandedSubMenus.value,
     updateActiveItem,
+    updateActiveSubMenus,
     updateExpandedSubMenus
   }
 })
