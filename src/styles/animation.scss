@@ -38,6 +38,11 @@
   }
 }
 
+@keyframes sj-vertical-extension  {
+  0% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+
 .sj-blink {
   animation: sj-blink 1.4s ease infinite;
 }

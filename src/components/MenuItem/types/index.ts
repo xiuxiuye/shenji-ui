@@ -1,4 +1,4 @@
-import type { ComputedRef, Classes } from 'src/types/global'
+import type { ComputedRef, Classes, Ref } from "src/types/global";
 
 export interface Props {
   symbol: string;
@@ -6,4 +6,9 @@ export interface Props {
   disabled?: boolean;
 }
 
-export type UseClasses = (classNamePrefix: string, props: Props, active: ComputedRef<boolean>) => ComputedRef<Classes>;
+export type UseClasses = (
+  classNamePrefix: string,
+  props: Props,
+  active: ComputedRef<boolean>,
+  disabled: Ref<boolean>
+) => ComputedRef<Classes>;

@@ -7,6 +7,7 @@ export interface Props {
 }
 
 export interface Provider {
+  accordion: boolean;
   menuLevel: number;
   basePaddingLeft: number;
   activeItem: string;
@@ -14,5 +15,5 @@ export interface Provider {
   expandedSubMenus: string[];
   updateActiveItem: (symbol: string) => void;
   updateActiveSubMenus: (symbols: string[]) => void;
-  updateExpandedSubMenus: (symbol: string) => void;
+  updateExpandedSubMenus: (symbols: string | string[]) => void;
 }

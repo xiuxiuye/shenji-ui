@@ -3,7 +3,7 @@
     <span v-if="icon" :class="`${classNamePrefix}-icon`">
       <Icon :type="icon" />
     </span>
-    <span :class="`${classNamePrefix}-content`">
+    <span :class="`${classNamePrefix}-content sj-text-ellipsis`">
       <slot></slot>
     </span>
   </div>
@@ -61,6 +61,7 @@ const isValid = computed<boolean>(() => {
  * disabled
  */
 const disabled = computed<boolean>(() => {
+  if (subMenuInjecter) return subMenuInjecter?.value?.disabled
   return props?.disabled
 })
 
@@ -102,7 +103,7 @@ watch(active, (newValue) => {
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props, active)
+const classes = useClasses(classNamePrefix, props, active, disabled)
 
 /**
  * styles

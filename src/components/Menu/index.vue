@@ -83,13 +83,16 @@ watch(
     immediate: true
   }
 )
-const updateExpandedSubMenus = (symbol: string) => {
-  console.log(symbol)
-  const index = expandedSubMenus.value.indexOf(symbol)
-  if (index === -1) {
-    expandedSubMenus.value.push(symbol)
+const updateExpandedSubMenus = (symbol: string | string[]) => {
+  if (isString(symbol)) {
+    const index = expandedSubMenus.value.indexOf(symbol as string)
+    if (index === -1) {
+      expandedSubMenus.value.push(symbol as string)
+    } else {
+      expandedSubMenus.value.splice(index, 1)
+    }
   } else {
-    expandedSubMenus.value.splice(index, 1)
+    expandedSubMenus.value = symbol as string[]
   }
 }
 
@@ -98,6 +101,7 @@ const updateExpandedSubMenus = (symbol: string) => {
  */
 const provider = computed<Provider>(() => {
   return {
+    accordion: props?.accordion,
     menuLevel: 0,
     basePaddingLeft: 16,
     activeItem: activeItem.value,

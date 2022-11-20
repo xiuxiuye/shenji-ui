@@ -2,12 +2,12 @@ import { computed } from 'vue'
 import type { UseClasses, UseExpandIconClasses } from '../types'
 import type { Classes } from 'src/types/global'
 
-export const useClasses: UseClasses = (classNamePrefix, props, active) => {
+export const useClasses: UseClasses = (classNamePrefix, props, active, disabled) => {
   const classes = computed<Classes>(() => {
     return [
       classNamePrefix,
       {
-        [`${classNamePrefix}-${props?.disabled}`]: props?.disabled,
+        [`${classNamePrefix}-disabled`]: disabled.value,
         [`${classNamePrefix}-active`]: active.value
       }
     ]

@@ -1,3 +1,9 @@
 body {
   font-family: var(--sj-font-family);
+
+  .sj-text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

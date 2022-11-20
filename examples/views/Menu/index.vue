@@ -1,15 +1,17 @@
 <template>
   <div class="main">
-    <Menu activeItem="menu321" :expanded-sub-menus="['submenu11', 'submenu121']">
+    <Menu activeItem="menu321" :expanded-sub-menus="['submenu11', 'submenu121', 'submenu12']" :accordion="true">
       <SubMenu symbol="submenu11" icon="user" title="最伟大的作品">
         <MenuItem symbol="menu11" icon="user">倒影</MenuItem>
         <MenuItem symbol="menu21" icon="user" disabled>粉色海洋</MenuItem>
         <MenuItem symbol="menu31" icon="user">错过的烟火</MenuItem>
         <MenuGroup title="中国古风">
-          <MenuItem symbol="menu41" icon="user">红颜如霜</MenuItem>
-          <MenuItem symbol="menu51" icon="user">还在流浪</MenuItem>
-          <MenuItem symbol="menu61" icon="user">我是如此相信</MenuItem>
-          <MenuItem symbol="menu71" icon="user">等你下课</MenuItem>
+          <SubMenu symbol="submenu1213" icon="user" title="古风专辑">
+            <MenuItem symbol="menu41" icon="user">红颜如霜</MenuItem>
+            <MenuItem symbol="menu51" icon="user">还在流浪</MenuItem>
+            <MenuItem symbol="menu61" icon="user">我是如此相信</MenuItem>
+            <MenuItem symbol="menu71" icon="user">等你下课</MenuItem>
+          </SubMenu>
         </MenuGroup>
         <SubMenu symbol="submenu121" icon="user" title="叶惠美">
           <MenuItem symbol="menu121" icon="user">听妈妈的话</MenuItem>

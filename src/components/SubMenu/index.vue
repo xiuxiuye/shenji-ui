@@ -1,16 +1,22 @@
 <template>
   <div v-if="isValid" :class="classes" :key="symbol">
-    <div :class="`${classNamePrefix}-header`" :style="styles" @click="handleClick">
+    <div
+      :class="`${classNamePrefix}-header`"
+      :style="styles"
+      @click="handleClick"
+    >
       <span v-if="icon" :class="`${classNamePrefix}-icon`">
         <Icon :type="icon" />
       </span>
-      <span :class="`${classNamePrefix}-title`">
+      <span :class="`${classNamePrefix}-title sj-text-ellipsis`">
         <slot name="title">
           {{ title }}
         </slot>
       </span>
       <span :class="expandIconClasses">
-        <Icon :type="expandedIcon" />
+        <slot name="expanded-icon">
+          <Icon :type="expandedIcon" />
+        </slot>
       </span>
     </div>
     <CollapseTransition>
@@ -73,6 +79,14 @@ const isValid = computed<boolean>(() => {
 })
 
 /**
+ * disabled
+ */
+const disabled = computed<boolean>(() => {
+  if (subMenuInjecter) return subMenuInjecter?.value?.disabled
+  return props?.disabled
+})
+
+/**
  * current menu level
  */
 const currentMenuLevel = computed<number>(() => {
@@ -87,9 +101,36 @@ const currentMenuLevel = computed<number>(() => {
  */
 const active = computed<boolean>(() => {
   if (!isValid.value || !menuInjecter) return false
-  console.log(props?.symbol, menuInjecter?.value?.activeSubMenus)
   return menuInjecter?.value?.activeSubMenus?.includes(props?.symbol)
 })
+
+/**
+ * update active sub-menus
+ */
+const updateActiveSubMenus = (symbols: string[]) => {
+  const newActiveSubMenus = [props?.symbol, ...symbols]
+  if (subMenuInjecter) {
+    subMenuInjecter?.value?.updateActiveSubMenus(newActiveSubMenus)
+  } else if (menuInjecter) {
+    menuInjecter?.value?.updateActiveSubMenus(newActiveSubMenus)
+  }
+}
+
+/**
+ * update expanded sub-menus
+ */
+const updateExpandedSubMenus = (symbols: string[], self?: boolean) => {
+  if (!menuInjecter) return
+  if (!menuInjecter?.value?.accordion) {
+    menuInjecter?.value?.updateExpandedSubMenus(props?.symbol)
+  }
+  const newExpandedSubMenus = self ? [...symbols] : [props?.symbol, ...symbols]
+  if (subMenuInjecter) {
+    subMenuInjecter?.value?.updateExpandedSubMenus(newExpandedSubMenus)
+  } else {
+    menuInjecter?.value?.updateExpandedSubMenus(newExpandedSubMenus)
+  }
+}
 
 /**
  * toggle expand
@@ -99,18 +140,15 @@ const expanded = computed<boolean>(() => {
   return menuInjecter?.value?.expandedSubMenus?.includes(props?.symbol)
 })
 const handleClick = () => {
-  if (props?.disabled) return
-  const updateExpandedSubMenus = menuInjecter?.value?.updateExpandedSubMenus
-  if (updateExpandedSubMenus) {
-    updateExpandedSubMenus(props?.symbol)
-  }
+  if (disabled.value) return
+  updateExpandedSubMenus(expanded.value ? [] : [props?.symbol], true)
 }
 
 /**
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props, active)
+const classes = useClasses(classNamePrefix, props, active, disabled)
 const expandIconClasses = useExpandIconClasses(classNamePrefix, expanded)
 
 /**
@@ -124,23 +162,14 @@ const styles = computed<StyleValue>(() => {
 })
 
 /**
- * update active sub-menus
- */
-const updateActiveSubMenus = (symbols: string[]) => {
-  if (subMenuInjecter) {
-    subMenuInjecter?.value?.updateActiveSubMenus([props?.symbol, ...symbols])
-  } else if (menuInjecter) {
-    menuInjecter?.value?.updateActiveSubMenus([props?.symbol, ...symbols])
-  }
-}
-
-/**
  * provider
  */
 const provider = computed<Provider>(() => {
   return {
+    disabled: disabled.value,
     menuLevel: currentMenuLevel.value + 1,
-    updateActiveSubMenus
+    updateActiveSubMenus,
+    updateExpandedSubMenus
   }
 })
 useProvide<Provider>(componentName, provider)

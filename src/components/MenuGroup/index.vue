@@ -1,6 +1,6 @@
 <template>
   <div :class="classNamePrefix">
-    <div :class="`${classNamePrefix}-header`" :style="styles">
+    <div :class="`${classNamePrefix}-header sj-text-ellipsis`" :style="styles">
       <span v-if="icon" :class="`${classNamePrefix}-icon`">
         <Icon :type="icon" />
       </span>

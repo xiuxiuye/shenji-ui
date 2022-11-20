@@ -1,4 +1,4 @@
-import type { ComputedRef, Classes } from 'src/types/global'
+import type { ComputedRef, Classes } from "src/types/global";
 export interface Props {
   symbol: string;
   title?: string;
@@ -9,9 +9,19 @@ export interface Props {
 
 export interface Provider {
   menuLevel: number;
+  disabled: boolean;
   updateActiveSubMenus: (symbols: string[]) => void;
+  updateExpandedSubMenus: (symbols: string[], self?: boolean) => void;
 }
 
-export type UseClasses = (classNamePrefix: string, props: Props, active: ComputedRef<boolean>) => ComputedRef<Classes>;
+export type UseClasses = (
+  classNamePrefix: string,
+  props: Props,
+  active: ComputedRef<boolean>,
+  disabled: ComputedRef<boolean>
+) => ComputedRef<Classes>;
 
-export type UseExpandIconClasses = (classNamePrefix: string, expanded: ComputedRef<boolean>) => ComputedRef<Classes>;
+export type UseExpandIconClasses = (
+  classNamePrefix: string,
+  expanded: ComputedRef<boolean>
+) => ComputedRef<Classes>;
