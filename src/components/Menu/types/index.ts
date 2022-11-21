@@ -1,5 +1,13 @@
+export enum MenuModes {
+  horizontal = 'horizontal',
+  vertical = 'vertical',
+  inline = 'inline'
+}
+
+export type MenuMode = keyof typeof MenuModes
+
 export interface Props {
-  mode?: 'horizontal' | 'vertical' | 'inline';
+  mode?: MenuMode;
   activeItem?: string;
   expandedSubMenus?: string[];
   theme?: 'light' | 'dark';
@@ -7,6 +15,8 @@ export interface Props {
 }
 
 export interface Provider {
+  mode: MenuMode;
+  popupMenu: boolean;
   accordion: boolean;
   menuLevel: number;
   basePaddingLeft: number;

@@ -1,9 +1,9 @@
 <template>
   <div class="main">
     <div class="test test1"></div>
-    {{ selected }}
     <br /><br />
     <Select
+      :multiple="false"
       :options="optionsRef"
       v-model="selected"
       :loading="loading"
@@ -11,7 +11,6 @@
       :filterable="false"
       clearable
       placeholder="请选择"
-      :option-render="renderOption"
     >
     </Select>
     <div class="test"></div>
@@ -21,10 +20,10 @@
 import { ref, h } from 'vue'
 import Icon from 'src/components/Icon'
 import Button from 'src/components/Button'
-const selected = ref('shanghai')
+const selected = ref('guangzhou')
 
 const options = [
-  { label: '北京', value: 'beijing', disabled: true, name: 'BeiJing' },
+  { label: '北京', value: 'beijing', disabled: false, name: 'BeiJing' },
   { label: '上海', value: 'shanghai', name: 'ShangHai' },
   { label: '深圳', value: 'shenzhen', name: 'ShenZhen' },
   { label: '广州', value: 'guangzhou', name: 'GuangZhou' },

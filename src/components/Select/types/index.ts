@@ -95,18 +95,10 @@ export interface SelectRefExpose {
   blur: () => void;
 }
 
-export type UseArrowClasses = (
-  classNamePrefix: string,
-  popupVisible: Ref<boolean>
-) => ComputedRef<Classes>;
+export type UseSelectClasses = (classNamePrefix: string, props: Props, focused: Ref<boolean>) => ComputedRef<Classes>;
 
-export type UseFilterClasses = (
-  classNamePrefix: string,
-  props: Props,
-  filterText: Ref<string>
-) => ComputedRef<Classes>;
+export type UseArrowClasses = (classNamePrefix: string, popupVisible: Ref<boolean>) => ComputedRef<Classes>;
 
-export type UsePopupStyles = (
-  props: Props,
-  selectWidth: Ref<number>
-) => ComputedRef<StyleValue>;
+export type UseFilterClasses = (classNamePrefix: string, props: Props, filterText: Ref<string>) => ComputedRef<Classes>;
+
+export type UsePopupStyles = (props: Props, selectWidth: Ref<number>) => ComputedRef<StyleValue>;

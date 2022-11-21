@@ -1,9 +1,9 @@
 import { computed } from 'vue'
 import { COMMON_SIZE, COMMON_FORM_BORDER_TYPE, COMMON_FORM_STATUS } from 'src/utils/constant'
-import type { Props, UseArrowClasses, UseFilterClasses } from '../types'
+import type { Props, UseSelectClasses, UseArrowClasses, UseFilterClasses } from '../types'
 import type { UseClasses, Classes, CommonSize, CommonFormBorderType, CommonFormStatus } from 'src/types/global'
 
-export const useClasses: UseClasses<Props> = (classNamePrefix, props) => {
+export const useClasses: UseSelectClasses = (classNamePrefix, props, focused) => {
   const classes = computed<Classes>(() => {
     const isValidSize = COMMON_SIZE.includes(props?.size as CommonSize)
     const isValidStatus = COMMON_FORM_STATUS?.includes(props?.status as CommonFormStatus)
@@ -11,11 +11,16 @@ export const useClasses: UseClasses<Props> = (classNamePrefix, props) => {
     return [
       classNamePrefix,
       {
+        [`${classNamePrefix}-focused`]: focused.value,
         [`${classNamePrefix}-border-${props?.borderType}`]: isValidBorderType,
-        [`${classNamePrefix}-size-${props?.size}`]: isValidSize,
+        [`${classNamePrefix}-border-${props?.borderType}-focused`]: isValidBorderType && focused.value,
+        [`${classNamePrefix}-size-${props?.size}`]: isValidSize && !props?.multiple,
+        [`${classNamePrefix}-multiple-size-${props?.size}`]: isValidSize && props?.multiple,
         [`${classNamePrefix}-status-${props?.status}`]: isValidStatus,
+        [`${classNamePrefix}-status-${props?.status}-focused`]: isValidStatus && focused.value,
         [`${classNamePrefix}-${props?.size}-round`]: isValidSize && props?.round,
-        [`${classNamePrefix}-disabled`]: props?.disabled
+        [`${classNamePrefix}-disabled`]: props?.disabled,
+        [`${classNamePrefix}-disabled-focused`]: props?.disabled && focused.value
       }
     ]
   })
@@ -41,6 +46,7 @@ export const useSelectedTagClasses: UseClasses<Props> = (classNamePrefix, props)
     return [
       `${classNamePrefix}-content-item`,
       {
+        'sj-text-ellipsis': !props?.multiple,
         [`${classNamePrefix}-content-tag`]: props?.multiple
       }
     ]

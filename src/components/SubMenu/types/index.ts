@@ -9,6 +9,7 @@ export interface Props {
 
 export interface Provider {
   menuLevel: number;
+  paddingLeftSpan: number;
   disabled: boolean;
   updateActiveSubMenus: (symbols: string[]) => void;
   updateExpandedSubMenus: (symbols: string[], self?: boolean) => void;

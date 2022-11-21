@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="body">
+  <Teleport :to="container">
     <div v-if="popupVisible" class="sj-popup" ref="sjPopupRef">
       <slot></slot>
     </div>
@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { ref, watch, nextTick } from 'vue'
+import { ref, watch, nextTick, computed } from 'vue'
 import {
   computePosition,
   flip,
@@ -33,6 +33,7 @@ export default {
 
 <script setup lang="ts">
 interface Props {
+  mountFollowing?: boolean;
   referenceRef?: HTMLElement;
   visible?: boolean;
   placement?: Placement;
@@ -44,7 +45,18 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  mountFollowing: false,
   autoAlignment: true
+})
+
+/**
+ * container
+ */
+const container = computed<HTMLElement>(() => {
+  if (props?.mountFollowing && props?.referenceRef) {
+    return props?.referenceRef
+  }
+  return document.body
 })
 
 type PlacementFrom = 'top' | 'bottom' | 'left' | 'right';
@@ -164,7 +176,7 @@ watch(
         setTimeout(() => {
           popupVisible.value = false
           floatingEle?.classList?.remove(leaveClassName)
-        }, 300)
+        }, 100)
       }
       if (cleanPopupAutoUpdate.value) {
         cleanPopupAutoUpdate.value()

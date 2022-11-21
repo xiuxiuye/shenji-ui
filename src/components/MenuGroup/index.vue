@@ -21,6 +21,7 @@ import Icon from '../Icon'
 import { computed } from 'vue'
 import useProvide from 'src/utils/hooks/useProvide'
 import useInject from 'src/utils/hooks/useInject'
+import isValidParent from 'src/utils/isValidParent'
 import { componentName as menuComponentName } from '../Menu/index.vue'
 import { componentName as subMenuComponentName } from '../SubMenu/index.vue'
 import type { Provider as MenuProvider } from '../Menu/types'
@@ -50,6 +51,14 @@ const subMenuInjecter = useInject<SubMenuProvider>(subMenuComponentName)
 const menuGroupInjecter = useInject<Provider>(componentName)
 
 /**
+ * menu mode
+ */
+const popupMenu = computed<boolean>(() => {
+  if (!menuInjecter) return false
+  return menuInjecter?.value?.popupMenu
+})
+
+/**
  * classes
  */
 const classNamePrefix = componentName
@@ -61,16 +70,26 @@ const currentMenuLevel = computed<number>(() => {
   const menuLevel = menuInjecter?.value?.menuLevel || 0
   const subMenuLevel = subMenuInjecter?.value?.menuLevel || 0
   const menuGroupLevel = menuGroupInjecter?.value?.menuLevel || 0
+
   return Math.max(menuLevel, subMenuLevel, menuGroupLevel) + 1
 })
 
 /**
  * styles
  */
+const paddingLeftSpan = computed<number>(() => {
+  const subMenuPaddingLeftSpan = subMenuInjecter?.value?.paddingLeftSpan || 1
+  const menuGroupPaddingLeftSpan =
+    menuGroupInjecter?.value?.paddingLeftSpan || 1
+  if (popupMenu.value) {
+    return isValidParent(componentName) ? menuGroupPaddingLeftSpan + 1 : 1
+  }
+  return Math.max(subMenuPaddingLeftSpan, menuGroupPaddingLeftSpan) + 1
+})
 const styles = computed<StyleValue>(() => {
   const basePaddingLeft = menuInjecter?.value?.basePaddingLeft || 0
   return {
-    paddingLeft: `${currentMenuLevel.value * basePaddingLeft}px`
+    paddingLeft: `${paddingLeftSpan.value * basePaddingLeft}px`
   }
 })
 
@@ -79,7 +98,8 @@ const styles = computed<StyleValue>(() => {
  */
 const provider = computed<Provider>(() => {
   return {
-    menuLevel: currentMenuLevel.value
+    menuLevel: currentMenuLevel.value,
+    paddingLeftSpan: paddingLeftSpan.value
   }
 })
 useProvide<Provider>(componentName, provider)

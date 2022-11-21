@@ -15,7 +15,7 @@
     border-color: var(--sj-primary-color);
   }
 
-  &:focus-within {
+  &-focused {
     border-color: var(--sj-primary-color);
     outline: 3px solid var(--sj-primary-focus-background-color);
   }
@@ -23,12 +23,37 @@
   /* size */
   @each $key, $value in $sj-select-size {
     &-size-#{$key} {
+      height: map-get($value, "height");
+      font-size: map-get($value, "fontSize");
+
+      .sj-select-content {
+        height: inherit;
+        &-item {
+          width: 0;
+          flex-grow: 1;
+          flex-shrink: 1;
+        }
+      }
+
+      .sj-select-filter {
+        height: calc(map-get($value, "height") - 6px);
+      }
+    }
+    &-#{$key}-round {
+      border-radius: map-get($value, "height");
+    }
+  }
+
+  /* multiple size */
+  @each $key, $value in $sj-select-size {
+    &-multiple-size-#{$key} {
       min-height: map-get($value, "height");
       font-size: map-get($value, "fontSize");
 
       .sj-select-content {
+        min-height: inherit;
         &-tag {
-          height: calc(map-get($value, "height") - 6px);
+          min-height: calc(map-get($value, "height") - 6px);
         }
       }
 
@@ -45,10 +70,12 @@
   @each $key, $value in $sj-select-status {
     &-status-#{$key} {
       border-color: map-get($value, "border-color");
+
       &:hover {
         border-color: map-get($value, "border-color");
       }
-      &:focus-within {
+
+      &-focused {
         border-color: map-get($value, "border-color");
         outline-color: map-get($value, "outline-color-foucs");
       }
@@ -71,7 +98,7 @@
   &-border-none {
     border-width: 0;
 
-    &:focus-within {
+    &-focused {
       outline-width: 0;
     }
   }
@@ -79,7 +106,7 @@
   &-border-line {
     border-width: 0 0 1px 0;
 
-    &:focus-within {
+    &-focused {
       outline-width: 0;
     }
   }
@@ -96,20 +123,14 @@
     position: relative;
 
     &-item {
-      max-width: 100%;
-      flex-grow: 0;
-      flex-shrink: 0;
       box-sizing: inherit;
       font-size: inherit;
       border-radius: inherit;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      word-wrap: break-word;
-      word-break: break-all;
     }
 
     &-tag {
+      display: inline-flex;
+      align-items: center;
       padding-left: 8px;
       padding-right: 6px;
       margin-right: 6px;
@@ -190,7 +211,7 @@
   &-popup {
     padding: 4px;
     box-sizing: border-box;
-    border-radius: inherit;
+    border-radius: var(--sj-border-radius);
     overflow-y: auto;
     box-shadow: var(--sj-shadow-level-2);
     background-color: var(--sj-primary-background-color);
@@ -219,8 +240,7 @@
     }
   }
 
-  &:hover,
-  &:focus-within {
+  &:hover {
     .sj-select-clear {
       display: block;
     }
@@ -247,16 +267,15 @@
 
     &:hover {
       border-color: var(--sj-border-color);
-    }
-    &:focus-within {
-      border-color: var(--sj-border-color);
-      outline-width: 0;
-    }
-    &:hover,
-    &:focus-within {
+
       .sj-select-clear {
         display: none;
       }
+    }
+
+    &-focused {
+      border-color: var(--sj-border-color);
+      outline-width: 0;
     }
 
     .sj-select-disabled-mask {

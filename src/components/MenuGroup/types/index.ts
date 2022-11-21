@@ -5,4 +5,5 @@ export interface Props {
 
 export interface Provider {
   menuLevel: number;
+  paddingLeftSpan: number;
 }

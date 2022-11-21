@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isValid" :class="classes" :key="symbol">
+  <div v-if="isValid" :class="classes" :key="symbol" ref="sjSubMenuRef">
     <div
       :class="`${classNamePrefix}-header`"
       :style="styles"
@@ -19,7 +19,19 @@
         </slot>
       </span>
     </div>
-    <CollapseTransition>
+    <Popup
+      v-if="popupMenu"
+      :mount-following="true"
+      :visible="expanded"
+      :reference-ref="sjSubMenuRef"
+      placement="right-start"
+      flipable
+    >
+      <div :class="`${classNamePrefix}-body`">
+        <slot></slot>
+      </div>
+    </Popup>
+    <CollapseTransition v-else>
       <div v-if="expanded" :class="`${classNamePrefix}-body`">
         <slot></slot>
       </div>
@@ -28,16 +40,22 @@
 </template>
 
 <script lang="ts">
-import { computed } from 'vue'
-import { useClasses, useExpandIconClasses } from './hooks/useClasses'
+import { computed, ref } from 'vue'
 import isString from 'src/utils/isString'
+import isValidParent from 'src/utils/isValidParent'
 import consoleError from 'src/utils/console/error'
-import CollapseTransition from 'src/components/CollapseTransition'
 import useProvide from 'src/utils/hooks/useProvide'
 import useInject from 'src/utils/hooks/useInject'
+import Popup from '../Popup'
+import CollapseTransition from '../CollapseTransition'
+import { useClasses, useExpandIconClasses } from './hooks/useClasses'
 import { componentName as menuComponentName } from '../Menu/index.vue'
 import { componentName as menuGroupComponentName } from '../MenuGroup/index.vue'
-import type { Provider as MenuProvider } from '../Menu/types'
+import {
+  MenuModes,
+  type Provider as MenuProvider,
+  type MenuMode
+} from '../Menu/types'
 import type { Provider as MenuGroupProvider } from '../MenuGroup/types'
 import type { Provider } from './types'
 import type { StyleValue } from 'src/types/global'
@@ -63,6 +81,11 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 /**
+ * ref
+ */
+const sjSubMenuRef = ref<HTMLElement | null>(null)
+
+/**
  * injecter
  */
 const menuInjecter = useInject<MenuProvider>(menuComponentName)
@@ -76,6 +99,18 @@ const isValid = computed<boolean>(() => {
   if (props?.symbol && isString(props?.symbol)) return true
   consoleError('神机：symbol is a required prop for the SubMenu component')
   return false
+})
+
+/**
+ * menu mode
+ */
+const menuMode = computed<MenuMode>(() => {
+  if (!menuInjecter) return MenuModes.inline
+  return menuInjecter?.value?.mode
+})
+const popupMenu = computed<boolean>(() => {
+  if (!menuInjecter) return false
+  return menuInjecter?.value?.popupMenu
 })
 
 /**
@@ -123,6 +158,7 @@ const updateExpandedSubMenus = (symbols: string[], self?: boolean) => {
   if (!menuInjecter) return
   if (!menuInjecter?.value?.accordion) {
     menuInjecter?.value?.updateExpandedSubMenus(props?.symbol)
+    return
   }
   const newExpandedSubMenus = self ? [...symbols] : [props?.symbol, ...symbols]
   if (subMenuInjecter) {
@@ -154,10 +190,21 @@ const expandIconClasses = useExpandIconClasses(classNamePrefix, expanded)
 /**
  * styles
  */
+const paddingLeftSpan = computed<number>(() => {
+  const subMenuPaddingLeftSpan = subMenuInjecter?.value?.paddingLeftSpan || 1
+  const menuGroupPaddingLeftSpan =
+    menuGroupInjecter?.value?.paddingLeftSpan || 1
+  if (popupMenu.value) {
+    return isValidParent(menuGroupComponentName)
+      ? menuGroupPaddingLeftSpan + 1
+      : 1
+  }
+  return Math.max(subMenuPaddingLeftSpan, menuGroupPaddingLeftSpan) + 1
+})
 const styles = computed<StyleValue>(() => {
   const basePaddingLeft = menuInjecter?.value?.basePaddingLeft || 0
   return {
-    paddingLeft: `${currentMenuLevel.value * basePaddingLeft}px`
+    paddingLeft: `${paddingLeftSpan.value * basePaddingLeft}px`
   }
 })
 
@@ -167,7 +214,8 @@ const styles = computed<StyleValue>(() => {
 const provider = computed<Provider>(() => {
   return {
     disabled: disabled.value,
-    menuLevel: currentMenuLevel.value + 1,
+    menuLevel: currentMenuLevel.value,
+    paddingLeftSpan: paddingLeftSpan.value,
     updateActiveSubMenus,
     updateExpandedSubMenus
   }

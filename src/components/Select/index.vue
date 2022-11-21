@@ -73,7 +73,12 @@
       :placement="placement"
       flipable
     >
-      <div :class="`${classNamePrefix}-popup`" :style="popupStyles">
+      <div
+        :class="`${classNamePrefix}-popup`"
+        :style="popupStyles"
+        @mouseenter="handleMouseEnterPopup"
+        @mouseleave="handleMouseLeavePopup"
+      >
         <div v-if="loading" :class="`${classNamePrefix}-loading`">
           <slot name="loading">{{ loadingText }}</slot>
         </div>
@@ -99,7 +104,15 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch, nextTick, render, onMounted, onUnmounted } from 'vue'
+import {
+  ref,
+  computed,
+  watch,
+  nextTick,
+  render,
+  onMounted,
+  onUnmounted
+} from 'vue'
 import Icon from '../Icon'
 import Popup from '../Popup'
 import SelectOption from '../Option'
@@ -455,10 +468,22 @@ const handleClear = () => {
 }
 
 /**
+ * select active
+ */
+const focused = ref<boolean>(false)
+watch(
+  () => props?.autofocus,
+  () => {
+    focused.value = props?.autofocus
+  },
+  { immediate: true }
+)
+
+/**
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props)
+const classes = useClasses(classNamePrefix, props, focused)
 const arrowClasses = useArrowClasses(classNamePrefix, popupVisible)
 const selectedTagClasses = useSelectedTagClasses(classNamePrefix, props)
 const filterClasses = useFilterClasses(classNamePrefix, props, filterText)
@@ -466,17 +491,38 @@ const filterClasses = useFilterClasses(classNamePrefix, props, filterText)
 /**
  * event handler
  */
+const ignoreFocus = ref<boolean>(false)
+const popupHover = ref<boolean>(false)
+
+const handleMouseEnterPopup = () => {
+  popupHover.value = true
+}
+
+const handleMouseLeavePopup = () => {
+  popupHover.value = false
+}
+
 const handleClick = () => {
   if (isBoolean(props?.visible) || props?.disabled) return
   popupVisible.value = !popupVisible.value
 }
 
 const handleFocus = (event: FocusEvent) => {
+  if (props?.disabled || ignoreFocus.value) {
+    ignoreFocus.value = false
+    return
+  }
+  focused.value = true
   emit('focus', event)
 }
 
-const handleBlur = (event: FocusEvent) => {
-  if (isBoolean(props?.visible) || props?.disabled) return
+const handleBlur = async (event: FocusEvent) => {
+  if (isBoolean(props?.visible) || props?.disabled || popupHover.value) {
+    ignoreFocus.value = true
+    focus()
+    return
+  }
+  focused.value = false
   popupVisible.value = false
   emit('blur', event)
 }

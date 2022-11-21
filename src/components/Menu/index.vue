@@ -10,7 +10,7 @@ import useClasses from './hooks/useClasses'
 import useProvide from 'src/utils/hooks/useProvide'
 import isArray from 'src/utils/isArray'
 import isString from 'src/utils/isString'
-import type { Provider } from './types'
+import { MenuModes, type Provider, type MenuMode } from './types'
 
 export const componentName = 'sj-menu'
 
@@ -21,14 +21,14 @@ export default {
 
 <script setup lang="ts">
 interface Props {
-  mode?: 'horizontal' | 'vertical' | 'inline';
+  mode?: MenuMode;
   activeItem?: string;
   expandedSubMenus?: string[];
   theme?: 'light' | 'dark';
   accordion?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
-  mode: 'inline',
+  mode: MenuModes.inline,
   theme: 'light',
   accordion: false
 })
@@ -101,6 +101,8 @@ const updateExpandedSubMenus = (symbol: string | string[]) => {
  */
 const provider = computed<Provider>(() => {
   return {
+    mode: props?.mode,
+    popupMenu: props?.mode !== MenuModes.inline,
     accordion: props?.accordion,
     menuLevel: 0,
     basePaddingLeft: 16,

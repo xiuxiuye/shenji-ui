@@ -1,5 +1,11 @@
 <template>
-  <div v-if="isValid" :class="classes" :style="styles" :key="symbol" @click="handleClick">
+  <div
+    v-if="isValid"
+    :class="classes"
+    :style="styles"
+    :key="symbol"
+    @click="handleClick"
+  >
     <span v-if="icon" :class="`${classNamePrefix}-icon`">
       <Icon :type="icon" />
     </span>
@@ -13,6 +19,7 @@
 import Icon from '../Icon'
 import { computed, watch } from 'vue'
 import isString from 'src/utils/isString'
+import isValidParent from 'src/utils/isValidParent'
 import consoleError from 'src/utils/console/error'
 import useClasses from './hooks/useClasses'
 import useInject from 'src/utils/hooks/useInject'
@@ -58,6 +65,14 @@ const isValid = computed<boolean>(() => {
 })
 
 /**
+ * menu mode
+ */
+const popupMenu = computed<boolean>(() => {
+  if (!menuInjecter) return false
+  return menuInjecter?.value?.popupMenu
+})
+
+/**
  * disabled
  */
 const disabled = computed<boolean>(() => {
@@ -89,15 +104,19 @@ const handleClick = () => {
     updateActiveItem(props?.symbol)
   }
 }
-watch(active, (newValue) => {
-  if (newValue) {
-    if (subMenuInjecter) {
-      subMenuInjecter?.value?.updateActiveSubMenus([])
-    } else {
-      menuInjecter?.value?.updateActiveSubMenus([])
+watch(
+  active,
+  (newValue) => {
+    if (newValue) {
+      if (subMenuInjecter) {
+        subMenuInjecter?.value?.updateActiveSubMenus([])
+      } else {
+        menuInjecter?.value?.updateActiveSubMenus([])
+      }
     }
-  }
-}, { immediate: true })
+  },
+  { immediate: true }
+)
 
 /**
  * classes
@@ -108,10 +127,21 @@ const classes = useClasses(classNamePrefix, props, active, disabled)
 /**
  * styles
  */
+const paddingLeftSpan = computed<number>(() => {
+  const subMenuPaddingLeftSpan = subMenuInjecter?.value?.paddingLeftSpan || 1
+  const menuGroupPaddingLeftSpan =
+    menuGroupInjecter?.value?.paddingLeftSpan || 1
+  if (popupMenu.value) {
+    return isValidParent(menuGroupComponentName)
+      ? menuGroupPaddingLeftSpan + 1
+      : 1
+  }
+  return Math.max(subMenuPaddingLeftSpan, menuGroupPaddingLeftSpan) + 1
+})
 const styles = computed<StyleValue>(() => {
   const basePaddingLeft = menuInjecter?.value?.basePaddingLeft || 0
   return {
-    paddingLeft: `${currentMenuLevel.value * basePaddingLeft}px`
+    paddingLeft: `${paddingLeftSpan.value * basePaddingLeft}px`
   }
 })
 </script>
