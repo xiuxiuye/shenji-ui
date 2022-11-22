@@ -8,7 +8,8 @@ export interface Props {
 
 export type UseClasses = (
   classNamePrefix: string,
-  props: Props,
   active: ComputedRef<boolean>,
-  disabled: Ref<boolean>
+  disabled: Ref<boolean>,
+  horizontal: ComputedRef<boolean>,
+  currentMenuLevel: ComputedRef<number>,
 ) => ComputedRef<Classes>;

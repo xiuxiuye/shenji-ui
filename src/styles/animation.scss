@@ -43,6 +43,11 @@
   100% { transform: scaleY(1); }
 }
 
+@keyframes sj-horizontal-extension  {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
 .sj-blink {
   animation: sj-blink 1.4s ease infinite;
 }

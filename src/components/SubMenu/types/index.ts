@@ -19,11 +19,17 @@ export type UseClasses = (
   classNamePrefix: string,
   props: Props,
   active: ComputedRef<boolean>,
-  disabled: ComputedRef<boolean>
+  disabled: ComputedRef<boolean>,
+) => ComputedRef<Classes>;
+
+export type UseHeaderClasses = (
+  classNamePrefix: string,
+  horizontal: ComputedRef<boolean>,
+  currentMenuLevel: ComputedRef<number>,
 ) => ComputedRef<Classes>;
 
 export type UseExpandIconClasses = (
   classNamePrefix: string,
   expanded: ComputedRef<boolean>,
-  popupMenu: ComputedRef<boolean>
+  ignoreExpandAnimation: ComputedRef<boolean>
 ) => ComputedRef<Classes>;

@@ -1,5 +1,15 @@
 .sj-menu {
   box-sizing: border-box;
-  border-right: 1px solid var(--sj-border-color);
   font-size: var(--sj-font-size-normal);
+
+  &-inline,
+  &-vertical {
+    border-right: 1px solid var(--sj-border-color);
+  }
+
+  &-horizontal {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--sj-border-color);
+  }
 }

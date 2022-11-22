@@ -1,7 +1,7 @@
 <template>
   <div v-if="isValid" :class="classes" :key="symbol" ref="sjSubMenuRef">
     <div
-      :class="`${classNamePrefix}-header`"
+      :class="headerClasses"
       :style="styles"
       @click="handleClick"
     >
@@ -24,7 +24,7 @@
       :mount-following="true"
       :visible="expanded"
       :reference-ref="sjSubMenuRef"
-      placement="right-start"
+      :placement="popupPlacement"
       flipable
     >
       <div :class="`${classNamePrefix}-popup-body`">
@@ -48,7 +48,7 @@ import useProvide from 'src/utils/hooks/useProvide'
 import useInject from 'src/utils/hooks/useInject'
 import Popup from '../Popup'
 import CollapseTransition from '../CollapseTransition'
-import { useClasses, useExpandIconClasses } from './hooks/useClasses'
+import { useClasses, useHeaderClasses, useExpandIconClasses } from './hooks/useClasses'
 import { componentName as menuComponentName } from '../Menu/index.vue'
 import { componentName as menuGroupComponentName } from '../MenuGroup/index.vue'
 import {
@@ -101,6 +101,16 @@ const isValid = computed<boolean>(() => {
 })
 
 /**
+ * current menu level
+ */
+const currentMenuLevel = computed<number>(() => {
+  const menuLevel = menuInjecter?.value?.menuLevel || 0
+  const subMenuLevel = subMenuInjecter?.value?.menuLevel || 0
+  const menuGroupLevel = menuGroupInjecter?.value?.menuLevel || 0
+  return Math.max(menuLevel, subMenuLevel, menuGroupLevel) + 1
+})
+
+/**
  * menu mode
  */
 const menuMode = computed<MenuMode>(() => {
@@ -112,9 +122,19 @@ const popupMenu = computed<boolean>(() => {
   return menuInjecter?.value?.popupMenu
 })
 
+/**
+ * popup placement
+ */
+const popupPlacement = computed<string>(() => {
+  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value === 1) return 'bottom-start'
+  return 'right-start'
+})
+
 const expandedIcon = computed<string>(() => {
   if (props?.expandedIcon) return props?.expandedIcon
-  return popupMenu.value ? 'right' : 'down'
+  if (menuMode.value === MenuModes.vertical) return 'right'
+  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value > 1) return 'right'
+  return 'down'
 })
 
 /**
@@ -123,16 +143,6 @@ const expandedIcon = computed<string>(() => {
 const disabled = computed<boolean>(() => {
   if (subMenuInjecter) return subMenuInjecter?.value?.disabled
   return props?.disabled
-})
-
-/**
- * current menu level
- */
-const currentMenuLevel = computed<number>(() => {
-  const menuLevel = menuInjecter?.value?.menuLevel || 0
-  const subMenuLevel = subMenuInjecter?.value?.menuLevel || 0
-  const menuGroupLevel = menuGroupInjecter?.value?.menuLevel || 0
-  return Math.max(menuLevel, subMenuLevel, menuGroupLevel) + 1
 })
 
 /**
@@ -187,9 +197,18 @@ const handleClick = () => {
 /**
  * classes
  */
+const ignoreExpandAnimation = computed<boolean>(() => {
+  if (menuMode.value === MenuModes.vertical) return true
+  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value > 1) return true
+  return false
+})
+const horizontal = computed<boolean>(() => {
+  return menuMode.value === MenuModes.horizontal
+})
 const classNamePrefix = componentName
 const classes = useClasses(classNamePrefix, props, active, disabled)
-const expandIconClasses = useExpandIconClasses(classNamePrefix, expanded, popupMenu)
+const headerClasses = useHeaderClasses(classNamePrefix, horizontal, currentMenuLevel)
+const expandIconClasses = useExpandIconClasses(classNamePrefix, expanded, ignoreExpandAnimation)
 
 /**
  * styles

@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <Menu mode="vertical" :accordion="false">
+    <Menu activeItem="menu127" mode="horizontal" :accordion="false">
       <SubMenu symbol="submenu11" icon="user" title="最伟大的作品">
         <MenuItem symbol="menu11" icon="user">倒影</MenuItem>
         <MenuItem symbol="menu21" icon="user" disabled>粉色海洋</MenuItem>
@@ -27,6 +27,7 @@
         <MenuItem symbol="menu22" icon="user" disabled>七里香</MenuItem>
         <MenuItem symbol="menu32" icon="user">一路向北</MenuItem>
       </SubMenu>
+      <MenuItem symbol="menu127" icon="user" :disabled="true">不能说的秘密</MenuItem>
     </Menu>
   </div>
 </template>
@@ -35,6 +36,6 @@
 
 <style lang="scss">
 .main {
-  width: 240px;
+  // width: 240px;
 }
 </style>

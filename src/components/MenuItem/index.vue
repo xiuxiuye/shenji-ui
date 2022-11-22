@@ -26,7 +26,7 @@ import useInject from 'src/utils/hooks/useInject'
 import { componentName as menuComponentName } from '../Menu/index.vue'
 import { componentName as subMenuComponentName } from '../SubMenu/index.vue'
 import { componentName as menuGroupComponentName } from '../MenuGroup/index.vue'
-import type { Provider as MenuProvider } from '../Menu/types'
+import { type Provider as MenuProvider, MenuMode, MenuModes } from '../Menu/types'
 import type { Provider as SubMenuProvider } from '../SubMenu/types'
 import type { Provider as MenuGroupProvider } from '../MenuGroup/types'
 import type { StyleValue } from 'src/types/global'
@@ -65,8 +65,22 @@ const isValid = computed<boolean>(() => {
 })
 
 /**
+ * current menu level
+ */
+const currentMenuLevel = computed<number>(() => {
+  const menuLevel = menuInjecter?.value?.menuLevel || 0
+  const subMenuLevel = subMenuInjecter?.value?.menuLevel || 0
+  const menuGroupLevel = menuGroupInjecter?.value?.menuLevel || 0
+  return Math.max(menuLevel, subMenuLevel, menuGroupLevel) + 1
+})
+
+/**
  * menu mode
  */
+const menuMode = computed<MenuMode>(() => {
+  if (!menuInjecter) return MenuModes.inline
+  return menuInjecter?.value?.mode
+})
 const popupMenu = computed<boolean>(() => {
   if (!menuInjecter) return false
   return menuInjecter?.value?.popupMenu
@@ -113,8 +127,11 @@ watch(
 /**
  * classes
  */
+const horizontal = computed<boolean>(() => {
+  return menuMode.value === MenuModes.horizontal
+})
 const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props, active, disabled)
+const classes = useClasses(classNamePrefix, active, disabled, horizontal, currentMenuLevel)
 
 /**
  * styles
