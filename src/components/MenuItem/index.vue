@@ -87,11 +87,13 @@ const active = computed<boolean>(() => {
   if (!isValid.value) return false
   return props?.symbol === menuInjecter?.value?.activeItem
 })
-const handleClick = () => {
+const handleClick = async () => {
   if (disabled.value) return
   menuInjecter?.value?.updateActiveItem(props?.symbol)
   if (popupMenu.value) {
-    subMenuInjecter?.value?.updateExpandedSubMenus([], true)
+    setTimeout(() => {
+      menuInjecter?.value?.updateExpandedSubMenus([])
+    }, 0)
   }
 }
 watch(

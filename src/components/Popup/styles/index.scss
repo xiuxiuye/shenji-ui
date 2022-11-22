@@ -34,7 +34,7 @@
 }
 
 .sj-popup-slide-leave-from-top {
-  animation: sjPopupSlideFromTopReservce 0.1s ease-in-out forwards;
+  animation: sjPopupSlideFromTopReservce 0.3s ease forwards;
 }
 
 /* bottom */
@@ -67,7 +67,7 @@
 }
 
 .sj-popup-slide-leave-from-bottom {
-  animation: sjPopupSlideFromBottomReservce 0.1s ease-in-out forwards;
+  animation: sjPopupSlideFromBottomReservce 0.3s ease forwards;
 }
 
 /* left */
@@ -100,7 +100,7 @@
 }
 
 .sj-popup-slide-leave-from-left {
-  animation: sjPopupSlideFromLeftReservce 0.1s ease-in-out forwards;
+  animation: sjPopupSlideFromLeftReservce 0.3s ease forwards;
 }
 
 /* right */
@@ -133,5 +133,5 @@
 }
 
 .sj-popup-slide-leave-from-right {
-  animation: sjPopupSlideFromRightReservce 0.1s ease-in-out forwards;
+  animation: sjPopupSlideFromRightReservce 0.3s ease forwards;
 }

@@ -176,7 +176,7 @@ watch(
         setTimeout(() => {
           popupVisible.value = false
           floatingEle?.classList?.remove(leaveClassName)
-        }, 100)
+        }, 300)
       }
       if (cleanPopupAutoUpdate.value) {
         cleanPopupAutoUpdate.value()
