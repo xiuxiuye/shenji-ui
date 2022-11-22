@@ -9,7 +9,7 @@ interface Color {
 
 const COLOR_VARS: Color[] = [
   {
-    color: 'blue',
+    color: '#1677ff',
     cssVarsIndex: {
       '--sj-info-focus-background-color': 0,
       '--sj-info-hover-background-color': 1,
@@ -19,7 +19,7 @@ const COLOR_VARS: Color[] = [
     }
   },
   {
-    color: 'red',
+    color: '#f5222d',
     cssVarsIndex: {
       '--sj-error-focus-background-color': 0,
       '--sj-error-hover-background-color': 1,
@@ -29,7 +29,7 @@ const COLOR_VARS: Color[] = [
     }
   },
   {
-    color: 'green',
+    color: '#52c41a',
     cssVarsIndex: {
       '--sj-success-focus-background-color': 0,
       '--sj-success-hover-background-color': 1,
@@ -39,7 +39,7 @@ const COLOR_VARS: Color[] = [
     }
   },
   {
-    color: 'gold',
+    color: '#faad14',
     cssVarsIndex: {
       '--sj-warning-focus-background-color': 0,
       '--sj-warning-hover-background-color': 1,

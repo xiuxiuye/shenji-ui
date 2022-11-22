@@ -21,8 +21,7 @@
   --sj-height-large: 40px;
 
   /* border */
-  --sj-border-width: 1px;
-  --sj-border-radius: 2px;
+  --sj-border-radius: 4px;
 
   /* shadow */
   /* 物体位于低层级，此时物体被操作(悬停、点击等)触发为悬浮状态，当操作完成或取消时，悬停状态反馈也跟随消失，物体回归到原有的层级中，如：卡片 hover 等； */

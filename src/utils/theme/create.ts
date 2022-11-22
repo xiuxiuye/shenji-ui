@@ -11,8 +11,9 @@ enum PRIMARY_COLOR_VARS_INDEX {
   '--sj-primary-active-color' = 6
 }
 
-const create: Create = (color = 'blue', options = { mode: 'light' }) => {
+const create: Create = (color = '#1677ff', options = { mode: 'light' }) => {
   const colors = generateColors(color, options)
+  console.log(colors)
   const keys = Object.keys(PRIMARY_COLOR_VARS_INDEX) as Array<keyof typeof PRIMARY_COLOR_VARS_INDEX>
   keys.forEach((key) => setColorVar(key, colors[PRIMARY_COLOR_VARS_INDEX[key]]))
 
