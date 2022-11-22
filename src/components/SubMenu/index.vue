@@ -27,7 +27,7 @@
       placement="right-start"
       flipable
     >
-      <div :class="`${classNamePrefix}-body`">
+      <div :class="`${classNamePrefix}-popup-body`">
         <slot></slot>
       </div>
     </Popup>
@@ -76,7 +76,6 @@ interface Props {
   disabled?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
-  expandedIcon: 'down',
   disabled: false
 })
 
@@ -111,6 +110,11 @@ const menuMode = computed<MenuMode>(() => {
 const popupMenu = computed<boolean>(() => {
   if (!menuInjecter) return false
   return menuInjecter?.value?.popupMenu
+})
+
+const expandedIcon = computed<string>(() => {
+  if (props?.expandedIcon) return props?.expandedIcon
+  return popupMenu.value ? 'right' : 'down'
 })
 
 /**
@@ -185,7 +189,7 @@ const handleClick = () => {
  */
 const classNamePrefix = componentName
 const classes = useClasses(classNamePrefix, props, active, disabled)
-const expandIconClasses = useExpandIconClasses(classNamePrefix, expanded)
+const expandIconClasses = useExpandIconClasses(classNamePrefix, expanded, popupMenu)
 
 /**
  * styles

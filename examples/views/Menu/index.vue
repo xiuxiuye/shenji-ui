@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <Menu mode="vertical" :accordion="true">
+    <Menu mode="vertical" :accordion="false">
       <SubMenu symbol="submenu11" icon="user" title="最伟大的作品">
         <MenuItem symbol="menu11" icon="user">倒影</MenuItem>
         <MenuItem symbol="menu21" icon="user" disabled>粉色海洋</MenuItem>

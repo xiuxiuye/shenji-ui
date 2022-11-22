@@ -81,16 +81,6 @@ const disabled = computed<boolean>(() => {
 })
 
 /**
- * current menu level
- */
-const currentMenuLevel = computed<number>(() => {
-  const menuLevel = menuInjecter?.value?.menuLevel || 0
-  const subMenuLevel = subMenuInjecter?.value?.menuLevel || 0
-  const menuGroupLevel = menuGroupInjecter?.value?.menuLevel || 0
-  return Math.max(menuLevel, subMenuLevel, menuGroupLevel) + 1
-})
-
-/**
  * active
  */
 const active = computed<boolean>(() => {
@@ -99,9 +89,9 @@ const active = computed<boolean>(() => {
 })
 const handleClick = () => {
   if (disabled.value) return
-  const updateActiveItem = menuInjecter?.value?.updateActiveItem
-  if (updateActiveItem) {
-    updateActiveItem(props?.symbol)
+  menuInjecter?.value?.updateActiveItem(props?.symbol)
+  if (popupMenu.value) {
+    subMenuInjecter?.value?.updateExpandedSubMenus([], true)
   }
 }
 watch(

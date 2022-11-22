@@ -24,5 +24,6 @@ export type UseClasses = (
 
 export type UseExpandIconClasses = (
   classNamePrefix: string,
-  expanded: ComputedRef<boolean>
+  expanded: ComputedRef<boolean>,
+  popupMenu: ComputedRef<boolean>
 ) => ComputedRef<Classes>;

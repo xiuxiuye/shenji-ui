@@ -16,12 +16,12 @@ export const useClasses: UseClasses = (classNamePrefix, props, active, disabled)
   return classes
 }
 
-export const useExpandIconClasses: UseExpandIconClasses = (classNamePrefix, expanded) => {
+export const useExpandIconClasses: UseExpandIconClasses = (classNamePrefix, expanded, popupMenu) => {
   const classes = computed<Classes>(() => {
     return [
       `${classNamePrefix}-expand-icon`,
       {
-        [`${classNamePrefix}-expanded-icon`]: expanded.value
+        [`${classNamePrefix}-expanded-icon`]: expanded.value && !popupMenu.value
       }
     ]
   })

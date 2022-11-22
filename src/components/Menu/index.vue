@@ -33,6 +33,11 @@ const props = withDefaults(defineProps<Props>(), {
   accordion: false
 })
 
+const accordion = computed<boolean>(() => {
+  if (props?.mode !== MenuModes.inline) return true
+  return props?.accordion
+})
+
 /**
  * classes
  */
@@ -103,7 +108,7 @@ const provider = computed<Provider>(() => {
   return {
     mode: props?.mode,
     popupMenu: props?.mode !== MenuModes.inline,
-    accordion: props?.accordion,
+    accordion: accordion.value,
     menuLevel: 0,
     basePaddingLeft: 16,
     activeItem: activeItem.value,
