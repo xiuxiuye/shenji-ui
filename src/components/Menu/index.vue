@@ -33,6 +33,15 @@ const props = withDefaults(defineProps<Props>(), {
   accordion: false
 })
 
+/**
+ * emit
+ */
+type Emit = {
+  (e: 'click', symbol: string): void;
+  (e: 'expand', symbols: string[]): void;
+};
+const emit = defineEmits<Emit>()
+
 const accordion = computed<boolean>(() => {
   if (props?.mode !== MenuModes.inline) return true
   return props?.accordion
@@ -63,6 +72,7 @@ const updateActiveItem = (symbol: string) => {
   if (activeItem.value !== symbol) {
     activeItem.value = symbol
   }
+  emit('click', symbol)
 }
 
 /**
@@ -99,6 +109,7 @@ const updateExpandedSubMenus = (symbol: string | string[]) => {
   } else {
     expandedSubMenus.value = symbol as string[]
   }
+  emit('expand', expandedSubMenus.value)
 }
 
 /**
