@@ -29,7 +29,6 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), {
   mode: MenuModes.inline,
-  theme: 'light',
   accordion: false
 })
 

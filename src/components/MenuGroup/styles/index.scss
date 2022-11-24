@@ -16,4 +16,26 @@
       }
     }
   }
+  /* theme */
+  &-light {
+    .sj-menu-group {
+      &-header {
+        .sj-menu-group-icon > .sj-icon,
+        .sj-menu-group-title {
+          color: var(--sj-light-secondary-text-color);
+        }
+      }
+    }
+  }
+
+  &-dark {
+    .sj-menu-group {
+      &-header {
+        .sj-menu-group-icon > .sj-icon,
+        .sj-menu-group-title {
+          color: var(--sj-dark-secondary-text-color);
+        }
+      }
+    }
+  }
 }

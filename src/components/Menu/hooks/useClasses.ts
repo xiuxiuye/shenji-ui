@@ -10,7 +10,7 @@ const useClasses: UseClasses<Props> = (classNamePrefix, props) => {
       classNamePrefix,
       {
         [`${classNamePrefix}-${props?.mode}`]: isValidMode,
-        [`${classNamePrefix}-theme-${props?.theme}`]: isValidTheme
+        [`${classNamePrefix}-${props?.theme}`]: isValidTheme
       }
     ]
   })

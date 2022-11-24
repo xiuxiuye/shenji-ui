@@ -4,6 +4,6 @@ import setTheme from './setTheme'
 /**
  * init default theme
  */
-setTheme()
+setTheme({ mode: 'light' })
 
 export { setTheme }
