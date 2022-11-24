@@ -10,6 +10,7 @@ import {
 } from './cssVars'
 import {
   ThemeMode,
+  type Mode,
   type SetTheme,
   type Color,
   type Options,
@@ -19,19 +20,20 @@ import {
 /**
  * 初始化明亮和暗黑两套css颜色变量
  */
-const DEFAULT_THEMES = [ThemeMode.Light, ThemeMode.Dark]
+const DEFAULT_THEMES = [ThemeMode.light, ThemeMode.dark]
 const DEFAULT_LIGHT_THEME_BACKGROUND_COLOR =
   LIGHT_NEUTRAL_CSS_COLOR_VARS['--sj-light-theme-background-color']
 const DEFAULT_DARK_THEME_BACKGROUND_COLOR =
   DARK_NEUTRAL_CSS_COLOR_VARS?.['--sj-dark-theme-background-color']
 
-const setTheme: SetTheme = (color, options) => {
+const setTheme: SetTheme = (options) => {
   /**
    * 初始化主题色和功能色的基础色值
    */
   const colors: Color = {
     ...BASE_COLOR_VALUES
   }
+  const color = options?.color
   if (isString(color)) {
     colors.primary = color as string
   } else if (isObject(color)) {
@@ -46,25 +48,25 @@ const setTheme: SetTheme = (color, options) => {
    * 初始化配置项
    */
   const colorOptions: Options = {
-    mode: ThemeMode.Light,
+    mode: ThemeMode.light,
     backgroundColor: DEFAULT_LIGHT_THEME_BACKGROUND_COLOR
   }
-  if (options?.mode && DEFAULT_THEMES.includes(options?.mode)) {
+  if (options?.mode && DEFAULT_THEMES.includes(options?.mode as ThemeMode)) {
     colorOptions.mode = options?.mode
   }
   if (isString(options?.backgroundColor)) {
     colorOptions.backgroundColor = options?.backgroundColor
-  } else if (colorOptions?.mode === ThemeMode.Dark) {
+  } else if (colorOptions?.mode === ThemeMode.dark) {
     colorOptions.backgroundColor = DEFAULT_DARK_THEME_BACKGROUND_COLOR
   }
   /**
    * 生成明亮和暗黑的主题色和功能色css变量色值
    */
   const themeColorVars: ThemeColorVars = {
-    [ThemeMode.Light]: {
+    [ThemeMode.light]: {
       ...LIGHT_NEUTRAL_CSS_COLOR_VARS
     },
-    [ThemeMode.Dark]: {
+    [ThemeMode.dark]: {
       ...DARK_NEUTRAL_CSS_COLOR_VARS
     },
     current: {}
@@ -74,7 +76,7 @@ const setTheme: SetTheme = (color, options) => {
     if (themeMode !== colorOptions?.mode) {
       generateOptions.mode = themeMode
       generateOptions.backgroundColor =
-        themeMode === ThemeMode.Light
+        themeMode === ThemeMode.light
           ? DEFAULT_LIGHT_THEME_BACKGROUND_COLOR
           : DEFAULT_DARK_THEME_BACKGROUND_COLOR
     }
