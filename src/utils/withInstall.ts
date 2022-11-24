@@ -1,5 +1,5 @@
 import type { App, Component } from 'vue'
-import './theme/init'
+import './theme'
 import registerVueComponent from 'src/utils/registerVueComponent'
 import type { SJComponent } from 'src/types/global'
 

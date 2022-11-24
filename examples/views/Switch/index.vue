@@ -1,13 +1,12 @@
 <template>
   <div class="main">
-    <Switch size="large" disabled loading :round="true" v-model="check" @change="handleChange" />{{check}}
+    <Switch size="large" disabled loading :round="true" v-model="check" @change="handleChange" />
     <Switch size="normal" icon="lock" checked-text="一花一世" unchecked-text="一念花开" v-model="check"
       @change="handleChange">
-    </Switch>{{check}}
+    </Switch>
     <Switch size="normal" icon="user" :rubber-band="true" autofocus :round="false" v-model="check" @change="handleChange">
       <template #icon><span style="color: red;">8</span></template>
     </Switch>
-    {{check}}
   </div>
 </template>
 

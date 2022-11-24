@@ -21,7 +21,7 @@
     height: 100%;
     overflow: hidden;
     border-radius: inherit;
-    color: var(--sj-primary-background-color);
+    color: var(--sj-theme-background-color);
     background-color: var(--sj-disable-color);
     transition-property: all;
     transition-duration: $sj-switch-transition-duration;
@@ -32,7 +32,7 @@
       top: 50%;
       left: $sj-switch-dot-left;
       transform: translateY(-50%);
-      background-color: var(--sj-primary-background-color);
+      background-color: var(--sj-theme-background-color);
       box-shadow: var(--sj-shadow-level-2);
       transition-property: left;
       transition-duration: $sj-switch-transition-duration;

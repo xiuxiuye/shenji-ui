@@ -1,19 +1,19 @@
-@import "src/styles/var.scss";
+@import "src/styles/var/scss.scss";
 
 $sj-button-size: $sj-size;
 
 $sj-button-type: (
   normal: (
-    backgroundColor: var(--sj-primary-background-color),
+    backgroundColor: var(--sj-theme-background-color),
     borderColor: var(--sj-border-color),
     color: var(--sj-primary-text-color),
     hover: (
-      backgroundColor: var(--sj-primary-background-color),
+      backgroundColor: var(--sj-theme-background-color),
       borderColor: var(--sj-primary-hover-color),
       color: var(--sj-primary-hover-color)
     ),
     active: (
-      backgroundColor: var(--sj-primary-background-color),
+      backgroundColor: var(--sj-theme-background-color),
       borderColor: var(--sj-primary-active-color),
       color: var(--sj-primary-active-color)
     ),
@@ -22,80 +22,80 @@ $sj-button-type: (
   primary: (
     backgroundColor: var(--sj-primary-color),
     borderColor: var(--sj-primary-color),
-    color: var(--sj-primary-background-color),
+    color: var(--sj-theme-background-color),
     hover: (
       backgroundColor: var(--sj-primary-hover-color),
       borderColor: var(--sj-primary-hover-color),
-      color: var(--sj-primary-background-color),
+      color: var(--sj-theme-background-color),
     ),
     active: (
       backgroundColor: var(--sj-primary-active-color),
       borderColor: var(--sj-primary-active-color),
-      color: var(--sj-primary-background-color),
+      color: var(--sj-theme-background-color),
     ),
     waveColor: var(--sj-primary-color),
   ),
   success: (
     backgroundColor: var(--sj-success-color),
     borderColor: var(--sj-success-color),
-    color: var(--sj-primary-background-color),
+    color: var(--sj-theme-background-color),
     hover: (
       backgroundColor: var(--sj-success-hover-color),
       borderColor: var(--sj-success-hover-color),
-      color: var(--sj-primary-background-color),
+      color: var(--sj-theme-background-color),
     ),
     active: (
       backgroundColor: var(--sj-success-hover-color),
       borderColor: var(--sj-success-active-color),
-      color: var(--sj-primary-background-color),
+      color: var(--sj-theme-background-color),
     ),
     waveColor: var(--sj-success-color),
   ),
   warning: (
     backgroundColor: var(--sj-warning-color),
     borderColor: var(--sj-warning-color),
-    color: var(--sj-primary-background-color),
+    color: var(--sj-theme-background-color),
     hover: (
       backgroundColor: var(--sj-warning-hover-color),
       borderColor: var(--sj-warning-hover-color),
-      color: var(--sj-primary-background-color),
+      color: var(--sj-theme-background-color),
     ),
     active: (
       backgroundColor: var(--sj-warning-hover-color),
       borderColor: var(--sj-warning-active-color),
-      color: var(--sj-primary-background-color),
+      color: var(--sj-theme-background-color),
     ),
     waveColor: var(--sj-warning-color),
   ),
   error: (
     backgroundColor: var(--sj-error-color),
     borderColor: var(--sj-error-color),
-    color: var(--sj-primary-background-color),
+    color: var(--sj-theme-background-color),
     hover: (
       backgroundColor: var(--sj-error-hover-color),
       borderColor: var(--sj-error-hover-color),
-      color: var(--sj-primary-background-color),
+      color: var(--sj-theme-background-color),
     ),
     active: (
       backgroundColor: var(--sj-error-hover-color),
       borderColor: var(--sj-error-active-color),
-      color: var(--sj-primary-background-color),
+      color: var(--sj-theme-background-color),
     ),
     waveColor: var(--sj-error-color),
   ),
   info: (
     backgroundColor: var(--sj-info-color),
     borderColor: var(--sj-info-color),
-    color: var(--sj-primary-background-color),
+    color: var(--sj-theme-background-color),
     hover: (
       backgroundColor: var(--sj-info-hover-color),
       borderColor: var(--sj-info-hover-color),
-      color: var(--sj-primary-background-color),
+      color: var(--sj-theme-background-color),
     ),
     active: (
       backgroundColor: var(--sj-info-hover-color),
       borderColor: var(--sj-info-active-color),
-      color: var(--sj-primary-background-color),
+      color: var(--sj-theme-background-color),
     ),
     waveColor: var(--sj-info-color),
   ),

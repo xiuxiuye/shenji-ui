@@ -66,7 +66,7 @@
         width: 60%;
         height: 1.5px;
         border-radius: inherit;
-        background-color: var(--sj-primary-background-color);
+        background-color: var(--sj-theme-background-color);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -95,7 +95,7 @@
       content: '';
       width: 6px;
       height: 3px;
-      border: 2px solid var(--sj-primary-background-color);
+      border: 2px solid var(--sj-theme-background-color);
       border-top: 0;
       border-right: 0;
       position: absolute;
@@ -110,7 +110,7 @@
       content: '';
       width: 8px;
       height: 4px;
-      border: 2px solid var(--sj-primary-background-color);
+      border: 2px solid var(--sj-theme-background-color);
       border-top: 0;
       border-right: 0;
       position: absolute;
@@ -125,7 +125,7 @@
       content: '';
       width: 10px;
       height: 5px;
-      border: 2px solid var(--sj-primary-background-color);
+      border: 2px solid var(--sj-theme-background-color);
       border-top: 0;
       border-right: 0;
       position: absolute;
