@@ -137,9 +137,9 @@ const classes = useClasses(classNamePrefix, active, disabled, horizontal, curren
  * styles
  */
 const paddingLeftSpan = computed<number>(() => {
-  const subMenuPaddingLeftSpan = subMenuInjecter?.value?.paddingLeftSpan || 1
+  const subMenuPaddingLeftSpan = subMenuInjecter?.value?.paddingLeftSpan || 0
   const menuGroupPaddingLeftSpan =
-    menuGroupInjecter?.value?.paddingLeftSpan || 1
+    menuGroupInjecter?.value?.paddingLeftSpan || 0
   if (popupMenu.value) {
     return isValidParent(menuGroupComponentName)
       ? menuGroupPaddingLeftSpan + 1

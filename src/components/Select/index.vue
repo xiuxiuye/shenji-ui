@@ -8,77 +8,78 @@
     @blur="handleBlur"
   >
     <div :class="`${classNamePrefix}-disabled-mask`" v-if="disabled"></div>
-    <div :class="`${classNamePrefix}-content`" @click="handleClick">
-      <div v-if="placeholderVisible" :class="`${classNamePrefix}-placeholder`">
-        {{ placeholder }}
-      </div>
-      <template v-else>
+    <div :class="`${classNamePrefix}-selector`">
+      <div :class="`${classNamePrefix}-content`" @click="handleClick">
         <div
-          ref="sjSelectLabelRef"
-          v-for="item in selectedOptions?.slice(0, realMaxCount)"
-          :class="selectedTagClasses"
-          :key="item?.value"
-          :data-value="item?.value"
-          :data-value-type="typeof item?.value"
+          v-if="placeholderVisible"
+          :class="`${classNamePrefix}-placeholder`"
         >
-          <span v-if="!isCustomRenderLabel">
-            {{ item?.label }}
-            <span
-              v-if="multiple"
-              :class="`${classNamePrefix}-content-tag-close`"
-              @click.stop="removeSelectedOption(item.value)"
-            >
-              <Icon type="close" />
+          {{ placeholder }}
+        </div>
+        <template v-else>
+          <div
+            ref="sjSelectLabelRef"
+            v-for="item in selectedOptions?.slice(0, realMaxCount)"
+            :class="selectedTagClasses"
+            :key="item?.value"
+            :data-value="item?.value"
+            :data-value-type="typeof item?.value"
+          >
+            <span v-if="!isCustomRenderLabel">
+              {{ item?.label }}
+              <span
+                v-if="multiple"
+                :class="`${classNamePrefix}-content-tag-close`"
+                @click.stop="removeSelectedOption(item.value)"
+              >
+                <Icon type="close" />
+              </span>
             </span>
-          </span>
-        </div>
-        <div
-          v-if="selectedOptions?.length > realMaxCount"
-          :class="selectedTagClasses"
-        >
-          <span><Icon type="plus" /></span>
-          <span>{{ selectedOptions?.length - realMaxCount }}</span>
-        </div>
-      </template>
-      <input
-        v-if="filterable"
-        :class="filterClasses"
-        v-model="filterText"
-        @focus="handleFocus"
-        @blur="handleBlur"
-      />
-    </div>
-    <span
-      v-if="isClearBtnVisible"
-      :class="`${classNamePrefix}-clear`"
-      @click="handleClear"
-    >
-      <Icon :type="clearIcon" />
-    </span>
-    <span
-      v-if="loadingIconVisible && loading"
-      :class="`${classNamePrefix}-loading-icon`"
-    >
-      <Icon :type="loadingIcon" />
-    </span>
-    <div :class="arrowClasses" @click="handleClick">
-      <slot name="arrow">
-        <Icon :type="arrow" />
-      </slot>
+          </div>
+          <div
+            v-if="selectedOptions?.length > realMaxCount"
+            :class="selectedTagClasses"
+          >
+            <span><Icon type="plus" /></span>
+            <span>{{ selectedOptions?.length - realMaxCount }}</span>
+          </div>
+        </template>
+        <input
+          v-if="filterable"
+          :class="filterClasses"
+          v-model="filterText"
+          @focus="handleFocus"
+          @blur="handleBlur"
+        />
+      </div>
+      <span
+        v-if="isClearBtnVisible"
+        :class="`${classNamePrefix}-clear`"
+        @click="handleClear"
+      >
+        <Icon :type="clearIcon" />
+      </span>
+      <span
+        v-if="loadingIconVisible && loading"
+        :class="`${classNamePrefix}-loading-icon`"
+      >
+        <Icon :type="loadingIcon" />
+      </span>
+      <div :class="arrowClasses" @click="handleClick">
+        <slot name="arrow">
+          <Icon :type="arrow" />
+        </slot>
+      </div>
     </div>
     <!-- Popup -->
     <Popup
+      :mount-following="true"
       :visible="popupVisible"
       :reference-ref="sjSelectRef"
       :placement="placement"
       flipable
     >
-      <div
-        :class="`${classNamePrefix}-popup`"
-        :style="popupStyles"
-        @mouseenter="handleMouseEnterPopup"
-        @mouseleave="handleMouseLeavePopup"
-      >
+      <div :class="`${classNamePrefix}-popup`" :style="popupStyles">
         <div v-if="loading" :class="`${classNamePrefix}-loading`">
           <slot name="loading">{{ loadingText }}</slot>
         </div>
@@ -468,22 +469,10 @@ const handleClear = () => {
 }
 
 /**
- * select active
- */
-const focused = ref<boolean>(false)
-watch(
-  () => props?.autofocus,
-  () => {
-    focused.value = props?.autofocus
-  },
-  { immediate: true }
-)
-
-/**
  * classes
  */
 const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props, focused)
+const classes = useClasses(classNamePrefix, props)
 const arrowClasses = useArrowClasses(classNamePrefix, popupVisible)
 const selectedTagClasses = useSelectedTagClasses(classNamePrefix, props)
 const filterClasses = useFilterClasses(classNamePrefix, props, filterText)
@@ -491,16 +480,6 @@ const filterClasses = useFilterClasses(classNamePrefix, props, filterText)
 /**
  * event handler
  */
-const ignoreFocus = ref<boolean>(false)
-const popupHover = ref<boolean>(false)
-
-const handleMouseEnterPopup = () => {
-  popupHover.value = true
-}
-
-const handleMouseLeavePopup = () => {
-  popupHover.value = false
-}
 
 const handleClick = () => {
   if (isBoolean(props?.visible) || props?.disabled) return
@@ -508,21 +487,12 @@ const handleClick = () => {
 }
 
 const handleFocus = (event: FocusEvent) => {
-  if (props?.disabled || ignoreFocus.value) {
-    ignoreFocus.value = false
-    return
-  }
-  focused.value = true
+  if (props?.disabled) return
   emit('focus', event)
 }
 
 const handleBlur = async (event: FocusEvent) => {
-  if (isBoolean(props?.visible) || props?.disabled || popupHover.value) {
-    ignoreFocus.value = true
-    focus()
-    return
-  }
-  focused.value = false
+  if (props?.disabled) return
   popupVisible.value = false
   emit('blur', event)
 }

@@ -1,10 +1,6 @@
 <template>
   <div v-if="isValid" :class="classes" :key="symbol" ref="sjSubMenuRef">
-    <div
-      :class="headerClasses"
-      :style="styles"
-      @click="handleClick"
-    >
+    <div :class="headerClasses" :style="styles" @click="handleClick">
       <span v-if="icon" :class="`${classNamePrefix}-icon`">
         <Icon :type="icon" />
       </span>
@@ -27,7 +23,7 @@
       :placement="popupPlacement"
       flipable
     >
-      <div :class="`${classNamePrefix}-popup-body`">
+      <div :class="`${classNamePrefix}-popup-body`" :style="horizontalLevel1PopupStyles">
         <slot></slot>
       </div>
     </Popup>
@@ -48,7 +44,11 @@ import useProvide from 'src/utils/hooks/useProvide'
 import useInject from 'src/utils/hooks/useInject'
 import Popup from '../Popup'
 import CollapseTransition from '../CollapseTransition'
-import { useClasses, useHeaderClasses, useExpandIconClasses } from './hooks/useClasses'
+import {
+  useClasses,
+  useHeaderClasses,
+  useExpandIconClasses
+} from './hooks/useClasses'
 import { componentName as menuComponentName } from '../Menu/index.vue'
 import { componentName as menuGroupComponentName } from '../MenuGroup/index.vue'
 import {
@@ -123,17 +123,32 @@ const popupMenu = computed<boolean>(() => {
 })
 
 /**
+ * horizontal level1 popup min-width
+ */
+const horizontalLevel1PopupStyles = computed<StyleValue>(() => {
+  const styles: StyleValue = {}
+  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value === 1 && sjSubMenuRef.value) {
+    styles.minWidth = `${sjSubMenuRef.value?.offsetWidth}px`
+  }
+  return styles
+})
+
+/**
  * popup placement
  */
 const popupPlacement = computed<string>(() => {
-  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value === 1) return 'bottom-start'
+  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value === 1) {
+    return 'bottom-start'
+  }
   return 'right-start'
 })
 
 const expandedIcon = computed<string>(() => {
   if (props?.expandedIcon) return props?.expandedIcon
   if (menuMode.value === MenuModes.vertical) return 'right'
-  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value > 1) return 'right'
+  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value > 1) {
+    return 'right'
+  }
   return 'down'
 })
 
@@ -199,7 +214,9 @@ const handleClick = () => {
  */
 const ignoreExpandAnimation = computed<boolean>(() => {
   if (menuMode.value === MenuModes.vertical) return true
-  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value > 1) return true
+  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value > 1) {
+    return true
+  }
   return false
 })
 const horizontal = computed<boolean>(() => {
@@ -207,16 +224,24 @@ const horizontal = computed<boolean>(() => {
 })
 const classNamePrefix = componentName
 const classes = useClasses(classNamePrefix, props, active, disabled)
-const headerClasses = useHeaderClasses(classNamePrefix, horizontal, currentMenuLevel)
-const expandIconClasses = useExpandIconClasses(classNamePrefix, expanded, ignoreExpandAnimation)
+const headerClasses = useHeaderClasses(
+  classNamePrefix,
+  horizontal,
+  currentMenuLevel
+)
+const expandIconClasses = useExpandIconClasses(
+  classNamePrefix,
+  expanded,
+  ignoreExpandAnimation
+)
 
 /**
  * styles
  */
 const paddingLeftSpan = computed<number>(() => {
-  const subMenuPaddingLeftSpan = subMenuInjecter?.value?.paddingLeftSpan || 1
+  const subMenuPaddingLeftSpan = subMenuInjecter?.value?.paddingLeftSpan || 0
   const menuGroupPaddingLeftSpan =
-    menuGroupInjecter?.value?.paddingLeftSpan || 1
+    menuGroupInjecter?.value?.paddingLeftSpan || 0
   if (popupMenu.value) {
     return isValidParent(menuGroupComponentName)
       ? menuGroupPaddingLeftSpan + 1

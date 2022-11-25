@@ -4,43 +4,183 @@
   cursor: pointer;
   box-sizing: border-box;
   flex-grow: 1;
-  display: flex;
-  align-items: center;
-  border-width: 0;
-  border-style: solid;
-  border-radius: var(--sj-border-radius);
   color: var(--sj-primary-text-color);
 
-  &:hover {
-    border-color: var(--sj-primary-color);
+  &-selector {
+    box-sizing: inherit;
+    width: 100%;
+    color: inherit;
+    border-width: 0;
+    border-style: solid;
+    border-radius: var(--sj-border-radius);
+    display: flex;
+    align-items: center;
+
+    .sj-select-content {
+      box-sizing: inherit;
+      font-size: inherit;
+      border-radius: inherit;
+      flex-grow: 1;
+      padding-left: 10px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+
+      &-item {
+        box-sizing: inherit;
+        font-size: inherit;
+        border-radius: inherit;
+      }
+
+      &-tag {
+        display: inline-flex;
+        align-items: center;
+        padding-left: 8px;
+        padding-right: 6px;
+        margin-right: 6px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        border: 1px solid var(--sj-border-color);
+        background-color: var(--sj-background-color);
+
+        &-close {
+          margin-left: 4px;
+        }
+      }
+
+      /* placeholder */
+      .sj-select-placeholder {
+        color: var(--sj-secondary-text-color);
+      }
+
+      /* filter */
+      .sj-select-filter {
+        flex-grow: 1;
+        border-width: 0;
+        border-radius: inherit;
+        box-sizing: inherit;
+        font-size: inherit;
+        font-family: inherit;
+        background-color: transparent;
+        caret-color: var(--sj-primary-color);
+
+        /* ie */
+        &::-ms-reveal {
+          display: none;
+        }
+
+        &::-ms-clear {
+          display: none;
+        }
+
+        &:focus {
+          outline-width: 0;
+        }
+
+        &-single {
+          position: absolute;
+          left: 6px;
+          right: 0;
+
+          &:focus {
+            background-color: rgba(255, 255, 255, 0.8);
+          }
+        }
+
+        &-solid {
+          background-color: rgba(255, 255, 255, 1);
+          &:focus {
+            background-color: rgba(255, 255, 255, 1);
+          }
+        }
+      }
+    }
+
+    .sj-select-arrow {
+      flex-grow: 0;
+      flex-shrink: 0;
+      width: 28px;
+      height: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease-in-out;
+
+      &-up {
+        transform: rotate(180deg);
+      }
+    }
+
+    /* clearable */
+    .sj-select-clear {
+      display: none;
+      cursor: pointer;
+      margin-left: 8px;
+      color: var(--sj-disable-color);
+      .sj-icon {
+        color: inherit;
+      }
+
+      &:hover {
+        color: var(--sj-secondary-text-color);
+      }
+    }
+
+    /* loading */
+    .sj-select-loading-icon {
+      margin-left: 8px;
+      color: var(--sj-primary-color);
+      .sj-icon {
+        color: inherit;
+      }
+    }
+
+    &:hover {
+      .sj-select-clear {
+        display: block;
+      }
+    }
   }
 
-  &-focused {
-    border-color: var(--sj-primary-color);
-    outline: 3px solid var(--sj-primary-focus-background-color);
+  &:hover {
+    .sj-select-selector {
+      border-color: var(--sj-primary-color);
+    }
+  }
+
+  &:focus-within {
+    .sj-select-selector {
+      border-color: var(--sj-primary-color);
+      outline: 3px solid var(--sj-primary-focus-background-color);
+    }
   }
 
   /* size */
   @each $key, $value in $sj-select-size {
     &-size-#{$key} {
-      height: map-get($value, "height");
-      font-size: map-get($value, "fontSize");
+      .sj-select-selector {
+        height: map-get($value, "height");
+        font-size: map-get($value, "fontSize");
 
-      .sj-select-content {
-        height: inherit;
-        &-item {
-          width: 0;
-          flex-grow: 1;
-          flex-shrink: 1;
+        .sj-select-content {
+          height: inherit;
+          &-item {
+            width: 0;
+            flex-grow: 1;
+            flex-shrink: 1;
+          }
         }
-      }
 
-      .sj-select-filter {
-        height: calc(map-get($value, "height") - 6px);
+        .sj-select-filter {
+          height: calc(map-get($value, "height") - 6px);
+        }
       }
     }
     &-#{$key}-round {
-      border-radius: map-get($value, "height");
+      .sj-select-selector {
+        border-radius: map-get($value, "height");
+      }
     }
   }
 
@@ -50,160 +190,84 @@
       min-height: map-get($value, "height");
       font-size: map-get($value, "fontSize");
 
-      .sj-select-content {
-        min-height: inherit;
-        &-tag {
-          min-height: calc(map-get($value, "height") - 6px);
+      .sj-select-selector {
+        .sj-select-content {
+          min-height: inherit;
+          &-tag {
+            min-height: calc(map-get($value, "height") - 6px);
+          }
         }
-      }
 
-      .sj-select-filter {
-        height: calc(map-get($value, "height") - 6px);
+        .sj-select-filter {
+          height: calc(map-get($value, "height") - 6px);
+        }
       }
     }
     &-#{$key}-round {
-      border-radius: map-get($value, "height");
+      .sj-select-selector {
+        border-radius: map-get($value, "height");
+      }
     }
   }
 
   /* status */
   @each $key, $value in $sj-select-status {
     &-status-#{$key} {
-      border-color: map-get($value, "border-color");
+      .sj-select-selector {
+        border-color: map-get($value, "border-color");
+
+        .sj-select-loading-icon {
+          color: map-get($value, "border-color");
+        }
+
+        .sj-select-filter {
+          caret-color: map-get($value, "border-color");
+        }
+      }
 
       &:hover {
-        border-color: map-get($value, "border-color");
+        .sj-select-selector {
+          border-color: map-get($value, "border-color");
+        }
       }
 
-      &-focused {
-        border-color: map-get($value, "border-color");
-        outline-color: map-get($value, "outline-color-foucs");
-      }
-
-      .sj-select-loading-icon {
-        color: map-get($value, "border-color");
-      }
-
-      .sj-select-filter {
-        caret-color: map-get($value, "border-color");
+      &:focus-within {
+        .sj-select-selector {
+          border-color: map-get($value, "border-color");
+          outline-color: map-get($value, "outline-color-foucs");
+        }
       }
     }
   }
 
   /* border */
   &-border-block {
-    border-width: 1px;
+    .sj-select-selector {
+      border-width: 1px;
+    }
   }
 
   &-border-none {
-    border-width: 0;
+    .sj-select-selector {
+      border-width: 0;
+    }
 
-    &-focused {
-      outline-width: 0;
+    &:focus-within {
+      .sj-select-selector {
+        outline-width: 0;
+      }
     }
   }
 
   &-border-line {
-    border-width: 0 0 1px 0;
-
-    &-focused {
-      outline-width: 0;
-    }
-  }
-
-  &-content {
-    box-sizing: inherit;
-    font-size: inherit;
-    border-radius: inherit;
-    flex-grow: 1;
-    padding-left: 10px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    position: relative;
-
-    &-item {
-      box-sizing: inherit;
-      font-size: inherit;
-      border-radius: inherit;
+    .sj-select-selector {
+      border-width: 0 0 1px 0;
     }
 
-    &-tag {
-      display: inline-flex;
-      align-items: center;
-      padding-left: 8px;
-      padding-right: 6px;
-      margin-right: 6px;
-      margin-top: 2px;
-      margin-bottom: 2px;
-      border: 1px solid var(--sj-border-color);
-      background-color: var(--sj-background-color);
-
-      &-close {
-        margin-left: 4px;
-      }
-    }
-
-    /* placeholder */
-    .sj-select-placeholder {
-      color: var(--sj-secondary-text-color);
-    }
-
-    /* filter */
-    .sj-select-filter {
-      flex-grow: 1;
-      border-width: 0;
-      border-radius: inherit;
-      box-sizing: inherit;
-      font-size: inherit;
-      font-family: inherit;
-      background-color: transparent;
-      caret-color: var(--sj-primary-color);
-
-      /* ie */
-      &::-ms-reveal {
-        display: none;
-      }
-
-      &::-ms-clear {
-        display: none;
-      }
-
-      &:focus {
+    &:focus-within {
+      .sj-select-selector {
         outline-width: 0;
       }
-
-      &-single {
-        position: absolute;
-        left: 6px;
-        right: 0;
-
-        &:focus {
-          background-color: rgba(255, 255, 255, 0.8);
-        }
-      }
-
-      &-solid {
-        background-color: rgba(255, 255, 255, 1);
-        &:focus {
-          background-color: rgba(255, 255, 255, 1);
-        }
-      }
-    }
-  }
-
-  &-arrow {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 28px;
-    height: inherit;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease-in-out;
-
-    &-up {
-      transform: rotate(180deg);
     }
   }
 
@@ -225,57 +289,38 @@
     }
   }
 
-  /* clearable */
-  &-clear {
-    display: none;
-    cursor: pointer;
-    margin-left: 8px;
-    color: var(--sj-disable-color);
-    .sj-icon {
-      color: inherit;
-    }
-
-    &:hover {
-      color: var(--sj-secondary-text-color);
-    }
-  }
-
-  &:hover {
-    .sj-select-clear {
-      display: block;
-    }
-  }
-
-  /* loading */
-  &-loading-icon {
-    margin-left: 8px;
-    color: var(--sj-primary-color);
-    .sj-icon {
-      color: inherit;
-    }
-  }
-
   /* disabled */
   &-disabled {
     position: relative;
-    border-color: var(--sj-border-color);
 
-    .sj-select-arrow > .sj-icon,
-    .sj-select-content > .sj-select-content-item {
-      color: var(--sj-disable-color);
-    }
-
-    &:hover {
+    .sj-select-selector {
       border-color: var(--sj-border-color);
-
-      .sj-select-clear {
-        display: none;
+      .sj-select-arrow > .sj-icon,
+      .sj-select-content > .sj-select-content-item {
+        color: var(--sj-disable-color);
       }
     }
 
-    &-focused {
-      border-color: var(--sj-border-color);
-      outline-width: 0;
+    &:hover {
+      .sj-select-selector {
+        border-color: var(--sj-border-color);
+      }
+    }
+
+    &:focus-within {
+      .sj-select-selector {
+        border-color: var(--sj-border-color);
+        outline-width: 0;
+      }
+    }
+
+    &:hover,
+    &:focus-within {
+      .sj-select-selector {
+        .sj-select-clear {
+          display: none;
+        }
+      }
     }
 
     .sj-select-disabled-mask {

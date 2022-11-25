@@ -46,5 +46,5 @@ export const DARK_NEUTRAL_CSS_COLOR_VARS: Record<string, string> = {
   '--sj-dark-divider-color': 'rgba(255, 255, 255, 0.06)',
   '--sj-dark-background-color': 'rgba(255, 255, 255, 0.04)',
   '--sj-dark-table-header-background-color': 'rgba(255, 255, 255, 0.02)',
-  '--sj-dark-theme-background-color': 'rgba(0, 0, 0, 1)'
+  '--sj-dark-theme-background-color': '#141414'
 }
