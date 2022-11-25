@@ -10,6 +10,7 @@
     box-sizing: inherit;
     width: 100%;
     color: inherit;
+    font-size: inherit;
     border-width: 0;
     border-style: solid;
     border-radius: var(--sj-border-radius);
@@ -159,9 +160,10 @@
   /* size */
   @each $key, $value in $sj-select-size {
     &-size-#{$key} {
+      font-size: map-get($value, "fontSize");
+
       .sj-select-selector {
         height: map-get($value, "height");
-        font-size: map-get($value, "fontSize");
 
         .sj-select-content {
           height: inherit;
@@ -187,10 +189,11 @@
   /* multiple size */
   @each $key, $value in $sj-select-size {
     &-multiple-size-#{$key} {
-      min-height: map-get($value, "height");
       font-size: map-get($value, "fontSize");
 
       .sj-select-selector {
+        min-height: map-get($value, "height");
+
         .sj-select-content {
           min-height: inherit;
           &-tag {
@@ -285,6 +288,7 @@
       box-sizing: inherit;
       padding: 4px 0;
       text-align: center;
+      font-size: inherit;
       color: var(--sj-secondary-text-color);
     }
   }

@@ -3,11 +3,9 @@
     <div class="test test1"></div>
     <br /><br />
     <Select
-      :multiple="false"
+      :multiple="true"
       :options="optionsRef"
       v-model="selected"
-      :loading="loading"
-      loading-icon="loading-b"
       :filterable="false"
       clearable
       placeholder="请选择"

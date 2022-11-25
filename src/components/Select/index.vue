@@ -492,7 +492,7 @@ const handleFocus = (event: FocusEvent) => {
 }
 
 const handleBlur = async (event: FocusEvent) => {
-  if (props?.disabled) return
+  if (isBoolean(props?.visible) || props?.disabled) return
   popupVisible.value = false
   emit('blur', event)
 }
