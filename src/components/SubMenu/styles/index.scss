@@ -61,6 +61,7 @@
 
     &-popup-body {
       box-shadow: var(--sj-shadow-level-2);
+      background-color: var(--sj-theme-background-color);
     }
 
     /* active */
@@ -128,6 +129,10 @@
         background-color: var(--sj-light-table-header-background-color);
       }
 
+      &-popup-body {
+        background-color: var(--sj-light-theme-background-color);
+      }
+
       /* active */
       &-active {
         > .sj-sub-menu-header {
@@ -176,6 +181,10 @@
 
       &-body {
         background-color: var(--sj-dark-table-header-background-color);
+      }
+
+      &-popup-body {
+        background-color: var(--sj-dark-theme-background-color);
       }
 
       /* active */

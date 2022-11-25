@@ -118,6 +118,7 @@ const setTheme: SetTheme = (options) => {
     const colorVars = Object.keys(themeColorVars[colorVarType])
     colorVars.forEach(colorVar => setColorVar(colorVar, themeColorVars[colorVarType][colorVar]))
   })
+  console.log(themeColorVars)
 }
 
 export default setTheme
