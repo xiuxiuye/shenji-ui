@@ -40,6 +40,10 @@ const handleClick = (v) => {
 
 <style lang="scss">
 .main {
-  width: 240px;
+  width: 300px;
+  background-color: red;
+  padding-right: 60px;
+  height: 100px;
+  overflow: hidden;
 }
 </style>

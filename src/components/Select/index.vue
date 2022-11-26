@@ -1,14 +1,13 @@
 <template>
-  <div
-    ref="sjSelectRef"
-    :class="classes"
-    :tabindex="0"
-    :autofocus="autofocus"
-    @focus="handleFocus"
-    @blur="handleBlur"
-  >
+  <div ref="sjSelectRef" :class="classes">
     <div :class="`${classNamePrefix}-disabled-mask`" v-if="disabled"></div>
-    <div :class="`${classNamePrefix}-selector`">
+    <div
+      :class="`${classNamePrefix}-selector`"
+      :tabindex="0"
+      :autofocus="autofocusEnabled"
+      @focus="handleFocus"
+      @blur="handleBlur"
+    >
       <div :class="`${classNamePrefix}-content`" @click="handleClick">
         <div
           v-if="placeholderVisible"
@@ -73,13 +72,12 @@
     </div>
     <!-- Popup -->
     <Popup
-      :mount-following="true"
       :visible="popupVisible"
       :reference-ref="sjSelectRef"
       :placement="placement"
       flipable
     >
-      <div :class="`${classNamePrefix}-popup`" :style="popupStyles">
+      <div :class="`${classNamePrefix}-popup`" :style="popupStyles" @mousedown="handlePopupMouseDown">
         <div v-if="loading" :class="`${classNamePrefix}-loading`">
           <slot name="loading">{{ loadingText }}</slot>
         </div>
@@ -469,6 +467,13 @@ const handleClear = () => {
 }
 
 /**
+ * autofocus
+ */
+const autofocusEnabled = computed<boolean>(() => {
+  return !props?.disabled && props?.autofocus
+})
+
+/**
  * classes
  */
 const classNamePrefix = componentName
@@ -481,18 +486,22 @@ const filterClasses = useFilterClasses(classNamePrefix, props, filterText)
  * event handler
  */
 
+const handlePopupMouseDown = (event: MouseEvent) => {
+  // 禁止弹窗点击触发focus & blur
+  event.preventDefault()
+}
+
 const handleClick = () => {
   if (isBoolean(props?.visible) || props?.disabled) return
   popupVisible.value = !popupVisible.value
 }
 
 const handleFocus = (event: FocusEvent) => {
-  if (props?.disabled) return
   emit('focus', event)
 }
 
 const handleBlur = async (event: FocusEvent) => {
-  if (isBoolean(props?.visible) || props?.disabled) return
+  if (isBoolean(props?.visible)) return
   popupVisible.value = false
   emit('blur', event)
 }

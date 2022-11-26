@@ -3,7 +3,7 @@
     <div class="test test1"></div>
     <br /><br />
     <Select
-      :multiple="true"
+      :multiple="false"
       :options="optionsRef"
       v-model="selected"
       :filterable="false"
