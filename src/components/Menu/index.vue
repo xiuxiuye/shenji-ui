@@ -116,6 +116,7 @@ const updateExpandedSubMenus = (symbol: string | string[]) => {
  */
 const provider = computed<Provider>(() => {
   return {
+    theme: props?.theme,
     mode: props?.mode,
     popupMenu: props?.mode !== MenuModes.inline,
     accordion: accordion.value,

@@ -1,4 +1,4 @@
-import type { ComputedRef, Classes, Ref } from "src/types/global";
+import type { ComputedRef, Classes, Ref } from 'src/types/global'
 
 export interface Props {
   symbol: string;

@@ -25,7 +25,7 @@ import type {
   Placement
 } from '@floating-ui/dom'
 
-const componentName = 'sj-popup'
+export const componentName = 'sj-popup'
 export default {
   name: componentName
 }

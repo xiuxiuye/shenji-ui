@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import type { UseClasses, UseHeaderClasses, UseExpandIconClasses } from '../types'
+import type { UseClasses, UseHeaderClasses, UseExpandIconClasses, UsePopupBodyClasses } from '../types'
 import type { Classes } from 'src/types/global'
 
 export const useClasses: UseClasses = (classNamePrefix, props, active, disabled) => {
@@ -35,6 +35,19 @@ export const useExpandIconClasses: UseExpandIconClasses = (classNamePrefix, expa
       `${classNamePrefix}-expand-icon`,
       {
         [`${classNamePrefix}-expanded-icon`]: expanded.value && !ignoreExpandAnimation.value
+      }
+    ]
+  })
+
+  return classes
+}
+
+export const usePopupBodyClasses: UsePopupBodyClasses = (classNamePrefix, menuInjecter) => {
+  const classes = computed<Classes>(() => {
+    return [
+      `${classNamePrefix}-popup-body`,
+      {
+        [`${classNamePrefix}-popup-body-${menuInjecter?.value?.theme}`]: !!menuInjecter?.value?.theme
       }
     ]
   })

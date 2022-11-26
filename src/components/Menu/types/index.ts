@@ -6,15 +6,18 @@ export enum MenuModes {
 
 export type MenuMode = keyof typeof MenuModes
 
+type Theme = 'light' | 'dark';
+
 export interface Props {
   mode?: MenuMode;
   activeItem?: string;
   expandedSubMenus?: string[];
-  theme?: 'light' | 'dark';
+  theme?: Theme;
   accordion?: boolean
 }
 
 export interface Provider {
+  theme: Theme | undefined;
   mode: MenuMode;
   popupMenu: boolean;
   accordion: boolean;

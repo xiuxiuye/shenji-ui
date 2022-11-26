@@ -23,6 +23,7 @@ import isValidParent from 'src/utils/isValidParent'
 import consoleError from 'src/utils/console/error'
 import useClasses from './hooks/useClasses'
 import useInject from 'src/utils/hooks/useInject'
+import { componentName as popupComponentName } from '../Popup/index.vue'
 import { componentName as menuComponentName } from '../Menu/index.vue'
 import { componentName as subMenuComponentName } from '../SubMenu/index.vue'
 import { componentName as menuGroupComponentName } from '../MenuGroup/index.vue'
@@ -136,14 +137,23 @@ const classes = useClasses(classNamePrefix, active, disabled, horizontal, curren
 /**
  * styles
  */
+let popupMenuPaddingLeftSpan = 0
 const paddingLeftSpan = computed<number>(() => {
   const subMenuPaddingLeftSpan = subMenuInjecter?.value?.paddingLeftSpan || 0
   const menuGroupPaddingLeftSpan =
     menuGroupInjecter?.value?.paddingLeftSpan || 0
+
   if (popupMenu.value) {
-    return isValidParent(menuGroupComponentName)
-      ? menuGroupPaddingLeftSpan + 1
-      : 1
+    if (currentMenuLevel.value === 1) {
+      popupMenuPaddingLeftSpan = 1
+    } else if (!popupMenuPaddingLeftSpan) {
+      if (isValidParent(popupComponentName)) {
+        popupMenuPaddingLeftSpan = 1
+      } else {
+        popupMenuPaddingLeftSpan = menuGroupPaddingLeftSpan + 1
+      }
+    }
+    return popupMenuPaddingLeftSpan
   }
   return Math.max(subMenuPaddingLeftSpan, menuGroupPaddingLeftSpan) + 1
 })

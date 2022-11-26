@@ -23,7 +23,7 @@
       :placement="popupPlacement"
       flipable
     >
-      <div :class="`${classNamePrefix}-popup-body`" :style="horizontalLevel1PopupStyles">
+      <div :class="popupBodyClasses" :style="horizontalLevel1PopupStyles">
         <slot></slot>
       </div>
     </Popup>
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, getCurrentInstance } from 'vue'
 import isString from 'src/utils/isString'
 import isValidParent from 'src/utils/isValidParent'
 import consoleError from 'src/utils/console/error'
@@ -47,8 +47,10 @@ import CollapseTransition from '../CollapseTransition'
 import {
   useClasses,
   useHeaderClasses,
-  useExpandIconClasses
+  useExpandIconClasses,
+  usePopupBodyClasses
 } from './hooks/useClasses'
+import { componentName as popupComponentName } from '../Popup/index.vue'
 import { componentName as menuComponentName } from '../Menu/index.vue'
 import { componentName as menuGroupComponentName } from '../MenuGroup/index.vue'
 import {
@@ -234,18 +236,28 @@ const expandIconClasses = useExpandIconClasses(
   expanded,
   ignoreExpandAnimation
 )
+const popupBodyClasses = usePopupBodyClasses(classNamePrefix, menuInjecter)
 
 /**
  * styles
  */
+let popupMenuPaddingLeftSpan = 0
 const paddingLeftSpan = computed<number>(() => {
   const subMenuPaddingLeftSpan = subMenuInjecter?.value?.paddingLeftSpan || 0
   const menuGroupPaddingLeftSpan =
     menuGroupInjecter?.value?.paddingLeftSpan || 0
+
   if (popupMenu.value) {
-    return isValidParent(menuGroupComponentName)
-      ? menuGroupPaddingLeftSpan + 1
-      : 1
+    if (currentMenuLevel.value === 1) {
+      popupMenuPaddingLeftSpan = 1
+    } else if (!popupMenuPaddingLeftSpan) {
+      if (isValidParent(popupComponentName)) {
+        popupMenuPaddingLeftSpan = 1
+      } else {
+        popupMenuPaddingLeftSpan = menuGroupPaddingLeftSpan + 1
+      }
+    }
+    return popupMenuPaddingLeftSpan
   }
   return Math.max(subMenuPaddingLeftSpan, menuGroupPaddingLeftSpan) + 1
 })

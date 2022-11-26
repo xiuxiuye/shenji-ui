@@ -1,209 +1,216 @@
-.sj-menu {
-  &-item {
-    cursor: pointer;
-    padding-right: 16px;
-    box-sizing: border-box;
-    height: var(--sj-height-large);
-    line-height: var(--sj-height-large);
-    display: flex;
+.sj-menu-item {
+  cursor: pointer;
+  padding-right: 16px;
+  box-sizing: border-box;
+  height: var(--sj-height-large);
+  line-height: var(--sj-height-large);
+  display: flex;
 
-    &-icon {
-      flex-grow: 0;
-      flex-shrink: 0;
-      margin-right: 8px;
-    }
+  &-icon {
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-right: 8px;
+  }
 
-    &-content {
-      flex-grow: 1;
-      flex-shrink: 1;
-    }
+  &-content {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
 
+  .sj-menu-item-icon > .sj-icon,
+  .sj-menu-item-content {
+    color: inherit;
+  }
+
+  &:hover {
     .sj-menu-item-icon > .sj-icon,
     .sj-menu-item-content {
-      color: inherit;
+      color: var(--sj-primary-color);
+    }
+  }
+
+  /* disabled */
+  &-disabled {
+    cursor: not-allowed;
+    .sj-menu-item-icon > .sj-icon,
+    .sj-menu-item-content {
+      color: var(--sj-disable-color);
     }
 
     &:hover {
       .sj-menu-item-icon > .sj-icon,
       .sj-menu-item-content {
-        color: var(--sj-primary-color);
+        color: var(--sj-disable-color);
+      }
+    }
+  }
+
+  /* avtive */
+  &-active {
+    position: relative;
+    background-color: var(--sj-primary-focus-background-color);
+
+    .sj-menu-item-icon > .sj-icon,
+    .sj-menu-item-content {
+      color: var(--sj-primary-color);
+    }
+
+    &::after {
+      content: "";
+      width: 2px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: var(--sj-primary-color);
+      animation: sj-vertical-extension 0.2s ease-in-out;
+    }
+  }
+
+  &-horizontal-active {
+    background-color: transparent;
+
+    &::after {
+      width: 100%;
+      height: 2px;
+      top: auto;
+      bottom: -1px;
+      animation: sj-horizontal-extension 0.2s ease-in-out;
+    }
+  }
+
+  /* avtive & disabled */
+  &-active-disabled {
+    background-color: var(--sj-background-color);
+
+    .sj-menu-item-icon > .sj-icon,
+    .sj-menu-item-content {
+      color: var(--sj-disable-color);
+    }
+
+    &::after {
+      background-color: var(--sj-disable-color);
+    }
+  }
+
+  &-horizontal-active-disabled {
+    background-color: transparent;
+  }
+}
+
+.sj-menu-light,
+.sj-sub-menu-popup-body-light {
+  .sj-menu-item {
+    &:hover {
+      .sj-menu-item-icon > .sj-icon,
+      .sj-menu-item-content {
+        color: var(--sj-light-primary-color);
       }
     }
 
     /* disabled */
     &-disabled {
-      cursor: not-allowed;
       .sj-menu-item-icon > .sj-icon,
       .sj-menu-item-content {
-        color: var(--sj-disable-color);
+        color: var(--sj-light-disable-color);
       }
 
       &:hover {
         .sj-menu-item-icon > .sj-icon,
         .sj-menu-item-content {
-          color: var(--sj-disable-color);
+          color: var(--sj-light-disable-color);
         }
       }
     }
 
     /* avtive */
     &-active {
-      position: relative;
-      background-color: var(--sj-primary-focus-background-color);
+      background-color: var(--sj-light-primary-focus-background-color);
 
       .sj-menu-item-icon > .sj-icon,
       .sj-menu-item-content {
-        color: var(--sj-primary-color);
+        color: var(--sj-light-primary-color);
       }
 
       &::after {
-        content: "";
-        width: 2px;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-color: var(--sj-primary-color);
-        animation: sj-vertical-extension 0.2s ease-in-out;
+        background-color: var(--sj-light-primary-color);
       }
     }
 
     &-horizontal-active {
       background-color: transparent;
-
-      &::after {
-        width: 100%;
-        height: 2px;
-        top: auto;
-        bottom: -1px;
-        animation: sj-horizontal-extension 0.2s ease-in-out;
-      }
     }
 
     /* avtive & disabled */
     &-active-disabled {
-      background-color: var(--sj-background-color);
+      background-color: var(--sj-light-background-color);
 
       .sj-menu-item-icon > .sj-icon,
       .sj-menu-item-content {
-        color: var(--sj-disable-color);
+        color: var(--sj-light-disable-color);
       }
 
       &::after {
-        background-color: var(--sj-disable-color);
+        background-color: var(--sj-light-disable-color);
+      }
+    }
+  }
+}
+
+.sj-menu-dark,
+.sj-sub-menu-popup-body-dark {
+  .sj-menu-item {
+    &:hover {
+      .sj-menu-item-icon > .sj-icon,
+      .sj-menu-item-content {
+        color: var(--sj-dark-primary-color);
       }
     }
 
-    &-horizontal-active-disabled {
+    /* disabled */
+    &-disabled {
+      .sj-menu-item-icon > .sj-icon,
+      .sj-menu-item-content {
+        color: var(--sj-dark-disable-color);
+      }
+
+      &:hover {
+        .sj-menu-item-icon > .sj-icon,
+        .sj-menu-item-content {
+          color: var(--sj-dark-disable-color);
+        }
+      }
+    }
+
+    /* avtive */
+    &-active {
+      background-color: var(--sj-dark-primary-focus-background-color);
+
+      .sj-menu-item-icon > .sj-icon,
+      .sj-menu-item-content {
+        color: var(--sj-dark-primary-color);
+      }
+
+      &::after {
+        background-color: var(--sj-dark-primary-color);
+      }
+    }
+
+    &-horizontal-active {
       background-color: transparent;
     }
-  }
 
-  /* theme */
-  &-light {
-    .sj-menu-item {
-      &:hover {
-        .sj-menu-item-icon > .sj-icon,
-        .sj-menu-item-content {
-          color: var(--sj-light-primary-color);
-        }
+    /* avtive & disabled */
+    &-active-disabled {
+      background-color: var(--sj-dark-background-color);
+
+      .sj-menu-item-icon > .sj-icon,
+      .sj-menu-item-content {
+        color: var(--sj-dark-disable-color);
       }
 
-      /* disabled */
-      &-disabled {
-        .sj-menu-item-icon > .sj-icon,
-        .sj-menu-item-content {
-          color: var(--sj-light-disable-color);
-        }
-
-        &:hover {
-          .sj-menu-item-icon > .sj-icon,
-          .sj-menu-item-content {
-            color: var(--sj-light-disable-color);
-          }
-        }
-      }
-
-      /* avtive */
-      &-active {
-        background-color: var(--sj-light-primary-focus-background-color);
-
-        .sj-menu-item-icon > .sj-icon,
-        .sj-menu-item-content {
-          color: var(--sj-light-primary-color);
-        }
-
-        &::after {
-          background-color: var(--sj-light-primary-color);
-        }
-      }
-
-      /* avtive & disabled */
-      &-active-disabled {
-        background-color: var(--sj-light-background-color);
-
-        .sj-menu-item-icon > .sj-icon,
-        .sj-menu-item-content {
-          color: var(--sj-light-disable-color);
-        }
-
-        &::after {
-          background-color: var(--sj-light-disable-color);
-        }
-      }
-    }
-  }
-
-  &-dark {
-    .sj-menu-item {
-      &:hover {
-        .sj-menu-item-icon > .sj-icon,
-        .sj-menu-item-content {
-          color: var(--sj-dark-primary-color);
-        }
-      }
-
-      /* disabled */
-      &-disabled {
-        .sj-menu-item-icon > .sj-icon,
-        .sj-menu-item-content {
-          color: var(--sj-dark-disable-color);
-        }
-
-        &:hover {
-          .sj-menu-item-icon > .sj-icon,
-          .sj-menu-item-content {
-            color: var(--sj-dark-disable-color);
-          }
-        }
-      }
-
-      /* avtive */
-      &-active {
-        background-color: var(--sj-dark-primary-focus-background-color);
-
-        .sj-menu-item-icon > .sj-icon,
-        .sj-menu-item-content {
-          color: var(--sj-dark-primary-color);
-        }
-
-        &::after {
-          background-color: var(--sj-dark-primary-color);
-        }
-      }
-
-      /* avtive & disabled */
-      &-active-disabled {
-        background-color: var(--sj-dark-background-color);
-
-        .sj-menu-item-icon > .sj-icon,
-        .sj-menu-item-content {
-          color: var(--sj-dark-disable-color);
-        }
-
-        &::after {
-          background-color: var(--sj-dark-disable-color);
-        }
+      &::after {
+        background-color: var(--sj-dark-disable-color);
       }
     }
   }

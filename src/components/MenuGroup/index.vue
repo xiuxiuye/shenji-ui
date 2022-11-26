@@ -21,6 +21,7 @@ import Icon from '../Icon'
 import { computed } from 'vue'
 import useProvide from 'src/utils/hooks/useProvide'
 import useInject from 'src/utils/hooks/useInject'
+import { componentName as popupComponentName } from '../Popup/index.vue'
 import isValidParent from 'src/utils/isValidParent'
 import { componentName as menuComponentName } from '../Menu/index.vue'
 import { componentName as subMenuComponentName } from '../SubMenu/index.vue'
@@ -41,7 +42,7 @@ interface Props {
   title?: string;
   icon?: string;
 }
-defineProps<Props>()
+const props = defineProps<Props>()
 
 /**
  * injecter
@@ -77,12 +78,23 @@ const currentMenuLevel = computed<number>(() => {
 /**
  * styles
  */
+let popupMenuPaddingLeftSpan = 0
 const paddingLeftSpan = computed<number>(() => {
-  const subMenuPaddingLeftSpan = subMenuInjecter?.value?.paddingLeftSpan || 1
+  const subMenuPaddingLeftSpan = subMenuInjecter?.value?.paddingLeftSpan || 0
   const menuGroupPaddingLeftSpan =
-    menuGroupInjecter?.value?.paddingLeftSpan || 1
+    menuGroupInjecter?.value?.paddingLeftSpan || 0
+
   if (popupMenu.value) {
-    return isValidParent(componentName) ? menuGroupPaddingLeftSpan + 1 : 1
+    if (currentMenuLevel.value === 1) {
+      popupMenuPaddingLeftSpan = 1
+    } else if (!popupMenuPaddingLeftSpan) {
+      if (isValidParent(popupComponentName)) {
+        popupMenuPaddingLeftSpan = 1
+      } else {
+        popupMenuPaddingLeftSpan = menuGroupPaddingLeftSpan + 1
+      }
+    }
+    return popupMenuPaddingLeftSpan
   }
   return Math.max(subMenuPaddingLeftSpan, menuGroupPaddingLeftSpan) + 1
 })

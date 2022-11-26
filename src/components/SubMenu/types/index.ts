@@ -1,4 +1,5 @@
-import type { ComputedRef, Classes } from "src/types/global";
+import type { ComputedRef, Classes } from 'src/types/global'
+import type { Provider as MenuProvider } from '../../Menu/types'
 export interface Props {
   symbol: string;
   title?: string;
@@ -32,4 +33,9 @@ export type UseExpandIconClasses = (
   classNamePrefix: string,
   expanded: ComputedRef<boolean>,
   ignoreExpandAnimation: ComputedRef<boolean>
+) => ComputedRef<Classes>;
+
+export type UsePopupBodyClasses = (
+  classNamePrefix: string,
+  menuInjecter: ComputedRef<MenuProvider> | undefined
 ) => ComputedRef<Classes>;
