@@ -15,3 +15,5 @@ export type CommonSize = 'small' | 'normal' | 'large';
 export type CommonFormStatus = 'success' | 'error' | 'warning';
 
 export type CommonFormBorderType = 'none' | 'line' | 'block';
+
+export type Timeout = ReturnType<typeof setTimeout>;

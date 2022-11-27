@@ -14,6 +14,8 @@ export interface Provider {
   disabled: boolean;
   updateActiveSubMenus: (symbols: string[]) => void;
   updateExpandedSubMenus: (symbols: string[], self?: boolean) => void;
+  handlePopupMouseEnter: () => void;
+  handlePopupMouseLeave: () => void;
 }
 
 export type UseClasses = (

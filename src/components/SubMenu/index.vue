@@ -1,6 +1,12 @@
 <template>
   <div v-if="isValid" :class="classes" :key="symbol" ref="sjSubMenuRef">
-    <div :class="headerClasses" :style="styles" @click="handleClick">
+    <div
+      :class="headerClasses"
+      :style="styles"
+      @click="handleClick"
+      @mouseenter="handleHeaderMouseEnter"
+      @mouseleave="handleHeaderMouseLeave"
+    >
       <span v-if="icon" :class="`${classNamePrefix}-icon`">
         <Icon :type="icon" />
       </span>
@@ -9,7 +15,7 @@
           {{ title }}
         </slot>
       </span>
-      <span :class="expandIconClasses">
+      <span :class="expandIconClasses" v-if="expandedIcon">
         <slot name="expanded-icon">
           <Icon :type="expandedIcon" />
         </slot>
@@ -23,7 +29,12 @@
       :placement="popupPlacement"
       flipable
     >
-      <div :class="popupBodyClasses" :style="horizontalLevel1PopupStyles">
+      <div
+        :class="popupBodyClasses"
+        :style="horizontalLevel1PopupStyles"
+        @mouseenter="handlePopupMouseEnter"
+        @mouseleave="handlePopupMouseLeave"
+      >
         <slot></slot>
       </div>
     </Popup>
@@ -36,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { computed, ref, getCurrentInstance } from 'vue'
+import { computed, ref } from 'vue'
 import isString from 'src/utils/isString'
 import isValidParent from 'src/utils/isValidParent'
 import consoleError from 'src/utils/console/error'
@@ -60,7 +71,7 @@ import {
 } from '../Menu/types'
 import type { Provider as MenuGroupProvider } from '../MenuGroup/types'
 import type { Provider } from './types'
-import type { StyleValue } from 'src/types/global'
+import type { StyleValue, Timeout } from 'src/types/global'
 
 export const componentName = 'sj-sub-menu'
 
@@ -129,7 +140,11 @@ const popupMenu = computed<boolean>(() => {
  */
 const horizontalLevel1PopupStyles = computed<StyleValue>(() => {
   const styles: StyleValue = {}
-  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value === 1 && sjSubMenuRef.value) {
+  if (
+    menuMode.value === MenuModes.horizontal &&
+    currentMenuLevel.value === 1 &&
+    sjSubMenuRef.value
+  ) {
     styles.minWidth = `${sjSubMenuRef.value?.offsetWidth}px`
   }
   return styles
@@ -146,12 +161,10 @@ const popupPlacement = computed<string>(() => {
 })
 
 const expandedIcon = computed<string>(() => {
+  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value === 1) return ''
   if (props?.expandedIcon) return props?.expandedIcon
-  if (menuMode.value === MenuModes.vertical) return 'right'
-  if (menuMode.value === MenuModes.horizontal && currentMenuLevel.value > 1) {
-    return 'right'
-  }
-  return 'down'
+  if (menuMode.value === MenuModes.inline) return 'down'
+  return 'right'
 })
 
 /**
@@ -207,8 +220,67 @@ const expanded = computed<boolean>(() => {
   return menuInjecter?.value?.expandedSubMenus?.includes(props?.symbol)
 })
 const handleClick = () => {
-  if (disabled.value) return
+  if (disabled.value || popupMenu.value) return
   updateExpandedSubMenus(expanded.value ? [] : [props?.symbol], true)
+}
+
+/**
+ * toggle popup menu expanded
+ */
+let enterHeaderTimeout: Timeout | null = null
+let leaveHeaderTimeout: Timeout | null = null
+const setEnterHeaderTimeout = () => {
+  if (!enterHeaderTimeout) {
+    enterHeaderTimeout = setTimeout(() => {
+      updateExpandedSubMenus([props?.symbol], true)
+      enterHeaderTimeout = null
+    }, 100)
+  }
+}
+const setLeaveHeaderTimeout = () => {
+  if (!leaveHeaderTimeout) {
+    leaveHeaderTimeout = setTimeout(() => {
+      updateExpandedSubMenus([], true)
+      leaveHeaderTimeout = null
+    }, 100)
+  }
+}
+const clearLeaveHeaderTimeout = () => {
+  if (leaveHeaderTimeout) clearTimeout(leaveHeaderTimeout)
+  leaveHeaderTimeout = null
+}
+/**
+ * enter & leave sub-menu header
+ */
+const handleHeaderMouseEnter = () => {
+  if (disabled.value) return
+  if (leaveHeaderTimeout) {
+    clearLeaveHeaderTimeout()
+  }
+  setEnterHeaderTimeout()
+}
+const handleHeaderMouseLeave = () => {
+  if (disabled.value) return
+  setLeaveHeaderTimeout()
+}
+/**
+ * enter & leave popup menu
+ */
+const handlePopupMouseEnter = () => {
+  if (disabled.value) return
+  if (subMenuInjecter) {
+    subMenuInjecter?.value?.handlePopupMouseEnter()
+  }
+  if (leaveHeaderTimeout) {
+    clearLeaveHeaderTimeout()
+  }
+}
+const handlePopupMouseLeave = () => {
+  if (disabled.value) return
+  setLeaveHeaderTimeout()
+  if (subMenuInjecter) {
+    subMenuInjecter?.value?.handlePopupMouseLeave()
+  }
 }
 
 /**
@@ -277,7 +349,9 @@ const provider = computed<Provider>(() => {
     menuLevel: currentMenuLevel.value,
     paddingLeftSpan: paddingLeftSpan.value,
     updateActiveSubMenus,
-    updateExpandedSubMenus
+    updateExpandedSubMenus,
+    handlePopupMouseEnter,
+    handlePopupMouseLeave
   }
 })
 useProvide<Provider>(componentName, provider)
