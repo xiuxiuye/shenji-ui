@@ -2,8 +2,9 @@
   <div class="main">
     <Menu
       activeItem="menu127"
-      mode="horizontal"
-      :accordion="false"
+      mode="inline"
+      theme="light"
+      :accordion="true"
       @expand="handleClick"
     >
       <SubMenu symbol="1" icon="user" title="最伟大的作品">
@@ -59,6 +60,6 @@ const handleClick = (v) => {
 
 <style lang="scss">
 .main {
-  // width: 240px;
+  width: 240px;
 }
 </style>

@@ -253,21 +253,21 @@ const clearLeaveHeaderTimeout = () => {
  * enter & leave sub-menu header
  */
 const handleHeaderMouseEnter = () => {
-  if (disabled.value) return
+  if (disabled.value || !popupMenu.value) return
   if (leaveHeaderTimeout) {
     clearLeaveHeaderTimeout()
   }
   setEnterHeaderTimeout()
 }
 const handleHeaderMouseLeave = () => {
-  if (disabled.value) return
+  if (disabled.value || !popupMenu.value) return
   setLeaveHeaderTimeout()
 }
 /**
  * enter & leave popup menu
  */
 const handlePopupMouseEnter = () => {
-  if (disabled.value) return
+  if (disabled.value || !popupMenu.value) return
   if (subMenuInjecter) {
     subMenuInjecter?.value?.handlePopupMouseEnter()
   }
@@ -276,7 +276,7 @@ const handlePopupMouseEnter = () => {
   }
 }
 const handlePopupMouseLeave = () => {
-  if (disabled.value) return
+  if (disabled.value || !popupMenu.value) return
   setLeaveHeaderTimeout()
   if (subMenuInjecter) {
     subMenuInjecter?.value?.handlePopupMouseLeave()
