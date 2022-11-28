@@ -44,7 +44,7 @@
         <MenuItem symbol="menu22" icon="user" disabled>七里香</MenuItem>
         <MenuItem symbol="menu32" icon="user">一路向北</MenuItem>
       </SubMenu>
-      <MenuItem symbol="22" icon="user">不能说的秘密</MenuItem>
+      <MenuItem symbol="22" icon="user" disabled>不能说的秘密</MenuItem>
       <!-- <MenuGroup title="中国古风12">
         <MenuItem symbol="23" icon="user">兰亭序</MenuItem>
       </MenuGroup> -->
