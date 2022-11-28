@@ -1,4 +1,4 @@
-type DefaultColor = 'red' | 'volcano' | 'gold' | 'yellow' | 'lime' | 'green' | 'cyan' | 'blue' | 'geekblue' | 'purple' | 'magenta' | 'grey';
+// type DefaultColor = 'red' | 'volcano' | 'gold' | 'yellow' | 'lime' | 'green' | 'cyan' | 'blue' | 'geekblue' | 'purple' | 'magenta' | 'grey';
 
 export enum ThemeMode {
   light = 'light',

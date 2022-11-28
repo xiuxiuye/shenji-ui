@@ -47,6 +47,7 @@
 </template>
 
 <script lang="ts">
+import Icon from '../Icon'
 import { computed, ref } from 'vue'
 import isString from 'src/utils/isString'
 import isValidParent from 'src/utils/isValidParent'
@@ -297,7 +298,7 @@ const horizontal = computed<boolean>(() => {
   return menuMode.value === MenuModes.horizontal
 })
 const classNamePrefix = componentName
-const classes = useClasses(classNamePrefix, props, active, disabled)
+const classes = useClasses(classNamePrefix, active, disabled)
 const headerClasses = useHeaderClasses(
   classNamePrefix,
   horizontal,

@@ -42,7 +42,7 @@ interface Props {
   title?: string;
   icon?: string;
 }
-const props = defineProps<Props>()
+defineProps<Props>()
 
 /**
  * injecter

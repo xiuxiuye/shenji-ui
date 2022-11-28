@@ -20,7 +20,6 @@ export interface Provider {
 
 export type UseClasses = (
   classNamePrefix: string,
-  props: Props,
   active: ComputedRef<boolean>,
   disabled: ComputedRef<boolean>,
 ) => ComputedRef<Classes>;

@@ -10,7 +10,6 @@ import {
 } from './cssVars'
 import {
   ThemeMode,
-  type Mode,
   type SetTheme,
   type Color,
   type Options,

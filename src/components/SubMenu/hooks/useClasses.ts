@@ -2,7 +2,7 @@ import { computed } from 'vue'
 import type { UseClasses, UseHeaderClasses, UseExpandIconClasses, UsePopupBodyClasses } from '../types'
 import type { Classes } from 'src/types/global'
 
-export const useClasses: UseClasses = (classNamePrefix, props, active, disabled) => {
+export const useClasses: UseClasses = (classNamePrefix, active, disabled) => {
   const classes = computed<Classes>(() => {
     return [
       classNamePrefix,
