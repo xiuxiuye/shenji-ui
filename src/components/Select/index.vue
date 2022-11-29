@@ -77,7 +77,7 @@
       :placement="placement"
       flipable
     >
-      <div :class="`${classNamePrefix}-popup`" :style="popupStyles" @mousedown="handlePopupMouseDown">
+      <div :class="popupClasses" :style="popupStyles" @mousedown="handlePopupMouseDown">
         <div v-if="loading" :class="`${classNamePrefix}-loading`">
           <slot name="loading">{{ loadingText }}</slot>
         </div>
@@ -119,7 +119,8 @@ import {
   useClasses,
   useArrowClasses,
   useSelectedTagClasses,
-  useFilterClasses
+  useFilterClasses,
+  usePopupClasses
 } from './hooks/useClasses'
 import usePopupStyles from './hooks/usePopupStyles'
 import isArray from 'src/utils/isArray'
@@ -174,18 +175,18 @@ type Props = {
   options?: Options;
   placeholder?: string;
   placement?:
-    | 'top-start'
-    | 'top'
-    | 'top-end'
-    | 'right-start'
-    | 'right'
-    | 'right-end'
-    | 'bottom-start'
-    | 'bottom'
-    | 'bottom-end'
-    | 'left-start'
-    | 'left'
-    | 'left-end';
+  | 'top-start'
+  | 'top'
+  | 'top-end'
+  | 'right-start'
+  | 'right'
+  | 'right-end'
+  | 'bottom-start'
+  | 'bottom'
+  | 'bottom-end'
+  | 'left-start'
+  | 'left'
+  | 'left-end';
   status?: CommonFormStatus;
   container?: string | HTMLElement;
   virtual?: boolean;
@@ -255,15 +256,19 @@ watch(popupVisible, (newValue: boolean) => {
 const selectWidth = ref<number>(0)
 const resizeObserver = ref<ResizeObserver>()
 onMounted(() => {
-  const selectRef = sjSelectRef.value
-  if (selectRef) {
-    /**
-     * 监听select的宽度变化
-     */
-    resizeObserver.value = new ResizeObserver(function (entries) {
-      selectWidth.value = (selectRef as HTMLElement)?.offsetWidth
-    })
-    resizeObserver.value.observe(selectRef)
+  try {
+    const selectRef = sjSelectRef.value
+    if (selectRef) {
+      /**
+       * 监听select的宽度变化
+       */
+      resizeObserver.value = new ResizeObserver(function () {
+        selectWidth.value = (selectRef as HTMLElement)?.offsetWidth
+      })
+      resizeObserver.value.observe(selectRef)
+    }
+  } catch (error) {
+    console.error(error)
   }
 })
 onUnmounted(() => {
@@ -481,6 +486,7 @@ const classes = useClasses(classNamePrefix, props)
 const arrowClasses = useArrowClasses(classNamePrefix, popupVisible)
 const selectedTagClasses = useSelectedTagClasses(classNamePrefix, props)
 const filterClasses = useFilterClasses(classNamePrefix, props, filterText)
+const popupClasses = usePopupClasses(classNamePrefix, props)
 
 /**
  * event handler

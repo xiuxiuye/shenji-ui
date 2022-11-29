@@ -3,10 +3,11 @@
     <div class="test test1"></div>
     <br /><br />
     <Select
+      status="success"
       :multiple="false"
       :options="optionsRef"
       v-model="selected"
-      :filterable="false"
+      :filterable="true"
       clearable
       placeholder="请选择"
     >

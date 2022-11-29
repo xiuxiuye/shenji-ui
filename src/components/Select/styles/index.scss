@@ -283,6 +283,13 @@
     box-shadow: var(--sj-shadow-level-2);
     background-color: var(--sj-theme-background-color);
 
+    /* size */
+    @each $key, $value in $sj-select-size {
+      &-size-#{$key} {
+        font-size: map-get($value, "fontSize");
+      }
+    }
+
     .sj-select-empty,
     .sj-select-loading {
       box-sizing: inherit;

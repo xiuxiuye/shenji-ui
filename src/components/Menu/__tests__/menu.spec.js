@@ -23,7 +23,7 @@ describe('Menu组件单元测试', () => {
     describe('mode属性', () => {
       it('mode="inline"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             mode: 'inline'
           },
           slots: {
@@ -34,7 +34,7 @@ describe('Menu组件单元测试', () => {
       })
       it('mode="vertical"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             mode: 'vertical'
           },
           slots: {
@@ -45,7 +45,7 @@ describe('Menu组件单元测试', () => {
       })
       it('mode="horizontal"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             mode: 'horizontal',
             activeItem: 'menu2'
           },
@@ -67,7 +67,7 @@ describe('Menu组件单元测试', () => {
     describe('activeItem属性', () => {
       it('activeItem="menu2"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             activeItem: 'menu2'
           },
           slots: {
@@ -84,7 +84,7 @@ describe('Menu组件单元测试', () => {
 
       it('activeItem="menu1"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             activeItem: 'menu1',
             expandedSubMenus: ['submenu1']
           },
@@ -104,7 +104,7 @@ describe('Menu组件单元测试', () => {
     describe('expandedSubMenus属性', () => {
       it('expandedSubMenus="[\'submenu1\']"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             expandedSubMenus: ['submenu1']
           },
           slots: {
@@ -122,7 +122,7 @@ describe('Menu组件单元测试', () => {
     describe('theme属性', () => {
       it('theme="light"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             theme: 'light'
           },
           slots: {
@@ -137,7 +137,7 @@ describe('Menu组件单元测试', () => {
       })
       it('theme="dark"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             theme: 'dark'
           },
           slots: {

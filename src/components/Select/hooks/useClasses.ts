@@ -64,3 +64,17 @@ export const useFilterClasses: UseFilterClasses = (classNamePrefix, props, filte
 
   return classes
 }
+
+export const usePopupClasses: UseClasses<Props> = (classNamePrefix, props) => {
+  const classes = computed<Classes>(() => {
+    const isValidSize = COMMON_SIZE.includes(props?.size as CommonSize)
+    return [
+      `${classNamePrefix}-popup`,
+      {
+        [`${classNamePrefix}-popup-size-${props?.size}`]: isValidSize
+      }
+    ]
+  })
+
+  return classes
+}

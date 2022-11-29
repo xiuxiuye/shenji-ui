@@ -8,7 +8,7 @@ describe('Menu组件单元测试', () => {
     describe('title属性', () => {
       it('title="子菜单一"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             mode: 'inline'
           },
           slots: {
@@ -26,7 +26,7 @@ describe('Menu组件单元测试', () => {
     describe('icon属性', () => {
       it('icon="user"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             mode: 'inline'
           },
           slots: {
@@ -45,7 +45,7 @@ describe('Menu组件单元测试', () => {
   describe('Slots测试', () => {
     it('title', () => {
       const wrapper = mount(MenuGroup, {
-        props: {
+        propsData: {
           title: '分组一',
         },
         slots: {

@@ -42,7 +42,7 @@ describe('Menu组件单元测试', () => {
     describe('title属性', () => {
       it('title="子菜单一"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             mode: 'inline'
           },
           slots: {
@@ -60,7 +60,7 @@ describe('Menu组件单元测试', () => {
     describe('icon属性', () => {
       it('icon="user"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             mode: 'inline'
           },
           slots: {
@@ -78,7 +78,7 @@ describe('Menu组件单元测试', () => {
     describe('expandedIcon属性', () => {
       it('expandedIcon="user"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             mode: 'inline'
           },
           slots: {
@@ -96,7 +96,7 @@ describe('Menu组件单元测试', () => {
     describe('disabled属性', () => {
       it('disabled=true', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             mode: 'inline'
           },
           slots: {
@@ -115,7 +115,7 @@ describe('Menu组件单元测试', () => {
   describe('Slots测试', () => {
     it('title', () => {
       const wrapper = mount(SubMenu, {
-        props: {
+        propsData: {
           symbol: 'submenu1',
           title: '子菜单一',
         },
@@ -131,7 +131,7 @@ describe('Menu组件单元测试', () => {
   describe('Slots测试', () => {
     it('expandedIcon', () => {
       const wrapper = mount(SubMenu, {
-        props: {
+        propsData: {
           symbol: 'submenu1',
           title: '子菜单一',
         },

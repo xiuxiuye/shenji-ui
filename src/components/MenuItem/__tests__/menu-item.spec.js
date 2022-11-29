@@ -37,7 +37,7 @@ describe('Menu组件单元测试', () => {
     describe('icon属性', () => {
       it('icon="user"', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             mode: 'inline'
           },
           slots: {
@@ -53,7 +53,7 @@ describe('Menu组件单元测试', () => {
     describe('disabled属性', () => {
       it('disabled=true', () => {
         const wrapper = mount(Menu, {
-          props: {
+          propsData: {
             mode: 'inline'
           },
           slots: {
@@ -62,7 +62,6 @@ describe('Menu组件单元测试', () => {
             ]
           }
         })
-        console.log(111, wrapper.html())
         expect(wrapper.find('.sj-menu-item-disabled').exists()).toBe(true)
       })
     })
