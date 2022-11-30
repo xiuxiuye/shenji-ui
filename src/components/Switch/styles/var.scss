@@ -22,6 +22,6 @@ $sj-switch-size: (
 $sj-switch-dot-gap: 2px;
 $sj-switch-dot-left: $sj-switch-dot-gap;
 $sj-switch-track-width: 0;
-$sj-switch-disabled-background-color: rgba(255, 255, 255, 0.6);
+$sj-switch-disabled-background-color: var(--sj-disable-background-color);
 $sj-switch-transition-duration: 0.3s;
 $sj-switch-transition-timing-function: ease;

@@ -21,7 +21,6 @@
     height: 100%;
     overflow: hidden;
     border-radius: inherit;
-    color: var(--sj-theme-background-color);
     background-color: var(--sj-disable-color);
     transition-property: all;
     transition-duration: $sj-switch-transition-duration;
@@ -32,7 +31,6 @@
       top: 50%;
       left: $sj-switch-dot-left;
       transform: translateY(-50%);
-      background-color: var(--sj-theme-background-color);
       box-shadow: var(--sj-shadow-level-2);
       transition-property: left;
       transition-duration: $sj-switch-transition-duration;
@@ -40,6 +38,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      background-color: var(--sj-light-theme-background-color);
 
       .sj-switch-checked-text,
       .sj-switch-unchecked-text {
@@ -48,6 +47,24 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
+      }
+
+      .sj-switch-checked-text {
+        color: var(--sj-light-theme-background-color);
+      }
+
+      .sj-switch-unchecked-text {
+        color: var(--sj-primary-text-color);
+      }
+
+      .sj-switch-icon {
+        color: var(--sj-light-primary-text-color);
+      }
+
+      &-checked {
+        .sj-switch-icon {
+          color: var(--sj-primary-color);
+        }
       }
 
       &::after {
@@ -111,6 +128,7 @@
           height: map-get($value, "dot-height");
           border-radius: map-get($value, "dot-height");
 
+
           .sj-switch-checked-text,
           .sj-switch-unchecked-text {
             height: map-get($value, "height");
@@ -137,9 +155,6 @@
         }
         .sj-switch-dot-checked {
           left: calc(100% - map-get($value, "dot-height") - $sj-switch-dot-gap);
-          .sj-switch-icon {
-            color: var(--sj-primary-color);
-          }
         }
       }
     }
@@ -175,9 +190,10 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: $sj-switch-disabled-background-color;
       user-select: none;
       pointer-events: none;
+      border-radius: inherit;
+      background-color: $sj-switch-disabled-background-color;
     }
   }
 }

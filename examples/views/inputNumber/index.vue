@@ -10,7 +10,6 @@
       min="-4"
       step="0.222"
       v-model="value"
-      status="warning"
       border-type="block"
       prefix="user"
       suffix="lock"
@@ -18,6 +17,8 @@
       :keyboard="false"
     >
   </InputNumber>
+  <br />
+  <Select />
   </div>
   <div class="demo">
     <InputGroup>

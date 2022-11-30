@@ -457,7 +457,7 @@ watch(
  * placeholder
  */
 const placeholderVisible = computed<boolean>(() => {
-  return !!props?.placeholder && !selectedOptions.value?.length
+  return !!props?.placeholder && !selectedOptions.value?.length && !filterText.value
 })
 
 /**

@@ -4,16 +4,17 @@
   cursor: pointer;
   box-sizing: border-box;
   flex-grow: 1;
-  color: var(--sj-primary-text-color);
 
   &-selector {
     box-sizing: inherit;
     width: 100%;
-    color: inherit;
     font-size: inherit;
     border-width: 0;
     border-style: solid;
+    border-color: var(--sj-border-color);
     border-radius: var(--sj-border-radius);
+    color: var(--sj-primary-text-color);
+    background-color: var(--sj-theme-background-color);
     display: flex;
     align-items: center;
 
@@ -52,18 +53,24 @@
 
       /* placeholder */
       .sj-select-placeholder {
+        position: absolute;
+        padding-left: 2px;
         color: var(--sj-secondary-text-color);
+        pointer-events: none;
+        user-select: none;
       }
 
       /* filter */
       .sj-select-filter {
         flex-grow: 1;
+        flex-shrink: 1;
         border-width: 0;
         border-radius: inherit;
         box-sizing: inherit;
         font-size: inherit;
         font-family: inherit;
         background-color: transparent;
+        color: inherit;
         caret-color: var(--sj-primary-color);
 
         /* ie */
@@ -85,14 +92,14 @@
           right: 0;
 
           &:focus {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: var(--sj-select-single-filter-background-color);
           }
         }
 
         &-solid {
-          background-color: rgba(255, 255, 255, 1);
+          background-color: var(--sj-theme-background-color);
           &:focus {
-            background-color: rgba(255, 255, 255, 1);
+            background-color: var(--sj-theme-background-color);
           }
         }
       }
@@ -110,6 +117,10 @@
 
       &-up {
         transform: rotate(180deg);
+      }
+
+      .sj-icon {
+        color: var(--sj-secondary-text-color);
       }
     }
 
@@ -274,32 +285,6 @@
     }
   }
 
-  /* popup */
-  &-popup {
-    padding: 4px;
-    box-sizing: border-box;
-    border-radius: var(--sj-border-radius);
-    overflow-y: auto;
-    box-shadow: var(--sj-shadow-level-2);
-    background-color: var(--sj-theme-background-color);
-
-    /* size */
-    @each $key, $value in $sj-select-size {
-      &-size-#{$key} {
-        font-size: map-get($value, "fontSize");
-      }
-    }
-
-    .sj-select-empty,
-    .sj-select-loading {
-      box-sizing: inherit;
-      padding: 4px 0;
-      text-align: center;
-      font-size: inherit;
-      color: var(--sj-secondary-text-color);
-    }
-  }
-
   /* disabled */
   &-disabled {
     position: relative;
@@ -344,5 +329,31 @@
       z-index: 1;
       background-color: var(--sj-background-color);
     }
+  }
+}
+
+/* popup */
+.sj-select-popup {
+  padding: 4px;
+  box-sizing: border-box;
+  border-radius: var(--sj-border-radius);
+  overflow-y: auto;
+  box-shadow: var(--sj-shadow-level-2);
+  background-color: var(--sj-theme-background-color);
+
+  /* size */
+  @each $key, $value in $sj-select-size {
+    &-size-#{$key} {
+      font-size: map-get($value, "fontSize");
+    }
+  }
+
+  .sj-select-empty,
+  .sj-select-loading {
+    box-sizing: inherit;
+    padding: 4px 0;
+    text-align: center;
+    font-size: inherit;
+    color: var(--sj-secondary-text-color);
   }
 }

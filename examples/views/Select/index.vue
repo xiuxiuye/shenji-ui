@@ -3,11 +3,10 @@
     <div class="test test1"></div>
     <br /><br />
     <Select
-      status="success"
-      :multiple="false"
+      :multiple="true"
       :options="optionsRef"
       v-model="selected"
-      :filterable="true"
+      :filterable="false"
       clearable
       placeholder="请选择"
     >
@@ -19,10 +18,10 @@
 import { ref, h } from 'vue'
 import Icon from 'src/components/Icon'
 import Button from 'src/components/Button'
-const selected = ref('guangzhou')
+const selected = ref([''])
 
 const options = [
-  { label: '北京', value: 'beijing', disabled: false, name: 'BeiJing' },
+  { label: '北京', value: 'beijing', disabled: true, name: 'BeiJing' },
   { label: '上海', value: 'shanghai', name: 'ShangHai' },
   { label: '深圳', value: 'shenzhen', name: 'ShenZhen' },
   { label: '广州', value: 'guangzhou', name: 'GuangZhou' },

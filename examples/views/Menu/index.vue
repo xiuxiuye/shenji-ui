@@ -3,11 +3,10 @@
     <Menu
       activeItem="menu127"
       mode="inline"
-      theme="light"
       :accordion="true"
       @expand="handleClick"
     >
-      <SubMenu symbol="1" icon="user" title="最伟大的作品" disabled>
+      <SubMenu symbol="1" icon="user" title="最伟大的作品" :disabled="false">
         <MenuItem symbol="2" icon="user">倒影</MenuItem>
         <MenuItem symbol="3" icon="user" disabled>粉色海洋</MenuItem>
         <MenuItem symbol="4" icon="user">错过的烟火</MenuItem>
