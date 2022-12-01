@@ -3,7 +3,7 @@
   <div class="wrapper">
     <Input prefix="user" suffix="gift" size="small" round />
     <br />
-    <Input prefix="user" suffix="gift" size="normal" round />
+    <Input prefix="user" suffix="gift" size="normal" password round />
     <br />
     <Input prefix="user" suffix="gift" size="large" round />
   </div>
@@ -58,6 +58,30 @@
       @input="handleInput"
       placeholder="请输入自定义提示"
     />
+  </div>
+  <div class="wrapper">
+    <InputGroup>
+      <Input prefix="user" suffix="lock" search search-button>
+        <template #search-button>
+          <Button>
+            <Icon type="loading-a" />
+          </Button>
+        </template>
+      </Input>
+      <InputNumber prefix="user" suffix="lock" />
+      <Input
+        prefix="user"
+        suffix="lock"
+        search
+        search-button
+        search-button-text="Search"
+      />
+      <Input prefix="user" suffix="lock" search search-button>
+        <template #search-button>
+          <Button type="error">Error</Button>
+        </template>
+      </Input>
+    </InputGroup>
   </div>
 </template>
 
