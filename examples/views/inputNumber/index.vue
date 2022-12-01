@@ -15,10 +15,9 @@
       suffix="lock"
       :controls="true"
       :keyboard="false"
+      placeholder="请输入"
     >
   </InputNumber>
-  <br />
-  <Select />
   </div>
   <div class="demo">
     <InputGroup>

@@ -12,6 +12,7 @@
         type="text"
         v-model="realValue"
         :autofocus="autofocus"
+        :placeholder="placeholder"
         @focus="handleFocus"
         @blur="handleBlur"
       />
@@ -91,6 +92,7 @@ interface Props {
   formatter?: Formatter;
   parser?: Parse;
   keyboard?: boolean;
+  placeholder?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
   size: 'normal',

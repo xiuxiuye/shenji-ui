@@ -24,6 +24,7 @@ export interface Props {
   formatter?: Formatter;
   parser?: Parse;
   keyboard?: boolean;
+  placeholder?: string;
 }
 
 export interface InputNumberRefExpose {

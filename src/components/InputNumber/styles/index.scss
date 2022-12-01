@@ -5,7 +5,6 @@
   display: flex;
   align-items: center;
   border-radius: var(--sj-border-radius);
-  color: var(--sj-primary-text-color);
 
   /* size */
   @each $key,
@@ -32,6 +31,7 @@
     padding-left: 12px;
     border-color: var(--sj-border-color);
     border-radius: inherit;
+    color: var(--sj-primary-text-color);
     background-color: var(--sj-theme-background-color);
 
     input {
@@ -41,6 +41,7 @@
       box-sizing: inherit;
       font-size: inherit;
       font-family: inherit;
+      color: inherit;
       background-color: transparent;
 
       &:focus {
@@ -86,6 +87,25 @@
       padding-right: 12px;
     }
 
+    /* prefix */
+    &-prefix {
+      margin-right: 4px;
+    }
+
+    /* suffix */
+    &-suffix {
+      margin-left: 4px;
+    }
+
+    &-prefix,
+    &-suffix {
+      color: var(--sj-secondary-text-color);
+
+      .sj-icon {
+        color: inherit;
+      }
+    }
+
     /* clearable */
     &-clear {
       display: none;
@@ -117,8 +137,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        color: var(--sj-secondary-text-color);
 
         .sj-icon {
+          color: inherit;
           transform: scale(0.75);
           transition: all 0.3s ease-in-out;
         }
@@ -170,16 +192,6 @@
       &:focus-within {
         outline-width: 0;
       }
-    }
-
-    /* prefix */
-    &-prefix {
-      margin-right: 4px;
-    }
-
-    /* suffix */
-    &-suffix {
-      margin-left: 4px;
     }
 
     /* status */
