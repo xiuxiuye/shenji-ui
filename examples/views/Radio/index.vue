@@ -20,7 +20,7 @@ export default {
 
 <script setup lang="ts">
 const radioValue = ref('two')
-const radioValue1 = ref(true)
+const radioValue1 = ref(false)
 
 const handleChange = (v, e) => {
   console.log(v, e)

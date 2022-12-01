@@ -1,9 +1,10 @@
-@import './var.scss';
+@import "./var.scss";
 
 .sj-radio {
   display: inline-flex;
   align-items: center;
   position: relative;
+  color: var(--sj-primary-text-color);
 
   &-input {
     margin: 0;
@@ -29,6 +30,7 @@
   }
   &-label {
     margin-right: 4px;
+    color: inherit;
   }
 
   &-box {
@@ -52,7 +54,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        content: '';
+        content: "";
         width: inherit;
         height: inherit;
         border: 1px solid var(--sj-primary-color);
@@ -62,7 +64,7 @@
       }
 
       &::after {
-        content: '';
+        content: "";
         width: 50%;
         height: 50%;
         border-radius: inherit;
@@ -76,8 +78,7 @@
   }
 
   /* size */
-  @each $key,
-  $value in $sj-box-size {
+  @each $key, $value in $sj-box-size {
     &-size-#{$key} {
       .sj-radio-box {
         width: map-get($value, "height");
@@ -107,7 +108,7 @@
           border-color: var(--sj-border-color);
         }
       }
-  
+
       &:focus {
         & + .sj-radio-box {
           border-color: var(--sj-border-color);
@@ -116,16 +117,20 @@
       }
     }
 
-    .sj-radio-box-checked {
+    .sj-radio-box {
       background-color: var(--sj-background-color);
-      outline-color: var(--sj-background-color);
 
-      &::before {
-        display: none;
-      }
+      &-checked {
+        background-color: inherit;
+        outline-color: var(--sj-background-color);
 
-      &::after {
-        background-color: var(--sj-disable-color);
+        &::before {
+          display: none;
+        }
+
+        &::after {
+          background-color: var(--sj-disable-color);
+        }
       }
     }
   }

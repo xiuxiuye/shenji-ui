@@ -5,6 +5,6 @@
 <style>
 body {
   margin: 0;
-  background-color: #121212;
+  background-color: #fff;
 }
 </style>
