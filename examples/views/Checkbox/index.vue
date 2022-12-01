@@ -6,8 +6,8 @@
   </div>
   <div style="padding: 16px;">
     <CheckboxGroup size="large" :disabled="disabled" vertical v-model="value" @change="handleChange">
-      <Checkbox size="small" value="beijing">北京</Checkbox>
-      <Checkbox size="normal" value="shanghai">上海</Checkbox>
+      <Checkbox size="small" value="beijing" disabled>北京</Checkbox>
+      <Checkbox size="normal" value="shanghai" disabled>上海</Checkbox>
       <Checkbox size="large" value="shenzhen">深圳</Checkbox>
     </CheckboxGroup>
   </div>

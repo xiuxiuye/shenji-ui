@@ -4,6 +4,7 @@
   display: inline-flex;
   align-items: center;
   position: relative;
+  color: var(--sj-primary-text-color);
 
   &-input {
     margin: 0;
@@ -161,19 +162,23 @@
       }
     }
 
-    .sj-checkbox-box-checked {
+    .sj-checkbox-box {
       background-color: var(--sj-background-color);
 
-      &::before {
-        display: none;
-      }
-
-      &-partial:after {
-        background-color: var(--sj-disable-color);
-      }
-
-      &-all:after {
-        border-color: var(--sj-disable-color);
+      &-checked {
+        background-color: inherit;
+  
+        &::before {
+          display: none;
+        }
+  
+        &-partial:after {
+          background-color: var(--sj-disable-color);
+        }
+  
+        &-all:after {
+          border-color: var(--sj-disable-color);
+        }
       }
     }
   }
