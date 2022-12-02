@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isMaskExist" :class="containerClasses">{{ tips }}
+  <div v-if="isMaskExist" :class="containerClasses">
     <Loading v-if="visible" :class="classes" :size="size">
       <slot name="loading"></slot>
       <template #loadingTips>

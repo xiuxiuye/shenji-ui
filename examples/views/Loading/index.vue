@@ -1,16 +1,14 @@
 <template>
-  <div class="test1" style="padding: 16px;">
-  <Loading size="64" tips="Loading1..." />
-    <Loading size="large" tips="Loading1..." />
+  <div class="test1" style="padding: 16px">
+    <Loading size="64" tips="Loading10..." />
+    <Loading size="large" tips="Loading11..." />
     <Loading size="normal">
-      <template #tips>
-        Loading2...
-      </template>
+      <template #tips> Loading2... </template>
     </Loading>
     <Loading size="small" tips="Loading3..." />
   </div>
-  <br>
-  <Loading tips="Loading4..." :visible="true" fit>
+  <br />
+  <Loading tips="Loading41..." :visible="true" fit>
     <div class="test2">
       <div class="tt">hello loading <button @click="click">click</button></div>
     </div>

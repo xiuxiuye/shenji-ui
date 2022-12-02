@@ -53,8 +53,8 @@
   $value in $sj-loading-size {
     &-size-#{$key} {
       .sj-loading-bloom {
-        width: map-get($value, "size");
-        height: map-get($value, "size");
+        width: map-get($value, "height");
+        height: map-get($value, "height");
       }
 
       .sj-loading-tips {
@@ -66,6 +66,7 @@
   /* tips */
   &-tips {
     margin-top: 12px;
+    color: var(--sj-primary-text-color);
   }
 }
 
