@@ -38,7 +38,7 @@ export const LIGHT_NEUTRAL_CSS_COLOR_VARS: Record<string, string> = {
   /* 物体位于中层级，此时物体与基准面的关系是展开并跟随，物体由地面上的元素展开产生，会跟随元素所在层级的移动而移动，如：下拉面板等； */
   '--sj-light-shadow-level-2': '0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px 0px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05)',
   /* 物体位于高层级，该物体的运动和其他层级没有关联，如：对话框等。 */
-  '--sj-light-shadow-level-3': '0px 6px 16px -8px rgba(0, 0, 0, 0.08), 0px 9px 28px 0px rgba(0, 0, 0, 0.06), 0px 12px 48px 16px rgba(0, 0, 0, 0.03)',
+  '--sj-light-shadow-level-3': '0px 6px 16px -8px rgba(0, 0, 0, 0.08), 0px 9px 28px 0px rgba(0, 0, 0, 0.05), 0px 12px 48px 16px rgba(0, 0, 0, 0.03)',
   /* 特定业务主题变量 */
   '--sj-light-select-single-filter-background-color': 'rgba(255, 255, 255, 0.8)'
 }
@@ -62,7 +62,7 @@ export const DARK_NEUTRAL_CSS_COLOR_VARS: Record<string, string> = {
   /* 物体位于中层级，此时物体与基准面的关系是展开并跟随，物体由地面上的元素展开产生，会跟随元素所在层级的移动而移动，如：下拉面板等； */
   '--sj-dark-shadow-level-2': '0px 3px 6px -4px rgba(255, 255, 255, 0.12), 0px 6px 16px 0px rgba(255, 255, 255, 0.08), 0px 9px 28px 8px rgba(255, 255, 255, 0.05)',
   /* 物体位于高层级，该物体的运动和其他层级没有关联，如：对话框等。 */
-  '--sj-dark-shadow-level-3': '0px 6px 16px -8px rgba(255, 255, 255, 0.08), 0px 9px 28px 0px rgba(255, 255, 255, 0.06), 0px 12px 48px 16px rgba(255, 255, 255, 0.03)',
+  '--sj-dark-shadow-level-3': '0px 6px 16px -8px rgba(255, 255, 255, 0.08), 0px 9px 28px 0px rgba(255, 255, 255, 0.05), 0px 12px 48px 16px rgba(255, 255, 255, 0.03)',
   /* 特定业务主题变量 */
   '--sj-dark-select-single-filter-background-color': 'rgba(0, 0, 0, 0.4)'
 }

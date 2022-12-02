@@ -21,7 +21,7 @@ export default {
     add () {
       const duration = 0
       const closable = true
-      const placement = 'right-top'
+      const placement = 'top'
       if (count % 5 === 1) {
         this.$message.info({
           content: '1234567890' + '-' + count,
