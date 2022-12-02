@@ -32,7 +32,7 @@
   @each $key,
   $value in $sj-tag-size {
     &-size-#{$key} {
-      height: map-get($value, "size");
+      height: map-get($value, "height");
       font-size: map-get($value, "fontSize");
 
       /* round */
