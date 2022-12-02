@@ -1,4 +1,4 @@
-@import './var.scss';
+@import "./var.scss";
 
 .sj-card {
   box-sizing: border-box;
@@ -21,7 +21,6 @@
 
   /* header */
   &-header {
-
     &-main {
       display: flex;
       align-items: center;
@@ -46,8 +45,7 @@
   }
 
   /* size */
-  @each $key,
-  $value in $sj-card-size {
+  @each $key, $value in $sj-card-size {
     &-size-#{$key} {
       .sj-card-header {
         padding: map-get($value, "padding");
@@ -104,17 +102,19 @@
 
   /* loading */
   &-content {
+    color: var(--sj-primary-text-color);
+
     &-loading {
       display: flex;
       flex-wrap: wrap;
-      
+
       &-item {
         height: 16px;
         margin: 6px 0;
         flex-grow: 1;
         flex-shrink: 0;
         border-radius: var(--sj-border-radius);
-        background-color: var(--sj-divider-color);
+        background-color: var(--sj-border-color);
       }
 
       &-item:nth-of-type(1) {
@@ -166,5 +166,10 @@
         margin-bottom: 0;
       }
     }
+  }
+
+  /* footer */
+  &-footer {
+    color: var(--sj-primary-text-color);
   }
 }
