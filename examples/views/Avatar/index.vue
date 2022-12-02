@@ -1,9 +1,13 @@
 <template>
   <Flex align="center">
-    <Avatar bordered size="48px" icon="user" border-color="red" shape="square" />
-    <Avatar bordered size="large" icon="user" />
-    <Avatar bordered icon="user" />
-    <Avatar bordered size="small" icon="user" />
+    <Avatar bordered size="48px" icon="user" border-color="red" shape="square"></Avatar>
+    <Avatar bordered size="large" icon="user"></Avatar>
+    <Avatar bordered icon="user">
+      <span>修</span>
+    </Avatar>
+    <Avatar bordered size="small">
+      <span>修</span>
+    </Avatar>
   </Flex>
   <br />
   <Flex align="center">
@@ -12,7 +16,6 @@
       object-fit="fill" />
     <Avatar bordered size="large" src="/examples/assets/exp.webp1" color="red" @on-error="loadError">
       <span style="color: aliceblue;">修</span>
-      <span style="color: aliceblue;">羞</span>
     </Avatar>
   </Flex>
   <br />

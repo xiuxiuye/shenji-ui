@@ -1,7 +1,9 @@
 <template>
   <div :class="classes" :style="styles">
     <img v-if="isImgExist" :src="src" :alt="alt" :onerror="handleImageLoadError" :style="imgStyles">
-    <slot v-else-if="isIconExist" name="icon"></slot>
+    <slot v-else-if="isIconExist" name="icon">
+      <Icon :type="icon" />
+    </slot>
     <div v-else-if="isTextExist" class="sj-avatar-text-content">
       <slot></slot>
     </div>
@@ -9,6 +11,7 @@
 </template>
 
 <script lang="ts">
+import Icon from '../Icon'
 import { computed, useSlots, ref } from 'vue'
 import isString from 'src/utils/isString'
 import useClasses from './hooks/useClasses'
@@ -25,6 +28,7 @@ export default {
 <script setup lang="ts">
 interface Props {
   size?: CommonSize | number | string;
+  icon?: string;
   bordered?: boolean;
   borderColor?: string;
   color?: string;
@@ -63,7 +67,7 @@ interface Image extends ImgHTMLAttributes {
   onerror: null;
 }
 
-const isImageLoadErrorCount = ref(0)
+const isImageLoadErrorCount = ref<number>(0)
 const loadErrorEmit = defineEmits<LoadErrorEmit>()
 const handleImageLoadError = (event: Event) => {
   isImageLoadErrorCount.value++
@@ -89,17 +93,10 @@ const slots = useSlots()
  * computed
  */
 const isImgExist = computed<boolean>(() => {
-  switch (isImageLoadErrorCount.value) {
-    case 0:
-      return !!props?.src || (!slots?.icon && !slots?.default)
-    case 1:
-      return !!props?.fallbackSrc || (!slots?.icon && !slots?.default)
-    case 2:
-      return !slots?.icon && !slots?.default
-    default:
-      return false
-  }
+  if (props?.src && props?.fallbackSrc && isImageLoadErrorCount.value < 2) return true
+  if (!!slots?.icon || !!props?.icon || !!slots?.default) return false
+  return true
 })
-const isIconExist = computed<boolean>(() => !isImgExist.value && !!slots?.icon)
+const isIconExist = computed<boolean>(() => !isImgExist.value && (!!slots?.icon || !!props?.icon))
 const isTextExist = computed<boolean>(() => !isImgExist.value && !isIconExist.value && !!slots?.default)
 </script>

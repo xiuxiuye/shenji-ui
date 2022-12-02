@@ -5,6 +5,8 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  color: #ffffff;
+  background-color: var(--sj-border-color);
 
   /* size */
   @each $key,
@@ -12,10 +14,7 @@
     &-size-#{$key} {
       width: map-get($value, "height");
       height: map-get($value, "height");
-
-      .sj-avatar-text-content {
-        font-size: map-get($value, "fontSize");
-      }
+      font-size: map-get($value, "fontSize");
     }
   }
 
@@ -44,5 +43,14 @@
   /* bordered */
   &-bordered {
     border: 1px solid var(--sj-border-color);
+  }
+
+  .sj-icon {
+    color: inherit;
+    font-size: inherit;
+  }
+
+  &-text-content {
+    font-size: inherit;
   }
 }
