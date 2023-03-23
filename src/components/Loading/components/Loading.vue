@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import { useSlots, computed } from 'vue'
 import isValidNumber from 'src/utils/isVaildNumber'
 import isString from 'src/utils/isString'
@@ -23,7 +23,9 @@ import type { StyleValue } from 'src/types/global'
 interface Props {
   size?: number | string;
 }
+</script>
 
+<script setup lang="ts">
 const props = defineProps<Props>()
 
 const styles = computed<StyleValue>(() => {

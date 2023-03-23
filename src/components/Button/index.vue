@@ -12,13 +12,7 @@ import { computed } from 'vue'
 import Wave from '../Wave'
 import Icon from '../Icon'
 import useClasses from './hooks/useClasses'
-const componentName = 'sj-button'
-export default {
-  name: componentName
-}
-</script>
 
-<script setup lang="ts">
 /**
  * props
  */
@@ -37,6 +31,13 @@ interface Props {
   htmlType?: 'button' | 'submit' | 'reset';
 }
 
+const componentName = 'sj-button'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   long: false,
   text: false,

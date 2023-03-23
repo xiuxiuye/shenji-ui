@@ -12,6 +12,14 @@ import isArray from 'src/utils/isArray'
 import isString from 'src/utils/isString'
 import { MenuModes, type Provider, type MenuMode } from './types'
 
+interface Props {
+  mode?: MenuMode;
+  activeItem?: string;
+  expandedSubMenus?: string[];
+  theme?: 'light' | 'dark';
+  accordion?: boolean;
+}
+
 export const componentName = 'sj-menu'
 
 export default {
@@ -20,13 +28,6 @@ export default {
 </script>
 
 <script setup lang="ts">
-interface Props {
-  mode?: MenuMode;
-  activeItem?: string;
-  expandedSubMenus?: string[];
-  theme?: 'light' | 'dark';
-  accordion?: boolean;
-}
 const props = withDefaults(defineProps<Props>(), {
   mode: MenuModes.inline,
   accordion: false

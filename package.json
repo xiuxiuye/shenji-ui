@@ -15,7 +15,8 @@
     "vite": "npm run tslint && vite build",
     "build:lib": "node scripts/build/index.js",
     "eslint": "eslint --fix --ext .js,.ts,.vue src",
-    "build": "npm run tslint && npm run eslint && npm run test && npm run build:lib"
+    "build": "npm run tslint && npm run eslint && npm run test && npm run build:lib",
+    "build:dts": "vue-tsc --declaration --emitDeclarationOnly --declarationDir ./dist/types"
   },
   "dependencies": {
     "@ant-design/colors": "^6.0.0",

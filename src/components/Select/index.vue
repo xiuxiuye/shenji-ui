@@ -1,67 +1,36 @@
 <template>
   <div ref="sjSelectRef" :class="classes">
     <div :class="`${classNamePrefix}-disabled-mask`" v-if="disabled"></div>
-    <div
-      :class="`${classNamePrefix}-selector`"
-      :tabindex="0"
-      :autofocus="autofocusEnabled"
-      @focus="handleFocus"
-      @blur="handleBlur"
-    >
+    <div :class="`${classNamePrefix}-selector`" :tabindex="0" :autofocus="autofocusEnabled" @focus="handleFocus"
+      @blur="handleBlur">
       <div :class="`${classNamePrefix}-content`" @click="handleClick">
-        <div
-          v-if="placeholderVisible"
-          :class="`${classNamePrefix}-placeholder`"
-        >
+        <div v-if="placeholderVisible" :class="`${classNamePrefix}-placeholder`">
           {{ placeholder }}
         </div>
         <template v-else>
-          <div
-            ref="sjSelectLabelRef"
-            v-for="item in selectedOptions?.slice(0, realMaxCount)"
-            :class="selectedTagClasses"
-            :key="item?.value"
-            :data-value="item?.value"
-            :data-value-type="typeof item?.value"
-          >
+          <div ref="sjSelectLabelRef" v-for="item in selectedOptions?.slice(0, realMaxCount)" :class="selectedTagClasses"
+            :key="item?.value" :data-value="item?.value" :data-value-type="typeof item?.value">
             <span v-if="!isCustomRenderLabel">
               {{ item?.label }}
-              <span
-                v-if="multiple"
-                :class="`${classNamePrefix}-content-tag-close`"
-                @click.stop="removeSelectedOption(item.value)"
-              >
+              <span v-if="multiple" :class="`${classNamePrefix}-content-tag-close`"
+                @click.stop="removeSelectedOption(item.value)">
                 <Icon type="close" />
               </span>
             </span>
           </div>
-          <div
-            v-if="selectedOptions?.length > realMaxCount"
-            :class="selectedTagClasses"
-          >
-            <span><Icon type="plus" /></span>
+          <div v-if="selectedOptions?.length > realMaxCount" :class="selectedTagClasses">
+            <span>
+              <Icon type="plus" />
+            </span>
             <span>{{ selectedOptions?.length - realMaxCount }}</span>
           </div>
         </template>
-        <input
-          v-if="filterable"
-          :class="filterClasses"
-          v-model="filterText"
-          @focus="handleFocus"
-          @blur="handleBlur"
-        />
+        <input v-if="filterable" :class="filterClasses" v-model="filterText" @focus="handleFocus" @blur="handleBlur" />
       </div>
-      <span
-        v-if="isClearBtnVisible"
-        :class="`${classNamePrefix}-clear`"
-        @click="handleClear"
-      >
+      <span v-if="isClearBtnVisible" :class="`${classNamePrefix}-clear`" @click="handleClear">
         <Icon :type="clearIcon" />
       </span>
-      <span
-        v-if="loadingIconVisible && loading"
-        :class="`${classNamePrefix}-loading-icon`"
-      >
+      <span v-if="loadingIconVisible && loading" :class="`${classNamePrefix}-loading-icon`">
         <Icon :type="loadingIcon" />
       </span>
       <div :class="arrowClasses" @click="handleClick">
@@ -71,28 +40,17 @@
       </div>
     </div>
     <!-- Popup -->
-    <Popup
-      :visible="popupVisible"
-      :reference-ref="sjSelectRef"
-      :placement="placement"
-      flipable
-    >
+    <Popup :visible="popupVisible" :reference-ref="sjSelectRef" :placement="placement" flipable>
       <div :class="popupClasses" :style="popupStyles" @mousedown="handlePopupMouseDown">
         <div v-if="loading" :class="`${classNamePrefix}-loading`">
           <slot name="loading">{{ loadingText }}</slot>
         </div>
         <template v-else-if="filterOptions?.length">
-          <SelectOption
-            v-for="option in filterOptions"
-            :key="option[valueField]"
-            :value="option[valueField]"
-            :label="option[labelField]"
-            :disabled="option?.disabled"
-            :custom="
+          <SelectOption v-for="option in filterOptions" :key="option[valueField]" :value="option[valueField]"
+            :label="option[labelField]" :disabled="option?.disabled" :custom="
               optionRender &&
               optionRender(option, selectedValues?.includes(option[valueField]))
-            "
-          />
+            " />
         </template>
         <div v-else :class="`${classNamePrefix}-empty`">
           <slot name="empty">{{ emptyText }}</slot>
@@ -146,14 +104,7 @@ import type {
 } from 'src/types/global'
 import isBoolean from 'src/utils/isBoolean'
 
-export const componentName = 'sj-select'
-export default {
-  name: componentName
-}
-</script>
-
-<script setup lang="ts">
-type Props = {
+interface Props {
   size?: CommonSize;
   disabled?: boolean;
   autofocus?: boolean;
@@ -199,8 +150,15 @@ type Props = {
   emptyText?: string;
   optionRender?: OptionRender;
   labelRender?: LabelRender;
-};
+}
 
+export const componentName = 'sj-select'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   disabled: false,

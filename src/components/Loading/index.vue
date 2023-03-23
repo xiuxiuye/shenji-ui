@@ -25,13 +25,6 @@ import useClasses from './hooks/useClasses'
 import useContentClasses from './hooks/useContentClasses'
 import useContainerClasses from './hooks/useContainerClasses'
 
-const componentName = 'sj-loading'
-export default {
-  name: componentName
-}
-</script>
-
-<script setup lang="ts">
 interface Props {
   tips?: string;
   size?: 'small' | 'normal' | 'large' | number | string;
@@ -39,6 +32,13 @@ interface Props {
   fit?: boolean;
 }
 
+const componentName = 'sj-loading'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   visible: true,

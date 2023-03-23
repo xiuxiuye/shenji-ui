@@ -1,12 +1,7 @@
 <template>
   <div v-if="isValid" :class="classes" :key="symbol" ref="sjSubMenuRef">
-    <div
-      :class="headerClasses"
-      :style="styles"
-      @click="handleClick"
-      @mouseenter="handleHeaderMouseEnter"
-      @mouseleave="handleHeaderMouseLeave"
-    >
+    <div :class="headerClasses" :style="styles" @click="handleClick" @mouseenter="handleHeaderMouseEnter"
+      @mouseleave="handleHeaderMouseLeave">
       <span v-if="icon" :class="`${classNamePrefix}-icon`">
         <Icon :type="icon" />
       </span>
@@ -21,20 +16,10 @@
         </slot>
       </span>
     </div>
-    <Popup
-      v-if="popupMenu"
-      :mount-following="true"
-      :visible="expanded"
-      :reference-ref="sjSubMenuRef"
-      :placement="popupPlacement"
-      flipable
-    >
-      <div
-        :class="popupBodyClasses"
-        :style="horizontalLevel1PopupStyles"
-        @mouseenter="handlePopupMouseEnter"
-        @mouseleave="handlePopupMouseLeave"
-      >
+    <Popup v-if="popupMenu" :mount-following="true" :visible="expanded" :reference-ref="sjSubMenuRef"
+      :placement="popupPlacement" flipable>
+      <div :class="popupBodyClasses" :style="horizontalLevel1PopupStyles" @mouseenter="handlePopupMouseEnter"
+        @mouseleave="handlePopupMouseLeave">
         <slot></slot>
       </div>
     </Popup>
@@ -74,6 +59,14 @@ import type { Provider as MenuGroupProvider } from '../MenuGroup/types'
 import type { Provider } from './types'
 import type { StyleValue, Timeout } from 'src/types/global'
 
+interface Props {
+  symbol: string;
+  title?: string;
+  icon?: string;
+  expandedIcon?: string;
+  disabled?: boolean;
+}
+
 export const componentName = 'sj-sub-menu'
 
 export default {
@@ -82,13 +75,6 @@ export default {
 </script>
 
 <script setup lang="ts">
-interface Props {
-  symbol: string;
-  title?: string;
-  icon?: string;
-  expandedIcon?: string;
-  disabled?: boolean;
-}
 const props = withDefaults(defineProps<Props>(), {
   disabled: false
 })

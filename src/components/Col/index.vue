@@ -1,7 +1,7 @@
 <template>
   <div v-if="isValid" :class="classes" :style="styles">
     <slot></slot>
-    {{size}}
+    {{ size }}
   </div>
 </template>
 
@@ -15,21 +15,6 @@ import useScreenResize from 'src/utils/hooks/useScreenResize'
 import consoleError from 'src/utils/console/error'
 import type { ScreenSize } from 'src/utils/hooks/useScreenResize'
 import type { SizeProp } from './types'
-
-const componentName = 'sj-col'
-export default {
-  name: componentName
-}
-</script>
-
-<script setup lang="ts">
-/**
- * check parent is valid
- */
-const isValid = isValidParent('sj-row')
-if (!isValid) {
-  consoleError('神机：非法使用Col组件，请配合Row组件使用')
-}
 
 /**
  * props
@@ -47,6 +32,21 @@ interface Props {
   xl?: SizeProp;
   xxl?: SizeProp;
   xxxl?: SizeProp;
+}
+
+const componentName = 'sj-col'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
+/**
+ * check parent is valid
+ */
+const isValid = isValidParent('sj-row')
+if (!isValid) {
+  consoleError('神机：非法使用Col组件，请配合Row组件使用')
 }
 
 const props = withDefaults(defineProps<Props>(), {

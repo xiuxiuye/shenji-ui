@@ -12,13 +12,6 @@ import useProvide from 'src/utils/hooks/useProvide'
 import type { Provider } from './types'
 import type { CommonSize } from 'src/types/global'
 
-export const componentName = 'sj-checkbox-group'
-export default {
-  name: componentName
-}
-</script>
-
-<script setup lang="ts">
 /**
  * props
  */
@@ -28,6 +21,14 @@ interface Props {
   modelValue?: Array<number | string | boolean>;
   vertical?: boolean;
 }
+
+export const componentName = 'sj-checkbox-group'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   vertical: false,

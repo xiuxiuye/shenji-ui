@@ -30,6 +30,11 @@ import type { Provider as SubMenuProvider } from '../SubMenu/types'
 import type { Provider } from './types'
 import type { StyleValue } from 'src/types/global'
 
+interface Props {
+  title?: string;
+  icon?: string;
+}
+
 export const componentName = 'sj-menu-group'
 
 export default {
@@ -38,10 +43,6 @@ export default {
 </script>
 
 <script setup lang="ts">
-interface Props {
-  title?: string;
-  icon?: string;
-}
 defineProps<Props>()
 
 /**

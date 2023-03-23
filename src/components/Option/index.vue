@@ -5,11 +5,7 @@
         <div :class="`${classNamePrefix}-content`">
           <slot>{{ label }}</slot>
         </div>
-        <Icon
-          v-if="selected"
-          :class="`${classNamePrefix}-selected-icon`"
-          type="check"
-        />
+        <Icon v-if="selected" :class="`${classNamePrefix}-selected-icon`" type="check" />
       </slot>
     </template>
   </div>
@@ -24,13 +20,6 @@ import { componentName as selectComponentName } from '../Select/index.vue'
 import type { Provider } from '../Select/types'
 import type { VNode } from 'src/types/global'
 
-const componentName = 'sj-option'
-export default {
-  name: componentName
-}
-</script>
-
-<script setup lang="ts">
 interface Props {
   disabled?: boolean;
   label?: string;
@@ -38,6 +27,13 @@ interface Props {
   custom?: VNode;
 }
 
+const componentName = 'sj-option'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), { disabled: false })
 
 /**

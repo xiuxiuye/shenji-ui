@@ -25,13 +25,6 @@ import type {
   Placement
 } from '@floating-ui/dom'
 
-export const componentName = 'sj-popup'
-export default {
-  name: componentName
-}
-</script>
-
-<script setup lang="ts">
 interface Props {
   referenceRef?: HTMLElement;
   visible?: boolean;
@@ -43,6 +36,13 @@ interface Props {
   allowedPlacements?: Placement[];
 }
 
+export const componentName = 'sj-popup'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   autoAlignment: true
 })

@@ -7,13 +7,6 @@
 import useClasses from './hooks/useClasses'
 import useStyles from './hooks/useStyles'
 
-const componentName = 'sj-grid'
-export default {
-  name: componentName
-}
-</script>
-
-<script setup lang="ts">
 interface Props {
   cols?: number | string;
   rows?: number | string;
@@ -23,6 +16,13 @@ interface Props {
   justify?: 'start' | 'end' | 'center' | 'stretch';
 }
 
+const componentName = 'sj-grid'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), { cols: 24 })
 
 const classes = useClasses(componentName, props)

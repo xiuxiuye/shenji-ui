@@ -1,13 +1,7 @@
 <template>
   <div :class="classes">
-    <input
-      ref="sjCheckboxRef"
-      type="checkbox"
-      class="sj-checkbox-input"
-      :autofocus="autofocus"
-      v-model="checked"
-      @change="handleChange"
-    />
+    <input ref="sjCheckboxRef" type="checkbox" class="sj-checkbox-input" :autofocus="autofocus" v-model="checked"
+      @change="handleChange" />
     <div class="sj-checkbox-box">
       <Transition name="sj-origin-scale">
         <div :class="checkedClasses" v-if="checked"></div>
@@ -31,6 +25,18 @@ import { componentName as checkboxGroupComponentName } from '../CheckboxGroup/in
 import type { CheckboxRefExpose } from './types'
 import type { Provider } from '../CheckboxGroup/types'
 
+/**
+ * props
+ */
+interface Props {
+  size?: 'small' | 'normal' | 'large';
+  disabled?: boolean;
+  autofocus?: boolean;
+  modelValue?: boolean;
+  indeterminate?: boolean;
+  value?: string | number | boolean;
+}
+
 const componentName = 'sj-checkbox'
 export default {
   name: componentName
@@ -43,17 +49,6 @@ export default {
  */
 const injecter = useInject<Provider>(checkboxGroupComponentName)
 
-/**
- * props
- */
-interface Props {
-  size?: 'small' | 'normal' | 'large';
-  disabled?: boolean;
-  autofocus?: boolean;
-  modelValue?: boolean;
-  indeterminate?: boolean;
-  value?: string | number | boolean;
-}
 const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   disabled: false,

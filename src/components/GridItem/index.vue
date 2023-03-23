@@ -9,6 +9,16 @@ import useStyles from './hooks/useStyles'
 import isValidParent from 'src/utils/isValidParent'
 import consoleError from 'src/utils/console/error'
 
+/**
+ * props
+ */
+interface Props {
+  colSpan?: number | string | [number | string, number | string];
+  rowSpan?: number | string | [number | string, number | string];
+  justify?: 'start' | 'end' | 'center' | 'stretch';
+  align?: 'start' | 'end' | 'center' | 'stretch';
+}
+
 const componentName = 'sj-grid-item'
 export default {
   name: componentName
@@ -22,16 +32,6 @@ export default {
 const isValid = isValidParent('sj-grid')
 if (!isValid) {
   consoleError('神机：非法使用GridItem组件，请配合Grid组件使用')
-}
-
-/**
- * props
- */
-interface Props {
-  colSpan?: number | string | [number | string, number | string];
-  rowSpan?: number | string | [number | string, number | string];
-  justify?: 'start' | 'end' | 'center' | 'stretch';
-  align?: 'start' | 'end' | 'center' | 'stretch';
 }
 
 const props = defineProps<Props>()

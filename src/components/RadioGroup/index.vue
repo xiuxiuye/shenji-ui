@@ -10,13 +10,6 @@ import useClasses from './hooks/useClasses'
 import useProvide from 'src/utils/hooks/useProvide'
 import type { Provider } from './types'
 
-export const componentName = 'sj-radio-group'
-export default {
-  name: componentName
-}
-</script>
-
-<script setup lang="ts">
 /**
  * props
  */
@@ -27,6 +20,14 @@ interface Props {
   vertical?: boolean;
   name?: string;
 }
+
+export const componentName = 'sj-radio-group'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   vertical: false,

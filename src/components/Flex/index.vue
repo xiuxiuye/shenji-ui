@@ -6,13 +6,7 @@
 
 <script lang="ts">
 import useClasses from './hooks/useClasses'
-const componentName = 'sj-flex'
-export default {
-  name: componentName
-}
-</script>
 
-<script setup lang="ts">
 /**
  * props
  */
@@ -23,6 +17,13 @@ interface Props {
   direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
 }
 
+const componentName = 'sj-flex'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   wrap: undefined
 })

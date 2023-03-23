@@ -6,6 +6,12 @@
 
 <script lang="ts">
 import useClasses from './hooks/useClasses'
+
+interface Props {
+  tight?: boolean;
+  vertical?: boolean;
+}
+
 const componentName = 'sj-avatar-group'
 export default {
   name: componentName
@@ -13,11 +19,6 @@ export default {
 </script>
 
 <script setup lang="ts">
-interface Props {
-  tight?: boolean;
-  vertical?: boolean;
-}
-
 const props = withDefaults(defineProps<Props>(), {
   tight: false,
   vertical: false

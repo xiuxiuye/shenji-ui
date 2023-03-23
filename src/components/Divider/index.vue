@@ -15,13 +15,7 @@ import { computed, useSlots } from 'vue'
 import useClasses from './hooks/useClasses'
 import useLeftStyles from './hooks/useLeftStyles'
 import useRightStyles from './hooks/useRightStyles'
-const componentName = 'sj-divider'
-export default {
-  name: componentName
-}
-</script>
 
-<script setup lang="ts">
 /**
  * props
  */
@@ -33,6 +27,13 @@ interface Props {
   offset?: string | number;
 }
 
+const componentName = 'sj-divider'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   dashed: false,
   placement: 'center',

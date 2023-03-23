@@ -43,13 +43,6 @@ import Loading from './components/Loading.vue'
 import useContentStyles from './hooks/useContentStyles'
 import type { CommonSize } from 'src/types/global'
 
-const componentName = 'sj-card'
-export default {
-  name: componentName
-}
-</script>
-
-<script setup lang="ts">
 /**
  * props
  */
@@ -66,6 +59,13 @@ interface Props {
   noPadding?: string | string[];
 }
 
+const componentName = 'sj-card'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   bordered: true,
   loading: false,

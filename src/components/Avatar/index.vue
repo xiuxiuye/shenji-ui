@@ -19,13 +19,7 @@ import useStyles from './hooks/useStyles'
 import useImgStyles from './hooks/useImgStyles'
 import type { ImgHTMLAttributes } from 'vue'
 import type { CommonSize } from 'src/types/global'
-const componentName = 'sj-avatar'
-export default {
-  name: componentName
-}
-</script>
 
-<script setup lang="ts">
 interface Props {
   size?: CommonSize | number | string;
   icon?: string;
@@ -39,6 +33,13 @@ interface Props {
   shape?: 'circle' | 'square';
 }
 
+const componentName = 'sj-avatar'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   bordered: false,

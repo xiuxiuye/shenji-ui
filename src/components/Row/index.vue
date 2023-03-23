@@ -13,13 +13,6 @@ import useStyles from './hooks/useStyles'
 import type { BaseType, Gutter } from './types'
 import type { ScreenSize } from 'src/utils/hooks/useScreenResize'
 
-const componentName = 'sj-row'
-export default {
-  name: componentName
-}
-</script>
-
-<script setup lang="ts">
 /**
  * props
  */
@@ -27,6 +20,13 @@ interface Props {
   gutter?: BaseType | Gutter;
 }
 
+const componentName = 'sj-row'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = defineProps<Props>()
 
 /**

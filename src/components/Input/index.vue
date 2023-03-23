@@ -73,13 +73,7 @@ import useConatinerClasses from './hooks/useContainerClasses'
 import isVaildNumber from 'src/utils/isVaildNumber'
 import type { InputRefExpose } from './types'
 import type { CommonSize, CommonFormStatus, CommonFormBorderType } from 'src/types/global'
-const componentName = 'sj-input'
-export default {
-  name: componentName
-}
-</script>
 
-<script setup lang="ts">
 /**
  * props
  */
@@ -106,6 +100,13 @@ interface Props {
   placeholder?: string;
 }
 
+const componentName = 'sj-input'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   clearable: false,
   size: 'normal',

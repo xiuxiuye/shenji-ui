@@ -4,6 +4,13 @@
 <script lang="ts">
 import useClasses from './hooks/useClasses'
 import useStyles from './hooks/useStyles'
+
+interface Props {
+  color?: string;
+  size?: 'large' | 'normal' | 'small' | string | number;
+  type: string;
+}
+
 const componentName = 'sj-icon'
 export default {
   name: componentName
@@ -11,12 +18,6 @@ export default {
 </script>
 
 <script setup lang="ts">
-interface Props {
-  color?: string;
-  size?: 'large' | 'normal' | 'small' | string | number;
-  type: string;
-}
-
 const props = withDefaults(defineProps<Props>(), { size: 'normal' })
 
 const classes = useClasses(componentName, props)

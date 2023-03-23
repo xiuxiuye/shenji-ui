@@ -2,10 +2,10 @@
   <div :class="classes" tabindex="0" :autofocus="autofocus" @click="handleClick" @mousedown="handleMouseDown">
     <div :class="`${classNamePrefix}-stand-in`" v-if="isCheckedTextVisible">
       <div :class="`${classNamePrefix}-stand-in-checked`">
-        <slot name="checked">{{checkedText}}</slot>
+        <slot name="checked">{{ checkedText }}</slot>
       </div>
       <div :class="`${classNamePrefix}-stand-in-unchecked`">
-        <slot name="unchecked">{{uncheckedText}}</slot>
+        <slot name="unchecked">{{ uncheckedText }}</slot>
       </div>
     </div>
     <div :class="`${classNamePrefix}-rail`">
@@ -16,10 +16,10 @@
         </slot>
         <template v-if="isCheckedTextVisible">
           <div :class="`${classNamePrefix}-checked-text`">
-            <slot name="checked">{{checkedText}}</slot>
+            <slot name="checked">{{ checkedText }}</slot>
           </div>
           <div :class="`${classNamePrefix}-unchecked-text`">
-            <slot name="unchecked">{{uncheckedText}}</slot>
+            <slot name="unchecked">{{ uncheckedText }}</slot>
           </div>
         </template>
       </div>
@@ -35,13 +35,7 @@ import { ref, watch, computed, useSlots } from 'vue'
 import useClasses from './hooks/useClasses'
 import useDotClasses from './hooks/useDotClasses'
 import type { CommonSize } from 'src/types/global'
-const componentName = 'sj-switch'
-export default {
-  name: componentName
-}
-</script>
 
-<script setup lang="ts">
 export interface Props {
   size?: CommonSize;
   disabled?: boolean;
@@ -56,6 +50,14 @@ export interface Props {
   uncheckedText?: string;
   rubberBand?: boolean;
 }
+
+const componentName = 'sj-switch'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   disabled: false,

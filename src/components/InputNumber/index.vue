@@ -7,26 +7,14 @@
           <Icon v-if="!!prefix" :type="prefix" />
         </slot>
       </div>
-      <input
-        ref="sjInputNumberRef"
-        type="text"
-        v-model="realValue"
-        :autofocus="autofocus"
-        :placeholder="placeholder"
-        @focus="handleFocus"
-        @blur="handleBlur"
-      />
+      <input ref="sjInputNumberRef" type="text" v-model="realValue" :autofocus="autofocus" :placeholder="placeholder"
+        @focus="handleFocus" @blur="handleBlur" />
       <div :class="`${classNamePrefix}-suffix`" v-if="slots?.suffix || suffix">
         <slot name="suffix">
           <Icon v-if="!!suffix" :type="suffix" />
         </slot>
       </div>
-      <Icon
-        v-if="isClearBtnVisible"
-        :class="`${classNamePrefix}-clear`"
-        type="close-circle-fill"
-        @click="handleClear"
-      />
+      <Icon v-if="isClearBtnVisible" :class="`${classNamePrefix}-clear`" type="close-circle-fill" @click="handleClear" />
       <div :class="`${classNamePrefix}-controls`" v-if="controls">
         <div :class="addControlClasses" @click="handleAddNumber">
           <slot name="add-icon">
@@ -59,13 +47,6 @@ import useConatinerClasses from './hooks/useContainerClasses'
 import type { InputNumberRefExpose } from './types'
 import type { CommonSize, CommonFormStatus, CommonFormBorderType } from 'src/types/global'
 
-const componentName = 'sj-input-number'
-export default {
-  name: componentName
-}
-</script>
-
-<script setup lang="ts">
 /**
  * props
  */
@@ -94,6 +75,14 @@ interface Props {
   keyboard?: boolean;
   placeholder?: string;
 }
+
+const componentName = 'sj-input-number'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   clearable: false,

@@ -1,11 +1,5 @@
 <template>
-  <div
-    v-if="isValid"
-    :class="classes"
-    :style="styles"
-    :key="symbol"
-    @click="handleClick"
-  >
+  <div v-if="isValid" :class="classes" :style="styles" :key="symbol" @click="handleClick">
     <span v-if="icon" :class="`${classNamePrefix}-icon`">
       <Icon :type="icon" />
     </span>
@@ -32,6 +26,12 @@ import type { Provider as SubMenuProvider } from '../SubMenu/types'
 import type { Provider as MenuGroupProvider } from '../MenuGroup/types'
 import type { StyleValue } from 'src/types/global'
 
+interface Props {
+  symbol: string;
+  icon?: string;
+  disabled?: boolean;
+}
+
 const componentName = 'sj-menu-item'
 
 export default {
@@ -40,11 +40,6 @@ export default {
 </script>
 
 <script setup lang="ts">
-interface Props {
-  symbol: string;
-  icon?: string;
-  disabled?: boolean;
-}
 const props = withDefaults(defineProps<Props>(), {
   disabled: false
 })

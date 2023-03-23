@@ -20,13 +20,6 @@ import useClasses from './hooks/useClasses'
 import useStyles from './hooks/useStyles'
 import useIconStyles from './hooks/useIconStyles'
 
-const componentName = 'sj-tag'
-export default {
-  name: componentName
-}
-</script>
-
-<script setup lang="ts">
 interface Props {
   closable?: boolean;
   closeIcon?: string;
@@ -42,6 +35,13 @@ interface Props {
   round?: boolean;
 }
 
+const componentName = 'sj-tag'
+export default {
+  name: componentName
+}
+</script>
+
+<script setup lang="ts">
 const props = withDefaults(defineProps<Props>(), {
   closable: false,
   closeIcon: 'close',

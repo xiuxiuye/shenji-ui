@@ -1,7 +1,7 @@
 <template>
   <div :class="classes">
-    <input ref="sjRadioRef" type="radio" class="sj-radio-input" v-model="realValue" :checked="realChecked"
-      :value="value" :autofocus="autofocus" :name="realName" @change="handleChange" />
+    <input ref="sjRadioRef" type="radio" class="sj-radio-input" v-model="realValue" :checked="realChecked" :value="value"
+      :autofocus="autofocus" :name="realName" @change="handleChange" />
     <div class="sj-radio-box">
       <Transition name="sj-origin-scale">
         <div class="sj-radio-box-checked" v-if="realChecked"></div>
@@ -21,6 +21,18 @@ import { componentName as radioGroupComponentName } from '../RadioGroup/index.vu
 import type { RadioRefExpose } from './types'
 import type { Provider } from '../RadioGroup/types'
 
+/**
+ * props
+ */
+interface Props {
+  size?: 'small' | 'normal' | 'large';
+  disabled?: boolean;
+  autofocus?: boolean;
+  modelValue?: boolean;
+  name?: string;
+  value?: string | number;
+}
+
 const componentName = 'sj-radio'
 export default {
   name: componentName
@@ -33,17 +45,6 @@ export default {
  */
 const injecter = useInject<Provider>(radioGroupComponentName)
 
-/**
- * props
- */
-interface Props {
-  size?: 'small' | 'normal' | 'large';
-  disabled?: boolean;
-  autofocus?: boolean;
-  modelValue?: boolean;
-  name?: string;
-  value?: string | number;
-}
 const props = withDefaults(defineProps<Props>(), {
   size: 'normal',
   disabled: false,

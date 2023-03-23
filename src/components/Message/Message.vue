@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import Icon from '../Icon'
 import { computed } from 'vue'
 import isFunction from 'src/utils/isFunction'
@@ -27,7 +27,9 @@ interface Props {
   data: Set<DefaultMessage>;
   placement: Ref<MessagePlacement>;
 }
+</script>
 
+<script setup lang="ts">
 const props = defineProps<Props>()
 
 const handleClose = (message: DefaultMessage) => {
